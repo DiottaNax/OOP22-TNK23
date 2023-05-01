@@ -2,14 +2,22 @@ classDiagram
     class GameLoop{
         <<interface>>
         + processInput()
-        + update()
+        + update(double elapsed)
         + render()
     }
 
+    class GameLoopDecorator{
+        <<abstract>>
+    }
+
     GameLoopImpl ..|>GameLoop
-    ConcurrentGameLoop --|> GameLoopImpl
-    GameEngine --o GameLoop
+    GameLoopDecorator --o GameLoop
+    ConcurrentGameLoop --|> GameLoopDecorator
+    GameEngine --o ConcurrentGameLoop
+    LimitedFrequencyGameLoop --|> GameLoopImpl
 
     class ConcurrentGameLoop{
         + runGameLoopThread()
     }
+
+
