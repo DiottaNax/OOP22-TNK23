@@ -1,17 +1,18 @@
 package it.unibo.tnk23.core.impl;
 
+import java.util.logging.Logger;
+
 import it.unibo.tnk23.core.api.GameEngine;
 
 public class SynchronizedGameLoop extends GameLoopImpl {
 
     private final long MAX_FPS = 120;
     private final long UPDATE_PERIOD;
-    private long lag = 0;
+    private long lag;
     private long currentTime;
     private long lastUpdateTime = System.currentTimeMillis();
     
-
-    public SynchronizedGameLoop(GameEngine engine) {
+    public SynchronizedGameLoop(final GameEngine engine) {
         super(engine);
         UPDATE_PERIOD = Math.round(1000 / MAX_FPS);
     }
@@ -28,13 +29,13 @@ public class SynchronizedGameLoop extends GameLoopImpl {
         }
     }
 
-    public void waitForNextFrame(long currentTime) {
+    public void waitForNextFrame(final long currentTime) {
         long remainingTime = System.currentTimeMillis() - currentTime;
         if (remainingTime < UPDATE_PERIOD) {
             try {
                 Thread.sleep(UPDATE_PERIOD - remainingTime);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }

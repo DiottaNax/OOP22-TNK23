@@ -9,7 +9,7 @@ public class GameLoopImpl implements GameLoop {
     private GameEngine engine;
     private World wrld;
     
-    public GameLoopImpl(GameEngine engine) {
+    public GameLoopImpl(final GameEngine engine) {
         this.engine = engine;
         this.wrld = engine.getWorld();
     }

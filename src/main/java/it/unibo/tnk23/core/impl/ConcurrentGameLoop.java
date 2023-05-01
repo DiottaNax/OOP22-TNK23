@@ -5,9 +5,9 @@ import it.unibo.tnk23.core.api.GameLoop;
 import it.unibo.tnk23.core.api.GameLoopDecorator;
 
 public class ConcurrentGameLoop extends GameLoopDecorator {
-    private Thread gameLoopThread;
+    private final Thread gameLoopThread;
 
-    public ConcurrentGameLoop(GameLoop toDecorate) {
+    public ConcurrentGameLoop(final GameLoop toDecorate) {
         super(toDecorate);
         gameLoopThread = new Thread(new GameLoopThread());
     }
@@ -17,7 +17,7 @@ public class ConcurrentGameLoop extends GameLoopDecorator {
     }
     
     private class GameLoopThread implements Runnable{
-        private GameEngine gameEngine;
+        private final GameEngine gameEngine;
 
         public GameLoopThread() {
             this.gameEngine = getGameEngine();
