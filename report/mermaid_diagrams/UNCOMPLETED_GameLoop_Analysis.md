@@ -14,7 +14,7 @@ classDiagram
     GameLoopDecorator --o GameLoop
     ConcurrentGameLoop --|> GameLoopDecorator
     GameEngine --o ConcurrentGameLoop
-    LimitedFrequencyGameLoop --|> GameLoopImpl
+    SynchronizedGameLoop --|> GameLoopImpl
 
     class ConcurrentGameLoop{
         + runGameLoopThread()
