@@ -3,7 +3,7 @@ package it.unibo.tnk23.core.api;
 public abstract class GameLoopDecorator implements GameLoop{
     protected final GameLoop toDecorate;
 
-    public GameLoopDecorator(GameLoop toDecorate) {
+    public GameLoopDecorator(final GameLoop toDecorate) {
         this.toDecorate = toDecorate;
     }
 

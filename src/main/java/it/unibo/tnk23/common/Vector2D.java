@@ -5,7 +5,7 @@ public class Vector2D {
     private double x;
     private double y;
 
-    public Vector2D(double x, double y) {
+    public Vector2D(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
@@ -14,7 +14,7 @@ public class Vector2D {
         return this.x;
     }
 
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
@@ -22,11 +22,11 @@ public class Vector2D {
         return this.y;
     }
 
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
-    public Vector2D sum(Vector2D v){
+    public Vector2D sum(final Vector2D v){
         return new Vector2D(this.x + v.getX(), this.y + v.getY());
     }
 
@@ -34,7 +34,7 @@ public class Vector2D {
         return (double) Math.sqrt(this.x * x + this.y * y);
     }
 
-    public Vector2D mul(double mul){
+    public Vector2D mul(final double mul){
         return new Vector2D(this.x * mul, this.y * mul);
     }
 
