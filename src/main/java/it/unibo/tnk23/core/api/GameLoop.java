@@ -8,4 +8,6 @@ public interface GameLoop {
 
     void render();
 
+    GameEngine getGameEngine();
+
 }
