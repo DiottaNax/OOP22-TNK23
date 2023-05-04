@@ -1,13 +1,12 @@
 package it.unibo.tnk23.model.components.api;
 
 public interface TypeObject {
-    
-    int getWidth();
 
-    int getheight();
+    long getWidth();
+
+    long getheight();
 
     double getSpeed();
 
-    int getHealth();
-    
+    long getHealth();    
 }
