@@ -1,9 +1,7 @@
-package it.unibo.tnk23.model.api;
+package it.unibo.tnk23.model.components.api;
 
-public interface Type {
+public interface TypeObject {
     
-    Type getTypeByName(String s);
-
     int getWidth();
 
     int getheight();
@@ -11,7 +9,5 @@ public interface Type {
     double getSpeed();
 
     int getHealth();
-
-
     
 }
