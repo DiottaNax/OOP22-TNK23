@@ -8,6 +8,5 @@ public interface TypeObject {
 
     double getSpeed();
 
-    long getHealth();
-    
+    long getHealth();    
 }
