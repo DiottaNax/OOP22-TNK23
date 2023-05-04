@@ -33,9 +33,8 @@ dependencies {
     // Suppressions for SpotBugs
     compileOnly("com.github.spotbugs:spotbugs-annotations:4.7.3")
 
-    // https://mvnrepository.com/artifact/org.json/json
-    implementation("org.json:json:20230227")
-
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
 
     // JavaFX: comment out if you do not need them
     val javaFxVersion = 15
