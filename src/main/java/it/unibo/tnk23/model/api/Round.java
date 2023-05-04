@@ -7,4 +7,6 @@ public interface Round {
     List<GameObject> getEnemies();
 
     boolean isOver();
+
+    int getRound();
 }
