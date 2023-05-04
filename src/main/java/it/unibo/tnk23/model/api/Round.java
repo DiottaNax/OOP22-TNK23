@@ -1,6 +1,6 @@
 package it.unibo.tnk23.model.api;
 
-import java.util.*;
+import java.util.List;
 
 public interface Round {
 
