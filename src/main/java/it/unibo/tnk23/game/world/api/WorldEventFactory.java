@@ -1,4 +1,4 @@
-package it.unibo.tnk23.model.world.api;
+package it.unibo.tnk23.game.world.api;
 
 public interface WorldEventFactory {
     
