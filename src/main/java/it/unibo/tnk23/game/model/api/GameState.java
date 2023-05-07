@@ -1,4 +1,4 @@
-package it.unibo.tnk23.model.api;
+package it.unibo.tnk23.game.model.api;
 
 import java.util.Map;
 

@@ -1,10 +1,12 @@
-package it.unibo.tnk23.model.api;
+package it.unibo.tnk23.game.model.api;
 
-import java.util.*;
+import java.util.List;
 
 public interface Round {
 
     List<GameObject> getEnemies();
 
     boolean isOver();
+
+    int getRound();
 }
