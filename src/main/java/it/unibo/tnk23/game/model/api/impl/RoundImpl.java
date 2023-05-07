@@ -1,11 +1,13 @@
-package it.unibo.tnk23.model.impl;
+package it.unibo.tnk23.game.model.api.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import it.unibo.tnk23.model.api.GameObject;
-import it.unibo.tnk23.model.api.Round;
+import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.Round;
+
+
 
 public class RoundImpl implements Round{
 
@@ -14,6 +16,7 @@ public class RoundImpl implements Round{
 
     public RoundImpl() {
         round = 1;
+        fillEnemiesList();
     }
 
     @Override
