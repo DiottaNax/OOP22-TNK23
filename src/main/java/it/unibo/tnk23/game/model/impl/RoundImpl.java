@@ -1,4 +1,4 @@
-package it.unibo.tnk23.game.model.api.impl;
+package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
