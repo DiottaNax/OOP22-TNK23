@@ -1,9 +1,11 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Spawn;
 
@@ -34,30 +36,29 @@ public class SpawnImpl implements Spawn{
     private void startToGenerate() {
         if(enemiesIterator.hasNext()) {
             /*spawno tutti i miei nemici*/
-            generatePos();
+            generateEnemies(generatePos());
 
         } else {
             /*resetto il timer*/
         }
     }
+
+    private <X> Message<X> sendMessage() {
+        return null;
+    }
     
     private Point2D generatePos() {
 
-        Point2D cornerUpRX = new Point2D(0, 0);
-        Point2D cornerUpSX = new Point2D(0, 0);
-        Point2D centerUp = new Point2D(0, 0);
+        List<Point2D> possibilePos = List.of(new Point2D(0, 0), new Point2D(0, 0),new Point2D(0, 0));
         int randomPos;
-        final int NUM_OF_POS_SPAWN = 3;
 
-        randomPos=random.nextInt(NUM_OF_POS_SPAWN)+1;
+        randomPos=random.nextInt(possibilePos.size())+1;
         
-        if (randomPos == 1) {
-            return cornerUpSX;
-        } else if (randomPos == 2) {
-            return centerUp;
-        } else {
-            return cornerUpRX;
-        }
+        return possibilePos.get(randomPos);
 
+    }
+
+    private void generateEnemies(Point2D pos) {
+        sendMessage();
     }
 }
