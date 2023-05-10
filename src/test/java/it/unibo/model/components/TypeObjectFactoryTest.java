@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import it.unibo.tnk23.game.components.api.TypeObject;
-import it.unibo.tnk23.game.components.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 
 public class TypeObjectFactoryTest {
     

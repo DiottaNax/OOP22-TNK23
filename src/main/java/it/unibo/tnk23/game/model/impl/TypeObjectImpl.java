@@ -1,4 +1,4 @@
-package it.unibo.tnk23.game.components.impl;
+package it.unibo.tnk23.game.model.impl;
 
 import it.unibo.tnk23.game.components.api.TypeObject;
 

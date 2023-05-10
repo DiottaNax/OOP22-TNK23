@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.model.api;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
@@ -11,10 +12,10 @@ public interface GameObject {
 
     void update();
 
-    List<Component>getComponents();
+    Stream<Component> getComponents();
 
     TypeObject getType();
 
-    <X> void notifyComponents(Message<X> message, NotifiableComponent<X> nc);
+    <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc);
     
 }
