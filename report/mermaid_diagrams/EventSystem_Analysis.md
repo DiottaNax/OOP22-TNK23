@@ -24,7 +24,6 @@ classDiagram
     }
     class WorldEvent{
         +getPosition() : Point2D
-        +getEventAction(GameObject)
+        +getEventActor(GameObject)
         +getType() : EventType
     }
-
