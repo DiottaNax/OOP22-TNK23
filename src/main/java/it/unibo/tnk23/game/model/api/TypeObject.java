@@ -1,4 +1,4 @@
-package it.unibo.tnk23.game.components.api;
+package it.unibo.tnk23.game.model.api;
 
 public interface TypeObject {
 

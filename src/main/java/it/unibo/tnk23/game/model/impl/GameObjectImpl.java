@@ -9,9 +9,9 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.components.api.TypeObject;
 import it.unibo.tnk23.game.model.api.ComponentSetFactory;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
 public class GameObjectImpl implements GameObject{
     TypeObject type;

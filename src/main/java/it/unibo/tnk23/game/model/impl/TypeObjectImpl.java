@@ -1,6 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
-import it.unibo.tnk23.game.components.api.TypeObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
 
 public final class TypeObjectImpl implements TypeObject {
 

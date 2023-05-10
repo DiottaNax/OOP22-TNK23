@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.components.api.TypeObject;
 
 public interface GameObject {
 

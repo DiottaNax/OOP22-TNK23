@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import it.unibo.tnk23.game.components.api.TypeObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
 
 public final class TypeObjectFactory {
 
