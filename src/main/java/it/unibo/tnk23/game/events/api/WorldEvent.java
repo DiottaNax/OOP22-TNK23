@@ -7,6 +7,8 @@ public interface WorldEvent {
    
     Point2D getposition();
 
-    GameObject getEventActor();
+    void getEventActor(GameObject object);
+
+    WorldEventType getType();
     
 }
