@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -34,7 +35,16 @@ public class SpawnImpl implements Spawn{
     }
     
     private void notifySpawnEvent(Point2D pos) {
-        
+        this.timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                // Notifico allo SpawnEventListener che deve spawnare l'oggetto passandogli enemiesIterator.next() e pos
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'run'");
+            }
+            
+        }, delay);
     }
     
     private Point2D generatePos() {
