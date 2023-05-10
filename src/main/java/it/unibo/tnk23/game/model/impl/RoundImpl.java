@@ -12,11 +12,13 @@ import it.unibo.tnk23.game.model.api.Round;
 public class RoundImpl implements Round{
 
     public List<GameObject> enemies = new ArrayList<>();
+    private SpawnSettingsImpl spwnSettings;
     int round;
 
     public RoundImpl() {
         round = 1;
         fillEnemiesList();
+        setDelay();
     }
 
     @Override
@@ -56,6 +58,20 @@ public class RoundImpl implements Round{
         addSimpleEnemies(numEnemies1,/*nemico che si muove random*/);
         addMediumEnemies(numEnemies2,/*nemico che insegue*/);
         addHardEnemies(numEnemies3,/*nemico che punta alla torre*/);
+    }
+
+    private void setDelay() {
+        final long simpleDelay = 2500;
+        final long mediumDelay = 2000;
+        final long hardDelay = 1000;
+
+        spwnSettings = new SpawnSettingsImpl(simpleDelay);
+        
+        if(round >= 5 && round < 10) {
+            spwnSettings.setDelayOfSpawining(mediumDelay);
+        } else if(round >= 10) {
+            spwnSettings.setDelayOfSpawining(hardDelay);
+        }
     }
 
     private void addSimpleEnemies(int numEnemies, GameObject enemy) {

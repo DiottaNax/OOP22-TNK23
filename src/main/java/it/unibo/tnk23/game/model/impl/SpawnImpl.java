@@ -3,9 +3,9 @@ package it.unibo.tnk23.game.model.impl;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 import it.unibo.tnk23.common.Point2D;
-import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Spawn;
 
@@ -15,7 +15,9 @@ public class SpawnImpl implements Spawn{
     private RoundImpl roundImpl;
     private Iterator<GameObject> enemiesIterator;
 
+    private final Timer timer = new Timer();
     private final Random random = new Random();
+
 
     public SpawnImpl(final long delay) {
         this.delay = delay;
@@ -24,27 +26,15 @@ public class SpawnImpl implements Spawn{
 
     @Override
     public void spawnEnemies() {
-        startToGenerate();
-    }
-
-    @Override
-    public void stop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'stop'");
-    }
-
-    private void startToGenerate() {
         if(enemiesIterator.hasNext()) {
-            /*spawno tutti i miei nemici*/
-            generateEnemies(generatePos());
-
+            notifySpawnEvent(generatePos());
         } else {
-            /*resetto il timer*/
+            timer.cancel();
         }
     }
-
-    private <X> Message<X> sendMessage() {
-        return null;
+    
+    private void notifySpawnEvent(Point2D pos) {
+        
     }
     
     private Point2D generatePos() {
@@ -52,13 +42,10 @@ public class SpawnImpl implements Spawn{
         List<Point2D> possibilePos = List.of(new Point2D(0, 0), new Point2D(0, 0),new Point2D(0, 0));
         int randomPos;
 
-        randomPos=random.nextInt(possibilePos.size())+1;
+        randomPos=random.nextInt(possibilePos.size());
         
         return possibilePos.get(randomPos);
 
-    }
-
-    private void generateEnemies(Point2D pos) {
-        sendMessage();
-    }
+    } 
+    
 }
