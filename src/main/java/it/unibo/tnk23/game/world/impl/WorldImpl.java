@@ -1,11 +1,11 @@
-package it.unibo.tnk23.model.world.impl;
+package it.unibo.tnk23.game.world.impl;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import it.unibo.tnk23.model.world.api.World;
-import it.unibo.tnk23.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.world.api.World;
 
 public class WorldImpl implements World{
     

@@ -1,8 +1,8 @@
-package it.unibo.tnk23.model.world.api;
+package it.unibo.tnk23.game.world.api;
 
 import java.util.*;
 
-import it.unibo.tnk23.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.GameObject;
 
 public interface World {
     
