@@ -8,11 +8,21 @@ public interface VisitableGraphNode {
     
     NodeColor getColor();
 
-    Optional<? extends GraphNode> getParent();
+    void setColor(NodeColor color);
 
-    Optional<Integer> getDistance();
+    Optional<VisitableGraphNode> getParent();
+
+    void setParent(VisitableGraphNode parent);
+
+    int getDistance();
+
+    void setDistance(int distance);
 
     Directions getDirectionToParent();
+
+    void setDirectionToParent(Directions dirToParent);
+
+    void reset();
 
     public enum NodeColor {
         WHITE, BLACK, GREY;
