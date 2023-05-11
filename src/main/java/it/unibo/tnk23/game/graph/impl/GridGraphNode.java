@@ -1,33 +1,13 @@
 package it.unibo.tnk23.game.graph.impl;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import it.unibo.tnk23.common.Pair;
-import it.unibo.tnk23.game.graph.api.GraphNode;
 
-public class GridGraphNode implements GraphNode{
-    private final Pair<Integer, Integer> gridPos;
-    private Set<GridGraphNode> adjSet;
+public class GridGraphNode {
+    
+    protected final Pair<Integer, Integer> gridPos;
 
     public GridGraphNode(Pair<Integer, Integer> gridPos) {
         this.gridPos = gridPos;
-        this.adjSet = new HashSet<>();
-    }
-
-    public void addAdjacentNode(GridGraphNode node) {
-        this.adjSet.add(node);
-    }
-
-    public void removeAdjacentNode(GridGraphNode node) {
-        this.adjSet.remove(node);
-    }
-
-    @Override
-    public Set<? extends GraphNode> getAdjacencyList() {
-        return Collections.unmodifiableSet(this.adjSet);
     }
 
     @Override
