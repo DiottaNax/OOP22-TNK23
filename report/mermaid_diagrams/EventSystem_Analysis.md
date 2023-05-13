@@ -1,22 +1,29 @@
 classDiagram
     WorldEventHandler --o WorldEvent
-    World ..|> WorldEventListener
     GameLoop --o WorldEventHandler
+    GameLoop ..|> WorldEventListener
+    World --o WorldEventListener
     WorldEventListener --o WorldEvent
-    class WorldEvent{
-        <<interface>>
-        +getPosition(): Point2D
-        +getCode(): EventType
+    World --o WorldEvent
+    class GameLoop{
+        
     }
-    class WorldEventHandler{
-        <<interface>>
-        +onShootEvent(World)
-        +onSpawnEvent(World)
-        +onDeathEvent(World)
+    class World{
+        +setWorldEventListener(WorldEventListener)
+        +notifyEvent(WorldEvent)
     }
     class WorldEventListener{
         <<interface>>
-        notifyEvent(WorldEvent, GameObject)
+        +notifyEvent(WorldEvent, GameObject)
     }
-
-
+    class WorldEventHandler{
+        -handleShootEvent(World)
+        -handleSpawnEvent(World)
+        -handleDeathEvent(World)
+        +handle(WorldEvent)
+    }
+    class WorldEvent{
+        +getPosition() : Point2D
+        +getEventActor(GameObject)
+        +getType() : EventType
+    }
