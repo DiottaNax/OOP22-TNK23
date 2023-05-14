@@ -1,5 +1,7 @@
 package it.unibo.tnk23.game.components.api;
 
+import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.world.api.World;
 
@@ -17,7 +19,7 @@ public abstract class HealthComponent extends AbstractComponent implements Notif
     @Override
     public void update() {
         if (health == 0) {
-            //world.notifyEvent();
+            world.notifyEvent(new WorldEventImpl(this.entity.getPosition(), this.entity, WorldEventType.DEATH_EVENT));
         }
     }
 
