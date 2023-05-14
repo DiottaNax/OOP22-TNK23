@@ -1,7 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -13,6 +12,7 @@ import it.unibo.tnk23.game.model.api.ComponentSetFactory;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
+
 public class GameObjectImpl implements GameObject{
     TypeObject type;
     Point2D position;
@@ -45,7 +45,11 @@ public class GameObjectImpl implements GameObject{
 
     @Override
     public <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc) {
-        ((NotifiableComponent)components.get(nc)).receive(message);
+        ((NotifiableComponent) components.get(nc)).receive(message);
+    }
+    
+    public Point2D getPosition() {
+        return this.position;
     }
     
 }
