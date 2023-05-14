@@ -1,20 +1,23 @@
 package it.unibo.tnk23.game.components.api;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.world.api.World;
 
 public abstract class HealthComponent extends AbstractComponent implements NotifiableComponent {
 
-    private long health;
+    private int health;
+    private Set<TypeObject> weaknesses = new HashSet<>();
 
     public HealthComponent(GameObject entity, World world) {
         super(entity, world);
-        this.health = entity.getType().getHealth();
+        this.health = (int) entity.getType().getHealth();
     }
-
-    protected abstract void performWhenHit(GameObject entity);
 
     @Override
     public void update() {
@@ -26,7 +29,10 @@ public abstract class HealthComponent extends AbstractComponent implements Notif
     @Override
     public <X> void receive(Message<X> x) {
         if (x instanceof GameObject) {
-            performWhenHit((GameObject)x);
+            GameObject obj = (GameObject) x;
+            if (weaknesses.contains(obj.getType())) {
+                health -= obj.getPower();
+            }
         }
     }
     
