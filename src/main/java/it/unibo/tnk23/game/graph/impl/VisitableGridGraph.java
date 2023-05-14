@@ -6,12 +6,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.game.graph.api.VisitableGraph;
@@ -38,14 +34,19 @@ public class VisitableGridGraph implements VisitableGraph {
                         .mapToObj(y -> new Pair<>(x, y)))
                 .flatMap(p -> p)
                 .forEach(p -> graph.put(new VisitableGridGraphNode(p), new HashSet<>()));
+
+        this.addAdjacencies();
+    }
+
+    public Set<VisitableGridGraphNode> getAdiacencies(final VisitableGridGraphNode node) {
+        return Set.copyOf(this.graph.get(node));
     }
     
     private void addAdjacencies() {
         var keys = Set.copyOf(this.graph.keySet());
-        for(var node : this.graph.keySet()){
-            var adjacents = Stream.of(1, -1).map(i -> new Pair<>(i, 0))
-                    .flatMap(p -> Stream.of(p, new Pair<>(p.getY(), p.getX()))).map(p -> new GridGraphNode(p)).toList();
-            
+        for(var node : keys){
+            var adjacencies = node.getAdjacentIndexes().stream().map(p -> new VisitableGridGraphNode(p)).toList();
+            this.graph.get(node).addAll(this.graph.keySet().stream().filter(adjacencies::contains).toList());           
         }
     }
 

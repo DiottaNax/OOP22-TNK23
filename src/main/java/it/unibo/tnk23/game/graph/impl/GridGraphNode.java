@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.graph.impl;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Pair;
 
@@ -16,9 +17,11 @@ public class GridGraphNode {
         return this.gridPos;
     }
     
-    public List<GridGraphNode> getAdjacentIndexes(){
-        return Stream.of(1, -1).map(i -> new Pair<>(i, 0))
-                    .flatMap(p -> Stream.of(p, new Pair<>(p.getY(), p.getX()))).map(p -> new GridGraphNode()).toList();
+    public List<Pair<Integer,Integer>> getAdjacentIndexes(){
+        return Stream.of(new Pair<>(1, 0), new Pair<>(0, 1))
+                    .flatMap(p -> Stream.of(p, new Pair<>(-p.getX(), -p.getY())))
+                    .map(p -> new Pair<>(gridPos.getX() + p.getX(), gridPos.getY() + p.getY()))
+                    .toList();
     }
 
     @Override
@@ -34,5 +37,10 @@ public class GridGraphNode {
     public int hashCode() {
         int prime = 17;
         return prime * gridPos.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "GridGraphNode [" + gridPos + "]";
     }
 }
