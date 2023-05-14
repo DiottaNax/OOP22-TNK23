@@ -8,7 +8,7 @@ import it.unibo.tnk23.game.graph.api.VisitableGraphNode;
 
 public class VisitableGridGraphNode extends GridGraphNode implements VisitableGraphNode {
 
-    private NodeColor color;
+    private boolean visited;
     private Optional<VisitableGraphNode> parent;
     private int distance;
     private Directions dirToParent;
@@ -24,13 +24,13 @@ public class VisitableGridGraphNode extends GridGraphNode implements VisitableGr
     }
 
     @Override
-    public NodeColor getColor() {
-        return this.color;
+    public boolean isVisited() {
+        return this.visited;
     }
 
     @Override
-    public void setColor(NodeColor color) {
-        this.color = color;
+    public void setVisited() {
+        this.visited = true;
     }
 
     @Override
@@ -53,19 +53,17 @@ public class VisitableGridGraphNode extends GridGraphNode implements VisitableGr
         this.distance = distance;
     }
 
-    @Override
     public Directions getDirectionToParent() {
         return this.dirToParent;
     }
 
-    @Override
     public void setDirectionToParent(Directions dirToParent) {
         this.dirToParent = dirToParent;
     }
 
     @Override
     public void reset() {
-        this.color = NodeColor.WHITE;
+        this.visited = false;
         this.parent = Optional.empty();
         this.distance = -1;
         this.dirToParent = Directions.NONE;

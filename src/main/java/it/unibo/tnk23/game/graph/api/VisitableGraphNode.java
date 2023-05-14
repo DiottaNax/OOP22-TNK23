@@ -2,13 +2,11 @@ package it.unibo.tnk23.game.graph.api;
 
 import java.util.Optional;
 
-import it.unibo.tnk23.common.Directions;
-
 public interface VisitableGraphNode {
-    
-    NodeColor getColor();
 
-    void setColor(NodeColor color);
+    boolean isVisited();
+
+    void setVisited();
 
     Optional<VisitableGraphNode> getParent();
 
@@ -18,13 +16,5 @@ public interface VisitableGraphNode {
 
     void setDistance(int distance);
 
-    Directions getDirectionToParent();
-
-    void setDirectionToParent(Directions dirToParent);
-
     void reset();
-
-    public enum NodeColor {
-        WHITE, BLACK, GREY;
-    }
 }
