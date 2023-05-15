@@ -10,7 +10,7 @@ public class PresenceFireomponent extends AbstractFireComponent{
     }
 
     @Override
-    protected <X> boolean canSpawn(X consumer) {
+    protected boolean canSpawn() {
         if(bullet.isEmpty()) {
             return true;
         } else {

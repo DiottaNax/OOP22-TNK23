@@ -17,7 +17,7 @@ public class TimeFireComponent extends AbstractFireComponent{
     }
 
     @Override
-    protected <X> boolean canSpawn(X consumer) {
+    protected boolean canSpawn() {
         if((currentTime-lastTime) <= firePeriod) {
             return false;
         } else {

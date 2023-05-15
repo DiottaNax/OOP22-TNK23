@@ -11,24 +11,34 @@ import it.unibo.tnk23.game.world.api.World;
 public abstract class AbstractFireComponent extends AbstractComponent implements NotifiableComponent{
     
     protected Optional<GameObject> bullet;
+    protected long currentTime;
+    protected long lastTime;
 
     public AbstractFireComponent(GameObject entity, World world) {
         super(entity, world);   
     }
 
     @Override
-    public <X> void receive(Message<X> x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'receive'");
+    public <X> void receive(Message<X> message) {
+        message.getMessage();
+        //TODO 
     }
 
     @Override
     public void update() {
-        if(canSpawn(null)) {
+        if(canSpawn()) { //DEVO CHIAMARE UNO SPAWN EVENT
 
+            //bullet = new GameObjectImpl(bullet, entity., dir);
+            lastTime = System.currentTimeMillis();
+            currentTime = System.currentTimeMillis();
         }
+        if(world.getEntities().contains(bullet)) {
+            bullet = Optional.empty();
+            currentTime = System.currentTimeMillis() - lastTime;
+        }
+        
     }
     
-    protected abstract <X> boolean canSpawn(X consumer);
+    protected abstract boolean canSpawn();
 
 }
