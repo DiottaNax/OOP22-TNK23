@@ -2,10 +2,16 @@ package it.unibo.tnk23.game.components.impl;
 
 import java.util.Optional;
 
+
 import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
+import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.impl.GameObjectImpl;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.game.world.api.World;
 
 public abstract class AbstractFireComponent extends AbstractComponent implements NotifiableComponent{
@@ -13,28 +19,31 @@ public abstract class AbstractFireComponent extends AbstractComponent implements
     protected Optional<GameObject> bullet;
     protected long currentTime;
     protected long lastTime;
+    private boolean mRecived;
 
     public AbstractFireComponent(GameObject entity, World world) {
-        super(entity, world);   
+        super(entity, world);
     }
 
     @Override
     public <X> void receive(Message<X> message) {
-        message.getMessage();
-        //TODO 
+        mRecived = message.getMessage().toString().isEmpty() ? false : true;
     }
 
     @Override
     public void update() {
-        if(canSpawn()) { //DEVO CHIAMARE UNO SPAWN EVENT
-
-            //bullet = new GameObjectImpl(bullet, entity., dir);
-            lastTime = System.currentTimeMillis();
-            currentTime = System.currentTimeMillis();
-        }
-        if(world.getEntities().contains(bullet)) {
-            bullet = Optional.empty();
-            currentTime = System.currentTimeMillis() - lastTime;
+        TypeObject bulletType = TypeObjectFactory.getBulletType();
+        if(mRecived) {
+            if(canSpawn()) {
+                bullet = Optional.of(new GameObjectImpl(bulletType, entity.getPosition(), null));
+                world.notifyEvent(new WorldEventImpl(entity.getPosition(), bullet.get(), WorldEventType.SHOOT_EVENT));
+                lastTime = System.currentTimeMillis();
+                currentTime = System.currentTimeMillis();
+            }
+            if(world.getEntities().contains(bullet.get())) {
+                bullet = Optional.empty();
+                currentTime = System.currentTimeMillis() - lastTime;
+            }
         }
         
     }
