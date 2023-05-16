@@ -9,10 +9,16 @@ import java.util.TimerTask;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Spawn;
+import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.world.impl.WorldImpl;
+import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 
 public class SpawnImpl implements Spawn{
 
     private final long delay;
+    private final World world;
     private RoundImpl roundImpl;
     private Iterator<GameObject> enemiesIterator;
 
@@ -23,25 +29,28 @@ public class SpawnImpl implements Spawn{
     public SpawnImpl(final long delay) {
         this.delay = delay;
         enemiesIterator = roundImpl.getEnemies().iterator();
+        world = new WorldImpl(roundImpl.getEnemies());
     }
 
     @Override
     public void spawnEnemies() {
-        if(enemiesIterator.hasNext()) {
-            notifySpawnEvent(generatePos());
+        while(enemiesIterator.hasNext()) {
+            notifySpawnEvent();
+        }
+        timer.cancel();
+        /*if(enemiesIterator.hasNext()) {
+            notifySpawnEvent();
         } else {
             timer.cancel();
-        }
+        }*/
     }
     
-    private void notifySpawnEvent(Point2D pos) {
+    private void notifySpawnEvent() {
         this.timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                // Notifico allo SpawnEventListener che deve spawnare l'oggetto passandogli enemiesIterator.next() e pos
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'run'");
+                world.notifyEvent(new WorldEventImpl(generatePos(),enemiesIterator.next(),WorldEventType.SPAWN_EVENT));
             }
             
         }, delay);
