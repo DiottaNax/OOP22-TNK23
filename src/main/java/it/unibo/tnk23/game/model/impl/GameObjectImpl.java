@@ -8,7 +8,7 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.model.api.ComponentSetFactory;
+import it.unibo.tnk23.game.components.api.ComponetSetFactory;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import javafx.scene.control.skin.TextInputControlSkin.Direction;
@@ -25,7 +25,7 @@ public class GameObjectImpl implements GameObject{
         this.position = position;
         this.direction = direction;
         this.components = new HashMap<>();
-        ComponentSetFactory setFactory;
+        ComponetSetFactory setfactory;
         //setFactory.getComponents(type).forEach(c -> components.put(c.getClass(), c));
     }
 
