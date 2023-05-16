@@ -16,35 +16,31 @@ import it.unibo.tnk23.game.world.api.World;
 
 public abstract class AbstractFireComponent extends AbstractComponent implements NotifiableComponent{
     
-    protected Optional<GameObject> bullet;
-    protected long currentTime;
-    protected long lastTime;
-    private boolean mRecived;
+    protected Optional<GameObject> lastBullet;
+    private boolean canShoot = false;
 
-    public AbstractFireComponent(GameObject entity, World world) {
+    public AbstractFireComponent(final GameObject entity, final World world) {
         super(entity, world);
     }
 
     @Override
-    public <X> void receive(Message<X> message) {
-        mRecived = message.getMessage().toString().isEmpty() ? false : true;
+    public <X> void receive(final Message<X> message) {
+        if(message.getMessage() instanceof Boolean) {
+            canShoot = (Boolean) message.getMessage();
+        }
     }
 
     @Override
     public void update() {
         TypeObject bulletType = TypeObjectFactory.getBulletType();
-        if(mRecived) {
-            if(canSpawn()) {
-                bullet = Optional.of(new GameObjectImpl(bulletType, entity.getPosition(), null));
-                world.notifyEvent(new WorldEventImpl(entity.getPosition(), bullet.get(), WorldEventType.SHOOT_EVENT));
-                lastTime = System.currentTimeMillis();
-                currentTime = System.currentTimeMillis();
+            if(canShoot && canSpawn()) {
+                lastBullet = Optional.of(new GameObjectImpl(bulletType, entity.getPosition(), null));
+                lastBullet.get().setPower(entity.getPower());
+                world.notifyEvent(new WorldEventImpl(entity.getPosition(), lastBullet.get(), WorldEventType.SHOOT_EVENT));
             }
-            if(world.getEntities().contains(bullet.get())) {
-                bullet = Optional.empty();
-                currentTime = System.currentTimeMillis() - lastTime;
+            if(world.getEntities().contains(lastBullet.get())) {
+                lastBullet = Optional.empty();
             }
-        }
         
     }
     

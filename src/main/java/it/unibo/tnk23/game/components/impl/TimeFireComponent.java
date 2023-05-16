@@ -19,8 +19,11 @@ public class TimeFireComponent extends AbstractFireComponent{
     @Override
     protected boolean canSpawn() {
         if((currentTime-lastTime) <= firePeriod) {
+            currentTime = (System.currentTimeMillis() - lastTime);
             return false;
         } else {
+            currentTime = System.currentTimeMillis();
+            lastTime = System.currentTimeMillis();
             return true;
         }
     }
