@@ -17,6 +17,7 @@ public class GameObjectImpl implements GameObject{
     TypeObject type;
     Point2D position;
     Direction direction;
+    int power = 1;
     Map<Class<? extends Component>, Component> components;
 
     public GameObjectImpl(TypeObject type, Point2D position, Direction direction) {
@@ -50,6 +51,16 @@ public class GameObjectImpl implements GameObject{
     
     public Point2D getPosition() {
         return this.position;
+    }
+
+    @Override
+    public int getPower() {
+        return this.power;
+    }
+
+    @Override
+    public void setPower(int power) {
+        this.power = power;
     }
     
 }
