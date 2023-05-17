@@ -17,10 +17,13 @@ public class TimeFireComponent extends AbstractFireComponent{
     }
 
     @Override
-    protected <X> boolean canSpawn(X consumer) {
+    protected boolean canSpawn() {
         if((currentTime-lastTime) <= firePeriod) {
+            currentTime = (System.currentTimeMillis() - lastTime);
             return false;
         } else {
+            currentTime = System.currentTimeMillis();
+            lastTime = System.currentTimeMillis();
             return true;
         }
     }
