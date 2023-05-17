@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
@@ -43,6 +44,23 @@ public class VisitableGridGraph implements VisitableGraph {
         this.addAdjacencies();
     }
 
+    public void removeNode(Pair<Integer, Integer> node) {
+        var toRemove = new VisitableGridGraphNode(node);
+        this.graphNodes.remove(toRemove);
+        this.graph.remove(toRemove);
+    }
+
+    public void addNode(Pair<Integer, Integer> node) {
+        var toAdd = new VisitableGridGraphNode(node);
+        if (!this.graphNodes.containsKey(toAdd)) {
+            this.graphNodes.put(toAdd, toAdd);
+            this.graph.put(toAdd,
+                    toAdd.getAdjacentIndexes().stream().map(VisitableGridGraphNode::new)
+                            .filter(this.graphNodes::containsKey).map(this.graphNodes::get)
+                            .collect(Collectors.toCollection(HashSet::new)));
+        }
+    }
+
     public Set<VisitableGridGraphNode> getAdiacencies(final VisitableGridGraphNode node) {
         return Set.copyOf(this.graph.get(node));
     }
@@ -50,8 +68,8 @@ public class VisitableGridGraph implements VisitableGraph {
     private void addAdjacencies() {
         this.graph.entrySet().stream().parallel()
                 .forEach(e -> e.getValue()
-                        .addAll(e.getKey().getAdjacentIndexes().stream().map(p -> new VisitableGridGraphNode(p))
-                                .filter(n -> this.graphNodes.containsKey(n)).map(this.graphNodes::get).toList()));
+                        .addAll(e.getKey().getAdjacentIndexes().stream().map(VisitableGridGraphNode::new)
+                                .filter(this.graphNodes::containsKey).map(this.graphNodes::get).toList()));
     }
 
     @Override
