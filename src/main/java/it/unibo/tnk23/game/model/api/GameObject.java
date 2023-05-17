@@ -2,7 +2,7 @@ package it.unibo.tnk23.game.model.api;
 
 import java.util.Optional;
 import java.util.stream.Stream;
-
+import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
@@ -20,10 +20,15 @@ public interface GameObject {
 
     Point2D getPosition();
 
+    void setPosition(Point2D position);
+
+    Directions getDirection();
+
+    void setDirection(Directions direction);
+
     int getPower();
 
     void setPower(int power);
-
-    Optional<? extends Component> getComponent(Class<? extends Component> clas);
     
+    Optional<? extends Component> getComponent(Class<? extends Component> compClass);
 }

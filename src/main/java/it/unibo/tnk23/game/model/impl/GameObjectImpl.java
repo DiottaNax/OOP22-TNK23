@@ -66,8 +66,21 @@ public class GameObjectImpl implements GameObject{
 
     @Override
     public Optional<? extends Component> getComponent(Class<? extends Component> clas) {
-        return components.containsKey(clas)? Optional.of(components.get(clas)) : Optional.empty();
+        return components.containsKey(clas) ? Optional.of(components.get(clas)) : Optional.empty();
     }
 
-    
+    @Override
+    public void setPosition(Point2D position) {
+        this.position = position;
+    }
+
+    @Override
+    public Directions getDirection() {
+        return this.direction;
+    }
+
+    @Override
+    public void setDirection(Directions direction) {
+        this.direction = direction;
+    }
 }
