@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.model.api;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Point2D;
@@ -22,5 +23,7 @@ public interface GameObject {
     int getPower();
 
     void setPower(int power);
+
+    Optional<? extends Component> getComponent(Class<? extends Component> clas);
     
 }
