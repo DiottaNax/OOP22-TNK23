@@ -13,7 +13,7 @@ public enum Directions {
         direction = new Vector2D(x, y);
     }
 
-    public Vector2D getDirection() {
+    public Vector2D getVel() {
         return this.direction;
     }
 }
