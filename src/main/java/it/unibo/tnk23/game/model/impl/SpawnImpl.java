@@ -38,11 +38,6 @@ public class SpawnImpl implements Spawn{
             notifySpawnEvent();
         }
         timer.cancel();
-        /*if(enemiesIterator.hasNext()) {
-            notifySpawnEvent();
-        } else {
-            timer.cancel();
-        }*/
     }
     
     private void notifySpawnEvent() {

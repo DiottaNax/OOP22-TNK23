@@ -2,21 +2,32 @@ package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.game.components.impl.AiComponent;
+import it.unibo.tnk23.game.graph.impl.GameGraph;
+import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Round;
+import it.unibo.tnk23.input.api.AiControllerFactory;
+import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
 
 
 public class RoundImpl implements Round{
 
     public List<GameObject> enemies = new ArrayList<>();
+    public int round;
     private SpawnSettingsImpl spwnSettings;
-    int round;
+    private final AiControllerFactory aiFactory;
+    private final GameGraph graph;
 
     public RoundImpl() {
         round = 1;
+        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
+        this.aiFactory = new AiControllerFactoryImpl(graph);
         fillEnemiesList();
         setDelay();
     }
@@ -55,9 +66,9 @@ public class RoundImpl implements Round{
             numEnemies3 = (int) (round/rateNumEnemies3);
         }
 
-        addSimpleEnemies(numEnemies1,/*nemico che si muove random*/);
-        addMediumEnemies(numEnemies2,/*nemico che insegue*/);
-        addHardEnemies(numEnemies3,/*nemico che punta alla torre*/);
+        addEnemies(numEnemies1, this::generateRandomMovingEnemies);
+        addEnemies(numEnemies2, this::generateFollowStillTargetEnemies);
+        addEnemies(numEnemies3, this::generateFollowMovingTargetEnemies);
     }
 
     private void setDelay() {
@@ -74,22 +85,28 @@ public class RoundImpl implements Round{
         }
     }
 
-    private void addSimpleEnemies(int numEnemies, GameObject enemy) {
-        Stream.iterate(0, i -> i+1)
-              .limit(numEnemies)
-              .forEach( i -> this.enemies.add(new /*nome classe nemico semplice*/));
+    private GameObject generateRandomMovingEnemies() {
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
+        return enemy;
     }
 
-    private void addMediumEnemies(int numEnemies, GameObject enemy) {
-        Stream.iterate(0, i -> i+1)
-              .limit(numEnemies)
-              .forEach( i -> this.enemies.add(new /*nome classe nemico medio*/));
+    private GameObject generateFollowStillTargetEnemies() {
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowStillTargetAi(null)));
+        return enemy;
     }
 
-    private void addHardEnemies(int numEnemies, GameObject enemy) {
+    private GameObject generateFollowMovingTargetEnemies() {
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowMovingTargetAi(null)));
+        return enemy;
+    }
+
+    private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
         Stream.iterate(0, i -> i+1)
               .limit(numEnemies)
-              .forEach( i -> this.enemies.add(new /*nome classe nemico difficile*/));
+              .forEach( i -> this.enemies.add(enemyGenerator.get()));
     }
     
 }
