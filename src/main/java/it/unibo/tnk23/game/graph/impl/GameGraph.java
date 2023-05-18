@@ -14,7 +14,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 public class GameGraph extends VisitableGraphDecorator {
     private final VisitableGridGraph graph;
     private final static int PRECISION = 2;
-    private final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+    public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
 
     public GameGraph(VisitableGridGraph toDecorate) {
         super(toDecorate);
