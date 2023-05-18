@@ -1,5 +1,8 @@
 package it.unibo.tnk23.common;
 
+import java.util.List;
+import java.util.Random;
+
 public enum Directions {
     NORTH(0, -1),
     SOUTH(0, 1),
@@ -15,5 +18,10 @@ public enum Directions {
 
     public Vector2D getVel() {
         return this.direction;
+    }
+
+    public static Directions getRandomDir() {
+        final var possibilities = List.of(NONE,NORTH,SOUTH,WEST,EAST);
+        return possibilities.get(new Random().nextInt(possibilities.size()));
     }
 }
