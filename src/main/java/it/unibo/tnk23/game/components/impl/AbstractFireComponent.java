@@ -34,7 +34,7 @@ public abstract class AbstractFireComponent extends AbstractComponent implements
     public void update() {
         TypeObject bulletType = TypeObjectFactory.getBulletType();
             if(canShoot && canSpawn()) {
-                lastBullet = Optional.of(new GameObjectImpl(bulletType, entity.getPosition(), null));
+                lastBullet = Optional.of(new GameObjectImpl(bulletType, entity.getPosition()));
                 lastBullet.get().setPower(entity.getPower());
                 world.notifyEvent(new WorldEventImpl(entity.getPosition(), lastBullet.get(), WorldEventType.SHOOT_EVENT));
             }
