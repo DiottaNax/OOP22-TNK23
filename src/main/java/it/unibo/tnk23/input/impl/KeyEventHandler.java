@@ -1,7 +1,8 @@
-package it.unibo.tnk23.game.input.impl;
+package it.unibo.tnk23.input.impl;
 
 import java.util.List;
 
+import it.unibo.tnk23.input.impl.KeyboardInputController;
 import javafx.scene.input.KeyEvent;
 
 public class KeyEventHandler {
