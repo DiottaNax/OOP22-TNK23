@@ -16,8 +16,7 @@ public class InputComponent implements Component {
 
     @Override
     public void update() {
-        
-        player.getType().getSpeed()
+        player.setDirection(ctrl.getDirection());
     }
 
 }
