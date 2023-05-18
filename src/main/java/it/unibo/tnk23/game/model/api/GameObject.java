@@ -30,5 +30,7 @@ public interface GameObject {
 
     void setPower(int power);
     
+    void addComponent(Component comp);
+    
     Optional<? extends Component> getComponent(Class<? extends Component> compClass);
 }

@@ -83,4 +83,9 @@ public class GameObjectImpl implements GameObject{
     public void setDirection(Directions direction) {
         this.direction = direction;
     }
+    
+    public void addComponent(Component comp) {
+        components.put(comp.getClass(), comp);
+    }
+    
 }
