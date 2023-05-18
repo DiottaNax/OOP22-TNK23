@@ -26,10 +26,10 @@ public class SpawnImpl implements Spawn{
     private final Random random = new Random();
 
 
-    public SpawnImpl(final long delay) {
+    public SpawnImpl(final long delay, final World world) {
         this.delay = delay;
+        this.world = world;
         enemiesIterator = roundImpl.getEnemies().iterator();
-        world = new WorldImpl(roundImpl.getEnemies());
     }
 
     @Override
