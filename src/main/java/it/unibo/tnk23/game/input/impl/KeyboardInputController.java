@@ -43,4 +43,7 @@ public class KeyboardInputController implements InputController {
         direction = Directions.NONE;
     }
     
+    public boolean isShooting() {
+        return this.isShooting;
+    }
 }
