@@ -51,5 +51,10 @@ public class GameObjectImpl implements GameObject{
     public Point2D getPosition() {
         return this.position;
     }
+
+    @Override
+    public void addComponent(Component comp) {
+        components.put(comp.getClass(), comp);
+    }
     
 }

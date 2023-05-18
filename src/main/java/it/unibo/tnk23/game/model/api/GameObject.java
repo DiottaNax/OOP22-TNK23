@@ -18,5 +18,7 @@ public interface GameObject {
     <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc);
 
     Point2D getPosition();
+
+    void addComponent(Component comp);
     
 }
