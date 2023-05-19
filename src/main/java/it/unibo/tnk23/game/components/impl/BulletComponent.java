@@ -26,18 +26,18 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
         if(x instanceof GameObject) {
             GameObject obj = (GameObject) x;
             TypeObject typeObj = obj.getType();
-            if(typeObj.toString() == "player") {
+            if(typeObj == TypeObjectFactory.getPlayerType()) {
                 typeSourceObject = typeObj;
-            } else if (typeObj.toString() == "enemy") {
+            } else if (typeObj == TypeObjectFactory.getEnemyType()) {
                 typeSourceObject = typeObj;
             }
         }
     }
 
     public TypeObject getSourceShooter() {
-        if (typeSourceObject.toString() == "player") {
+        if (typeSourceObject == TypeObjectFactory.getPlayerType()) {
             return typeSourceObject;
-        } else if (typeSourceObject.toString() == "enemy") {
+        } else if (typeSourceObject == TypeObjectFactory.getEnemyType()) {
             return typeSourceObject;
         }
         return TypeObjectFactory.getBulletType();
