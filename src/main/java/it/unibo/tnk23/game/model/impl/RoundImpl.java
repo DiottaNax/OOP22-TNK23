@@ -11,6 +11,7 @@ import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Round;
+import it.unibo.tnk23.game.world.api.World;
 import it.unibo.tnk23.input.api.AiControllerFactory;
 import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
@@ -18,16 +19,19 @@ import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
 public class RoundImpl implements Round{
 
-    public List<GameObject> enemies = new ArrayList<>();
-    public int round;
-    private SpawnSettingsImpl spwnSettings;
+    private List<GameObject> enemies = new ArrayList<>();
+    private int round;
+    private final SpawnImpl spawn;
+    private final World world;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
 
-    public RoundImpl() {
+    public RoundImpl(final World world) {
         round = 1;
+        spawn = new SpawnImpl(10, world); //Come faccio con delay?
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(graph);
+        this.world = world;
         fillEnemiesList();
         setDelay();
     }
@@ -39,16 +43,21 @@ public class RoundImpl implements Round{
 
     @Override
     public boolean isOver() {
-        if (enemies.isEmpty()) {
-            this.round ++;
-            fillEnemiesList();
-        }
         return enemies.isEmpty();
     }
 
     @Override
     public int getRound() {
         return this.round;
+    }
+
+    @Override
+    public void update() {
+        spawn.update();
+        if(this.isOver()) {
+            this.round ++;
+            fillEnemiesList();
+        }
     }
 
     private void fillEnemiesList() {
@@ -72,11 +81,12 @@ public class RoundImpl implements Round{
     }
 
     private void setDelay() {
+        final SpawnSettingsImpl spwnSettings;
         final long simpleDelay = 2500;
         final long mediumDelay = 2000;
         final long hardDelay = 1000;
 
-        spwnSettings = new SpawnSettingsImpl(simpleDelay);
+        spwnSettings = new SpawnSettingsImpl(simpleDelay,world);
         
         if(round >= 5 && round < 10) {
             spwnSettings.setDelayOfSpawining(mediumDelay);
@@ -86,19 +96,19 @@ public class RoundImpl implements Round{
     }
 
     private GameObject generateRandomMovingEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
         return enemy;
     }
 
     private GameObject generateFollowStillTargetEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowStillTargetAi(null)));
         return enemy;
     }
 
     private GameObject generateFollowMovingTargetEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), null);
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowMovingTargetAi(null)));
         return enemy;
     }

@@ -9,18 +9,17 @@ import java.util.TimerTask;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Spawn;
-import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.world.api.World;
-import it.unibo.tnk23.game.world.impl.WorldImpl;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 
 public class SpawnImpl implements Spawn{
 
-    private final long delay;
-    private final World world;
     private RoundImpl roundImpl;
     private Iterator<GameObject> enemiesIterator;
+    private Point2D pos;
+    private final long delay;
+    private final World world;
 
     private final Timer timer = new Timer();
     private final Random random = new Random();
@@ -38,6 +37,17 @@ public class SpawnImpl implements Spawn{
             notifySpawnEvent();
         }
         timer.cancel();
+    }
+
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public Point2D getPos() {
+        return this.pos;
     }
     
     private void notifySpawnEvent() {
@@ -57,9 +67,13 @@ public class SpawnImpl implements Spawn{
         int randomPos;
 
         randomPos=random.nextInt(possibilePos.size());
-        
-        return possibilePos.get(randomPos);
+        pos = possibilePos.get(randomPos);
+        return pos;
 
-    } 
+    }
+
+    private List<GameObject> getDiedEnemies() {
+        return null;
+    }
     
 }
