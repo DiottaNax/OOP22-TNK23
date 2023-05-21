@@ -35,7 +35,7 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
         }
     }
 
-    public TypeObject getSourceShooter() {
+    public TypeObject getShooter() {
         return shooterType;
     }
 
