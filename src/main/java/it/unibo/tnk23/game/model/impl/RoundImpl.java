@@ -19,19 +19,19 @@ import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
 public class RoundImpl implements Round{
 
-    private List<GameObject> enemies = new ArrayList<>();
+    private List<GameObject> enemies;
     private int round;
     private final SpawnImpl spawn;
-    private final World world;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
+    private Long spawnDelay;
 
     public RoundImpl(final World world) {
         round = 1;
-        spawn = new SpawnImpl(10, world); //Come faccio con delay?
+        enemies = new ArrayList<>();
+        spawn = new SpawnImpl(spawnDelay, world);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(graph);
-        this.world = world;
         fillEnemiesList();
         setDelay();
     }
@@ -81,17 +81,16 @@ public class RoundImpl implements Round{
     }
 
     private void setDelay() {
-        final SpawnSettingsImpl spwnSettings;
         final long simpleDelay = 2500;
         final long mediumDelay = 2000;
         final long hardDelay = 1000;
 
-        spwnSettings = new SpawnSettingsImpl(simpleDelay,world);
+        spawnDelay = simpleDelay;
         
         if(round >= 5 && round < 10) {
-            spwnSettings.setDelayOfSpawining(mediumDelay);
+            spawnDelay = mediumDelay;
         } else if(round >= 10) {
-            spwnSettings.setDelayOfSpawining(hardDelay);
+            spawnDelay = hardDelay;
         }
     }
 
