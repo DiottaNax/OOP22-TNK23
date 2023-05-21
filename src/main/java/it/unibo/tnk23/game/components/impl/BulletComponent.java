@@ -35,12 +35,9 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
     }
 
     public TypeObject getSourceShooter() {
-        if (typeSourceObject == TypeObjectFactory.getPlayerType()) {
-            return typeSourceObject;
-        } else if (typeSourceObject == TypeObjectFactory.getEnemyType()) {
-            return typeSourceObject;
-        }
-        return TypeObjectFactory.getBulletType();
+        return (typeSourceObject == TypeObjectFactory.getPlayerType()
+                || typeSourceObject == TypeObjectFactory.getEnemyType()) ? typeSourceObject
+                        : TypeObjectFactory.getBulletType();
     }
 
 }
