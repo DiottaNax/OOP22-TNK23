@@ -1,14 +1,16 @@
 package it.unibo.tnk23.game.model.api;
 
+import it.unibo.tnk23.common.Point2D;
+
 public interface GameObjectFactory {
     
-    GameObject getEnemy();
+    GameObject getEnemy(Point2D pos);
 
-    GameObject getPlayer();
+    GameObject getPlayer(Point2D pos);
 
-    GameObject getBullet();
+    GameObject getBullet(Point2D pos);
 
-    GameObject getWall();
+    GameObject getWall(Point2D pos);
 
-    GameObject getDestroyableWall();
+    GameObject getDestroyableWall(Point2D pos);
 }
