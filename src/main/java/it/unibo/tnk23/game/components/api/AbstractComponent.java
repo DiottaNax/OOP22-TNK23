@@ -8,7 +8,7 @@ public abstract class AbstractComponent implements Component {
     protected GameObject entity;
     protected World world;
 
-    public AbstractComponent(GameObject entity, World world) {
+    public AbstractComponent(final GameObject entity,final World world) {
         this.world = world;
         this.entity = entity;
     }
