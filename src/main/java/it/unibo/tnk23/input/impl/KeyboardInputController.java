@@ -1,7 +1,7 @@
-package it.unibo.tnk23.game.input.impl;
+package it.unibo.tnk23.input.impl;
 
 import it.unibo.tnk23.common.Directions;
-import it.unibo.tnk23.game.input.api.InputController;
+import it.unibo.tnk23.input.api.InputController;
 import javafx.scene.input.KeyEvent;
 
 public class KeyboardInputController implements InputController {
