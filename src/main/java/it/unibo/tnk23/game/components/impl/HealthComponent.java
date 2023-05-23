@@ -10,6 +10,7 @@ import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.game.world.api.World;
 
 public abstract class HealthComponent extends AbstractComponent implements NotifiableComponent {
@@ -33,8 +34,11 @@ public abstract class HealthComponent extends AbstractComponent implements Notif
     public <X> void receive(Message<X> x) {
         if (x instanceof GameObject) {
             GameObject obj = (GameObject) x;
-            if (weaknesses.contains(obj.getType())) {
-                health -= obj.getPower();
+            if (TypeObjectFactory.isBullet(obj.getType())) {
+                var bulletCmp = obj.getComponent(BulletComponent.class);
+                if (bulletCmp.isPresent() && weaknesses.contains(((BulletComponent) bulletCmp.get()).getSourceShooter())) {
+                    health -= obj.getPower();
+                }
             }
         }
     }
