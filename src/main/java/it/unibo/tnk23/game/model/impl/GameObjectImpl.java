@@ -44,8 +44,10 @@ public class GameObjectImpl implements GameObject{
     }
 
     @Override
-    public <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc) {
-        ((NotifiableComponent) components.get(nc)).receive(message);
+    public <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc) {
+        if (components.containsKey(nc)) {
+            ((NotifiableComponent) components.get(nc)).receive(message);   
+        }
     }
     
     public Point2D getPosition() {
