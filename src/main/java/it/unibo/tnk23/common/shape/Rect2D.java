@@ -8,10 +8,10 @@ public class Rect2D implements Shape {
     private final double height;
     private Point2D center;
 
-    public Rect2D(final double width, final double height, final Point2D position) {
+    public Rect2D(final double width, final double height, final Point2D center) {
         this.width = width;
         this.height = height;
-        this.center = new Point2D(position.getX() + (width / 2), position.getY() - (height / 2));
+        this.center = center;
     }
 
     public double getWidth() {
