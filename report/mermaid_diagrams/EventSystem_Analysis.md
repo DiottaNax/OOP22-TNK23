@@ -23,7 +23,7 @@ classDiagram
         +handle(WorldEvent)
     }
     class WorldEvent{
-        +getPosition() : Point2D
-        +getEventActor(GameObject)
-        +getType() : EventType
+        +getPosition():Point2D
+        +getEventActor():GameObject
+        +getType():EventType
     }

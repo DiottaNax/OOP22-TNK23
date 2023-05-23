@@ -1,7 +1,7 @@
 package it.unibo.tnk23.game.components.api;
 
-public interface NotifiableComponent<X>{
+public interface NotifiableComponent extends Component{
 
-    void receive(Message<X> x);
+    <X> void receive(Message<X> x);
     
 }
