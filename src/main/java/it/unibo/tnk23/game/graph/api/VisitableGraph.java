@@ -1,9 +1,13 @@
 package it.unibo.tnk23.game.graph.api;
 
-import java.util.Set;
+import java.util.List;
 
-public interface VisitableGraph {
+import it.unibo.tnk23.common.Directions;
 
-    Set<? extends GraphNode> getPathFrom(GraphNode node);
+public interface VisitableGraph extends Graph<VisitableGraphNode> {
+
+    List<Directions> getPathFrom(VisitableGraphNode node);
+
+    void setGoal(VisitableGraphNode goal);
 
 }

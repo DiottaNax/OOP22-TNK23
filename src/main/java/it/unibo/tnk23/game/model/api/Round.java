@@ -9,4 +9,6 @@ public interface Round {
     boolean isOver();
 
     int getRound();
+
+    void update();
 }

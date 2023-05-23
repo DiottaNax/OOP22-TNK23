@@ -55,4 +55,21 @@ public final class TypeObjectFactory {
     }
 
     
+    public static boolean isPlayer(TypeObject type) {
+        return type.equals(types.get("player"));
+    }
+
+    public static boolean isEnemy(TypeObject type) {
+        return type.equals(types.get("enemy"));
+    }
+
+    public static boolean isBullet(TypeObject type) {
+        return type.equals(types.get("bullet"));
+    }
+
+    public static boolean isObstacle(TypeObject type) {
+        return type.equals(types.get("obstacle"));
+    }
+
+    
 }
