@@ -10,7 +10,6 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.components.api.ComponetSetFactory;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 
@@ -26,8 +25,6 @@ public class GameObjectImpl implements GameObject{
         this.position = position;
         this.direction = Directions.NONE;
         this.components = new HashMap<>();
-        ComponetSetFactory setfactory;
-        //setFactory.getComponents(type).forEach(c -> components.put(c.getClass(), c));
     }
 
     @Override
