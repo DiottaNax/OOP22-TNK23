@@ -36,7 +36,7 @@ public abstract class HealthComponent extends AbstractComponent implements Notif
             GameObject obj = (GameObject) x;
             if (TypeObjectFactory.isBullet(obj.getType())) {
                 var bulletCmp = obj.getComponent(BulletComponent.class);
-                if (bulletCmp.isPresent() && weaknesses.contains(((BulletComponent) bulletCmp.get()).getSourceShooter())) {
+                if (bulletCmp.isPresent() && weaknesses.contains(((BulletComponent) bulletCmp.get()).getShooter())) {
                     health -= obj.getPower();
                 }
             }
