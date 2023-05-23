@@ -14,5 +14,4 @@ public interface Shape {
 
     boolean isColliding(Shape shape);
     
-    
 }
