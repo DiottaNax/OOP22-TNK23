@@ -1,4 +1,6 @@
-package it.unibo.tnk23.common;
+package it.unibo.tnk23.common.shape;
+
+import it.unibo.tnk23.common.Point2D;
 
 public interface Shape {
 
@@ -11,6 +13,5 @@ public interface Shape {
     void setCenter(Point2D newCenter);
 
     boolean isColliding(Shape shape);
-    
     
 }
