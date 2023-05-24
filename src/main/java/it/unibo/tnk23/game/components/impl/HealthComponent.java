@@ -13,7 +13,7 @@ import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.game.world.api.World;
 
-public abstract class HealthComponent extends AbstractComponent implements NotifiableComponent {
+public class HealthComponent extends AbstractComponent implements NotifiableComponent {
 
     private int health;
     private Set<TypeObject> weaknesses = new HashSet<>();
