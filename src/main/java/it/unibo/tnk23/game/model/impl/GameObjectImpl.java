@@ -14,11 +14,11 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 
 public class GameObjectImpl implements GameObject {
-    TypeObject type;
-    Point2D position;
-    Directions direction;
-    int power = 1;
-    Map<Class<? extends Component>, Component> components;
+    private TypeObject type;
+    private Point2D position;
+    private Directions direction;
+    private int power = 1;
+    private Map<Class<? extends Component>, Component> components;
 
     public GameObjectImpl(TypeObject type, Point2D position) {
         this.type = type;
