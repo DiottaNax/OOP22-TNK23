@@ -2,7 +2,14 @@ package it.unibo.tnk23.game.graph.api;
 
 import java.util.Set;
 
-public interface Graph<X> {
+public interface Graph<N> {
 
-    Set<X> getNodes();
+    Set<N> getNodes();
+
+    Set<N> getAdjacencies(N node);
+
+    N addNode(N node);
+
+    void removeNode(N node);
+
 }

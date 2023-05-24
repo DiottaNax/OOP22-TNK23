@@ -4,10 +4,10 @@ import java.util.List;
 
 import it.unibo.tnk23.common.Directions;
 
-public interface VisitableGraph extends Graph<VisitableGraphNode> {
+public interface VisitableGraph<N extends VisitableNode<?>> extends Graph<N> {
 
-    List<Directions> getPathFrom(VisitableGraphNode node);
+    List<Directions> getPathFrom(N node);
 
-    void setGoal(VisitableGraphNode goal);
+    void setGoal(N goal);
 
 }

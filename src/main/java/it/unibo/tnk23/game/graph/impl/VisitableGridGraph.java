@@ -1,6 +1,5 @@
 package it.unibo.tnk23.game.graph.impl;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,12 +9,13 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.game.graph.api.VisitableGraph;
-import it.unibo.tnk23.game.graph.api.VisitableGraphNode;
 
-public class VisitableGridGraph implements VisitableGraph {
+public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode> {
 
     private Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
     private Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
@@ -44,41 +44,22 @@ public class VisitableGridGraph implements VisitableGraph {
         this.addAdjacencies();
     }
 
-    public void removeNode(Pair<Integer, Integer> node) {
-        var toRemove = new VisitableGridGraphNode(node);
-        this.graphNodes.remove(toRemove);
-        this.graph.remove(toRemove);
-    }
-
-    public void addNode(Pair<Integer, Integer> node) {
-        var toAdd = new VisitableGridGraphNode(node);
-        if (!this.graphNodes.containsKey(toAdd)) {
-            this.graphNodes.put(toAdd, toAdd);
-            this.graph.put(toAdd,
-                    toAdd.getAdjacentIndexes().stream().map(VisitableGridGraphNode::new)
-                            .filter(this.graphNodes::containsKey).map(this.graphNodes::get)
-                            .collect(Collectors.toCollection(HashSet::new)));
-        }
-    }
-
     public Set<VisitableGridGraphNode> getAdiacencies(final VisitableGridGraphNode node) {
         return Set.copyOf(this.graph.get(node));
+    }
+
+    private Stream<VisitableGridGraphNode> getAdjacentNodes(VisitableGridGraphNode node){
+        return node.getNode().getAdjacentIndexes().stream().map(VisitableGridGraphNode::new)
+                .filter(this.graphNodes::containsKey).map(this.graphNodes::get);
     }
     
     private void addAdjacencies() {
         this.graph.entrySet().stream().parallel()
-                .forEach(e -> e.getValue()
-                        .addAll(e.getKey().getAdjacentIndexes().stream().map(VisitableGridGraphNode::new)
-                                .filter(this.graphNodes::containsKey).map(this.graphNodes::get).toList()));
+                .forEach(e -> e.getValue().addAll(getAdjacentNodes(e.getKey()).toList()));
     }
 
     @Override
-    public Set<VisitableGraphNode> getNodes() {
-        return Collections.unmodifiableSet(this.graph.keySet());
-    }
-
-    @Override
-    public List<Directions> getPathFrom(VisitableGraphNode node) {
+    public List<Directions> getPathFrom(VisitableGridGraphNode node) {
         var path = new LinkedList<Directions>();
         var current = this.graphNodes.get(node);
 
@@ -92,14 +73,14 @@ public class VisitableGridGraph implements VisitableGraph {
     }
 
     private Directions detectDirection(VisitableGridGraphNode current, VisitableGridGraphNode next) {
-        var c = current.getGraphIndex();
-        var n = next.getGraphIndex();
+        var c = current.getNode().getGraphIndex();
+        var n = next.getNode().getGraphIndex();
         return c.getX().equals(n.getX()) ? (c.getY() < n.getY() ? Directions.SOUTH : Directions.NORTH)
                 : (c.getX() < n.getX() ? Directions.EAST : Directions.WEST);
     }
 
     @Override
-    public void setGoal(VisitableGraphNode goal) {
+    public void setGoal(VisitableGridGraphNode goal) {
         this.graph.keySet().forEach(VisitableGridGraphNode::reset);
         var source = this.graphNodes.get(goal);
         source.setDistance(0);
@@ -116,9 +97,44 @@ public class VisitableGridGraph implements VisitableGraph {
                         n.setDirectionToParent(detectDirection(n, current));
                         q.add(n);
                     });
-            
+
             current.setVisited();
         }
+    }
+
+    @Override
+    public Set<VisitableGridGraphNode> getAdjacencies(VisitableGridGraphNode node) {
+        return this.graph.get(node);
+    }
+
+    public void removeNode(Pair<Integer, Integer> node) {
+        this.removeNode(new VisitableGridGraphNode(node));
+    }
+
+    @Override
+    public void removeNode(VisitableGridGraphNode node) {
+        this.graphNodes.remove(node);
+        this.graph.remove(node);
+    }
+
+    @Override
+    public Set<VisitableGridGraphNode> getNodes() {
+        return this.graph.keySet();
+    }
+
+    public void addNode(Pair<Integer, Integer> node) {
+        this.addNode(new VisitableGridGraphNode(node));
+    }
+
+    @Override
+    public VisitableGridGraphNode addNode(VisitableGridGraphNode node) {
+        if (!this.graphNodes.containsKey(node)) {
+            this.graphNodes.put(node, node);
+            this.graph.put(node, this.getAdjacentNodes(node).collect(Collectors.toCollection(HashSet::new)));
+            return node;
+        }
+
+        return this.graphNodes.get(node);
     }
 
 }
