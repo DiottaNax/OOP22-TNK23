@@ -11,4 +11,6 @@ public interface GameState {
     Map<Integer,Integer> getPlayerLifes();
 
     boolean isGameOver();
+
+    void update();
 }
