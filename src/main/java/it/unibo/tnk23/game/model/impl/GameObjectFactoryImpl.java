@@ -1,15 +1,12 @@
 package it.unibo.tnk23.game.model.impl;
 
-import java.util.List;
-
 import it.unibo.tnk23.common.Point2D;
-import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.HealthComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
+import it.unibo.tnk23.game.components.impl.TimeFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
-import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.world.api.World;
 
 public class GameObjectFactoryImpl implements GameObjectFactory {
@@ -23,8 +20,11 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
 
     @Override
     public GameObject getEnemy(Point2D pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEnemy'");
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
+        enemy.addComponent(new HealthComponent(enemy, world));
+        enemy.addComponent(new TimeFireComponent(enemy, world));
+        enemy.addComponent(new CollisionComponent(enemy, world));
+        return enemy;
     }
 
     @Override
