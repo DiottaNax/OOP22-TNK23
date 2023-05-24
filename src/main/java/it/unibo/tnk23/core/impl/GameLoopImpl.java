@@ -35,13 +35,13 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void update() {
+        this.engine.getGameState().update();
         this.wrld.getEntities().stream().parallel().forEach(GameObject::update);
     }
 
     @Override
     public void render() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'render'");
+        this.engine.getGameView().renderView();
     }
 
     @Override
