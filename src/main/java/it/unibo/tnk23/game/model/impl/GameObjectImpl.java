@@ -13,7 +13,7 @@ import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 
-public class GameObjectImpl implements GameObject{
+public class GameObjectImpl implements GameObject {
     TypeObject type;
     Point2D position;
     Directions direction;
@@ -83,6 +83,7 @@ public class GameObjectImpl implements GameObject{
         this.direction = direction;
     }
     
+    @Override
     public void addComponent(Component comp) {
         components.put(comp.getClass(), comp);
     }
