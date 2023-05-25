@@ -13,6 +13,7 @@ public class WorldImpl implements World {
     private Set<GameObject> entities;
     private Set<GameObject> obstacles;
     private GameObject tower;
+    private WorldEventListener weListener;
 
     public WorldImpl(final Set<GameObject> players) {
         this.players = players;
@@ -40,22 +41,19 @@ public class WorldImpl implements World {
 
     @Override
     public void setWorldEventListener(WorldEventListener weListener) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setWorldEventListener'");
+        this.weListener = weListener;
     }
 
     @Override
     public void notifyEvent(WorldEvent we) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'notifyEvent'");
+        weListener.notifyEvent(we);
     }
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        this.getEntities().stream().parallel().forEach(GameObject::update);
     }
     
-    private void addTower() {
-    }
+    /*private void addTower() {
+    }*/
 }

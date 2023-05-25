@@ -3,9 +3,7 @@ package it.unibo.tnk23.game.events.impl;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventHandler;
 import it.unibo.tnk23.game.events.api.WorldEventType;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
-import it.unibo.tnk23.game.world.api.World;
-import it.unibo.tnk23.game.world.impl.WorldImpl;
+import it.unibo.tnk23.game.model.api.World;
 
 public class WorldEventHandlerImpl implements WorldEventHandler {
 
