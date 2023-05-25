@@ -29,7 +29,7 @@ public class TypeObjectFactoryTest {
         final TypeObject enemy = TypeObjectFactory.getEnemyType();
 
         assertEquals(HEALTH, enemy.getHealth());
-        assertEquals(EDGES, enemy.getheight());
+        assertEquals(EDGES, enemy.getHeight());
         assertEquals(EDGES, enemy.getWidth());
         assertTrue(Double.compare(enemy.getSpeed(), SPEED) == 0);
     }
@@ -41,7 +41,7 @@ public class TypeObjectFactoryTest {
         final TypeObject bullet = TypeObjectFactory.getBulletType();
 
         assertEquals(HEALTH, bullet.getHealth());
-        assertEquals(EDGES, bullet.getheight());
+        assertEquals(EDGES, bullet.getHeight());
         assertEquals(EDGES, bullet.getWidth());
         assertTrue(Double.compare(bullet.getSpeed(), SPEED) == 0);
     }
@@ -53,7 +53,7 @@ public class TypeObjectFactoryTest {
         final TypeObject obstacle = TypeObjectFactory.getObstacleType();
 
         assertEquals(HEALTH, obstacle.getHealth());
-        assertEquals(EDGES, obstacle.getheight());
+        assertEquals(EDGES, obstacle.getHeight());
         assertEquals(EDGES, obstacle.getWidth());
         assertTrue(Double.compare(obstacle.getSpeed(), SPEED) == 0);        
     }
