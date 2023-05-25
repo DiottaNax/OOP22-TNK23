@@ -3,8 +3,8 @@ package it.unibo.tnk23.game.model.impl;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
-import it.unibo.tnk23.game.components.impl.HealthComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
+import it.unibo.tnk23.game.components.impl.TankHealthComponent;
 import it.unibo.tnk23.game.components.impl.TimeFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
@@ -22,7 +22,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public GameObject getEnemy(Point2D pos) {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
-        enemy.addComponent(new HealthComponent(enemy, world));
+        enemy.addComponent(new TankHealthComponent(enemy, world));
         enemy.addComponent(new TimeFireComponent(enemy, world));
         enemy.addComponent(new CollisionComponent(enemy, world));
         return enemy;
@@ -31,7 +31,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public GameObject getPlayer(Point2D pos) {
         var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
-        player.addComponent(new HealthComponent(player, world));
+        player.addComponent(new TankHealthComponent(player, world));
         player.addComponent(new PlayerFireComponent(player, world));
         player.addComponent(new CollisionComponent(player, world));
         return player;
