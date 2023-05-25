@@ -14,14 +14,11 @@ public class SceneFactoryImpl implements SceneFactory{
 
     @Override
     public Scene getGameScene(Parent root) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGameScene'");
+        return new Scene(new GameScenePane(root));
     }
 
     @Override
     public Scene getGameOverScene() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGameOverScene'");
+        return new Scene(null);
     }
-    
 }
