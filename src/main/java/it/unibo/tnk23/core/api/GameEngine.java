@@ -2,6 +2,7 @@ package it.unibo.tnk23.core.api;
 
 import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.view.api.GameView;
 
 public interface GameEngine {
     
@@ -10,4 +11,6 @@ public interface GameEngine {
     GameState getGameState();
 
     void startEngine();
+
+    GameView getGameView();
 }
