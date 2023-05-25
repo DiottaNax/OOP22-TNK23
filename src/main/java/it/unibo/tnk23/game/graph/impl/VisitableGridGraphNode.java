@@ -4,53 +4,21 @@ import java.util.Optional;
 
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
-import it.unibo.tnk23.game.graph.api.VisitableGraphNode;
+import it.unibo.tnk23.game.graph.api.AbstractVisitableNode;
+import it.unibo.tnk23.game.graph.api.VisitableNode;
 
-public class VisitableGridGraphNode extends GridGraphNode implements VisitableGraphNode {
+public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode> {
 
-    private boolean visited;
-    private Optional<VisitableGraphNode> parent;
-    private int distance;
     private Directions dirToParent;
 
     public VisitableGridGraphNode(Pair<Integer, Integer> gridPos) {
-        super(gridPos);
+        super(new GridGraphNode(gridPos));
         this.reset();
     }
 
     public VisitableGridGraphNode(GridGraphNode node) {
-        super(node.gridPos);
+        super(node);
         this.reset();
-    }
-
-    @Override
-    public boolean isVisited() {
-        return this.visited;
-    }
-
-    @Override
-    public void setVisited() {
-        this.visited = true;
-    }
-
-    @Override
-    public Optional<VisitableGraphNode> getParent() {
-        return this.parent;
-    }
-
-    @Override
-    public void setParent(VisitableGraphNode parent) {
-        this.parent = Optional.of(parent);
-    }
-
-    @Override
-    public int getDistance() {
-        return this.distance;
-    }
-
-    @Override
-    public void setDistance(int distance) {
-        this.distance = distance;
     }
 
     public Directions getDirectionToParent() {
@@ -63,10 +31,22 @@ public class VisitableGridGraphNode extends GridGraphNode implements VisitableGr
 
     @Override
     public void reset() {
-        this.visited = false;
-        this.parent = Optional.empty();
-        this.distance = -1;
+        super.reset();
         this.dirToParent = Directions.NONE;
+    }
+
+    @Override
+    public int hashCode() {
+        return 37 * super.getNode().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj.getClass().equals(this.getClass())){
+            var node = (VisitableGridGraphNode) obj;
+            return node.getNode().equals(this.getNode());
+        }
+        return false;
     }
     
 }

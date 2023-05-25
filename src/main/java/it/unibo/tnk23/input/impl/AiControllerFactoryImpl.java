@@ -12,7 +12,7 @@ import it.unibo.tnk23.input.api.InputController;
 
 public class AiControllerFactoryImpl implements AiControllerFactory{
     private final GameGraph graph;
-    private final static int UPDATE_PERIOD = Configuration.MAX_FPS * 2;
+    private final static int UPDATE_PERIOD = Configuration.FPS * 2;
     private int currentFrame = 0;
 
     public AiControllerFactoryImpl(GameGraph graph) {
