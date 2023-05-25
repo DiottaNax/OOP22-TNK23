@@ -27,6 +27,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         enemy.addComponent(new EntitiesHealthComponent(enemy, world));
         enemy.addComponent(new TimeFireComponent(enemy, world));
         enemy.addComponent(new CollisionComponent(enemy, world));
+        enemy.addComponent(new PhysicsComponent(enemy, world));
         return enemy;
     }
 
@@ -36,6 +37,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         player.addComponent(new EntitiesHealthComponent(player, world));
         player.addComponent(new PlayerFireComponent(player, world));
         player.addComponent(new CollisionComponent(player, world));
+        player.addComponent(new PhysicsComponent(player, world));
         return player;
     }
 
