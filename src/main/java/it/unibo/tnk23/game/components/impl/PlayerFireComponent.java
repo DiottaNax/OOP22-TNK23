@@ -3,7 +3,7 @@ package it.unibo.tnk23.game.components.impl;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class PlayerFireComponent extends AbstractFireComponent implements NotifiableComponent{
 

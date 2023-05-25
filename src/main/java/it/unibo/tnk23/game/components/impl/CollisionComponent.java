@@ -6,7 +6,7 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.common.shape.Shape;
 
 public class CollisionComponent extends AbstractComponent {

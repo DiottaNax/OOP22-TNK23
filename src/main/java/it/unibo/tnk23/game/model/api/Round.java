@@ -10,5 +10,7 @@ public interface Round {
 
     int getRound();
 
+    World getWorld();
+
     void update();
 }
