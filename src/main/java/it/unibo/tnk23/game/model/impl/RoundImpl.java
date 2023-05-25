@@ -11,7 +11,7 @@ import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Round;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.input.api.AiControllerFactory;
 import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
