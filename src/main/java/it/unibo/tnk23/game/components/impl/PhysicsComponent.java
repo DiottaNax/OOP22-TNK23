@@ -12,7 +12,7 @@ import it.unibo.tnk23.game.model.api.World;
 public class PhysicsComponent extends AbstractComponent implements NotifiableComponent  {
 
     private double speed;
-
+    
     public PhysicsComponent(GameObject entity, World world) {
         super(entity, world);
         var type = entity.getType();
@@ -30,6 +30,10 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
             this.entity.setDirection(null);
         }
         entity.setPosition(entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed)));
+        var rotation = entity.getDirection().getVel().getX() * (-90) + entity.getDirection().getVel().getY() * 180;
+        if (rotation != 0) {
+            this.entity.setRotation(rotation != -180 ? rotation : 0);
+        }
     }
     
     public double getSpeed() {
