@@ -17,7 +17,7 @@ public class TypeObjectFactoryTest {
         final TypeObject player = TypeObjectFactory.getPlayerType();
 
         assertEquals(HEALTH, player.getHealth());
-        assertEquals(EDGES, player.getheight());
+        assertEquals(EDGES, player.getHeight());
         assertEquals(EDGES, player.getWidth());
         assertTrue(Double.compare(player.getSpeed(), SPEED) == 0);
     }
