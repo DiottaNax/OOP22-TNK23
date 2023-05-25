@@ -31,14 +31,6 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public GameObject getPlayer(Point2D pos) {
         var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
-        /* var components = List.of(HealthComponent.class, PlayerFireComponent.class, CollisionComponent.class);
-        components.stream().forEach(c -> {
-            try{
-                player.addComponent(c.getConstructor(GameObject.class, World.class)
-                        .newInstance(player, this.world));
-            } catch(Exception e) { 
-                e.printStackTrace();
-            }}); */
         player.addComponent(new HealthComponent(player, world));
         player.addComponent(new PlayerFireComponent(player, world));
         player.addComponent(new CollisionComponent(player, world));
