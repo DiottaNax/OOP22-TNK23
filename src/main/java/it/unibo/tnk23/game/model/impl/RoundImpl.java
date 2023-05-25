@@ -32,8 +32,8 @@ public class RoundImpl implements Round{
         this.enemies = new ArrayList<>();
         this.world = world;
         this.spawn = new SpawnImpl(spawnDelay, this);
-        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE),this.world);
-        this.aiFactory = new AiControllerFactoryImpl(graph);
+        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
+        this.aiFactory = new AiControllerFactoryImpl(graph, this.world);
         fillEnemiesList();
         setDelay();
     }
@@ -84,7 +84,7 @@ public class RoundImpl implements Round{
         }
 
         addEnemies(numEnemies1, this::generateRandomMovingEnemies);
-        addEnemies(numEnemies2, this::generateFollowStillTargetEnemies);
+        addEnemies(numEnemies2, this::generateFollowTowerEnemies);
         addEnemies(numEnemies3, this::generateFollowMovingTargetEnemies);
     }
 
@@ -108,15 +108,15 @@ public class RoundImpl implements Round{
         return enemy;
     }
 
-    private GameObject generateFollowStillTargetEnemies() {
+    private GameObject generateFollowTowerEnemies() {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowStillTargetAi(null)));
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
         return enemy;
     }
 
     private GameObject generateFollowMovingTargetEnemies() {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowMovingTargetAi(null)));
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
         return enemy;
     }
 
