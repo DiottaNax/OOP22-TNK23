@@ -51,10 +51,9 @@ public class WorldImpl implements World {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        this.getEntities().stream().parallel().forEach(GameObject::update);
     }
     
-    private void addTower() {
-    }
+    /*private void addTower() {
+    }*/
 }
