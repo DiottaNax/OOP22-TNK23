@@ -4,7 +4,7 @@ import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class TemporaryHealthComponent extends AbstractComponent {
 
