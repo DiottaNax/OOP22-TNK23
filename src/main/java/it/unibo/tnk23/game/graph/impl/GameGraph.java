@@ -15,7 +15,7 @@ import it.unibo.tnk23.game.world.api.World;
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
     private final static int PRECISION = 2;
-    private final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+    public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
     private final World world;
     private List<GameObject> obstacles;
 
