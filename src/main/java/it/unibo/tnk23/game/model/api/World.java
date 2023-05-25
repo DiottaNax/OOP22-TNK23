@@ -1,10 +1,9 @@
-package it.unibo.tnk23.game.world.api;
+package it.unibo.tnk23.game.model.api;
 
-import java.util.*;
+import java.util.Set;
 
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventListener;
-import it.unibo.tnk23.game.model.api.GameObject;
 
 public interface World {
     

@@ -1,13 +1,14 @@
 package it.unibo.tnk23.game.model.impl;
 
 import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.HealthComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
 import it.unibo.tnk23.game.components.impl.TimeFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class GameObjectFactoryImpl implements GameObjectFactory {
 
@@ -46,8 +47,70 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
 
     @Override
     public GameObject getBullet(Point2D pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBullet'");
+        var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
+        bullet.addComponent(new HealthComponent(bullet, world));
+        bullet.addComponent(new CollisionComponent(bullet, world));
+        bullet.addComponent(new BulletComponent(bullet, world));
+        return bullet;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
 
     @Override

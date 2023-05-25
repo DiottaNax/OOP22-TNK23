@@ -12,7 +12,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.model.impl.GameObjectImpl;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public abstract class AbstractFireComponent extends AbstractComponent implements NotifiableComponent{
     
