@@ -4,7 +4,7 @@ public interface TypeObject {
 
     long getWidth();
 
-    long getheight();
+    long getHeight();
 
     double getSpeed();
 
