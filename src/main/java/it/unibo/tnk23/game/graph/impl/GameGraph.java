@@ -44,7 +44,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
     
     private void performToGraph(GameObject obst, Consumer<Pair<Integer, Integer>> action) {
-        final var obstH = Math.round(obst.getType().getheight() * Configuration.SCALE_FACTOR);
+        final var obstH = Math.round(obst.getType().getHeight() * Configuration.SCALE_FACTOR);
         final var obstW = Math.round(obst.getType().getWidth() * Configuration.SCALE_FACTOR);
         final int xTiles = obstW / GRAPH_TILE_SIZE;
         final int yTiles = obstH / GRAPH_TILE_SIZE;
