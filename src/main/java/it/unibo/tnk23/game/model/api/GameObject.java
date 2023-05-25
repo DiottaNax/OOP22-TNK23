@@ -16,7 +16,7 @@ public interface GameObject {
 
     TypeObject getType();
 
-    <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc);
+    <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc);
 
     Point2D getPosition();
 
@@ -29,6 +29,8 @@ public interface GameObject {
     int getPower();
 
     void setPower(int power);
+    
+    void addComponent(Component comp);
     
     Optional<? extends Component> getComponent(Class<? extends Component> compClass);
 }

@@ -10,24 +10,21 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.components.api.ComponetSetFactory;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 
-public class GameObjectImpl implements GameObject{
-    TypeObject type;
-    Point2D position;
-    Directions direction;
-    int power = 1;
-    Map<Class<? extends Component>, Component> components;
+public class GameObjectImpl implements GameObject {
+    private TypeObject type;
+    private Point2D position;
+    private Directions direction;
+    private int power = 1;
+    private Map<Class<? extends Component>, Component> components;
 
     public GameObjectImpl(TypeObject type, Point2D position) {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
         this.components = new HashMap<>();
-        ComponetSetFactory setfactory;
-        //setFactory.getComponents(type).forEach(c -> components.put(c.getClass(), c));
     }
 
     @Override
@@ -46,8 +43,10 @@ public class GameObjectImpl implements GameObject{
     }
 
     @Override
-    public <X> void notifyComponents(Message<X> message, Class<NotifiableComponent> nc) {
-        ((NotifiableComponent) components.get(nc)).receive(message);
+    public <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc) {
+        if (components.containsKey(nc)) {
+            ((NotifiableComponent) components.get(nc)).receive(message);   
+        }
     }
     
     public Point2D getPosition() {
@@ -83,4 +82,10 @@ public class GameObjectImpl implements GameObject{
     public void setDirection(Directions direction) {
         this.direction = direction;
     }
+    
+    @Override
+    public void addComponent(Component comp) {
+        components.put(comp.getClass(), comp);
+    }
+    
 }

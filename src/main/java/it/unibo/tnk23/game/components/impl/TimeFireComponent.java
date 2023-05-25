@@ -1,7 +1,7 @@
 package it.unibo.tnk23.game.components.impl;
 
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class TimeFireComponent extends AbstractFireComponent{
 
@@ -17,7 +17,7 @@ public class TimeFireComponent extends AbstractFireComponent{
     }
 
     @Override
-    protected boolean canSpawn() {
+    protected boolean canShoot() {
         if((currentTime-lastTime) <= firePeriod) {
             currentTime = (System.currentTimeMillis() - lastTime);
             return false;

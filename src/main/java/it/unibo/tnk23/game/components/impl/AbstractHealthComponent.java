@@ -10,14 +10,14 @@ import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
-public abstract class HealthComponent extends AbstractComponent implements NotifiableComponent {
+public abstract class AbstractHealthComponent extends AbstractComponent implements NotifiableComponent {
 
-    private int health;
-    private Set<TypeObject> weaknesses = new HashSet<>();
+    protected int health;
+    protected Set<TypeObject> weaknesses = new HashSet<>();
 
-    public HealthComponent(GameObject entity, World world) {
+    public AbstractHealthComponent(GameObject entity, World world) {
         super(entity, world);
         this.health = (int) entity.getType().getHealth();
     }
@@ -31,12 +31,12 @@ public abstract class HealthComponent extends AbstractComponent implements Notif
 
     @Override
     public <X> void receive(Message<X> x) {
-        if (x instanceof GameObject) {
+        if ((isTouchable()) && (x instanceof GameObject)) {
             GameObject obj = (GameObject) x;
-            if (weaknesses.contains(obj.getType())) {
-                health -= obj.getPower();
-            }
+            health -= obj.getPower();
         }
     }
+    
+    protected abstract boolean isTouchable();
     
 }

@@ -6,15 +6,16 @@ import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class BulletComponent extends AbstractComponent implements NotifiableComponent {
 
-    private static TypeObject typeSourceObject;
+    private static TypeObject shooterType;
 
 
     public BulletComponent(final GameObject entity, final World world) {
         super(entity, world);
+        shooterType = TypeObjectFactory.getBulletType();
     }
 
     @Override
@@ -26,21 +27,16 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
         if(x instanceof GameObject) {
             GameObject obj = (GameObject) x;
             TypeObject typeObj = obj.getType();
-            if(typeObj.toString() == "player") {
-                typeSourceObject = typeObj;
-            } else if (typeObj.toString() == "enemy") {
-                typeSourceObject = typeObj;
+            if(typeObj == TypeObjectFactory.getPlayerType()) {
+                shooterType = typeObj;
+            } else if (typeObj == TypeObjectFactory.getEnemyType()) {
+                shooterType = typeObj;
             }
         }
     }
 
-    public TypeObject getSourceShooter() {
-        if (typeSourceObject.toString() == "player") {
-            return typeSourceObject;
-        } else if (typeSourceObject.toString() == "enemy") {
-            return typeSourceObject;
-        }
-        return TypeObjectFactory.getBulletType();
+    public TypeObject getShooter() {
+        return shooterType;
     }
 
 }
