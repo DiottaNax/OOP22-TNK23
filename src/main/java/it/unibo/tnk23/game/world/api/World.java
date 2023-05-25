@@ -8,11 +8,13 @@ import it.unibo.tnk23.game.model.api.GameObject;
 
 public interface World {
     
-    List<GameObject> getPlayers();
+    Set<GameObject> getPlayers();
 
-    List<GameObject> getEntities();
+    Set<GameObject> getEntities();
 
-    List<GameObject> getObstacles();
+    Set<GameObject> getObstacles();
+    
+    GameObject getTower();
 
     void setWorldEventListener(WorldEventListener weListener);
 
