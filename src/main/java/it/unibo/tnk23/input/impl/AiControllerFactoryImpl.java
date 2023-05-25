@@ -5,18 +5,21 @@ import java.util.stream.Stream;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
-import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.input.api.AiControllerFactory;
 import it.unibo.tnk23.input.api.InputController;
 
 public class AiControllerFactoryImpl implements AiControllerFactory{
     private final GameGraph graph;
+    private final World world;
     private final static int UPDATE_PERIOD = Configuration.FPS * 2;
     private int currentFrame = 0;
 
-    public AiControllerFactoryImpl(GameGraph graph) {
+    public AiControllerFactoryImpl(final GameGraph graph, final World world) {
         this.graph = graph;
+        this.graph.setWorld(world);
+        this.world = world;
     }
 
     @Override
@@ -25,10 +28,14 @@ public class AiControllerFactoryImpl implements AiControllerFactory{
         return () -> iterator.next();       
     }
 
-    @Override
-    public InputController getFollowStillTargetAi(GameObject target) {
+    private InputController getFollowStillTargetAi(GameObject target) {
         var iterator = this.graph.getPathFrom(target.getPosition()).iterator();
         return () -> iterator.hasNext() ? iterator.next() : Directions.NONE;
+    }
+
+    @Override
+    public InputController getFollowTowerAi() {
+        return this.getFollowStillTargetAi(this.world.getTower());
     }
 
     private InputController getUpdatedFollowTargetAi(InputController ai, final GameObject target) {
@@ -46,7 +53,5 @@ public class AiControllerFactoryImpl implements AiControllerFactory{
         return () -> (currentFrame++ < UPDATE_PERIOD) ? ai.getDirection()
                 : getUpdatedFollowTargetAi(ai, target).getDirection();
     }
-
-
     
 }

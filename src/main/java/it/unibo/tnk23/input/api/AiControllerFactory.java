@@ -15,13 +15,11 @@ public interface AiControllerFactory {
 
 
     /**
-     * A method that returns an {@link InputController} that generates the exact {@link Directions}
-     * to reach a {@link GameObject} target.
-     * 
-     * @param target the {@link GameObject} to reach
+     * A method that returns an {@link InputController} that generates the exact path of {@link Directions}
+     * to reach a the Tower returned by {@link World}
      * @return an {@link InputController}
      */
-    InputController getFollowStillTargetAi(GameObject target);
+    InputController getFollowTowerAi();
 
     /**
      * A method that returns an {@link InputController} that generates the exact {@link Directions}

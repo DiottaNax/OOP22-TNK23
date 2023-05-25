@@ -10,19 +10,22 @@ import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.graph.api.VisitableGraphDecorator;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
     private final static int PRECISION = 2;
-    private final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
-    private final World world;
+    public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+    private World world;
     private List<GameObject> obstacles;
 
-    public GameGraph(VisitableGridGraph toDecorate, World world) {
+    public GameGraph(VisitableGridGraph toDecorate) {
         super(toDecorate);
         this.graph = toDecorate;
         this.obstacles = new ArrayList<>();
+    }
+
+    public void setWorld(final World world) {
         this.world = world;
     }
 
@@ -63,7 +66,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
 
     public void update() {
-        var worldObstacles = this.world.getObstacles();
+        var worldObstacles = world.getObstacles();
         worldObstacles.stream().filter(o -> !obstacles.contains(o)).forEach(o -> {
             this.addObstacleToGraph(o);
             this.obstacles.add(o);
