@@ -56,14 +56,19 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
 
     @Override
     public GameObject getWall(Point2D pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWall'");
+        var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        wall.addComponent(new PhysicsComponent(wall, world));
+        wall.addComponent(new CollisionComponent(wall, world));
+        return wall;
     }
 
     @Override
     public GameObject getDestroyableWall(Point2D pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDestroyableWall'");
+        var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        destroyableWall.addComponent(new PhysicsComponent(destroyableWall, world));
+        destroyableWall.addComponent(new CollisionComponent(destroyableWall, world));
+        destroyableWall.addComponent(new HealthComponent(destroyableWall, world));
+        return destroyableWall;
     }
     
 }
