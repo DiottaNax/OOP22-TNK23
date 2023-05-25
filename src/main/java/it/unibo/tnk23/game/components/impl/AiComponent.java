@@ -2,7 +2,6 @@ package it.unibo.tnk23.game.components.impl;
 
 import java.util.Optional;
 
-import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
@@ -17,6 +16,7 @@ public class AiComponent implements Component {
 
     private int currentFrame;
     private Optional<Point2D> lastPos = Optional.empty();
+    private int travelled;
 
     public AiComponent(GameObject entity, InputController ai, int updatePeriod) {
         this.entity = entity;
@@ -34,15 +34,17 @@ public class AiComponent implements Component {
         if (lastPos.isPresent()) {
             var last = this.lastPos.get();
             var current = this.entity.getPosition();
-            var travelled = Math
+            this.travelled += Math
                     .abs(current.getX() == last.getX() ? current.getY() - last.getY() : current.getX() - last.getX());
             if (travelled >= GameGraph.GRAPH_TILE_SIZE) {
                 this.lastPos = Optional.of(entity.getPosition());
+                this.travelled = 0;
                 return true;
             }
         }
 
         if (currentFrame >= updatePeriod) {
+            this.travelled = 0;
             return true;
         }
 
