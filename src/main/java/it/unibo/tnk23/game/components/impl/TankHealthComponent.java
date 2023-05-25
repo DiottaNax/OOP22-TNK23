@@ -7,7 +7,6 @@ import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 
 public class TankHealthComponent extends AbstractHealthComponent {
-;
     private final int coolDown = Configuration.FPS * 2;  //equals to 2 seconds
     private int currentFrame;
     private boolean isTouchable;
