@@ -32,7 +32,10 @@ public class CollisionComponent extends AbstractComponent {
                         .isCollidingWith((Shape) hitbox))
                 .toList();
 
-        collidedList.forEach(e -> e.notifyComponents(() -> e, HealthComponent.class));
+        collidedList.forEach(e -> {
+            e.notifyComponents(() -> e, TankHealthComponent.class);
+            e.notifyComponents(() -> e, BulletHealthComponent.class);
+        });
         collidedList.forEach(e -> e.notifyComponents(() -> e, PhysicsComponent.class));
         this.hitbox.setCenter(findCenter(entity.getType().getWidth(),entity.getType().getHeight()));
     }
