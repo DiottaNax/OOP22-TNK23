@@ -10,7 +10,7 @@ import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.graph.api.VisitableGraphDecorator;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
