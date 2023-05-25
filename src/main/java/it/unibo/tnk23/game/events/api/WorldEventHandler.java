@@ -4,6 +4,6 @@ import it.unibo.tnk23.game.model.api.World;
 
 public interface WorldEventHandler {
     
-    void handle(WorldEvent we, World world);
+    void handle(WorldEvent we);
     
 }

@@ -7,8 +7,14 @@ import it.unibo.tnk23.game.model.api.World;
 
 public class WorldEventHandlerImpl implements WorldEventHandler {
 
+    private final World world;
+
+    public WorldEventHandlerImpl(final World world) {
+        this.world = world;
+    }
+
     @Override
-    public void handle(WorldEvent we, World world) {
+    public void handle(WorldEvent we) {
         WorldEventType type = we.getType();
         switch (type) {
             case DEATH_EVENT:
