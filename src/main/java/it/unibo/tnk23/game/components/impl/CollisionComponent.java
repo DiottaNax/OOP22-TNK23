@@ -33,7 +33,7 @@ public class CollisionComponent extends AbstractComponent {
                 .toList();
 
         collidedList.forEach(e -> {
-            e.notifyComponents(() -> e, TankHealthComponent.class);
+            e.notifyComponents(() -> e, EntitiesHealthComponent.class);
             e.notifyComponents(() -> e, BulletHealthComponent.class);
         });
         collidedList.forEach(e -> e.notifyComponents(() -> e, PhysicsComponent.class));
