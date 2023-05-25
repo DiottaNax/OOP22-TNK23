@@ -2,7 +2,8 @@ package it.unibo.tnk23.core.impl;
 
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.game.model.api.GameState;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.view.api.GameView;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -29,6 +30,12 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void startEngine() {
         this.loop.runGameLoop();
+    }
+
+    @Override
+    public GameView getGameView() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

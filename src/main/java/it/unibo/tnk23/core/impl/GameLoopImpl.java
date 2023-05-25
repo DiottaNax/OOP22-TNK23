@@ -8,7 +8,7 @@ import it.unibo.tnk23.core.api.GameLoop;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventHandler;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.world.api.World;
+import it.unibo.tnk23.game.model.api.World;
 
 public class GameLoopImpl implements GameLoop {
     private final GameEngine engine;
@@ -36,7 +36,7 @@ public class GameLoopImpl implements GameLoop {
     @Override
     public void update() {
         this.engine.getGameState().update();
-        this.wrld.getEntities().stream().parallel().forEach(GameObject::update);
+        this.wrld.update();
     }
 
     @Override
