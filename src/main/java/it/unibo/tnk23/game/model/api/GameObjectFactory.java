@@ -13,4 +13,6 @@ public interface GameObjectFactory {
     GameObject getWall(Point2D pos);
 
     GameObject getDestroyableWall(Point2D pos);
+    
+    GameObject getTower(Point2D pos);
 }

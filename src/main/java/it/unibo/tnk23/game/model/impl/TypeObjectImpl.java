@@ -22,7 +22,7 @@ public final class TypeObjectImpl implements TypeObject {
     }
 
     @Override
-    public long getheight() {
+    public long getHeight() {
         return this.height;
     }
 
