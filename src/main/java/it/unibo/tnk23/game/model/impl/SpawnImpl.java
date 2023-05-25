@@ -10,30 +10,28 @@ import java.util.TimerTask;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.Spawn;
-import it.unibo.tnk23.game.world.api.World;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 
 public class SpawnImpl implements Spawn{
 
-    private RoundImpl roundImpl;
+    private Round round;
     private Iterator<GameObject> enemiesIterator;
     private List<GameObject> activeEnemies;
     private Point2D pos;
     private final long delay;
-    private final World world;
 
     private final Timer timer = new Timer();
     private final Random random = new Random();
 
 
-    public SpawnImpl(final long delay, final World world) {
+    public SpawnImpl(final long delay, final Round round) {
         this.delay = delay;
-        this.world = world;
-        roundImpl = new RoundImpl(world);
+        this.round = round;
         activeEnemies = new ArrayList<>();
-        enemiesIterator = roundImpl.getEnemies().iterator();
+        enemiesIterator = round.getEnemies().iterator();
     }
 
     @Override
@@ -46,7 +44,7 @@ public class SpawnImpl implements Spawn{
         if (!enemiesIterator.hasNext()) {
             timer.cancel();
         }
-        roundImpl.getEnemies().removeAll(getDiedEnemies());
+        round.getEnemies().removeAll(getDiedEnemies());
     }
 
     @Override
@@ -61,7 +59,7 @@ public class SpawnImpl implements Spawn{
             public void run() {
                 if (enemiesIterator.hasNext()) {
                     activeEnemies.add(enemiesIterator.next());
-                    world.notifyEvent(new WorldEventImpl(generatePos(), activeEnemies.get(activeEnemies.size() - 1),
+                    round.getWorld().notifyEvent(new WorldEventImpl(generatePos(), activeEnemies.get(activeEnemies.size() - 1),
                             WorldEventType.SPAWN_EVENT));
                 }
             }
@@ -83,7 +81,7 @@ public class SpawnImpl implements Spawn{
     }
 
     private List<GameObject> getDiedEnemies() {
-        var worldEnemies = world.getEntities();
+        var worldEnemies = round.getWorld().getEntities();
         return activeEnemies.stream().filter(e -> !worldEnemies.contains(e)).toList(); //Mi da i nemici attiva che non sono più nel mondo 
     }
     

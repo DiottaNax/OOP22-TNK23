@@ -22,15 +22,17 @@ public class RoundImpl implements Round{
     private List<GameObject> enemies;
     private int round;
     private Long spawnDelay;
+    private World world;
     private final SpawnImpl spawn;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
 
     public RoundImpl(final World world) {
-        round = 1;
-        enemies = new ArrayList<>();
-        spawn = new SpawnImpl(spawnDelay, world);
-        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE),world);
+        this.round = 1;
+        this.enemies = new ArrayList<>();
+        this.world = world;
+        this.spawn = new SpawnImpl(spawnDelay, this);
+        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE),this.world);
         this.aiFactory = new AiControllerFactoryImpl(graph);
         fillEnemiesList();
         setDelay();
@@ -49,6 +51,11 @@ public class RoundImpl implements Round{
     @Override
     public int getRound() {
         return this.round;
+    }
+
+    @Override
+    public World getWorld() {
+        return this.world;
     }
 
     @Override
