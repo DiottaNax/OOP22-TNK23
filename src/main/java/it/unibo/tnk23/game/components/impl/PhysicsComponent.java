@@ -16,7 +16,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     public PhysicsComponent(GameObject entity, World world) {
         super(entity, world);
         var type = entity.getType();
-        var speed = (Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
+        this.speed = (Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
     }
 
     @Override
