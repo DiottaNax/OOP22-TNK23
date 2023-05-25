@@ -4,6 +4,7 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.HealthComponent;
+import it.unibo.tnk23.game.components.impl.PhysicsComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
 import it.unibo.tnk23.game.components.impl.TimeFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -51,6 +52,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         bullet.addComponent(new HealthComponent(bullet, world));
         bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
+        bullet.addComponent(new PhysicsComponent(bullet, world));
         return bullet;
     }
 
@@ -64,6 +66,15 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObject getDestroyableWall(Point2D pos) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDestroyableWall'");
+    }
+
+    @Override
+    public GameObject getTower(Point2D pos) {
+        var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        twr.addComponent(new HealthComponent(twr, world));
+        twr.addComponent(new CollisionComponent(twr, world));
+        twr.addComponent(new PhysicsComponent(twr, world));
+        return twr;
     }
     
 }
