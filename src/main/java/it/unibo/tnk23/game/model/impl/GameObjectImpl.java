@@ -14,10 +14,12 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 
 public class GameObjectImpl implements GameObject {
+
     private TypeObject type;
     private Point2D position;
     private Directions direction;
     private int power = 1;
+    private double rotation;
     private Map<Class<? extends Component>, Component> components;
 
     public GameObjectImpl(TypeObject type, Point2D position) {
@@ -86,6 +88,16 @@ public class GameObjectImpl implements GameObject {
     @Override
     public void addComponent(Component comp) {
         components.put(comp.getClass(), comp);
+    }
+
+    @Override
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
+
+    @Override
+    public double getRotation() {
+        return this.rotation;
     }
     
 }

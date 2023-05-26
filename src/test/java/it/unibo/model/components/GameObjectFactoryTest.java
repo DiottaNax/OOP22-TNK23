@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
-import it.unibo.tnk23.game.components.impl.HealthComponent;
+import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
@@ -19,7 +19,7 @@ public class GameObjectFactoryTest {
 
     @Test
     public void testGetPlayer() {
-        var expectedComponentsClass = List.of(HealthComponent.class, PlayerFireComponent.class,
+        var expectedComponentsClass = List.of(EntitiesHealthComponent.class, PlayerFireComponent.class,
                 CollisionComponent.class);
         var player = this.factory.getPlayer(null);
         assertEquals(3, player.getComponents().count());

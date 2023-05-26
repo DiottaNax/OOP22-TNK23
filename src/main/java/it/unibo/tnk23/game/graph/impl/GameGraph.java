@@ -16,13 +16,16 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
     private final static int PRECISION = 2;
     public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
-    private final World world;
+    private World world;
     private List<GameObject> obstacles;
 
-    public GameGraph(VisitableGridGraph toDecorate, World world) {
+    public GameGraph(VisitableGridGraph toDecorate) {
         super(toDecorate);
         this.graph = toDecorate;
         this.obstacles = new ArrayList<>();
+    }
+
+    public void setWorld(final World world) {
         this.world = world;
     }
 
@@ -41,7 +44,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
     
     private void performToGraph(GameObject obst, Consumer<Pair<Integer, Integer>> action) {
-        final var obstH = Math.round(obst.getType().getheight() * Configuration.SCALE_FACTOR);
+        final var obstH = Math.round(obst.getType().getHeight() * Configuration.SCALE_FACTOR);
         final var obstW = Math.round(obst.getType().getWidth() * Configuration.SCALE_FACTOR);
         final int xTiles = obstW / GRAPH_TILE_SIZE;
         final int yTiles = obstH / GRAPH_TILE_SIZE;
@@ -63,7 +66,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
 
     public void update() {
-        var worldObstacles = this.world.getObstacles();
+        var worldObstacles = world.getObstacles();
         worldObstacles.stream().filter(o -> !obstacles.contains(o)).forEach(o -> {
             this.addObstacleToGraph(o);
             this.obstacles.add(o);
