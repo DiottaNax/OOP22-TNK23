@@ -1,10 +1,9 @@
 package it.unibo.tnk23.view.api;
 
-import java.lang.Runnable;
-import javafx.scene.Parent;
+public interface RenderingEngine<X> {
 
-public interface RenderingEngine extends Runnable {
+    X getGamePane();
 
-    Parent getGameSceneRoot();
+    void render();
     
 }
