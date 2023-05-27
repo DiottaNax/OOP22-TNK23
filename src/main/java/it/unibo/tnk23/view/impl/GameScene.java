@@ -18,13 +18,19 @@ public class GameScene extends Scene {
     private double height;
     private double width;
 
-    public GameScene(BorderPane root) throws IOException{
+    public GameScene(BorderPane root) {
         super(root);
         this.root = root;
-        AnchorPane playerInfoRoot = new FXMLLoader().load(
-                ClassLoader.getSystemResourceAsStream("OOP22-TNK23/src/main/resources/it/unibo/style/playerInfo.fxml"));
-        AnchorPane roundInfoRoot = new FXMLLoader().load(
-                ClassLoader.getSystemResourceAsStream("OOP22-TNK23/src/main/resources/it/unibo/style/roundInfo.fxml"));
+        AnchorPane playerInfoRoot = new AnchorPane();
+        AnchorPane roundInfoRoot = new AnchorPane();
+        try {
+            playerInfoRoot = new FXMLLoader()
+                    .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerIfo.xml"));
+            roundInfoRoot = new FXMLLoader()
+                    .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/roundInfo.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.setDimention();
         SubScene playerInfoMenu = new SubScene(playerInfoRoot, this.width, this.height);
         SubScene roundInfoMenu = new SubScene(roundInfoRoot, this.width, this.height);
