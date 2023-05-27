@@ -1,13 +1,13 @@
 package it.unibo.tnk23.view.api;
 
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 
 public interface SceneFactory {
     
     Scene getMenuScene();
 
-    Scene getGameScene(Parent root);
+    Scene getGameScene(Pane gamePane);
 
     Scene getGameOverScene();
 }
