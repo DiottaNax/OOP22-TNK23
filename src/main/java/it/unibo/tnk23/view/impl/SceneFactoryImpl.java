@@ -9,8 +9,7 @@ public class SceneFactoryImpl implements SceneFactory{
 
     @Override
     public Scene getMenuScene() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMenuScene'");
+        return new Scene(null);
     }
 
     @Override
