@@ -21,14 +21,16 @@ public class GameScene extends Scene {
     public GameScene(BorderPane root) {
         super(root);
         this.root = root;
-        AnchorPane playerInfoRoot = new AnchorPane();
-        AnchorPane roundInfoRoot = new AnchorPane();
+        AnchorPane playerInfoRoot;
+        AnchorPane roundInfoRoot;
         try {
             playerInfoRoot = new FXMLLoader()
                     .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerIfo.xml"));
             roundInfoRoot = new FXMLLoader()
                     .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/roundInfo.fxml"));
         } catch (IOException e) {
+            playerInfoRoot = new AnchorPane();
+            roundInfoRoot = new AnchorPane();
             e.printStackTrace();
         }
         this.setDimention();
