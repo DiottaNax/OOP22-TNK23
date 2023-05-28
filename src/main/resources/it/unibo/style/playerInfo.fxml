@@ -1,44 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="66.0" layoutY="45.0" prefHeight="648.0" prefWidth="149.0">
+      <VBox layoutX="65.0" layoutY="58.0" prefHeight="648.0" prefWidth="150.0">
          <children>
-            <Label prefHeight="22.0" prefWidth="149.0" />
-            <Label alignment="CENTER" prefHeight="34.0" prefWidth="149.0" text="Player 1:">
+            <Label alignment="CENTER" prefHeight="22.0" prefWidth="149.0" text="Players life">
                <font>
-                  <Font size="20.0" />
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <Label prefHeight="34.0" prefWidth="150.0" />
+            <Label fx:id="player1" alignment="CENTER" prefHeight="48.0" prefWidth="149.0" text="Player 1:">
+               <font>
+                  <Font size="15.0" />
                </font>
             </Label>
-            <Label prefHeight="132.0" prefWidth="152.0" />
-            <Label alignment="CENTER" prefHeight="34.0" prefWidth="149.0" text="Player 2:">
+            <Label prefHeight="70.0" prefWidth="150.0" />
+            <Label fx:id="player2" alignment="CENTER" prefHeight="48.0" prefWidth="149.0" text="Player 2:">
                <font>
-                  <Font size="20.0" />
+                  <Font size="15.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <Label alignment="CENTER" layoutX="211.0" layoutY="60.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
+      <Label fx:id="player1Life" alignment="CENTER" layoutX="211.0" layoutY="114.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="60.0" prefHeight="48.0" prefWidth="48.0" text="Image" />
-      <Label alignment="CENTER" layoutX="7.0" layoutY="6.0" prefHeight="31.0" prefWidth="264.0" text="Player Infromation" textFill="#f567ff">
+      <Label alignment="CENTER" layoutX="8.0" layoutY="14.0" prefHeight="27.0" prefWidth="264.0" text="Player Infromation" textFill="#f567ff">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="31.0" layoutY="227.0" prefHeight="48.0" prefWidth="48.0" text="Image" />
-      <Label alignment="CENTER" layoutX="211.0" layoutY="227.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
+      <Label fx:id="player2Life" alignment="CENTER" layoutX="211.0" layoutY="233.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Label>
+      <ImageView fx:id="player2Image" fitHeight="48.0" fitWidth="48.0" layoutX="41.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="player1Image" fitHeight="48.0" fitWidth="48.0" layoutX="41.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
