@@ -10,6 +10,7 @@ public class GameStateImpl implements GameState {
 
     private World world;
     private Round round;
+    private boolean isGameOver;
     
     public GameStateImpl(final World world) {
         this.world = world;
@@ -34,13 +35,14 @@ public class GameStateImpl implements GameState {
 
     @Override
     public boolean isGameOver() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isGameOver'");
+        return isGameOver;
     }
 
     @Override
     public void update() {
+        var entites = this.world.getEntities();
         this.round.update();
+        isGameOver = this.world.getPlayers().stream().noneMatch(entites::contains);
     }
 
     
