@@ -23,7 +23,7 @@ public class GameScene extends Scene {
     public GameScene(BorderPane root, final GameView gameView) {
         super(root);
         this.root = root;
-        this.sideController = new SideScenesControllerImpl(/*this.gameView.getGameEngine.getGameState.getRound*/null);
+        this.sideController = new SideScenesControllerImpl(gameView.getGameEngine().getGameState().getRound());
         AnchorPane playerInfoRoot;
         AnchorPane roundInfoRoot;
         try {
