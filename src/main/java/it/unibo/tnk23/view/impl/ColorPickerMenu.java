@@ -44,8 +44,8 @@ public class ColorPickerMenu extends Scene implements Initializable {
     }
 
     public void confirm(ActionEvent event) {
-        LateralScenesControllerImpl sceneController = new LateralScenesControllerImpl();
-        String url = "resources/sprites/" + myColor + "Player.gif";
+        SideScenesControllerImpl sceneController = new SideScenesControllerImpl();
+        String url = "resources/it/unibo/sprites/" + myColor + "Player.gif";
         sceneController.setPlayerColor(url);
         view.setMenuScene();
     }
