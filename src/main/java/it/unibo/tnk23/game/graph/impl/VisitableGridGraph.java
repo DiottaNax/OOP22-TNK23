@@ -20,6 +20,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
     private Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
     private Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
     private int gridSize;
+    private VisitableGridGraphNode goal = new VisitableGridGraphNode(new Pair<>(-1, -1));
 
     public VisitableGridGraph(int gridSize) {
         this.gridSize = gridSize;
@@ -81,24 +82,27 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
 
     @Override
     public void setGoal(VisitableGridGraphNode goal) {
-        this.graph.keySet().forEach(VisitableGridGraphNode::reset);
-        var source = this.graphNodes.get(goal);
-        source.setDistance(0);
-        Queue<VisitableGridGraphNode> q = new LinkedList<>();
-        q.add(source);
-        while (q.size() != 0) {
-            var current = q.poll();
+        if (!this.goal.equals(goal)) {
+            //here starts bfs
+            this.graph.keySet().forEach(VisitableGridGraphNode::reset);
+            var source = this.graphNodes.get(goal);
+            source.setDistance(0);
+            Queue<VisitableGridGraphNode> q = new LinkedList<>();
+            q.add(source);
+            while (q.size() != 0) {
+                var current = q.poll();
 
-            this.graph.get(current).stream()
-                    .filter(n -> !n.isVisited())
-                    .forEach(n -> {
-                        n.setDistance(current.getDistance() + 1);
-                        n.setParent(current);
-                        n.setDirectionToParent(detectDirection(n, current));
-                        q.add(n);
-                    });
+                this.graph.get(current).stream()
+                        .filter(n -> !n.isVisited())
+                        .forEach(n -> {
+                            n.setDistance(current.getDistance() + 1);
+                            n.setParent(current);
+                            n.setDirectionToParent(detectDirection(n, current));
+                            q.add(n);
+                        });
 
-            current.setVisited();
+                current.setVisited();
+            }
         }
     }
 
