@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.view.api.GameView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -19,10 +20,10 @@ public class GameScene extends Scene {
     private double width;
     private SideScenesControllerImpl sideController;
 
-    public GameScene(BorderPane root, final FxGameView gameView) {
+    public GameScene(BorderPane root, final GameView gameView) {
         super(root);
         this.root = root;
-        this.sideController = new SideScenesControllerImpl(/*this.gameView.getGameEngine*/null);
+        this.sideController = new SideScenesControllerImpl(/*this.gameView.getGameEngine.getGameState.getRound*/null);
         AnchorPane playerInfoRoot;
         AnchorPane roundInfoRoot;
         try {
