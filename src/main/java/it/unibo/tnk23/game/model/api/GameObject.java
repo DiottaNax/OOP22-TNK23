@@ -32,7 +32,7 @@ public interface GameObject {
     
     void addComponent(Component comp);
     
-    Optional<? extends Component> getComponent(Class<? extends Component> compClass);
+    <C extends Component> Optional<C> getComponent(Class<C> compClass);
 
     void setRotation(double rotation);
 
