@@ -87,6 +87,7 @@ public class SideScenesControllerImpl implements SideScenesController {
     }
     
     /*Funzione da chiamare nel render per aggiornare il counter di nemici*/
+    @Override
     public void updateLabels() {
         missingEnemiesLabel.setText("x " + this.round.getEnemies().size());
         player1Life.setText("x " + /*player.getLife()*/null);

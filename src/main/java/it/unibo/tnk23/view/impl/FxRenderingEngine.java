@@ -5,7 +5,9 @@ import java.util.Map;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.RenderingEngine;
+import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -15,14 +17,15 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     private Pane root;
     private final Map<GameObject, ImageView> sprites;
     private final World world;
+    private final SideScenesController sideController;
     private Map<String, Image> cachedSprites;
 
-    public FxRenderingEngine(final World world) {
+    public FxRenderingEngine(final World world, final GameView gameView) {
         this.root = new Pane();
         this.setCachedSprites();
         this.world = world;
         this.sprites = new HashMap<>();
-
+        this.sideController = new SideScenesControllerImpl(gameView.getGameEngine().getGameState().getRound());
     }
 
     @Override
@@ -40,6 +43,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
             this.sprites.get(e).setRotate(e.getRotation());
         });
         root.getChildren().addAll(this.sprites.values());
+        sideController.updateLabels();
     }
 
     private void setCachedSprites() {
