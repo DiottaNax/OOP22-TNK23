@@ -6,13 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ControllerMenu extends Scene {
+public class TitleMenu extends Scene {
 
     private Button startButton = new Button();
     private Button colorButton = new Button();
     private FxGameView view;
 
-    public ControllerMenu(FxGameView view) {
+    public TitleMenu(FxGameView view) {
         super(new AnchorPane());
         this.view = view;
     }
