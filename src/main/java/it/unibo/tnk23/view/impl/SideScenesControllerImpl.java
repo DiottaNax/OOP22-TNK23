@@ -1,6 +1,9 @@
 package it.unibo.tnk23.view.impl;
 
+import java.util.Optional;
+
 import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.view.api.SideScenesController;
@@ -15,36 +18,51 @@ public class SideScenesControllerImpl implements SideScenesController {
     private Round round;
     
     @FXML
-    Label randomEnemiesLabel;
-    Label aiEnemiesLabel;
-    Label lastEnemies;
-    Label roundLabel;
-    Label player1;
-    Label player2;
-    Label player1Life;
-    Label player2Life;
+    private Label randomEnemiesLabel;
+    private Label aiEnemiesLabel;
+    private Label missingEnemiesLabel;
+    private Label roundLabel;
+    private Label player1;
+    private Label player2;
+    private Label player1Life;
+    private Label player2Life;
 
-    ImageView player1Image;
-    ImageView player2Image;
-    ImageView randomEnemiesImage;
-    ImageView aiEnemiesImage;
+    private ImageView player1Image;
+    private ImageView player2Image;
+    private ImageView randomEnemiesImage;
+    private ImageView aiEnemiesImage;
+    private ImageView missingEnemiesImage;
 
-    Image plry1 = new Image(getClass().getResourceAsStream("it/unibo/sprites/PinkPlayer.gif"));
-    Image plyr2 = new Image(getClass().getResourceAsStream("it/unibo/sprites/PinkPlayer.gif"));
-    Image rdmEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
-    Image aiEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
+    private Image plry1;
+    private Optional<Image> plyr2;
+    private Image rdmEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
+    private Image aiEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
+    private Image missingEnemies = new Image(getClass().getResourceAsStream("it/unibo/prites/enemyTankIcon.png"));
 
     public SideScenesControllerImpl(final Round round) {
         this.round = round;
         this.world = this.round.getWorld();
+        plry1 = new Image(getClass().getResourceAsStream("it/unibo/sprites/"
+                + (((GraphicComponent) this.world.getPlayer(1).get()
+                        .getComponent(GraphicComponent.class).get())
+                        .getSpriteName())));
+        var player2 = this.world.getPlayer(2);            
+        plyr2 = Optional
+                .of(new Image(getClass().getResourceAsStream("it/unibo/sprites/"
+                + (player2.isPresent()
+                        ? ((GraphicComponent) player2.get()
+                                .getComponent(GraphicComponent.class).get())
+                                .getSpriteName()
+                        : ""))));
     }
 
     @Override
     public void displayImages() {
         player1Image.setImage(plry1);
-        player2Image.setImage(plyr2);
+        plyr2.ifPresent(player2Image::setImage);
         randomEnemiesImage.setImage(rdmEnemies);
         aiEnemiesImage.setImage(aiEnemies);
+        missingEnemiesImage.setImage(missingEnemies);
         player1Image.setScaleX(Configuration.TILE_SIZE);
         player1Image.setScaleY(Configuration.TILE_SIZE);
         player2Image.setScaleX(Configuration.TILE_SIZE);
@@ -53,6 +71,8 @@ public class SideScenesControllerImpl implements SideScenesController {
         randomEnemiesImage.setScaleY(Configuration.TILE_SIZE);
         aiEnemiesImage.setScaleX(Configuration.TILE_SIZE);
         aiEnemiesImage.setScaleY(Configuration.TILE_SIZE);
+        missingEnemiesImage.setScaleX(Configuration.TILE_SIZE);
+        missingEnemiesImage.setScaleY(Configuration.TILE_SIZE);
     }
 
     @Override
@@ -68,7 +88,7 @@ public class SideScenesControllerImpl implements SideScenesController {
     
     /*Funzione da chiamare nel render per aggiornare il counter di nemici*/
     public void updateLabels() {
-        lastEnemies.setText("x " + this.round.getEnemies().size());
+        missingEnemiesLabel.setText("x " + this.round.getEnemies().size());
         player1Life.setText("x " + /*player.getLife()*/null);
         if (this.world.getPlayers().size() == 2) {
             player2Life.setText("x " + /* player.getLife() */null);
