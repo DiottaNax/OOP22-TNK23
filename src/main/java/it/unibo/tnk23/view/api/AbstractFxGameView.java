@@ -20,7 +20,7 @@ public abstract class AbstractFxGameView implements GameView {
     public AbstractFxGameView(final Stage stage) {
         this.sceneFactory = new SceneFactoryImpl(); //to set when implemented
         this.world = null;
-        this.renderingEngine = new FxRenderingEngine(this.world, this.getGameEngine().getGameView()); //to set when implemented
+        this.renderingEngine = new FxRenderingEngine(this.world, this); //to set when implemented
         this.gameEngine = null;//new GameEngineImpl(this, this.world);
         this.stage = stage;     
     }
