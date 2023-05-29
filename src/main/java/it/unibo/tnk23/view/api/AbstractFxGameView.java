@@ -6,6 +6,7 @@ import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.view.impl.FxRenderingEngine;
 import it.unibo.tnk23.view.impl.SceneFactoryImpl;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public abstract class AbstractFxGameView implements GameView {
@@ -37,16 +38,19 @@ public abstract class AbstractFxGameView implements GameView {
     }
 
     @Override
-    public void setGameScene() {
-        this.stage.setFullScreen(true);
-        this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane()));
-    }
-
-    @Override
     public void setMenuScene() {
         this.stage.setFullScreen(false);
         this.stage.setScene(this.sceneFactory.getMenuScene());
         this.stage.sizeToScene();
+    }
+
+    @Override
+    public GameEngine getGameEngine() {
+        return this.gameEngine;
+    }
+
+    public void setScene(final Scene scene) {
+        this.stage.setScene(scene);
     }
     
 }
