@@ -16,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class ColorPickerMenu extends Scene implements Initializable {
 
-    private Scene scene;
     private GameView view;
 
     private SceneFactoryImpl sceneFactory;
@@ -32,7 +31,6 @@ public class ColorPickerMenu extends Scene implements Initializable {
     public ColorPickerMenu(GameView view) {
         super(new AnchorPane());
         this.view = view;
-        this.scene = sceneFactory.getColorPickerScene();
     }
 
     @Override
@@ -49,6 +47,7 @@ public class ColorPickerMenu extends Scene implements Initializable {
         LateralScenesControllerImpl sceneController = new LateralScenesControllerImpl();
         String url = "resources/sprites/" + myColor + "Player.gif";
         sceneController.setPlayerColor(url);
+        view.setMenuScene();
     }
     
 }
