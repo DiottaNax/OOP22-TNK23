@@ -1,5 +1,7 @@
 package it.unibo.tnk23.view.api;
 
+import it.unibo.tnk23.core.api.GameEngine;
+
 public interface GameView {
 
     void renderView();
@@ -9,5 +11,7 @@ public interface GameView {
     void setGameScene();
 
     void setGameOverScene();
+
+    GameEngine getGameEngine();
 
 }
