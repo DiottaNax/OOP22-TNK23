@@ -36,7 +36,10 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
             health -= obj.getPower();
         }
     }
+
+    public int getHealth() {
+        return this.health;
+    }
     
     protected abstract boolean isTouchable();
-    
 }
