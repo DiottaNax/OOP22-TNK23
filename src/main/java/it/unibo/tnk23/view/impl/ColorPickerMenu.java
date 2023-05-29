@@ -5,9 +5,7 @@ import java.util.ResourceBundle;
 
 import it.unibo.tnk23.view.api.GameView;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -17,8 +15,6 @@ import javafx.scene.layout.AnchorPane;
 public class ColorPickerMenu extends Scene implements Initializable {
 
     private GameView view;
-
-    private SceneFactoryImpl sceneFactory;
 
     private Label label;
     private Button confirmButton;
@@ -44,9 +40,7 @@ public class ColorPickerMenu extends Scene implements Initializable {
     }
 
     public void confirm(ActionEvent event) {
-        SideScenesControllerImpl sceneController = new SideScenesControllerImpl();
         String url = "resources/it/unibo/sprites/" + myColor + "Player.gif";
-        sceneController.setPlayerColor(url);
         view.setMenuScene();
     }
     
