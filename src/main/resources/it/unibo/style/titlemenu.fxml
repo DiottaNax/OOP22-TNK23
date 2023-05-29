@@ -4,10 +4,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.tnk23.view.impl.ControllerMenu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.tnk23.view.impl.TitleMenu">
    <children>
-      <Button fx:id="startButton" layoutX="52.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" opacity="0.8" prefHeight="0.0" prefWidth="95.0" text="START GAME!" textAlignment="CENTER" textFill="#ff00b7">
+      <Button fx:id="startButton" layoutX="52.0" layoutY="147.0" mnemonicParsing="false" onAction="#startGame" opacity="0.8" prefHeight="0.0" prefWidth="95.0" text="START GAME!" textAlignment="CENTER" textFill="#ff00b7">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -18,4 +17,7 @@
          </font>
       </Button>
    </children>
+   <stylesheets>
+    <URL value="@application.css" />
+  </stylesheets>
 </AnchorPane>
