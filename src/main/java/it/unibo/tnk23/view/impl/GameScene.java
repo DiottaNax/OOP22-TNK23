@@ -17,17 +17,19 @@ public class GameScene extends Scene {
     private BorderPane root;
     private double height;
     private double width;
+    private SideScenesControllerImpl sideController;
 
-    public GameScene(BorderPane root) {
+    public GameScene(BorderPane root, final FxGameView gameView) {
         super(root);
         this.root = root;
+        this.sideController = new SideScenesControllerImpl(/*this.gameView.getGameEngine*/null);
         AnchorPane playerInfoRoot;
         AnchorPane roundInfoRoot;
         try {
-            playerInfoRoot = new FXMLLoader()
-                    .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerIfo.xml"));
-            roundInfoRoot = new FXMLLoader()
-                    .load(ClassLoader.getSystemResourceAsStream("it/unibo/style/roundInfo.fxml"));
+            var loader = new FXMLLoader();
+            loader.setController(sideController);
+            playerInfoRoot = loader.load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerIfo.xml"));
+            roundInfoRoot = loader.load(ClassLoader.getSystemResourceAsStream("it/unibo/style/roundInfo.fxml"));
         } catch (IOException e) {
             playerInfoRoot = new AnchorPane();
             roundInfoRoot = new AnchorPane();

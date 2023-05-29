@@ -3,14 +3,13 @@ package it.unibo.tnk23.view.impl;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
-import it.unibo.tnk23.view.api.LateralScenesController;
+import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class LateralScenesControllerImpl implements LateralScenesController {
+public class SideScenesControllerImpl implements SideScenesController {
     
     private World world;
     private Round round;
@@ -18,6 +17,7 @@ public class LateralScenesControllerImpl implements LateralScenesController {
     @FXML
     Label randomEnemiesLabel;
     Label aiEnemiesLabel;
+    Label lastEnemies;
     Label roundLabel;
     Label player1;
     Label player2;
@@ -34,9 +34,9 @@ public class LateralScenesControllerImpl implements LateralScenesController {
     Image rdmEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
     Image aiEnemies = new Image(getClass().getResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
 
-    public LateralScenesControllerImpl(final World world, final Round round) {
-        this.world = world;
+    public SideScenesControllerImpl(final Round round) {
         this.round = round;
+        this.world = this.round.getWorld();
     }
 
     @Override
@@ -58,17 +58,17 @@ public class LateralScenesControllerImpl implements LateralScenesController {
     @Override
     public void displayLabels() {
         roundLabel.setText(String.valueOf(round.getRound()));
+        randomEnemiesLabel.setText("x " + this.round.getRandomEnemiesNum());
+        aiEnemiesLabel.setText("x " + this.round.getAIEnemiesNum());
         player1.setText("Player 1");
         if (this.world.getPlayers().size() == 2) {
             player2.setText("Player 2");
         }
-        
     }
     
     /*Funzione da chiamare nel render per aggiornare il counter di nemici*/
-    public void updateLabels() { 
-        randomEnemiesLabel.setText("x " + null);
-        aiEnemiesLabel.setText("x " + null);
+    public void updateLabels() {
+        lastEnemies.setText("x " + this.round.getEnemies().size());
         player1Life.setText("x " + /*player.getLife()*/null);
         if (this.world.getPlayers().size() == 2) {
             player2Life.setText("x " + /* player.getLife() */null);

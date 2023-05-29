@@ -1,6 +1,6 @@
 package it.unibo.tnk23.view.api;
 
-public interface LateralScenesController {
+public interface SideScenesController {
     
     void displayImages();
 
