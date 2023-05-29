@@ -23,6 +23,9 @@ public class RoundImpl implements Round{
     private int round;
     private Long spawnDelay;
     private World world;
+    private int numRandomEnemies = 0;
+    private int numFollowTargetEnemies = 0;
+    private int numTowerEnemies = 0;
     private final SpawnImpl spawn;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
@@ -59,6 +62,16 @@ public class RoundImpl implements Round{
     }
 
     @Override
+    public int getRandomEnemiesNum() {
+        return this.numRandomEnemies;
+    }
+
+    @Override
+    public int getAIEnemiesNum() {
+        return (this.numFollowTargetEnemies + this.numTowerEnemies);
+    }
+
+    @Override
     public void update() {
         spawn.update();
         graph.update();
@@ -69,9 +82,9 @@ public class RoundImpl implements Round{
     }
 
     private void fillEnemiesList() {
-        int numRandomEnemies = 0;
-        int numFollowTargetEnemies = 0;
-        int numTowerEnemies = 0;
+        numRandomEnemies = 0;
+        numFollowTargetEnemies = 0;
+        numTowerEnemies = 0;
         double rateFollowTargetEnemies = 2.0;
         double rateTowerEnemies = 4.0;
 

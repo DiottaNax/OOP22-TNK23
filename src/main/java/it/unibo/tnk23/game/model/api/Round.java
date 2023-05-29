@@ -12,5 +12,9 @@ public interface Round {
 
     World getWorld();
 
+    int getRandomEnemiesNum();
+
+    int getAIEnemiesNum();
+
     void update();
 }
