@@ -1,5 +1,8 @@
 package it.unibo.tnk23.game.model.impl;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import it.unibo.tnk23.game.events.api.WorldEvent;
@@ -9,19 +12,25 @@ import it.unibo.tnk23.game.model.api.World;
 
 public class WorldImpl implements World {
 
-    private Set<GameObject> players;
+    private List<GameObject> players;
     private Set<GameObject> entities;
     private Set<GameObject> obstacles;
     private GameObject tower;
     private WorldEventListener weListener;
 
-    public WorldImpl(final Set<GameObject> players) {
+    public WorldImpl(final List<GameObject> players) {
         this.players = players;
     }
 
     @Override
-    public Set<GameObject> getPlayers() {
-        return this.players;
+    public Optional<GameObject> getPlayer(int id) {
+        return this.players.size() >= id && id < 0 ? Optional.of(players.get(id - 1))
+                : Optional.empty();
+    }
+    
+    @Override
+    public List<GameObject> getPlayers() {
+        return Collections.unmodifiableList(this.players);
     }
 
     @Override

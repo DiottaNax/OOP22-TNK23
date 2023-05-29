@@ -15,6 +15,7 @@ public class TitleMenu extends Scene {
     public TitleMenu(FxGameView view) {
         super(new AnchorPane());
         this.view = view;
+        this.getStylesheets().addAll(this.getClass().getResource("background.css").toExternalForm());
     }
 
     private void startGame() {
