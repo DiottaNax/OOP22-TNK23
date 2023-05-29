@@ -7,7 +7,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerMenu extends Scene {
 
-    Button startButton;
+    private Button startButton = new Button();
+    private Button colorButton = new Button();
     private SceneFactoryImpl sceneFactory = new SceneFactoryImpl();
     private Scene scene;
     private GameView view;
@@ -16,7 +17,14 @@ public class ControllerMenu extends Scene {
         super(new AnchorPane());
         this.scene = sceneFactory.getMenuScene();
         this.view = view;
-        this.startButton.setOnAction(e -> view.setGameScene());
+    }
+
+    private void start() {
+        view.setGameScene();
+    }
+
+    private void goPickColor() {
+        ColorPickerMenu colorPickerScene = new ColorPickerMenu(view);   
     }
 
 }
