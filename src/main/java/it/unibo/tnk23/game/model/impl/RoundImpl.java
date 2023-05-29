@@ -23,6 +23,9 @@ public class RoundImpl implements Round{
     private int round;
     private Long spawnDelay;
     private World world;
+    private int numRandomEnemies = 0;
+    private int numFollowTargetEnemies = 0;
+    private int numTowerEnemies = 0;
     private final SpawnImpl spawn;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
@@ -59,6 +62,16 @@ public class RoundImpl implements Round{
     }
 
     @Override
+    public int getRandomEnemiesNum() {
+        return this.numRandomEnemies;
+    }
+
+    @Override
+    public int getAIEnemiesNum() {
+        return (this.numFollowTargetEnemies + this.numTowerEnemies);
+    }
+
+    @Override
     public void update() {
         spawn.update();
         graph.update();
@@ -69,23 +82,23 @@ public class RoundImpl implements Round{
     }
 
     private void fillEnemiesList() {
-        int numEnemies1 = 0;
-        int numEnemies2 = 0;
-        int numEnemies3 = 0;
-        double rateNumEnemies2 = 2.0;
-        double rateNumEnemies3 = 4.0;
+        numRandomEnemies = 0;
+        numFollowTargetEnemies = 0;
+        numTowerEnemies = 0;
+        double rateFollowTargetEnemies = 2.0;
+        double rateTowerEnemies = 4.0;
 
         if (round==1) {
-            numEnemies1 = 6;
+            numRandomEnemies = 6;
         } else {
-            numEnemies1 = round*3;
-            numEnemies2 = (int) (round/rateNumEnemies2);
-            numEnemies3 = (int) (round/rateNumEnemies3);
+            numRandomEnemies = round*3;
+            numFollowTargetEnemies = (int) (round/rateFollowTargetEnemies);
+            numTowerEnemies = (int) (round/rateTowerEnemies);
         }
 
-        addEnemies(numEnemies1, this::generateRandomMovingEnemies);
-        addEnemies(numEnemies2, this::generateFollowTowerEnemies);
-        addEnemies(numEnemies3, this::generateFollowMovingTargetEnemies);
+        addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
+        addEnemies(numFollowTargetEnemies, this::generateFollowTowerEnemies);
+        addEnemies(numTowerEnemies, this::generateFollowMovingTargetEnemies);
     }
 
     private void setDelay() {
@@ -108,15 +121,16 @@ public class RoundImpl implements Round{
         return enemy;
     }
 
+    private GameObject generateFollowMovingTargetEnemies() {
+        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
+        enemy.addComponent(new AiComponent(enemy,
+                aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
+        return enemy;
+    }
+    
     private GameObject generateFollowTowerEnemies() {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
-        return enemy;
-    }
-
-    private GameObject generateFollowMovingTargetEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
         return enemy;
     }
 
