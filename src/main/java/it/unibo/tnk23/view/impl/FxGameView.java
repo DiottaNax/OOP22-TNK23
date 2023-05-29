@@ -18,8 +18,10 @@ public class FxGameView extends AbstractFxGameView {
 
         this.setMenuScene();
     }
-    
-    public void setScene(final Scene scene){
 
+    @Override
+    public void setGameScene() {
+        
     }
+
 }
