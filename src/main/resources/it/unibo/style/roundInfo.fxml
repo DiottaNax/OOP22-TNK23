@@ -34,6 +34,12 @@
                </VBox.margin>
             </ImageView>
             <Label prefHeight="63.0" prefWidth="149.0" />
+            <ImageView fx:id="aiEnemiesImage1" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets left="51.0" right="51.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label prefHeight="63.0" prefWidth="149.0" />
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="149.0" text="Round number:">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -52,6 +58,11 @@
          </font>
       </Label>
       <Label fx:id="aiEnemiesLabel" alignment="CENTER" layoutX="210.0" layoutY="232.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lastEnemies" alignment="CENTER" layoutX="210.0" layoutY="342.0" prefHeight="48.0" prefWidth="48.0" text="x 3">
          <font>
             <Font size="15.0" />
          </font>
