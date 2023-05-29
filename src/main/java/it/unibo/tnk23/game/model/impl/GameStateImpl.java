@@ -1,15 +1,19 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
+import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.World;
 
 public class GameStateImpl implements GameState {
 
-    private World world;
-    private Round round;
+    private final World world;
+    private final Round round;
     private boolean isGameOver;
     
     public GameStateImpl(final World world) {
@@ -28,9 +32,16 @@ public class GameStateImpl implements GameState {
     }
 
     @Override
-    public Map<Integer, Integer> getPlayerLifes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPlayerLifes'");
+    public Map<GameObject, Integer> getPlayerLifes() {
+        return this.world.getPlayers().stream().collect(
+                Collectors.toMap(e -> e, e -> e.getComponent(EntitiesHealthComponent.class).get().getHealth()));
+    }
+
+    @Override
+    public Optional<Integer> getPlayerLife(int id) {
+        return this.world.getPlayer(id)
+                .map(o -> o.getComponent(EntitiesHealthComponent.class))
+                .map(o -> o.get().getHealth());
     }
 
     @Override
