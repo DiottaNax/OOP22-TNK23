@@ -66,8 +66,10 @@ public class GameObjectImpl implements GameObject {
     }
 
     @Override
-    public Optional<? extends Component> getComponent(Class<? extends Component> clas) {
-        return components.containsKey(clas) ? Optional.of(components.get(clas)) : Optional.empty();
+    public <C extends Component> Optional<C> getComponent(Class<C> clas) {
+        return this.components.entrySet().stream()
+                .filter(e -> e.getKey().getClass().equals(clas))
+                .map(e -> clas.cast(e.getValue())).findAny();
     }
 
     @Override
