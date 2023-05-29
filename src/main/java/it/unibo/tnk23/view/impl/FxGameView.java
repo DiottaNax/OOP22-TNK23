@@ -3,6 +3,7 @@ package it.unibo.tnk23.view.impl;
 import it.unibo.tnk23.view.api.AbstractFxGameView;
 import it.unibo.tnk23.view.api.RenderingEngine;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FxGameView extends AbstractFxGameView {
@@ -18,4 +19,7 @@ public class FxGameView extends AbstractFxGameView {
         this.setMenuScene();
     }
     
+    public void setScene(final Scene scene){
+
+    }
 }
