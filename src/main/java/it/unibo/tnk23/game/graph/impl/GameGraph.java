@@ -16,6 +16,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
     private final static int PRECISION = 2;
     public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+
     private World world;
     private List<GameObject> obstacles;
 
@@ -44,15 +45,11 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
     
     private void performToGraph(GameObject obst, Consumer<Pair<Integer, Integer>> action) {
-        final var obstH = Math.round(obst.getType().getHeight() * Configuration.SCALE_FACTOR);
-        final var obstW = Math.round(obst.getType().getWidth() * Configuration.SCALE_FACTOR);
-        final int xTiles = obstW / GRAPH_TILE_SIZE;
-        final int yTiles = obstH / GRAPH_TILE_SIZE;
         var graphPos = this.getGraphPos(obst.getPosition());
 
-        for (int i = -1; i < yTiles; i++) {
-            for (int j = -1; j < xTiles; j++) {
-                action.accept(new Pair<>(j + graphPos.getX(), i + graphPos.getY()));
+        for (int i = -1; i < graphPos.getY(); i++) {
+            for (int j = -1; j < graphPos.getX(); j++) {
+                action.accept(new Pair<>(graphPos.getX() +j , graphPos.getY() + i));
             }
         }
     }
