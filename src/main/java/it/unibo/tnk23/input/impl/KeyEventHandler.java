@@ -14,11 +14,11 @@ public class KeyEventHandler {
         this.inputControllers = new ArrayList<>();
     }
 
-    public void OnKeyPressed(KeyEvent e) {
+    public void onKeyPressed(KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyPressed(e));
     }
 
-    public void OnKeyReleased(KeyEvent e) {
+    public void onKeyReleased(KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyReleased(e));
     }
 
