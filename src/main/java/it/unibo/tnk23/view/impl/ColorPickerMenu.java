@@ -18,10 +18,12 @@ public class ColorPickerMenu extends Scene implements Initializable {
 
     private Label label;
     private Button confirmButton;
-    private ChoiceBox<String> choiceBox;
+    private ChoiceBox<String> choiceBoxPlayerOne;
+    private ChoiceBox<String> choiceBoxPlayerTwo;
     
     private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Turquoise", "Blue", "Purple" };
-    private String myColor;    
+    private String myColorPlayerOne = "Pink";
+    private String myColorPlayerTwo = "Turquoise";   
 
 
     public ColorPickerMenu(GameView view) {
@@ -31,16 +33,19 @@ public class ColorPickerMenu extends Scene implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        choiceBox.getItems().addAll(colors);
-        choiceBox.setOnAction(this::getColor);
+        choiceBoxPlayerOne.getItems().addAll(colors);
+        choiceBoxPlayerOne.setOnAction(this::getColor);
+        choiceBoxPlayerTwo.getItems().addAll(colors);
+        choiceBoxPlayerTwo.setOnAction(this::getColor);
     }
 
     public void getColor(ActionEvent event) {
-        myColor = choiceBox.getValue();
+        myColorPlayerOne = choiceBoxPlayerOne.getValue();
+        myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
     }
 
     public void confirm(ActionEvent event) {
-        String url = "resources/it/unibo/sprites/" + myColor + "Player.gif";
+        String url = "resources/it/unibo/sprites/" + myColorPlayerOne + "Player.gif";
         view.setMenuScene();
     }
     
