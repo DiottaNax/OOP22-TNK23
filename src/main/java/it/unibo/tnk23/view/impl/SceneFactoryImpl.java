@@ -11,8 +11,8 @@ import javafx.scene.layout.Pane;
 public class SceneFactoryImpl implements SceneFactory{
 
     @Override
-    public Scene getMenuScene() {
-        return new Scene(null);
+    public Scene getMenuScene(FxGameView view) {
+        return new TitleMenu(view);
     }
 
     @Override
