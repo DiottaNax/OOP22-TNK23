@@ -1,10 +1,18 @@
 package it.unibo.tnk23.view.impl;
 
-import it.unibo.tnk23.view.api.GameView;
+import java.util.LinkedList;
+import java.util.List;
+
+import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.model.api.GameMap;
+import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.impl.GameMapImpl;
+import it.unibo.tnk23.game.model.impl.GameObjectImpl;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class TitleMenu extends Scene {
 
@@ -12,18 +20,22 @@ public class TitleMenu extends Scene {
     private Button colorButton = new Button();
     private FxGameView view;
 
+    private List<GameObject> players = new LinkedList<>();
+    private GameMap map = new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt"));
+
     public TitleMenu(FxGameView view) {
         super(new AnchorPane());
         this.view = view;
-        this.getStylesheets().addAll(this.getClass().getResource("background.css").toExternalForm());
+        this.getStylesheets().addAll(this.getClass().getResource("it/unibo/style/background.css").toExternalForm());
+        players.add(new GameObjectImpl(TypeObjectFactory.getPlayerType(), new Point2D(getX(), getY())));
     }
 
     private void startGame() {
-        view.setGameScene();
+        view.setGameScene(players, map);
     }
 
     private void goPickColor() {
-        this.view.setScene(new ColorPickerMenu(view));   
+        this.view.setScene(new ColorPickerMenu(view));
     }
 
 }
