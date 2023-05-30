@@ -28,7 +28,7 @@ public class CollisionComponent extends AbstractComponent {
     public void update() {
         var collidedList = world.getEntities().stream()
                 .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
-                .filter(e -> ((CollisionComponent) e.getComponent(CollisionComponent.class).get())
+                .filter(e -> (e.getComponent(CollisionComponent.class).get())
                         .isCollidingWith((Shape) hitbox))
                 .toList();
 

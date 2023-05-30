@@ -1,5 +1,6 @@
 package it.unibo.tnk23.input.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.tnk23.input.impl.KeyboardInputController;
@@ -7,17 +8,17 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyEventHandler {
     
-    List<KeyboardInputController> inputControllers;
+    private List<KeyboardInputController> inputControllers;
 
-    public KeyEventHandler(List<KeyboardInputController> inputControllers) {
-        this.inputControllers = inputControllers;
+    public KeyEventHandler() {
+        this.inputControllers = new ArrayList<>();
     }
 
-    public void setOnKeyPressed(KeyEvent e) {
+    public void onKeyPressed(KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyPressed(e));
     }
 
-    public void setOnKeyReleased(KeyEvent e) {
+    public void onKeyReleased(KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyReleased(e));
     }
 
