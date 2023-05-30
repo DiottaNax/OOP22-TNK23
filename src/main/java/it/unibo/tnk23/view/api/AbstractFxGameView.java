@@ -1,8 +1,5 @@
 package it.unibo.tnk23.view.api;
 
-import it.unibo.tnk23.core.api.GameEngine;
-//import it.unibo.tnk23.core.impl.GameEngineImpl;
-import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.view.impl.FxRenderingEngine;
 import it.unibo.tnk23.view.impl.SceneFactoryImpl;
 import javafx.application.Platform;
@@ -13,15 +10,10 @@ public abstract class AbstractFxGameView implements GameView {
 
     protected final Stage stage;
     protected final SceneFactory sceneFactory;
-    protected final FxRenderingEngine renderingEngine;
-    protected final GameEngine gameEngine;
-    protected final World world;
+    protected FxRenderingEngine renderingEngine;
     
     public AbstractFxGameView(final Stage stage) {
         this.sceneFactory = new SceneFactoryImpl(); //to set when implemented
-        this.world = null;
-        this.renderingEngine = new FxRenderingEngine(this.world, this); //to set when implemented
-        this.gameEngine = null;//new GameEngineImpl(this, this.world);
         this.stage = stage;     
     }
 
@@ -44,9 +36,8 @@ public abstract class AbstractFxGameView implements GameView {
         this.stage.sizeToScene();
     }
 
-    @Override
-    public GameEngine getGameEngine() {
-        return this.gameEngine;
+    protected void setRenderingEngine(final FxRenderingEngine engine) {
+        this.renderingEngine = engine;
     }
 
     public void setScene(final Scene scene) {
