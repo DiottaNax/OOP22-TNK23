@@ -1,6 +1,5 @@
 package it.unibo.tnk23.view.api;
 
-import it.unibo.tnk23.view.impl.FxGameView;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
