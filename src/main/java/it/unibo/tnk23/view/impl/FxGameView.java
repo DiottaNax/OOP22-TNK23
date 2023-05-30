@@ -9,6 +9,8 @@ import it.unibo.tnk23.core.impl.GameEngineImpl;
 import it.unibo.tnk23.game.components.impl.InputComponent;
 import it.unibo.tnk23.game.model.api.GameMap;
 import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 import it.unibo.tnk23.game.model.impl.WorldImpl;
 import it.unibo.tnk23.input.impl.KeyEventHandler;
 import it.unibo.tnk23.input.impl.KeyboardInputController;
@@ -37,7 +39,6 @@ public class FxGameView implements GameView {
             Runtime.getRuntime().exit(0);
         });
 
-        this.setMenuScene();
         this.stage.show();
     }
 
@@ -47,16 +48,15 @@ public class FxGameView implements GameView {
     }
 
     @Override
-    public void setGameScene(final List<GameObject> players, final GameMap gameMap) {
+    public void setGameScene(final World world) {
         var keyEventHandler = new KeyEventHandler(new ArrayList<>());
         var inputController = new KeyboardInputController();
 
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::setOnKeyPressed);
         this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::setOnKeyReleased);
 
-        players.forEach(p -> p.addComponent(new InputComponent(p, inputController)));
+        world.getPlayers().forEach(p -> p.addComponent(new InputComponent(p, inputController)));
 
-        var world = new WorldImpl(players, gameMap);
         gameEngine = new GameEngineImpl(world);
         this.renderingEngine = new FxRenderingEngine(world, this);
 
