@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.model.api;
 
 import java.util.Map;
+import java.util.Optional;
 
 public interface GameState {
     
@@ -8,7 +9,9 @@ public interface GameState {
 
     boolean isRoundOver();
 
-    Map<Integer,Integer> getPlayerLifes();
+    Map<GameObject, Integer> getPlayerLifes();
+    
+    Optional<Integer> getPlayerLife(int id); 
 
     boolean isGameOver();
 
