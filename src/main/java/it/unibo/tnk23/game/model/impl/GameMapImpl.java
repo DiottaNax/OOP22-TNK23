@@ -1,8 +1,8 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 import it.unibo.tnk23.common.Configuration;
@@ -11,13 +11,13 @@ import it.unibo.tnk23.game.model.api.GameMap;
 
 public class GameMapImpl implements GameMap {
 
-    private File mapFile;
+    private InputStream mapFile;
     private Set<Point2D> destroyableWalls;
     private Set<Point2D> walls;
 
     static final private int MAP_SIZE = Configuration.GRID_SIZE * 2;
 
-    public GameMapImpl(final File file) {
+    public GameMapImpl(final InputStream file) {
         this.mapFile = file;
         this.walls = new HashSet<>();
         this.destroyableWalls = new HashSet<>();
@@ -35,7 +35,7 @@ public class GameMapImpl implements GameMap {
     
     public void generateWalls() {
         try {
-            BufferedReader mapReader = new BufferedReader(new FileReader(mapFile));
+            BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile));
 
             for (int l = 0; l < MAP_SIZE; l++) {
                 var line = mapReader.readLine().toCharArray();
