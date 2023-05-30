@@ -11,11 +11,13 @@ public class GameEngineImpl implements GameEngine {
     private final World world;
     private final GameState state;
     private final ConcurrentGameLoop loop;
+    private final GameView view;
 
-    public GameEngineImpl(final World world){
+    public GameEngineImpl(final World world, final GameView view){
         this.world = world;
         this.state = new GameStateImpl(world);
-        this.loop = new ConcurrentGameLoop(new GameLoopImpl(this));
+        this.loop = new ConcurrentGameLoop(new SynchronizedGameLoop(this));
+        this.view = view;
     }
 
     @Override
@@ -35,8 +37,7 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public GameView getGameView() {
-        // TODO Auto-generated method stub
-        return null;
+        return view;
     }
     
 }
