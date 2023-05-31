@@ -16,20 +16,19 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     public PhysicsComponent(GameObject entity, World world) {
         super(entity, world);
         var type = entity.getType();
-        this.speed = (Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
+        this.speed = ((double)Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
     }
 
     @Override
     public void update() {
-        var pos = entity.getPosition();
+        var nextPos = entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed));
         
-        if (pos.getX() <= 0
-                || pos.getX() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth()
-                || pos.getY() <= 0 
-                || pos.getY() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight()) {
-            this.entity.setDirection(null);
+        if (nextPos.getX() <= 0
+                && nextPos.getX() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth()
+                && nextPos.getY() <= 0 
+                && nextPos.getY() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight()) {
+            this.entity.setPosition(nextPos);
         }
-        entity.setPosition(entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed)));
         var rotation = entity.getDirection().getVel().getX() * (-90) + entity.getDirection().getVel().getY() * 180;
         if (rotation != 0) {
             this.entity.setRotation(rotation != -180 ? rotation : 0);
@@ -46,7 +45,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
    
     @Override
     public <X> void receive(Message<X> x) {
-        if (x instanceof GameObject) {
+        if (x.getMessage() instanceof GameObject) {
             if(!entity.getDirection().equals(Directions.NONE)) {
                 entity.setPosition(entity.getPosition().sum(entity.getDirection().getVel().mul(-this.speed)));
             }

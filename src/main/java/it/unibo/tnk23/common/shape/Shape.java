@@ -8,9 +8,9 @@ public interface Shape {
 
     double getHeight();
 
-    Point2D getCenter();
+    Point2D getPos();
 
-    void setCenter(Point2D newCenter);
+    void setPos(Point2D newCenter);
 
     boolean isColliding(Shape shape);
     
