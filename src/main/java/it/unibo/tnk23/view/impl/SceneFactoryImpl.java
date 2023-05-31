@@ -21,7 +21,7 @@ public class SceneFactoryImpl implements SceneFactory{
     public Scene getMenuScene(FxGameView view) {
         Parent root;
         try {
-            root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/menutitle.fxml"));
+            root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/titlemenu.fxml"));
         } catch (IOException e) {
             root = new AnchorPane();
             var label = new Label(e.getMessage());
