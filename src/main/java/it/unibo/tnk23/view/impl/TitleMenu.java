@@ -12,6 +12,7 @@ import it.unibo.tnk23.game.model.impl.GameObjectImpl;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.game.model.impl.WorldImpl;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
