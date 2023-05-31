@@ -33,6 +33,8 @@ public class FxGameView implements GameView {
             Runtime.getRuntime().exit(0);
         });
 
+        this.setMenuScene();
+
         this.stage.show();
     }
 
