@@ -14,7 +14,7 @@ import it.unibo.tnk23.game.model.api.World;
 
 public abstract class AbstractFireComponent extends AbstractComponent{
     
-    protected Optional<GameObject> lastBullet;
+    protected Optional<GameObject> lastBullet = Optional.empty();
 
     public AbstractFireComponent(final GameObject entity, final World world) {
         super(entity, world);
@@ -28,10 +28,9 @@ public abstract class AbstractFireComponent extends AbstractComponent{
                 lastBullet.get().setPower(entity.getPower());
                 world.notifyEvent(new WorldEventImpl(entity.getPosition(), lastBullet.get(), WorldEventType.SHOOT_EVENT));
             }
-            if(!world.getEntities().contains(lastBullet.get())) {
+            if(lastBullet.isPresent() && !world.getEntities().contains(lastBullet.get())) {
                 lastBullet = Optional.empty();
-            }
-        
+            }  
     }
     
     protected abstract boolean canShoot();
