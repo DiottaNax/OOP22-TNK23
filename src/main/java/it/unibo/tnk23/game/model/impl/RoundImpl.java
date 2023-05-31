@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.impl.AiComponent;
+import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -119,6 +120,7 @@ public class RoundImpl implements Round{
     private GameObject generateRandomMovingEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
+        enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
         return enemy;
     }
 
@@ -126,12 +128,14 @@ public class RoundImpl implements Round{
         var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy,
                 aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
+        enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
     
     private GameObject generateFollowTowerEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
+        enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
 

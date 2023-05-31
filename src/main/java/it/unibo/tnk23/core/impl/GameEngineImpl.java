@@ -17,6 +17,7 @@ public class GameEngineImpl implements GameEngine {
         this.world = world;
         this.state = new GameStateImpl(world);
         this.loop = new ConcurrentGameLoop(new SynchronizedGameLoop(this));
+        this.world.setWorldEventListener(loop);
         this.view = view;
     }
 
