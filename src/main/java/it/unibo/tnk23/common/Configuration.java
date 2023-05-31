@@ -7,7 +7,7 @@ public final class Configuration {
     public final static int FPS = 120;
     public final static int GRID_SIZE = 19;
     public final static int TILE_SIZE = getTileSize();
-    public final static float SCALE_FACTOR = TILE_SIZE / ORIGINAL_TILE_SIZE;
+    public final static double SCALE_FACTOR = (((double) TILE_SIZE) / ORIGINAL_TILE_SIZE);
     public final static int GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE;
 
     private Configuration() {   
