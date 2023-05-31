@@ -7,7 +7,7 @@ import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.api.GameLoop;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventHandler;
-import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.events.impl.WorldEventHandlerImpl;
 import it.unibo.tnk23.game.model.api.World;
 
 public class GameLoopImpl implements GameLoop {
@@ -19,7 +19,7 @@ public class GameLoopImpl implements GameLoop {
     public GameLoopImpl(final GameEngine engine) {
         this.engine = engine;
         this.wrld = engine.getWorld();
-        this.eventHandler = null;
+        this.eventHandler = new WorldEventHandlerImpl(wrld);
     }
 
     @Override
