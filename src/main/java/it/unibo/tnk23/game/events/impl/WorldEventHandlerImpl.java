@@ -28,6 +28,9 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
             case SPAWN_EVENT:
                 world.getEntities().add(we.getEventActor());
                 break;
+
+            default:
+                break;
         }
     }
     
