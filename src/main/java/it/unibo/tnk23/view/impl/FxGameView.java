@@ -16,6 +16,7 @@ import it.unibo.tnk23.input.impl.KeyEventHandler;
 import it.unibo.tnk23.input.impl.KeyboardInputController;
 import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
+import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -28,6 +29,7 @@ public class FxGameView implements GameView {
 
     private GameEngine gameEngine;
     private FxRenderingEngine renderingEngine;
+    private SideScenesController sideScenesController;
 
 
     public FxGameView(Stage stage) {
@@ -45,6 +47,7 @@ public class FxGameView implements GameView {
     @Override
     public void renderView() {
         Platform.runLater(renderingEngine::render);
+        Platform.runLater(sideScenesController::updateLabels);
     }
 
     @Override
