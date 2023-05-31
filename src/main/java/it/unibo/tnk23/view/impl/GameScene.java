@@ -29,7 +29,7 @@ public class GameScene extends Scene {
         try {
             var loader = new FXMLLoader();
             loader.setController(sideController);
-            playerInfoRoot = loader.load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerIfo.xml"));
+            playerInfoRoot = loader.load(ClassLoader.getSystemResourceAsStream("it/unibo/style/playerInfo.xml"));
             roundInfoRoot = loader.load(ClassLoader.getSystemResourceAsStream("it/unibo/style/roundInfo.fxml"));
         } catch (IOException e) {
             playerInfoRoot = new AnchorPane();
