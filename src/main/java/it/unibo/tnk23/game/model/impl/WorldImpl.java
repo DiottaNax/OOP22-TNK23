@@ -20,32 +20,32 @@ public class WorldImpl implements World {
     private Set<GameObject> entities;
     private Set<GameObject> obstacles;
     private GameObject tower;
-    private final GameMap gameMap;
     private WorldEventListener weListener;
 
     public WorldImpl(final GameMap gameMap) {
         this.players = new ArrayList<>();
-        this.gameMap = gameMap;
         this.obstacles = new HashSet<>();
         this.entities = new HashSet<>();
 
         var objFactory = new GameObjectFactoryImpl(this);
-        var toAdd = gameMap.getWalls().stream().map(objFactory::getWall);
+        var toAdd = gameMap.getWalls().stream().map(objFactory::getWall).toList();
         toAdd.forEach(w -> w.addComponent(new GraphicComponent(w, "wall")));
-        this.obstacles.addAll(toAdd.toList());
+        this.obstacles.addAll(toAdd);
 
-        toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall);
+        toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall).toList();
         toAdd.forEach(w -> w.addComponent(new GraphicComponent(w, "destroyableWall")));
-        this.obstacles.addAll(toAdd.toList());
+        this.obstacles.addAll(toAdd);
+        this.entities.addAll(this.obstacles);
     }
 
     @Override
     public Optional<GameObject> getPlayer(int id) {
-        return this.players.size() >= id && id < 0 ? Optional.of(players.get(id - 1))
+        return this.players.size() >= id && id > 0 ? Optional.of(players.get(id - 1))
                 : Optional.empty();
     }
 
     public void addPlayer(GameObject player) {
+        this.entities.add(player);
         this.players.add(player);
     }
     

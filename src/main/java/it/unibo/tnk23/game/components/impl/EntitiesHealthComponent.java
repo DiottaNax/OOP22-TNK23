@@ -29,7 +29,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
     @Override
     public <X> void receive(Message<X> x) {
         if (isTouchable()) {
-            if (x instanceof GameObject) {
+            if (x.getMessage() instanceof GameObject) {
                 GameObject obj = (GameObject) x;
                 if (TypeObjectFactory.isBullet(obj.getType())) {
                     var bulletCmp = obj.getComponent(BulletComponent.class);
