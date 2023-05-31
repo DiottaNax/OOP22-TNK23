@@ -6,7 +6,7 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyboardInputController implements InputController {
 
-    private Directions direction;
+    private Directions direction = Directions.NONE;
     private boolean isShooting;
 
     @Override
@@ -29,7 +29,6 @@ public class KeyboardInputController implements InputController {
                 direction = Directions.EAST;
                 break;
             case ENTER:
-                direction = Directions.NONE;
                 isShooting = true;
                 break;
 
