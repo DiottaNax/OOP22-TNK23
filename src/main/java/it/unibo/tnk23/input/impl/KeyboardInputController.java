@@ -40,6 +40,7 @@ public class KeyboardInputController implements InputController {
 
     public void setOnKeyReleased(KeyEvent e) {
         direction = Directions.NONE;
+        this.isShooting = false;
     }
     
     public boolean isShooting() {
