@@ -20,7 +20,6 @@ public class SpawnImpl implements Spawn{
     private Round round;
     private Iterator<GameObject> enemiesIterator;
     private List<GameObject> activeEnemies;
-    private Point2D pos;
     private final long delay;
 
     private final Timer timer = new Timer();
@@ -49,7 +48,10 @@ public class SpawnImpl implements Spawn{
 
     @Override
     public Point2D getPos() {
-        return this.pos;
+        List<Point2D> possibilePos = List.of(new Point2D(15, 15),
+                new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE, 15),
+                new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, 15));
+        return possibilePos.get(random.nextInt(possibilePos.size()));
     }
     
     private void start() {
@@ -59,27 +61,13 @@ public class SpawnImpl implements Spawn{
             public void run() {
                 if (enemiesIterator.hasNext()) {
                     activeEnemies.add(enemiesIterator.next());
-                    round.getWorld().notifyEvent(new WorldEventImpl(generatePos(), activeEnemies.get(activeEnemies.size() - 1),
+                    round.getWorld().notifyEvent(new WorldEventImpl(getPos(), activeEnemies.get(activeEnemies.size() - 1),
                             WorldEventType.SPAWN_EVENT));
                 }
-            }
-            
+            } 
         }, delay);
     }
     
-    private Point2D generatePos() {
-
-        List<Point2D> possibilePos = List.of(new Point2D(0, 0),
-                new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE, 0),
-                new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, 0));
-        int randomPos;
-
-        randomPos=random.nextInt(possibilePos.size());
-        pos = possibilePos.get(randomPos);
-        return pos;
-
-    }
-
     private List<GameObject> getDiedEnemies() {
         var worldEnemies = round.getWorld().getEntities();
         return activeEnemies.stream().filter(e -> !worldEnemies.contains(e)).toList(); //Mi da i nemici attiva che non sono più nel mondo 

@@ -34,11 +34,11 @@ public class RoundImpl implements Round{
         this.round = 1;
         this.enemies = new ArrayList<>();
         this.world = world;
+        setDelay();
         this.spawn = new SpawnImpl(spawnDelay, this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(graph, this.world);
         fillEnemiesList();
-        setDelay();
     }
 
     @Override
@@ -73,10 +73,11 @@ public class RoundImpl implements Round{
 
     @Override
     public void update() {
-        spawn.update();
-        graph.update();
+        this.spawn.update();
+        this.graph.update();
         if(this.isOver()) {
-            this.round ++;
+            this.round++;
+            setDelay();
             fillEnemiesList();
         }
     }
