@@ -1,17 +1,9 @@
 package it.unibo.tnk23.view.impl;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.impl.GameEngineImpl;
 import it.unibo.tnk23.game.components.impl.InputComponent;
-import it.unibo.tnk23.game.model.api.GameMap;
-import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
-import it.unibo.tnk23.game.model.impl.WorldImpl;
 import it.unibo.tnk23.input.impl.KeyEventHandler;
 import it.unibo.tnk23.input.impl.KeyboardInputController;
 import it.unibo.tnk23.view.api.GameView;
@@ -46,26 +38,29 @@ public class FxGameView implements GameView {
 
     @Override
     public void renderView() {
-        Platform.runLater(renderingEngine::render);
-        Platform.runLater(sideScenesController::updateLabels);
+        Platform.runLater(() -> {
+            renderingEngine.render();
+            //sideScenesController.updateLabels();
+        });
     }
 
     @Override
     public void setGameScene(final World world) {
-        var keyEventHandler = new KeyEventHandler(new ArrayList<>());
+        var keyEventHandler = new KeyEventHandler();
         var inputController = new KeyboardInputController();
+        keyEventHandler.addInputController(inputController);
 
-        this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::setOnKeyPressed);
-        this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::setOnKeyReleased);
+        this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::onKeyPressed);
+        this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::onKeyReleased);
 
         world.getPlayers().forEach(p -> p.addComponent(new InputComponent(p, inputController)));
 
-        gameEngine = new GameEngineImpl(world);
+        gameEngine = new GameEngineImpl(world, this);
         this.renderingEngine = new FxRenderingEngine(world, this);
+        this.gameEngine.startEngine();
 
         this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), this));
         this.stage.setFullScreen(true);
-        this.gameEngine.startEngine();
     }
 
     @Override
