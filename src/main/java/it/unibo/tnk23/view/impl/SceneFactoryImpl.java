@@ -24,7 +24,9 @@ public class SceneFactoryImpl implements SceneFactory{
             root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/menutitle.fxml"));
         } catch (IOException e) {
             root = new AnchorPane();
-            ((AnchorPane) root).getChildren().add(new Label(e.getMessage()));
+            var label = new Label(e.getMessage());
+            label.setScaleX(0);
+            ((AnchorPane) root).getChildren().add(label);
         }
         return new TitleMenu(view, root);
     }

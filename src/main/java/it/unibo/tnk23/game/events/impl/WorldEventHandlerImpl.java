@@ -19,12 +19,15 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
         switch (type) {
             case DEATH_EVENT:
                 world.getEntities().remove(we.getEventActor());
+                break;
 
             case SHOOT_EVENT:
                 world.getEntities().add(we.getEventActor());
+                break;
 
             case SPAWN_EVENT:
                 world.getEntities().add(we.getEventActor());
+                break;
         }
     }
     
