@@ -35,9 +35,9 @@ public class RoundImpl implements Round{
         this.enemies = new ArrayList<>();
         this.world = world;
         setDelay();
-        this.spawn = new SpawnImpl(spawnDelay, this);
+        this.spawn = new SpawnImpl(this.spawnDelay, this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
-        this.aiFactory = new AiControllerFactoryImpl(graph, this.world);
+        this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
         fillEnemiesList();
     }
 
@@ -117,20 +117,20 @@ public class RoundImpl implements Round{
     }
 
     private GameObject generateRandomMovingEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
         return enemy;
     }
 
     private GameObject generateFollowMovingTargetEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy,
                 aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
         return enemy;
     }
     
     private GameObject generateFollowTowerEnemies() {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
         return enemy;
     }
