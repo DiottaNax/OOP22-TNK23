@@ -6,12 +6,12 @@ public class Rect2D implements Shape {
 
     private final double width;
     private final double height;
-    private Point2D center;
+    private Point2D pos;
 
-    public Rect2D(final double width, final double height, final Point2D center) {
+    public Rect2D(final double width, final double height, final Point2D pos) {
         this.width = width;
         this.height = height;
-        this.center = center;
+        this.pos = pos;
     }
 
     public double getWidth() {
@@ -23,14 +23,14 @@ public class Rect2D implements Shape {
     }
  
     @Override
-    public Point2D getCenter() {
-        return this.center;
+    public Point2D getPos() {
+        return this.pos;
     }
 
     
     @Override
-    public void setCenter(final Point2D newCenter) {
-        this.center = newCenter;
+    public void setPos(final Point2D newPos) {
+        this.pos = newPos;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class Rect2D implements Shape {
     }
     
     private boolean intersects(final Rect2D rectangle) {
-        return Math.abs(this.center.getX() - rectangle.getCenter().getX()) <= (this.width + rectangle.getWidth()) / 2 
-            && Math.abs(this.center.getY() - rectangle.getCenter().getY()) <= (this.height + rectangle.getHeight()) / 2;
+        return Math.abs(this.pos.getX() - rectangle.getPos().getX()) <= (this.width + rectangle.getWidth()) / 2 
+            && Math.abs(this.pos.getY() - rectangle.getPos().getY()) <= (this.height + rectangle.getHeight()) / 2;
     }
     
 }
