@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +23,8 @@ public class WorldImpl implements World {
     private final GameMap gameMap;
     private WorldEventListener weListener;
 
-    public WorldImpl(final List<GameObject> players, final GameMap gameMap) {
-        this.players = players;
+    public WorldImpl(final GameMap gameMap) {
+        this.players = new ArrayList<>();
         this.gameMap = gameMap;
         this.obstacles = new HashSet<>();
         this.entities = new HashSet<>();
@@ -42,6 +43,10 @@ public class WorldImpl implements World {
     public Optional<GameObject> getPlayer(int id) {
         return this.players.size() >= id && id < 0 ? Optional.of(players.get(id - 1))
                 : Optional.empty();
+    }
+
+    public void addPlayer(GameObject player) {
+        this.players.add(player);
     }
     
     @Override

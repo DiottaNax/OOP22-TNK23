@@ -1,18 +1,32 @@
 package it.unibo.tnk23.view.impl;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class SceneFactoryImpl implements SceneFactory{
 
     @Override
-    public Scene getMenuScene() {
-        return new Scene(null);
+    public Scene getMenuScene(FxGameView view) {
+        Parent root;
+        try {
+            root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/menutitle.fxml"));
+        } catch (IOException e) {
+            root = new AnchorPane();
+            ((AnchorPane) root).getChildren().add(new Label(e.getMessage()));
+        }
+        return new TitleMenu(view, root);
     }
 
     @Override

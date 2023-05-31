@@ -43,16 +43,16 @@ public class SideScenesControllerImpl implements SideScenesController {
         this.round = round;
         this.world = this.round.getWorld();
         plry1 = new Image(getClass().getResourceAsStream("it/unibo/sprites/"
-                + (((GraphicComponent) this.world.getPlayer(1).get()
-                        .getComponent(GraphicComponent.class).get())
+                + (this.world.getPlayer(1).get()
+                        .getComponent(GraphicComponent.class).get()
                         .getSpriteName())));
         var player2 = this.world.getPlayer(2);            
         plyr2 = Optional
                 .of(new Image(getClass().getResourceAsStream("it/unibo/sprites/"
                 + (player2.isPresent()
-                        ? ((GraphicComponent) player2.get()
-                                .getComponent(GraphicComponent.class).get())
-                                .getSpriteName()
+                        ? player2.get()
+                            .getComponent(GraphicComponent.class).get()
+                            .getSpriteName()
                         : ""))));
     }
 
@@ -81,7 +81,7 @@ public class SideScenesControllerImpl implements SideScenesController {
         randomEnemiesLabel.setText("x " + this.round.getRandomEnemiesNum());
         aiEnemiesLabel.setText("x " + this.round.getAIEnemiesNum());
         player1.setText("Player 1");
-        if (this.world.getPlayers().size() == 2) {
+        if (this.world.getPlayer(2).isPresent()) {
             player2.setText("Player 2");
         }
     }
@@ -91,7 +91,7 @@ public class SideScenesControllerImpl implements SideScenesController {
     public void updateLabels() {
         missingEnemiesLabel.setText("x " + this.round.getEnemies().size());
         player1Life.setText("x " + /*player.getLife()*/null);
-        if (this.world.getPlayers().size() == 2) {
+        if (this.world.getPlayer(2).isPresent()) {
             player2Life.setText("x " + /* player.getLife() */null);
         }
     }
