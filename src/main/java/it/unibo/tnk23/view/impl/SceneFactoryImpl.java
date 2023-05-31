@@ -23,6 +23,7 @@ public class SceneFactoryImpl implements SceneFactory{
         try {
             root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/titlemenu.fxml"));
         } catch (IOException e) {
+            System.out.println("NO MENU");
             root = new AnchorPane();
             var label = new Label(e.getMessage());
             label.setScaleX(0);
