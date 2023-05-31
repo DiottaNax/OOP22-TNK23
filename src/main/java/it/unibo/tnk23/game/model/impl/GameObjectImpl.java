@@ -1,8 +1,10 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Directions;
@@ -20,23 +22,23 @@ public class GameObjectImpl implements GameObject {
     private Directions direction;
     private int power = 1;
     private double rotation;
-    private Map<Class<? extends Component>, Component> components;
+    private Set<Component> components;
 
     public GameObjectImpl(TypeObject type, Point2D position) {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
-        this.components = new HashMap<>();
+        this.components = new HashSet<>();
     }
 
     @Override
     public void update() {
-        components.values().forEach(Component::update);
+        components.forEach(Component::update);
     }
 
     @Override
     public Stream<Component> getComponents() {
-        return components.values().stream();
+        return components.stream();
     }
 
     @Override
@@ -46,9 +48,7 @@ public class GameObjectImpl implements GameObject {
 
     @Override
     public <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc) {
-        if (components.containsKey(nc)) {
-            ((NotifiableComponent) components.get(nc)).receive(message);   
-        }
+        components.stream().filter(nc::isInstance).map(nc::cast).forEach(c -> c.receive(message));
     }
     
     public Point2D getPosition() {
@@ -67,9 +67,9 @@ public class GameObjectImpl implements GameObject {
 
     @Override
     public <C extends Component> Optional<C> getComponent(Class<C> clas) {
-        return this.components.entrySet().stream()
-                .filter(e -> e.getKey().getClass().equals(clas))
-                .map(e -> clas.cast(e.getValue())).findAny();
+        return this.components.stream()
+                .filter(clas::isInstance)
+                .map(clas::cast).findAny();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class GameObjectImpl implements GameObject {
     
     @Override
     public void addComponent(Component comp) {
-        components.put(comp.getClass(), comp);
+        components.add(comp);
     }
 
     @Override
