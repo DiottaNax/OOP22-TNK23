@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.model.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class GameObjectImpl implements GameObject {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
-        this.components = new HashSet<>();
+        this.components = new LinkedHashSet<>();
     }
 
     @Override
