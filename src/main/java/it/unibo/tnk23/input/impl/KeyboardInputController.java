@@ -38,9 +38,20 @@ public class KeyboardInputController implements InputController {
         }
     }
 
-    public void setOnKeyReleased(KeyEvent e) {
-        direction = Directions.NONE;
-        this.isShooting = false;
+    public void setOnKeyReleased(KeyEvent e) {        
+        switch (e.getCode()) {
+            case UP:
+            case DOWN:
+            case LEFT:
+            case RIGHT:
+                direction = Directions.NONE;
+                break;
+            case ENTER:
+                this.isShooting = false;
+                break;
+            default:
+                break;
+        }
     }
     
     public boolean isShooting() {
