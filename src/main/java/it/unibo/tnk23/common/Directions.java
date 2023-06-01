@@ -20,6 +20,28 @@ public enum Directions {
         return this.direction;
     }
 
+    public static Directions fromAngle(int angle) {
+        var dir = NONE;
+        switch (angle) {
+            case 0:
+                dir = NORTH;
+                break;
+            case 90:
+                dir = EAST;
+                break;
+            case -90:
+                dir = WEST;
+                break;
+            case 100:
+                dir = SOUTH;
+                break;
+            default:
+                break;
+        }
+
+        return dir;
+    }
+
     public static Directions getRandomDir() {
         final var possibilities = List.of(NONE,NORTH,SOUTH,WEST,EAST);
         return possibilities.get(new Random().nextInt(possibilities.size()));
