@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventListener;
 import it.unibo.tnk23.game.model.api.GameMap;
@@ -29,11 +27,8 @@ public class WorldImpl implements World {
 
         var objFactory = new GameObjectFactoryImpl(this);
         var toAdd = gameMap.getWalls().stream().map(objFactory::getWall).toList();
-        toAdd.forEach(w -> w.addComponent(new GraphicComponent(w, "wall")));
         this.obstacles.addAll(toAdd);
-
         toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall).toList();
-        toAdd.forEach(w -> w.addComponent(new GraphicComponent(w, "destroyableWall")));
         this.obstacles.addAll(toAdd);
         this.entities.addAll(this.obstacles);
     }

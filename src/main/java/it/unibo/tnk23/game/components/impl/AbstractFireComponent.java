@@ -25,9 +25,10 @@ public abstract class AbstractFireComponent extends AbstractComponent{
             var dir = entity.getDirection();
             var edge = (double) entity.getType().getWidth(); /*mi basta usare getwidth perchè chi spara è quadrato*/
             var bulletPos = new Point2D(pos.getX() + edge / 2, pos.getY() + edge / 2);
-            bulletPos = bulletPos.sum(dir.getVel().mul(edge / 2 + 2));
+            bulletPos = bulletPos.sum(dir.getVel().mul(edge * 2));
             lastBullet = Optional.of(new GameObjectFactoryImpl(world).getBullet(bulletPos));
             lastBullet.get().setPower(entity.getPower());
+            lastBullet.get().setDirection(entity.getDirection());
             world.notifyEvent(new WorldEventImpl(entity.getPosition(), lastBullet.get(), WorldEventType.SHOOT_EVENT));
         }
         if(lastBullet.isPresent() && !world.getEntities().contains(lastBullet.get())) {
