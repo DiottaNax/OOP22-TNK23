@@ -23,13 +23,13 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     public void update() {
         var nextPos = entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed));
         
-        if (nextPos.getX() <= 0
-                && nextPos.getX() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth()
-                && nextPos.getY() <= 0 
-                && nextPos.getY() >= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight()) {
+        if (nextPos.getX() >= 0
+                && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth()
+                && nextPos.getY() >= 0 
+                && nextPos.getY() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight()) {
             this.entity.setPosition(nextPos);
         }
-        var rotation = entity.getDirection().getVel().getX() * (-90) + entity.getDirection().getVel().getY() * 180;
+        var rotation = entity.getDirection().getVel().getX() * (90) + entity.getDirection().getVel().getY() * 180;
         if (rotation != 0) {
             this.entity.setRotation(rotation != -180 ? rotation : 0);
         }
