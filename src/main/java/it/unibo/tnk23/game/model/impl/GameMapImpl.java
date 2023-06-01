@@ -21,6 +21,7 @@ public class GameMapImpl implements GameMap {
         this.mapFile = file;
         this.walls = new HashSet<>();
         this.destroyableWalls = new HashSet<>();
+        generateWalls();
     }
 
     @Override
@@ -44,11 +45,11 @@ public class GameMapImpl implements GameMap {
                     switch (ch) {
                         case 'D':
                             this.destroyableWalls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE, l * Configuration.TILE_SIZE));
+                                    .add(new Point2D(c * Configuration.TILE_SIZE/2, l * Configuration.TILE_SIZE/2));
                             break;
                         case 'U':
                             this.walls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE, l * Configuration.TILE_SIZE));
+                                    .add(new Point2D(c * Configuration.TILE_SIZE/2, l * Configuration.TILE_SIZE/2));
                             break;
                         default:
                             break;
