@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.tnk23.view.impl.TitleMenu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unibo.tnk23.view.impl.TitleMenuController">
    <children>
       <Button fx:id="startButton" layoutX="52.0" layoutY="147.0" mnemonicParsing="false" onAction="#startGame" opacity="0.8" prefHeight="0.0" prefWidth="95.0" text="START GAME!" textAlignment="CENTER" textFill="#ff00b7">
          <font>
@@ -18,6 +18,6 @@
       </Button>
    </children>
    <stylesheets>
-    <URL value="@application.css" />
+    <URL value="@../../../../../../resources/it/unibo/style/background.css" />
   </stylesheets>
 </AnchorPane>

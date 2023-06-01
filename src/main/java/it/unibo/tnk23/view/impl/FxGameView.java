@@ -1,5 +1,7 @@
 package it.unibo.tnk23.view.impl;
 
+import java.io.IOException;
+
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.impl.GameEngineImpl;
@@ -42,7 +44,8 @@ public class FxGameView implements GameView {
         var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(40, 40));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);
-        this.setGameScene(world);
+        //this.setGameScene(world);
+        this.setMenuScene();
 
         this.stage.show();
     }
@@ -76,9 +79,13 @@ public class FxGameView implements GameView {
 
     @Override
     public void setMenuScene() {
-        this.stage.setFullScreen(false);
-        this.stage.setScene(this.sceneFactory.getMenuScene(this));
-        this.stage.sizeToScene();
+        try{
+            this.stage.setFullScreen(false);
+            this.stage.setScene(this.sceneFactory.getMenuScene(this));
+            this.stage.sizeToScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

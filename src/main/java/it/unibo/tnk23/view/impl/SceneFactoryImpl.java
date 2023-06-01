@@ -18,18 +18,10 @@ import javafx.scene.layout.Pane;
 public class SceneFactoryImpl implements SceneFactory{
 
     @Override
-    public Scene getMenuScene(FxGameView view) {
-        Parent root;
-        try {
-            root = new FXMLLoader().load(ClassLoader.getSystemResourceAsStream("it/unibo/style/titlemenu.fxml"));
-        } catch (IOException e) {
-            System.out.println("NO MENU");
-            root = new AnchorPane();
-            var label = new Label(e.getMessage());
-            label.setScaleX(0);
-            ((AnchorPane) root).getChildren().add(label);
-        }
-        return new TitleMenu(view, root);
+    public Scene getMenuScene(FxGameView view) throws IOException {
+        var loader = new FXMLLoader(ClassLoader.getSystemResource("/titlemenu.fxml"));
+        loader.setController(new TitleMenuController(view));
+        return new Scene(loader.load());
     }
 
     @Override

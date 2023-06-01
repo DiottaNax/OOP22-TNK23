@@ -23,7 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
 
-public class TitleMenu extends Scene {
+public class TitleMenuController {
 
     @FXML
     private Button startButton = new Button();
@@ -37,11 +37,10 @@ public class TitleMenu extends Scene {
     private GameMap map = new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt"));
 
 
-    public TitleMenu(FxGameView view, Parent root) {
-        super(root);
+    public TitleMenuController(FxGameView view) {
         this.view = view;
         //this.getStylesheets().addAll(this.getClass().getResource("it/unibo/style/background.css").toExternalForm());
-        players.add(new GameObjectImpl(TypeObjectFactory.getPlayerType(), new Point2D(getX(), getY())));
+        //players.add(new GameObjectImpl(TypeObjectFactory.getPlayerType(), new Point2D(getX(), getY())));
     }
 
     @FXML
