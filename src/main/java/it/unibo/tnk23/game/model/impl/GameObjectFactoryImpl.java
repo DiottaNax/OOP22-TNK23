@@ -46,9 +46,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObject getBullet(Point2D pos) {
         var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
         bullet.addComponent(new BulletHealthComponent(bullet, world));
+        bullet.addComponent(new PhysicsComponent(bullet, world));
         bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
-        bullet.addComponent(new PhysicsComponent(bullet, world));
         bullet.addComponent(new GraphicComponent(bullet, "bullet"));
         return bullet;
     }
