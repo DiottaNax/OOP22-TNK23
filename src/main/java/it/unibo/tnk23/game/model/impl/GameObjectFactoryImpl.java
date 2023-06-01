@@ -27,8 +27,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
         enemy.addComponent(new EntitiesHealthComponent(enemy, world));
         enemy.addComponent(new TimeFireComponent(enemy, world));
-        enemy.addComponent(new CollisionComponent(enemy, world));
         enemy.addComponent(new PhysicsComponent(enemy, world));
+        enemy.addComponent(new CollisionComponent(enemy, world));
         return enemy;
     }
 
@@ -37,8 +37,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
         player.addComponent(new EntitiesHealthComponent(player, world));
         player.addComponent(new PlayerFireComponent(player, world));
-        player.addComponent(new CollisionComponent(player, world));
         player.addComponent(new PhysicsComponent(player, world));
+        player.addComponent(new CollisionComponent(player, world));
         return player;
     }
 
