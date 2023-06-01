@@ -34,10 +34,9 @@ public class SceneFactoryImpl implements SceneFactory{
 
     @Override
     public Scene getGameScene(Pane gamePane, GameView gameView) {
-        return new GameScene(
+        return new Scene(
                 new BorderPane(
-                        new SubScene(gamePane, Configuration.GAME_SCENE_DIMENSION, Configuration.GAME_SCENE_DIMENSION)),
-                gameView);
+                        new SubScene(gamePane, Configuration.GAME_SCENE_DIMENSION, Configuration.GAME_SCENE_DIMENSION)));
     }
 
     @Override
