@@ -34,6 +34,7 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void startEngine() {
         this.loop.runGameLoop();
+        this.state.getRound().startRound();
     }
 
     @Override

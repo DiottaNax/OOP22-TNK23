@@ -5,15 +5,17 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
+import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.common.shape.Shape;
 
-public class CollisionComponent extends AbstractComponent {
+public class BulletCollisionComponent extends AbstractComponent {
 
     private Rect2D hitbox;
 
-    public CollisionComponent(GameObject entity, World world) {
+    public BulletCollisionComponent(GameObject entity, World world) {
         super(entity, world);
         var type = entity.getType();
         var width = type.getWidth() * (Configuration.SCALE_FACTOR - 0.05);
@@ -36,13 +38,15 @@ public class CollisionComponent extends AbstractComponent {
                             .isCollidingWith((Shape) hitbox))
                     .toList();
 
+            if (!collidedList.isEmpty()) {
+                        this.world.notifyEvent(new WorldEventImpl(entity.getPosition(), entity, WorldEventType.DEATH_EVENT));
+                    }
+
             collidedList.forEach(e -> {
-                e.notifyComponents(() -> entity, EntitiesHealthComponent.class);
-                e.notifyComponents(() -> entity, BulletHealthComponent.class);
+                e.notifyComponents(() -> e, EntitiesHealthComponent.class);
+                e.notifyComponents(() -> e, BulletHealthComponent.class);
             });
             collidedList.stream().findAny().ifPresent(e -> entity.notifyComponents(() -> e, PhysicsComponent.class));
         }
     }
 }
-
-            

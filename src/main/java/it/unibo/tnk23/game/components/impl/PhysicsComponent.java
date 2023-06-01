@@ -23,9 +23,9 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     public void update() {
         var nextPos = entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed));
         
-        if (nextPos.getX() >= 0
+        if (nextPos.getX() >= 5
                 && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth()
-                && nextPos.getY() >= 0 
+                && nextPos.getY() >= 5
                 && nextPos.getY() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight()) {
             this.entity.setPosition(nextPos);
         }

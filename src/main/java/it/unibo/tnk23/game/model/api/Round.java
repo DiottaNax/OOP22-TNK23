@@ -17,4 +17,6 @@ public interface Round {
     int getAIEnemiesNum();
 
     void update();
+
+    void startRound();
 }
