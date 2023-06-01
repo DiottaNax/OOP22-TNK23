@@ -76,11 +76,16 @@ public class RoundImpl implements Round{
     public void update() {
         this.spawn.update();
         this.graph.update();
-        if(this.isOver()) {
+        if (this.isOver()) {
             this.round++;
             setDelay();
             fillEnemiesList();
         }
+    }
+    
+    @Override
+    public void startRound() {
+        this.spawn.spawnEnemies();
     }
 
     private void fillEnemiesList() {
@@ -140,9 +145,10 @@ public class RoundImpl implements Round{
     }
 
     private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
-        Stream.iterate(0, i -> i+1)
-              .limit(numEnemies)
-              .forEach( i -> this.enemies.add(enemyGenerator.get()));
+        Stream.iterate(0, i -> i + 1)
+                .limit(numEnemies)
+                .forEach(i -> this.enemies.add(enemyGenerator.get()));
     }
+
     
 }
