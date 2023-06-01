@@ -56,8 +56,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public GameObject getWall(Point2D pos) {
         var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
-        wall.addComponent(new PhysicsComponent(wall, world));
         wall.addComponent(new CollisionComponent(wall, world));
+        wall.addComponent(new GraphicComponent(wall, "wall"));
         return wall;
     }
 
@@ -66,6 +66,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         destroyableWall.addComponent(new CollisionComponent(destroyableWall, world));
         destroyableWall.addComponent(new EntitiesHealthComponent(destroyableWall, world));
+        destroyableWall.addComponent(new GraphicComponent(destroyableWall, "destroyableWall"));
         return destroyableWall;
     }
 
