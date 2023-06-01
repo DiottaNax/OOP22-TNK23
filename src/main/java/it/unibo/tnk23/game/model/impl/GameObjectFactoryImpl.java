@@ -5,6 +5,7 @@ import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
+import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.components.impl.PhysicsComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
 import it.unibo.tnk23.game.components.impl.TimeFireComponent;
@@ -48,23 +49,24 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
         bullet.addComponent(new PhysicsComponent(bullet, world));
+        bullet.addComponent(new GraphicComponent(bullet, "bullet"));
         return bullet;
     }
 
     @Override
     public GameObject getWall(Point2D pos) {
         var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
-        wall.addComponent(new PhysicsComponent(wall, world));
         wall.addComponent(new CollisionComponent(wall, world));
+        wall.addComponent(new GraphicComponent(wall, "wall"));
         return wall;
     }
 
     @Override
     public GameObject getDestroyableWall(Point2D pos) {
         var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
-        destroyableWall.addComponent(new PhysicsComponent(destroyableWall, world));
         destroyableWall.addComponent(new CollisionComponent(destroyableWall, world));
         destroyableWall.addComponent(new EntitiesHealthComponent(destroyableWall, world));
+        destroyableWall.addComponent(new GraphicComponent(destroyableWall, "destroyableWall"));
         return destroyableWall;
     }
 
@@ -73,7 +75,6 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         twr.addComponent(new EntitiesHealthComponent(twr, world));
         twr.addComponent(new CollisionComponent(twr, world));
-        twr.addComponent(new PhysicsComponent(twr, world));
         return twr;
     }
     
