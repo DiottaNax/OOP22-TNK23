@@ -5,6 +5,7 @@ import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
+import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.components.impl.PhysicsComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
 import it.unibo.tnk23.game.components.impl.TimeFireComponent;
@@ -48,6 +49,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
         bullet.addComponent(new PhysicsComponent(bullet, world));
+        bullet.addComponent(new GraphicComponent(bullet, "bullet"));
         return bullet;
     }
 
