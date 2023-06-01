@@ -49,7 +49,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.cachedSprites = new HashMap<>();
         this.cachedSprites.put("pinkPlayer",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/pinkPlayer.gif")));
-        this.cachedSprites.put("wall", new Image(ClassLoader.getSystemResourceAsStream("it/unibo/wall/.png")));
+        this.cachedSprites.put("wall", new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/wall.png")));
         this.cachedSprites.put("destroyableWall",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/destroyableWall.png")));
         this.cachedSprites.put("brownEnemy",
