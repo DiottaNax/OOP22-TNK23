@@ -1,11 +1,12 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
@@ -18,59 +19,56 @@ import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 public class SpawnImpl implements Spawn{
 
     private Round round;
-    private Iterator<GameObject> enemiesIterator;
+    private List<GameObject> roundEnemies;
     private List<GameObject> activeEnemies;
-    private final long delay;
-
+    private final int delay;
     private final Timer timer = new Timer();
     private final Random random = new Random();
 
 
-    public SpawnImpl(final long delay, final Round round) {
+    public SpawnImpl(final int delay, final Round round) {
         this.delay = delay;
         this.round = round;
-        activeEnemies = new ArrayList<>();
-        enemiesIterator = round.getEnemies().iterator();
-    }
-
-    @Override
-    public void spawnEnemies() {
-        start();
-    }
-
-    @Override
-    public void update() {
-        if (!enemiesIterator.hasNext()) {
-            timer.cancel();
-        }
-        round.getEnemies().removeAll(getDiedEnemies());
+        this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
+        this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
     }
 
     @Override
     public Point2D getPos() {
-        List<Point2D> possibilePos = List.of(new Point2D(15, 15),
-                new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE, 15),
-                new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, 15));
+        List<Point2D> possibilePos = List.of(new Point2D(Configuration.TILE_SIZE / 2,Configuration.TILE_SIZE / 2),
+            new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE,Configuration.TILE_SIZE / 2),
+                new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2)
+        );
         return possibilePos.get(random.nextInt(possibilePos.size()));
     }
-    
-    private void start() {
+
+    @Override
+    public void startSpawn() {
         this.timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                if (enemiesIterator.hasNext()) {
-                    activeEnemies.add(enemiesIterator.next());
-                    round.getWorld().notifyEvent(new WorldEventImpl(getPos(), activeEnemies.get(activeEnemies.size() - 1),
-                            WorldEventType.SPAWN_EVENT));
+                if (!roundEnemies.isEmpty()) {
+                    System.out.println("sono dentro al timer");
+                    var enemy = roundEnemies.get(0);
+                    roundEnemies.remove(0);
+                    round.getWorld().notifyEvent(new WorldEventImpl(getPos(), enemy, WorldEventType.SPAWN_EVENT));
                 }
             } 
-        }, delay);
+        }, this.delay, this.delay);
+    }
+
+    @Override
+    public void update() {
+        if (this.roundEnemies.isEmpty()) {
+            this.timer.cancel();
+        }
+        this.round.getEnemies().removeIf(this::isEnemyDead);
+        activeEnemies.removeIf(this::isEnemyDead);
     }
     
-    private List<GameObject> getDiedEnemies() {
-        var worldEnemies = round.getWorld().getEntities();
-        return activeEnemies.stream().filter(e -> !worldEnemies.contains(e)).toList(); //Mi da i nemici attiva che non sono più nel mondo 
+    private boolean isEnemyDead(final GameObject enemy) {
+        return !round.getWorld().getEntities().contains(enemy);
     }
     
 }
