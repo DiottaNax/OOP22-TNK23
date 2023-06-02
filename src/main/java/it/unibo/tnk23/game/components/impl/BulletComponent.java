@@ -25,7 +25,7 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
     @Override
     public <X> void receive(Message<X> x) {
         if(x.getMessage() instanceof GameObject) {
-            GameObject obj = (GameObject) x;
+            GameObject obj = (GameObject) x.getMessage();
             shooterType = obj.getType();
         }
     }
