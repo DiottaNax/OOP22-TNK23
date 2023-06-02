@@ -32,7 +32,7 @@ public enum Directions {
             case -90:
                 dir = WEST;
                 break;
-            case 100:
+            case 180:
                 dir = SOUTH;
                 break;
             default:
