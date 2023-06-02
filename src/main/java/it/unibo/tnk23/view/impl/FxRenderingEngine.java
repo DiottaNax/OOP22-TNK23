@@ -68,6 +68,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
             this.sprites.get(e).setRotate(e.getRotation());
         });
         var toRemove = this.sprites.keySet().stream().filter(k -> !this.world.getEntities().contains(k)).toList();
+        toRemove.forEach(this.sprites::remove);
         root.getChildren().addAll(this.sprites.values());
     }
 
