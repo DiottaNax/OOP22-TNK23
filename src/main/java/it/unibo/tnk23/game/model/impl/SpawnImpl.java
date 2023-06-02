@@ -49,7 +49,6 @@ public class SpawnImpl implements Spawn{
             @Override
             public void run() {
                 if (!roundEnemies.isEmpty()) {
-                    System.out.println("sono dentro al timer");
                     var enemy = roundEnemies.get(0);
                     roundEnemies.remove(0);
                     round.getWorld().notifyEvent(new WorldEventImpl(getPos(), enemy, WorldEventType.SPAWN_EVENT));
