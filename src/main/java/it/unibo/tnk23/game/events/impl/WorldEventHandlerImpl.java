@@ -1,9 +1,15 @@
 package it.unibo.tnk23.game.events.impl;
 
+import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.common.Directions;
+import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventHandler;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 
 public class WorldEventHandlerImpl implements WorldEventHandler {
 
@@ -22,7 +28,17 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 break;
 
             case SHOOT_EVENT:
-                world.getEntities().add(we.getEventActor());
+                var actor = we.getEventActor();
+                var pos = actor.getPosition();
+                var actorEdge = (double) actor.getType().getWidth() * Configuration.SCALE_FACTOR; /*mi basta usare getwidth perchè chi spara è quadrato*/
+                var bulletEdge = TypeObjectFactory.getBulletType().getWidth() * Configuration.SCALE_FACTOR + 6;
+                var bulletPos = new Point2D(pos.getX() + actorEdge / 2 - bulletEdge, pos.getY() + actorEdge / 2 - bulletEdge);
+                bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel().mul(actorEdge / 2));
+                var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
+                bullet.setPower(actor.getPower());
+                bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
+                bullet.notifyComponents(we::getEventActor, BulletComponent.class);
+                world.getEntities().add(bullet);
                 break;
 
             case SPAWN_EVENT:
