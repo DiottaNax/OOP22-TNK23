@@ -21,12 +21,12 @@ public class SpawnImpl implements Spawn{
     private Round round;
     private List<GameObject> roundEnemies;
     private List<GameObject> activeEnemies;
-    private final int delay;
+    private final long delay;
     private final Timer timer = new Timer();
     private final Random random = new Random();
 
 
-    public SpawnImpl(final int delay, final Round round) {
+    public SpawnImpl(final long delay, final Round round) {
         this.delay = delay;
         this.round = round;
         this.activeEnemies = Collections.synchronizedList(new ArrayList<>());

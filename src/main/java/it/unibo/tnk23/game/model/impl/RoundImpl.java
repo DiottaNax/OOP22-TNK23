@@ -22,7 +22,7 @@ public class RoundImpl implements Round{
 
     private List<GameObject> enemies;
     private int round;
-    private int spawnDelay;
+    private long spawnDelay;
     private World world;
     private int numRandomEnemies = 0;
     private int numFollowTargetEnemies = 0;
@@ -104,13 +104,13 @@ public class RoundImpl implements Round{
         }
 
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
-        addEnemies(numFollowTargetEnemies, this::generateFollowTowerEnemies);
-        addEnemies(numTowerEnemies, this::generateFollowMovingTargetEnemies);
+        //addEnemies(numFollowTargetEnemies, this::generateFollowTowerEnemies);
+        //addEnemies(numTowerEnemies, this::generateFollowMovingTargetEnemies);
     }
 
     private void setDelay() {
-        final int simpleDelay = 2 * Configuration.FPS;
-        final int hardDelay = Configuration.FPS;
+        final long simpleDelay = 4000;
+        final long hardDelay = 2500;
 
         this.spawnDelay = simpleDelay;
         
@@ -126,7 +126,7 @@ public class RoundImpl implements Round{
         return enemy;
     }
 
-    private GameObject generateFollowMovingTargetEnemies() {
+    /*private GameObject generateFollowMovingTargetEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
         enemy.addComponent(new AiComponent(enemy,
                 aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
@@ -139,7 +139,7 @@ public class RoundImpl implements Round{
         enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi()));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
-    }
+    }*/
 
     private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
         Stream.iterate(0, i -> i + 1)
