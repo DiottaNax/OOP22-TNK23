@@ -22,7 +22,7 @@ public class RoundImpl implements Round{
 
     private List<GameObject> enemies;
     private int round;
-    private Long spawnDelay;
+    private int spawnDelay;
     private World world;
     private int numRandomEnemies = 0;
     private int numFollowTargetEnemies = 0;
@@ -35,11 +35,11 @@ public class RoundImpl implements Round{
         this.round = 1;
         this.enemies = new ArrayList<>();
         this.world = world;
-        setDelay();
+        this.setDelay();
         this.spawn = new SpawnImpl(this.spawnDelay, this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
-        fillEnemiesList();
+        this.fillEnemiesList();
     }
 
     @Override
@@ -78,14 +78,14 @@ public class RoundImpl implements Round{
         this.graph.update();
         if (this.isOver()) {
             this.round++;
-            setDelay();
-            fillEnemiesList();
+            this.setDelay();
+            this.fillEnemiesList();
         }
     }
     
     @Override
     public void startRound() {
-        this.spawn.spawnEnemies();
+        this.spawn.startSpawn();
     }
 
     private void fillEnemiesList() {
@@ -109,16 +109,13 @@ public class RoundImpl implements Round{
     }
 
     private void setDelay() {
-        final long simpleDelay = 2500;
-        final long mediumDelay = 2000;
-        final long hardDelay = 1000;
+        final int simpleDelay = 2 * Configuration.FPS;
+        final int hardDelay = Configuration.FPS;
 
-        spawnDelay = simpleDelay;
+        this.spawnDelay = simpleDelay;
         
-        if(round >= 5 && round < 10) {
-            spawnDelay = mediumDelay;
-        } else if(round >= 10) {
-            spawnDelay = hardDelay;
+        if(round >= 5) {
+            this.spawnDelay = hardDelay;
         }
     }
 
@@ -139,7 +136,7 @@ public class RoundImpl implements Round{
     
     private GameObject generateFollowTowerEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
+        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi()));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
