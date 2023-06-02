@@ -19,4 +19,6 @@ public interface Round {
     void update();
 
     void startRound();
+
+    void notifyEnemyDeath();
 }

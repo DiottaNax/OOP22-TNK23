@@ -62,8 +62,10 @@ public class SpawnImpl implements Spawn{
         if (this.roundEnemies.isEmpty()) {
             this.timer.cancel();
         }
-        this.round.getEnemies().removeIf(this::isEnemyDead);
-        activeEnemies.removeIf(this::isEnemyDead);
+        var diedEnemis = activeEnemies.stream().filter(this::isEnemyDead).toList();
+        this.round.getEnemies().removeAll(diedEnemis);
+        activeEnemies.removeAll(diedEnemis);
+        diedEnemis.forEach(d -> this.round.notifyEnemyDeath());
     }
     
     private boolean isEnemyDead(final GameObject enemy) {

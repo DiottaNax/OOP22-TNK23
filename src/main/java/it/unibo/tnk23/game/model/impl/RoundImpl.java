@@ -21,6 +21,7 @@ import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 public class RoundImpl implements Round{
 
     private List<GameObject> enemies;
+    private int totalEnemies = 0;
     private int round;
     private long spawnDelay;
     private World world;
@@ -49,7 +50,7 @@ public class RoundImpl implements Round{
 
     @Override
     public boolean isOver() {
-        return enemies.isEmpty();
+        return this.totalEnemies == 0;
     }
 
     @Override
@@ -76,6 +77,7 @@ public class RoundImpl implements Round{
     public void update() {
         this.spawn.update();
         this.graph.update();
+        this.totalEnemies = this.numRandomEnemies + this.numFollowTargetEnemies + this.numTowerEnemies;
         if (this.isOver()) {
             this.round++;
             this.setDelay();
@@ -145,6 +147,11 @@ public class RoundImpl implements Round{
         Stream.iterate(0, i -> i + 1)
                 .limit(numEnemies)
                 .forEach(i -> this.enemies.add(enemyGenerator.get()));
+    }
+
+    @Override
+    public void notifyEnemyDeath() {
+        this.totalEnemies--;
     }
 
     
