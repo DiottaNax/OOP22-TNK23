@@ -62,11 +62,13 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
     @Override
     public List<Directions> getPathFrom(VisitableGridGraphNode node) {
         var path = new LinkedList<Directions>();
-        var current = this.graphNodes.get(node);
+        if (this.graphNodes.containsKey(node)) {
+            var current = this.graphNodes.get(node);
 
-        while (current.getParent().isPresent()) {
-            path.addLast(current.getDirectionToParent());
-            current = (VisitableGridGraphNode) current.getParent().get();
+            while (current.getParent().isPresent()) {
+                path.addLast(current.getDirectionToParent());
+                current = (VisitableGridGraphNode) current.getParent().get();
+            }
         }
         path.add(Directions.NONE);
 
@@ -82,7 +84,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
 
     @Override
     public void setGoal(VisitableGridGraphNode goal) {
-        if (!this.goal.equals(goal)) {
+        if (!this.goal.equals(goal) && this.graphNodes.containsKey(goal)) {
             //here starts bfs
             this.graph.keySet().forEach(VisitableGridGraphNode::reset);
             var source = this.graphNodes.get(goal);
