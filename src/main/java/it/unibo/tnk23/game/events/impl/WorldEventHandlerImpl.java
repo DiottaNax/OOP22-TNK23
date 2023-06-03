@@ -20,13 +20,13 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
     @Override
     public void handle(WorldEvent we) {
         WorldEventType type = we.getType();
+        var actor = we.getEventActor();
         switch (type) {
             case DEATH_EVENT:
-                world.removeEntity(we.getEventActor());
+                world.removeEntity(actor);
                 break;
 
             case SHOOT_EVENT:
-                var actor = we.getEventActor();
                 var pos = actor.getPosition();
                 var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR; /*mi basta usare getwidth perchè chi spara è quadrato*/
                 var bulletPos = pos;
@@ -39,7 +39,8 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 break;
 
             case SPAWN_EVENT:
-                world.addEntity(we.getEventActor());
+                actor.setPosition(we.getposition());
+                world.addEntity(actor);
                 break;
 
             default:
