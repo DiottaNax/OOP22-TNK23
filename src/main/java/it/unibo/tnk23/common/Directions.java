@@ -41,9 +41,4 @@ public enum Directions {
 
         return dir;
     }
-
-    public static Directions getRandomDir() {
-        final var possibilities = List.of(NONE,NORTH,SOUTH,WEST,EAST);
-        return possibilities.get(new Random().nextInt(possibilities.size()));
-    }
 }
