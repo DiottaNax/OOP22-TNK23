@@ -1,5 +1,6 @@
 package it.unibo.tnk23.input.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -25,9 +26,10 @@ public class AiControllerFactoryImpl implements AiControllerFactory{
     }
 
     private Directions getPseudoRandomDir(Directions dir) {
-        var possibilities = List.of(Directions.NONE, Directions.SOUTH, Directions.WEST, Directions.EAST);
-        possibilities = possibilities.stream().filter(d -> !dir.equals(dir) && !Directions.NONE.equals(d))
-                .flatMap(d -> Stream.of(d, d)).toList();
+        var possibilities = new ArrayList<>(
+                List.of(Directions.NONE, Directions.SOUTH, Directions.WEST, Directions.EAST));
+        possibilities.addAll(possibilities);
+        possibilities.remove(dir);
         return possibilities.get(new Random().nextInt(possibilities.size()));
     }
 
