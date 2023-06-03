@@ -29,7 +29,11 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void processInput() {
-        this.eventQueue.forEach(eventHandler::handle);
+        try{
+            this.eventQueue.forEach(eventHandler::handle);
+        } catch(NullPointerException e){
+            e.printStackTrace();
+        }
         this.eventQueue.clear();
     }
 
