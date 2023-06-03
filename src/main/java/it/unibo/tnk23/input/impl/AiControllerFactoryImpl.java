@@ -1,5 +1,7 @@
 package it.unibo.tnk23.input.impl;
 
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Configuration;
@@ -22,9 +24,16 @@ public class AiControllerFactoryImpl implements AiControllerFactory{
         this.world = world;
     }
 
+    private Directions getPseudoRandomDir(Directions dir) {
+        var possibilities = List.of(Directions.NONE, Directions.SOUTH, Directions.WEST, Directions.EAST);
+        possibilities = possibilities.stream().filter(d -> !dir.equals(dir) && !Directions.NONE.equals(d))
+                .flatMap(d -> Stream.of(d, d)).toList();
+        return possibilities.get(new Random().nextInt(possibilities.size()));
+    }
+
     @Override
     public InputController getRandomAi() {
-        var iterator = Stream.iterate(Directions.SOUTH, d -> Directions.getRandomDir()).iterator();
+        var iterator = Stream.iterate(Directions.SOUTH, this::getPseudoRandomDir).iterator();
         return () -> iterator.next();       
     }
 
