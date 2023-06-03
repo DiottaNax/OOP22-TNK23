@@ -22,7 +22,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
         WorldEventType type = we.getType();
         switch (type) {
             case DEATH_EVENT:
-                world.getEntities().remove(we.getEventActor());
+                world.removeEntity(we.getEventActor());
                 break;
 
             case SHOOT_EVENT:
@@ -35,11 +35,11 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 bullet.setPower(actor.getPower());
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
                 bullet.notifyComponents(we::getEventActor, BulletComponent.class);
-                world.getEntities().add(bullet);
+                world.addEntity(bullet);
                 break;
 
             case SPAWN_EVENT:
-                world.getEntities().add(we.getEventActor());
+                world.addEntity(we.getEventActor());
                 break;
 
             default:
