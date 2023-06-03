@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.AiComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
@@ -41,6 +42,9 @@ public class RoundImpl implements Round{
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
         this.fillEnemiesList();
+        this.totalEnemies = this.enemies.size();
+        System.out.println(totalEnemies);
+        System.out.println(enemies);
     }
 
     @Override
@@ -77,11 +81,16 @@ public class RoundImpl implements Round{
     public void update() {
         this.spawn.update();
         this.graph.update();
-        this.totalEnemies = this.numRandomEnemies + this.numFollowTargetEnemies + this.numTowerEnemies;
         if (this.isOver()) {
+            System.out.println("Fine round");
             this.round++;
             this.setDelay();
             this.fillEnemiesList();
+            this.totalEnemies = this.enemies.size();
+            System.out.println(totalEnemies);
+            System.out.println(enemies);
+            this.startRound();
+            System.out.println("Inizia il round: " +this.round);
         }
     }
     
@@ -91,6 +100,7 @@ public class RoundImpl implements Round{
     }
 
     private void fillEnemiesList() {
+        this.enemies.clear();
         numRandomEnemies = 0;
         numFollowTargetEnemies = 0;
         numTowerEnemies = 0;
@@ -100,14 +110,14 @@ public class RoundImpl implements Round{
         if (round==1) {
             numRandomEnemies = 6;
         } else {
-            numRandomEnemies = round*3;
-            numFollowTargetEnemies = (int) (round/rateFollowTargetEnemies);
-            numTowerEnemies = (int) (round/rateTowerEnemies);
+            numRandomEnemies = this.round*3;
+            numFollowTargetEnemies = (int) (this.round/rateFollowTargetEnemies);
+            numTowerEnemies = (int) (this.round / rateTowerEnemies);
         }
 
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
-        //addEnemies(numFollowTargetEnemies, this::generateFollowTowerEnemies);
-        //addEnemies(numTowerEnemies, this::generateFollowMovingTargetEnemies);
+        addEnemies(numFollowTargetEnemies, this::generateFollowMovingTargetEnemies);
+        //addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
     }
 
     private void setDelay() {
@@ -122,22 +132,22 @@ public class RoundImpl implements Round{
     }
 
     private GameObject generateRandomMovingEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
         enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
         return enemy;
     }
 
-    /*private GameObject generateFollowMovingTargetEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
+    private GameObject generateFollowMovingTargetEnemies() {
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy,
-                aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
+                aiFactory.getFollowMovingTargetAi(this.world.getPlayer(1).get())));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
     
-    private GameObject generateFollowTowerEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
+    /*private GameObject generateFollowTowerEnemies() {
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi()));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
@@ -151,6 +161,7 @@ public class RoundImpl implements Round{
 
     @Override
     public void notifyEnemyDeath() {
+        System.out.println(totalEnemies);
         this.totalEnemies--;
     }
 
