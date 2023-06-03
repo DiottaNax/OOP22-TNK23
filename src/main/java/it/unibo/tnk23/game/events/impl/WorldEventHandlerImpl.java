@@ -33,7 +33,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 var actorEdge = (double) actor.getType().getWidth() * Configuration.SCALE_FACTOR; /*mi basta usare getwidth perchè chi spara è quadrato*/
                 var bulletEdge = TypeObjectFactory.getBulletType().getWidth() * Configuration.SCALE_FACTOR + 6;
                 var bulletPos = new Point2D(pos.getX() + actorEdge / 2 - bulletEdge, pos.getY() + actorEdge / 2 - bulletEdge);
-                bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel().mul(actorEdge / 2));
+                bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel().mul(actorEdge / 2 + 18));
                 var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
                 bullet.setPower(actor.getPower());
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
