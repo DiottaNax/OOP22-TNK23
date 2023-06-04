@@ -2,10 +2,11 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -44,7 +45,7 @@ public class TitleMenuController {
     }
 
     @FXML
-    private void startGame() {
+    private void startGame() throws IOException {
         var world = new WorldImpl(this.map);
         this.players.forEach(world::addPlayer);
         view.setGameScene(world);
