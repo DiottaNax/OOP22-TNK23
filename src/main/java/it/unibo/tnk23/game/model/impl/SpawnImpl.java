@@ -79,7 +79,6 @@ public class SpawnImpl implements Spawn{
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
         List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
                 .map(Rect2D::getPos).toList();
-        System.out.println(pos);
         return pos.isEmpty() ? Optional.empty() : Optional.of(pos.get(random.nextInt(pos.size())));
     }
     
