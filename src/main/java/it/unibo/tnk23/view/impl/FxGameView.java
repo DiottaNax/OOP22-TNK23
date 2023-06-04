@@ -15,7 +15,6 @@ import it.unibo.tnk23.input.impl.KeyEventHandler;
 import it.unibo.tnk23.input.impl.KeyboardInputController;
 import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
-import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -28,10 +27,12 @@ public class FxGameView implements GameView {
 
     private GameEngine gameEngine;
     private FxRenderingEngine renderingEngine;
-    private SideScenesController sideScenesController;
+    //private SideScenesControllerImpl sidiesController;
+    private PlayerInfoControllerImpl playerController;
+    private RoundInfoControllerImpl roundController;
 
 
-    public FxGameView(Stage stage) {
+    public FxGameView(Stage stage) throws IOException {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl();
 
@@ -54,12 +55,13 @@ public class FxGameView implements GameView {
     public void renderView() {
         Platform.runLater(() -> {
             renderingEngine.render();
-            //sideScenesController.updateLabels();
+            playerController.updateLabels();
+            roundController.updateLabels();
         });
     }
 
     @Override
-    public void setGameScene(final World world) {
+    public void setGameScene(final World world) throws IOException {
         var keyEventHandler = new KeyEventHandler();
         var inputController = new KeyboardInputController();
         keyEventHandler.addInputController(inputController);
@@ -72,8 +74,10 @@ public class FxGameView implements GameView {
         gameEngine = new GameEngineImpl(world, this);
         this.renderingEngine = new FxRenderingEngine(world, this);
         this.gameEngine.startEngine();
+        this.playerController = new PlayerInfoControllerImpl(world);
+        this.roundController = new RoundInfoControllerImpl(this.gameEngine.getGameState().getRound());
 
-        this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), this));
+        this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), playerController, roundController));
         this.stage.setFullScreen(true);
     }
 
