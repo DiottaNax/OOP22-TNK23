@@ -20,6 +20,19 @@ public enum Directions {
         return this.direction;
     }
 
+    public static Directions fromVector(Vector2D v) {
+        for (var d : values()) {
+            if (d.direction.equals(v)) {
+                return d;
+            }
+        }
+        return NONE;
+    }
+
+    public Directions flipped() {
+        return fromVector(this.direction.mul(-1));
+    }
+
     public static Directions fromAngle(int angle) {
         var dir = NONE;
         switch (angle) {
