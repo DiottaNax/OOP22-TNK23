@@ -35,8 +35,11 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
 
     private void setCachedSprites() {
         this.cachedSprites = new HashMap<>();
-        this.cachedSprites.put("pinkPlayer",
-                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/pinkPlayer.gif")));
+        this.world.getPlayers().stream()
+                .filter(p -> p.getComponent(GraphicComponent.class).isPresent())
+                .map(p -> p.getComponent(GraphicComponent.class).get())
+                .forEach(g -> this.cachedSprites.put(g.getSpriteName(),
+                        new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + g.getSpriteName() + ".gif"))));
         this.cachedSprites.put("wall", new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/wall.png")));
         this.cachedSprites.put("destroyableWall",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/destroyableWall.png")));
