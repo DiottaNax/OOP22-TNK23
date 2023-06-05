@@ -13,27 +13,17 @@ import javafx.scene.layout.Pane;
 public class SceneFactoryImpl implements SceneFactory{
 
     @Override
-    public Scene getMenuScene(FxGameView view) {
-        try {
-            var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
-            loader.setController(new TitleMenuController(view));
-            return new Scene(loader.load());
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Scene getMenuScene(FxGameView view) throws IOException {
+        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
+        loader.setController(new TitleMenuController(view));
+        return new Scene(loader.load());
     }
 
     @Override
-    public Scene getColorPickerScene(FxGameView view) {
-        try {
-            var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
-            loader.setController(new ColorPickerController(view));
-            return new Scene(loader.load());
-        } catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Scene getColorPickerScene(FxGameView view) throws IOException {
+        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
+        loader.setController(new ColorPickerController(view));
+        return new Scene(loader.load());
     }
 
     @Override
