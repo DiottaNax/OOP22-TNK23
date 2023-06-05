@@ -17,7 +17,9 @@ import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class FxGameView implements GameView {
@@ -32,20 +34,16 @@ public class FxGameView implements GameView {
     private RoundInfoControllerImpl roundController;
 
 
-    public FxGameView(Stage stage) throws IOException {
+    public FxGameView(Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl();
 
-        this.stage.setOnCloseRequest(e -> {
-            Platform.exit();
-            Runtime.getRuntime().exit(0);
-        });
+        this.stage.setOnCloseRequest(e -> this.exitGame());
 
-        var world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
-        var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(40, 40));
+        var player = new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(40, 40));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
-        world.addPlayer(player);
-        this.setMenuScene();
+        this.world.addPlayer(player);
+        this.setGameScene(world);
 
         this.stage.show();
     }
@@ -60,13 +58,18 @@ public class FxGameView implements GameView {
     }
 
     @Override
-    public void setGameScene(final World world) throws IOException {
+    public void setGameScene() {
         var keyEventHandler = new KeyEventHandler();
         var inputController = new KeyboardInputController();
         keyEventHandler.addInputController(inputController);
 
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::onKeyPressed);
         this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::onKeyReleased);
+        this.stage.addEventHandler(KeyEvent.KEY_TYPED, e -> {
+            if (e.getCode().equals(KeyCode.ESCAPE)) {
+                this.exitGame();
+            }
+        });
 
         world.getPlayers().forEach(p -> p.addComponent(new InputComponent(p, inputController)));
 
@@ -76,7 +79,11 @@ public class FxGameView implements GameView {
         this.playerController = new PlayerInfoControllerImpl(world);
         this.roundController = new RoundInfoControllerImpl(this.gameEngine.getGameState().getRound());
 
-        this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), playerController, roundController));
+        try {
+            this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), playerController, roundController));
+        } catch (IOException e) {
+            this.stage.setScene(new Scene(new BorderPane(this.renderingEngine.getGamePane())));
+        }
         this.stage.setFullScreen(true);
     }
 
@@ -118,6 +125,11 @@ public class FxGameView implements GameView {
 
     public void setScene(final Scene scene) {
         this.stage.setScene(scene);
+    }
+
+    private void exitGame() {
+        Platform.exit();
+        Runtime.getRuntime().exit(0);
     }
 
 }
