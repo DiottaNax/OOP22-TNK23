@@ -19,4 +19,6 @@ public interface GameView {
 
     GameEngine getGameEngine();
 
+    void setWorld(World world);
+
 }

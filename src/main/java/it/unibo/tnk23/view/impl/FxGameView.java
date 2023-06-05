@@ -32,6 +32,7 @@ public class FxGameView implements GameView {
     //private SideScenesControllerImpl sidiesController;
     private PlayerInfoControllerImpl playerController;
     private RoundInfoControllerImpl roundController;
+    private World world;
 
 
     public FxGameView(Stage stage) {
@@ -40,11 +41,7 @@ public class FxGameView implements GameView {
 
         this.stage.setOnCloseRequest(e -> this.exitGame());
 
-        var player = new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(40, 40));
-        player.addComponent(new GraphicComponent(player, "pinkPlayer"));
-        this.world.addPlayer(player);
-        this.setGameScene(world);
-
+        this.setMenuScene();
         this.stage.show();
     }
 
@@ -121,6 +118,11 @@ public class FxGameView implements GameView {
     @Override
     public GameEngine getGameEngine() {
         return this.gameEngine;
+    }
+
+    @Override
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     public void setScene(final Scene scene) {
