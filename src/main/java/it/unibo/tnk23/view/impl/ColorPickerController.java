@@ -11,9 +11,11 @@ import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.game.model.impl.GameMapImpl;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 import it.unibo.tnk23.game.model.impl.GameObjectImpl;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.impl.WorldImpl;
 import it.unibo.tnk23.view.api.GameView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +34,7 @@ public class ColorPickerController extends Scene implements Initializable {
 
     private List<GameObject> players = new LinkedList<>();
     private GameView view;
+    private World world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
 
     @FXML
     private Label labelOne;
@@ -60,7 +63,7 @@ public class ColorPickerController extends Scene implements Initializable {
     private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
     private String myColorPlayerOne = "Pink";
     private String myColorPlayerTwo = "Cyan";
-    int multiplayer; 
+    private int multiplayer;
 
 
     public ColorPickerController(GameView view) {
@@ -100,21 +103,22 @@ public class ColorPickerController extends Scene implements Initializable {
     }
 
     public void confirm(ActionEvent event) {
+        this.setPlayerSprite();
         view.setMenuScene();
     }
 
-    public void setPlayerSprite(World world) {
+    public void setPlayerSprite() {
         String spriteOne = myColorPlayerOne.toLowerCase() + "Player.gif";
-        players.add(new GameObjectFactoryImpl(world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+        players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
         players.get(0).addComponent(new GraphicComponent(players.get(0), spriteOne));
         
         if (multiplayer > 0) {
             String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player.gif";
-            players.add(new GameObjectFactoryImpl(world).getPlayer(new Point2D(11 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+            players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(11 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
             players.get(1).addComponent(new GraphicComponent(players.get(1), spriteTwo));
         }
         
-        view.setWorld(world);
+        view.setWorld(this.world);
     }
     
 }
