@@ -1,8 +1,19 @@
 package it.unibo.tnk23.view.impl;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.impl.GraphicComponent;
+import it.unibo.tnk23.game.model.api.GameObject;
+import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
+import it.unibo.tnk23.game.model.impl.GameObjectImpl;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.view.api.GameView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +30,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ColorPickerController extends Scene implements Initializable {
 
+    private List<GameObject> players = new LinkedList<>();
     private GameView view;
 
     @FXML
@@ -88,9 +100,21 @@ public class ColorPickerController extends Scene implements Initializable {
     }
 
     public void confirm(ActionEvent event) {
-        String urlOne = "resources/it/unibo/sprites/" + myColorPlayerOne + "Player.gif";
-        String urlTwo = "resources/it/unibo/sprites/" + myColorPlayerTwo + "Player.gif";
         view.setMenuScene();
+    }
+
+    public void setPlayerSprite(World world) {
+        String spriteOne = myColorPlayerOne.toLowerCase() + "Player.gif";
+        players.add(new GameObjectFactoryImpl(world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+        players.get(0).addComponent(new GraphicComponent(players.get(0), spriteOne));
+        
+        if (multiplayer > 0) {
+            String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player.gif";
+            players.add(new GameObjectFactoryImpl(world).getPlayer(new Point2D(11 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+            players.get(1).addComponent(new GraphicComponent(players.get(1), spriteTwo));
+        }
+        
+        view.setWorld(world);
     }
     
 }
