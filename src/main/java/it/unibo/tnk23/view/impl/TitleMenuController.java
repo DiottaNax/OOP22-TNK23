@@ -2,10 +2,11 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -39,20 +40,18 @@ public class TitleMenuController {
 
     public TitleMenuController(FxGameView view) {
         this.view = view;
-        //this.getStylesheets().addAll(this.getClass().getResource("it/unibo/style/background.css").toExternalForm());
-        //players.add(new GameObjectImpl(TypeObjectFactory.getPlayerType(), new Point2D(getX(), getY())));
     }
 
     @FXML
-    private void startGame() {
+    private void startGame() throws IOException {
         var world = new WorldImpl(this.map);
         this.players.forEach(world::addPlayer);
-        view.setGameScene(world);
+        this.view.setGameScene(world);
     }
 
     @FXML
     private void goPickColor() {
-        this.view.setScene(new ColorPickerMenu(view));
+        this.view.setColorPickerScene();
     }
 
     @FXML

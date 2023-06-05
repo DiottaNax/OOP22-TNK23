@@ -43,8 +43,6 @@ public class RoundImpl implements Round{
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
         this.fillEnemiesList();
         this.totalEnemies = this.enemies.size();
-        System.out.println(totalEnemies);
-        System.out.println(enemies);
     }
 
     @Override
@@ -78,25 +76,31 @@ public class RoundImpl implements Round{
     }
 
     @Override
+    public int getTotalEnemies() {
+        return this.totalEnemies;
+    }
+
+    @Override
     public void update() {
         this.spawn.update();
         this.graph.update();
         if (this.isOver()) {
-            System.out.println("Fine round");
             this.round++;
             this.setDelay();
             this.fillEnemiesList();
             this.totalEnemies = this.enemies.size();
-            System.out.println(totalEnemies);
-            System.out.println(enemies);
             this.startRound();
-            System.out.println("Inizia il round: " +this.round);
         }
     }
     
     @Override
     public void startRound() {
         this.spawn.startSpawn();
+    }
+
+    @Override
+    public void notifyEnemyDeath() {
+        this.totalEnemies--;
     }
 
     private void fillEnemiesList() {
@@ -157,12 +161,6 @@ public class RoundImpl implements Round{
         Stream.iterate(0, i -> i + 1)
                 .limit(numEnemies)
                 .forEach(i -> this.enemies.add(enemyGenerator.get()));
-    }
-
-    @Override
-    public void notifyEnemyDeath() {
-        System.out.println(totalEnemies);
-        this.totalEnemies--;
     }
 
     
