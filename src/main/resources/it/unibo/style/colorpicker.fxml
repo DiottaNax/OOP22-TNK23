@@ -26,7 +26,7 @@
             <Glow />
          </effect>
       </Button>
-      <ChoiceBox fx:id="choiceBox1" layoutX="50.0" layoutY="72.0" prefHeight="26.0" prefWidth="140.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="50.0" layoutY="72.0" prefHeight="26.0" prefWidth="140.0" />
       <Label fx:id="label1" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="39.0" text="P.1 " textAlignment="CENTER" textFill="#ff35bc">
          <font>
             <Font name="System Bold" size="12.0" />

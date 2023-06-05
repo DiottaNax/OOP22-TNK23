@@ -82,6 +82,7 @@ public class FxGameView implements GameView {
         try{
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getMenuScene(this));
+            this.stage.show();
             this.stage.sizeToScene();
         } catch (IOException e) {
             e.printStackTrace();
