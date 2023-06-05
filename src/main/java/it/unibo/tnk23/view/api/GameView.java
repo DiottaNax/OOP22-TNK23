@@ -11,6 +11,8 @@ public interface GameView {
 
     void setMenuScene();
 
+    void setColorPickerScene();
+
     void setGameScene(World world) throws IOException;
 
     void setGameOverScene();

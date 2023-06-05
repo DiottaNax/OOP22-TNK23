@@ -12,6 +12,8 @@ public interface SceneFactory {
     
     Scene getMenuScene(FxGameView view) throws IOException;
 
+    Scene getColorPickerScene(FxGameView view) throws IOException;
+
     Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController, RoundInfoControllerImpl roundController) throws IOException;
 
     Scene getGameOverScene();

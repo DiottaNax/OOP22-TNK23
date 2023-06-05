@@ -45,8 +45,7 @@ public class FxGameView implements GameView {
         var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(40, 40));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);
-        this.setGameScene(world);
-        //this.setMenuScene();
+        this.setMenuScene();
 
         this.stage.show();
     }
@@ -86,6 +85,18 @@ public class FxGameView implements GameView {
         try{
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getMenuScene(this));
+            this.stage.show();
+            this.stage.sizeToScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setColorPickerScene() {
+        try{
+            this.stage.setFullScreen(false);
+            this.stage.setScene(this.sceneFactory.getColorPickerScene(this));
             this.stage.show();
             this.stage.sizeToScene();
         } catch (IOException e) {

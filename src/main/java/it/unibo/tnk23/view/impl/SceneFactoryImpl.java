@@ -25,6 +25,18 @@ public class SceneFactoryImpl implements SceneFactory{
     }
 
     @Override
+    public Scene getColorPickerScene(FxGameView view) {
+        try {
+            var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
+            loader.setController(new ColorPickerController(view));
+            return new Scene(loader.load());
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
     public Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController,
             RoundInfoControllerImpl roundController) throws IOException {
 
