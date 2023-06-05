@@ -13,12 +13,12 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
-    private final VisitableGridGraph graph;
-    private final static int PRECISION = 2;
-    private final static int UPDATE_PERIOD = Configuration.FPS * 4;
-    private int currentFrame = UPDATE_PERIOD;
+    public final static int PRECISION = 2;
     public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+    private final static int UPDATE_PERIOD = Configuration.FPS * 4;
 
+    private final VisitableGridGraph graph;
+    private int currentFrame = UPDATE_PERIOD;
     private World world;
     private List<GameObject> obstacles;
 
