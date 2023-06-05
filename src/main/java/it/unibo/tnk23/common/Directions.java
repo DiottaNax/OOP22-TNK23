@@ -32,7 +32,7 @@ public enum Directions {
             case -90:
                 dir = WEST;
                 break;
-            case 100:
+            case 180:
                 dir = SOUTH;
                 break;
             default:
@@ -40,10 +40,5 @@ public enum Directions {
         }
 
         return dir;
-    }
-
-    public static Directions getRandomDir() {
-        final var possibilities = List.of(NONE,NORTH,SOUTH,WEST,EAST);
-        return possibilities.get(new Random().nextInt(possibilities.size()));
     }
 }

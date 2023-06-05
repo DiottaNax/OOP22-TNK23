@@ -51,12 +51,23 @@ public class WorldImpl implements World {
 
     @Override
     public Set<GameObject> getEntities() {
-        return this.entities;
+        return Collections.unmodifiableSet(this.entities);
+    }
+
+    @Override
+    public void removeEntity(GameObject obj) {
+        this.entities.remove(obj);
+        this.obstacles.remove(obj);
+    }
+
+    @Override
+    public void addEntity(GameObject obj) {
+        this.entities.add(obj);
     }
 
     @Override
     public Set<GameObject> getObstacles() {
-        return this.obstacles;
+        return Collections.unmodifiableSet(this.obstacles);
     }
 
     @Override

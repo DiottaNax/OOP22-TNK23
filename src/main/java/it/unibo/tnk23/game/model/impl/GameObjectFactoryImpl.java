@@ -76,6 +76,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         twr.addComponent(new EntitiesHealthComponent(twr, world));
         twr.addComponent(new CollisionComponent(twr, world));
+        twr.addComponent(new GraphicComponent(twr, "tower"));
         return twr;
     }
     

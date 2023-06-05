@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.model.api.World;
 public class PlayerFireComponent extends AbstractFireComponent implements NotifiableComponent{
 
     private boolean canShoot = false;
-    private final static int SHOOT_PERIOD = 2 * Configuration.FPS;
+    private final static int SHOOT_PERIOD = 1 * Configuration.FPS;
     
     public PlayerFireComponent(GameObject entity, World world) {
         super(entity, world);

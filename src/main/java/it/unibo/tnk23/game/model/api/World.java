@@ -15,6 +15,10 @@ public interface World {
 
     Set<GameObject> getEntities();
 
+    void addEntity(GameObject obj);
+
+    void removeEntity(GameObject obj);
+
     Set<GameObject> getObstacles();
     
     GameObject getTower();

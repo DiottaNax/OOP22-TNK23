@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Configuration;
+import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.AiComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
@@ -21,8 +22,9 @@ import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 public class RoundImpl implements Round{
 
     private List<GameObject> enemies;
+    private int totalEnemies = 0;
     private int round;
-    private Long spawnDelay;
+    private long spawnDelay;
     private World world;
     private int numRandomEnemies = 0;
     private int numFollowTargetEnemies = 0;
@@ -35,11 +37,12 @@ public class RoundImpl implements Round{
         this.round = 1;
         this.enemies = new ArrayList<>();
         this.world = world;
-        setDelay();
+        this.setDelay();
         this.spawn = new SpawnImpl(this.spawnDelay, this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
-        fillEnemiesList();
+        this.fillEnemiesList();
+        this.totalEnemies = this.enemies.size();
     }
 
     @Override
@@ -49,7 +52,7 @@ public class RoundImpl implements Round{
 
     @Override
     public boolean isOver() {
-        return enemies.isEmpty();
+        return this.totalEnemies == 0;
     }
 
     @Override
@@ -73,22 +76,35 @@ public class RoundImpl implements Round{
     }
 
     @Override
+    public int getTotalEnemies() {
+        return this.totalEnemies;
+    }
+
+    @Override
     public void update() {
         this.spawn.update();
         this.graph.update();
         if (this.isOver()) {
             this.round++;
-            setDelay();
-            fillEnemiesList();
+            this.setDelay();
+            this.fillEnemiesList();
+            this.totalEnemies = this.enemies.size();
+            this.startRound();
         }
     }
     
     @Override
     public void startRound() {
-        this.spawn.spawnEnemies();
+        this.spawn.startSpawn();
+    }
+
+    @Override
+    public void notifyEnemyDeath() {
+        this.totalEnemies--;
     }
 
     private void fillEnemiesList() {
+        this.enemies.clear();
         numRandomEnemies = 0;
         numFollowTargetEnemies = 0;
         numTowerEnemies = 0;
@@ -98,51 +114,48 @@ public class RoundImpl implements Round{
         if (round==1) {
             numRandomEnemies = 6;
         } else {
-            numRandomEnemies = round*3;
-            numFollowTargetEnemies = (int) (round/rateFollowTargetEnemies);
-            numTowerEnemies = (int) (round/rateTowerEnemies);
+            numRandomEnemies = this.round*3;
+            numFollowTargetEnemies = (int) (this.round/rateFollowTargetEnemies);
+            numTowerEnemies = (int) (this.round / rateTowerEnemies);
         }
 
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
-        addEnemies(numFollowTargetEnemies, this::generateFollowTowerEnemies);
-        addEnemies(numTowerEnemies, this::generateFollowMovingTargetEnemies);
+        addEnemies(numFollowTargetEnemies, this::generateFollowMovingTargetEnemies);
+        //addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
     }
 
     private void setDelay() {
-        final long simpleDelay = 2500;
-        final long mediumDelay = 2000;
-        final long hardDelay = 1000;
+        final long simpleDelay = 4000;
+        final long hardDelay = 2500;
 
-        spawnDelay = simpleDelay;
+        this.spawnDelay = simpleDelay;
         
-        if(round >= 5 && round < 10) {
-            spawnDelay = mediumDelay;
-        } else if(round >= 10) {
-            spawnDelay = hardDelay;
+        if(round >= 5) {
+            this.spawnDelay = hardDelay;
         }
     }
 
     private GameObject generateRandomMovingEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
         enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
         return enemy;
     }
 
     private GameObject generateFollowMovingTargetEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy,
-                aiFactory.getFollowMovingTargetAi(this.world.getPlayers().stream().findAny().get())));
+                aiFactory.getFollowMovingTargetAi(this.world.getPlayer(1).get())));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
     
-    private GameObject generateFollowTowerEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(this.spawn.getPos());
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getFollowTowerAi()));
+    /*private GameObject generateFollowTowerEnemies() {
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
+        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi()));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
-    }
+    }*/
 
     private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
         Stream.iterate(0, i -> i + 1)
