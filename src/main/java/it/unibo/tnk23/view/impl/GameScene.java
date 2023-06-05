@@ -55,7 +55,7 @@ public class GameScene extends Scene{
             this.width = dim.getWidth();
         } else {
             this.height = dim.getHeight();
-            this.width = (dim.getWidth()- Configuration.GAME_SCENE_DIMENSION) / 2;
+            this.width = (dim.getWidth() - Configuration.GAME_SCENE_DIMENSION) / 2;
         }
     }
     

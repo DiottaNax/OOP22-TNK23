@@ -1,6 +1,5 @@
 package it.unibo.tnk23.view.impl;
 
-import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.view.api.SidiesController;
 import javafx.fxml.FXML;
@@ -14,9 +13,13 @@ public class RoundInfoControllerImpl implements SidiesController {
 
     @FXML
     private Label randomEnemiesLabel = new Label();
+    @FXML
     private Label aiEnemiesLabel = new Label();
+    @FXML
     private Label missingEnemiesLabel = new Label();
+    @FXML
     private Label roundLabel = new Label();
+    @FXML
     private ImageView randomEnemiesImage = new ImageView();
     private ImageView aiEnemiesImage = new ImageView();
     private ImageView missingEnemiesImage = new ImageView();
@@ -28,14 +31,8 @@ public class RoundInfoControllerImpl implements SidiesController {
         final Image missingEnemies = new Image(
                 ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.png"));
         randomEnemiesImage.setImage(rdmEnemies);
-        randomEnemiesImage.setScaleX(Configuration.TILE_SIZE);
-        randomEnemiesImage.setScaleY(Configuration.TILE_SIZE);
         aiEnemiesImage.setImage(aiEnemies);
-        aiEnemiesImage.setScaleX(Configuration.TILE_SIZE);
-        aiEnemiesImage.setScaleY(Configuration.TILE_SIZE);
         missingEnemiesImage.setImage(missingEnemies);
-        missingEnemiesImage.setScaleX(Configuration.TILE_SIZE);
-        missingEnemiesImage.setScaleY(Configuration.TILE_SIZE);
     }
 
     @Override
@@ -45,5 +42,4 @@ public class RoundInfoControllerImpl implements SidiesController {
         aiEnemiesLabel.setText("x " + this.round.getAIEnemiesNum());
         missingEnemiesLabel.setText("x " + this.round.getTotalEnemies());
     }
-    
 }

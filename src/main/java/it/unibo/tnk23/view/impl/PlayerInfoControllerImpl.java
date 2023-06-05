@@ -2,6 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.Optional;
 
+import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.view.api.SidiesController;
@@ -16,11 +17,17 @@ public class PlayerInfoControllerImpl implements SidiesController{
 
     @FXML
     private Label player2Label = new Label();
+    @FXML
     private Label player1Life = new Label();
+    @FXML
     private Label player2Life = new Label();
+    @FXML
     private ImageView player1Image = new ImageView();
+    @FXML
     private ImageView player2Image = new ImageView();
+    @FXML
     private Image plry1;
+    @FXML
     private Optional<Image> plyr2;
 
     public PlayerInfoControllerImpl(final World world) {
@@ -43,9 +50,10 @@ public class PlayerInfoControllerImpl implements SidiesController{
 
     @Override
     public void updateLabels() {
-        player1Life.setText("x " + /*player.getLife()*/null);
+        player1Life.setText("x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         if (this.world.getPlayer(2).isPresent()) {
-            player2Life.setText("x " + /* player.getLife() */null);
+            player2Label.setText("Player 2:");
+            player2Life.setText("x " + this.world.getPlayer(2).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         }
     }
     
