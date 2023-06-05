@@ -39,7 +39,7 @@ public class RoundImpl implements Round{
         this.world = world;
         this.setDelay();
         this.spawn = new SpawnImpl(this.spawnDelay, this);
-        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE));
+        this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE * 2));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
         this.fillEnemiesList();
         this.totalEnemies = this.enemies.size();
@@ -126,7 +126,7 @@ public class RoundImpl implements Round{
 
     private void setDelay() {
         final long simpleDelay = 4000;
-        final long hardDelay = 2500;
+        final long hardDelay = 3000;
 
         this.spawnDelay = simpleDelay;
         
@@ -145,7 +145,7 @@ public class RoundImpl implements Round{
     private GameObject generateFollowMovingTargetEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy,
-                aiFactory.getFollowMovingTargetAi(this.world.getPlayer(1).get())));
+                aiFactory.getFollowMovingTargetAi(enemy, this.world.getPlayer(1).get())));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }

@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.common.shape.Rect2D;
@@ -39,7 +38,7 @@ public class SpawnImpl implements Spawn{
         this.spawns = List.of(new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE, new Point2D(Configuration.TILE_SIZE / 2, Configuration.TILE_SIZE / 2)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE, new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE, new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2))
-                );
+        );
         this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
         this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
     }
@@ -65,11 +64,13 @@ public class SpawnImpl implements Spawn{
         if (this.roundEnemies.isEmpty() && this.round.isOver()) {
             this.timer.cancel();
             roundEnemies = Collections.synchronizedList(this.round.getEnemies());
-        }
-        var diedEnemis = activeEnemies.stream().filter(this::isEnemyDead).toList();
-        this.round.getEnemies().removeAll(diedEnemis);
-        activeEnemies.removeAll(diedEnemis);
-        diedEnemis.forEach(d -> this.round.notifyEnemyDeath());
+        } else {
+        var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies))
+            .stream().filter(this::isEnemyDead).toList();
+        this.round.getEnemies().removeAll(diedEnemies);
+        activeEnemies.removeAll(diedEnemies);
+        diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
+        } 
     }
 
     private Optional<Point2D> getSpawnPos() {
