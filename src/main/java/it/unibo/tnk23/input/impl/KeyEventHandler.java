@@ -3,7 +3,7 @@ package it.unibo.tnk23.input.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.tnk23.input.impl.KeyboardInputController;
+import it.unibo.tnk23.input.api.KeyboardInputController;
 import javafx.scene.input.KeyEvent;
 
 public class KeyEventHandler {

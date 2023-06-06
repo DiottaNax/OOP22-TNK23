@@ -1,10 +1,10 @@
 package it.unibo.tnk23.input.impl;
 
 import it.unibo.tnk23.common.Directions;
-import it.unibo.tnk23.input.api.InputController;
+import it.unibo.tnk23.input.api.KeyboardInputController;
 import javafx.scene.input.KeyEvent;
 
-public class KeyboardInputController implements InputController {
+public class PlayerOneKeyboardController implements KeyboardInputController {
 
     private Directions direction = Directions.NONE;
     private boolean isShooting;
@@ -14,6 +14,7 @@ public class KeyboardInputController implements InputController {
         return direction;
     }
     
+    @Override
     public void setOnKeyPressed(KeyEvent e) {
         switch(e.getCode()) {
             case UP:
@@ -38,6 +39,7 @@ public class KeyboardInputController implements InputController {
         }
     }
 
+    @Override
     public void setOnKeyReleased(KeyEvent e) {        
         switch (e.getCode()) {
             case UP:
@@ -54,6 +56,7 @@ public class KeyboardInputController implements InputController {
         }
     }
     
+    @Override
     public boolean isShooting() {
         return this.isShooting;
     }

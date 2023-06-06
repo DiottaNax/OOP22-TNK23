@@ -1,8 +1,8 @@
 package it.unibo.tnk23.game.components.impl;
 
 import it.unibo.tnk23.game.components.api.Component;
-import it.unibo.tnk23.input.api.InputController;
-import it.unibo.tnk23.input.impl.KeyboardInputController;
+import it.unibo.tnk23.input.api.KeyboardInputController;
+import it.unibo.tnk23.input.impl.PlayerOneKeyboardController;
 import it.unibo.tnk23.game.model.api.GameObject;
 
 public class InputComponent implements Component {

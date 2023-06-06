@@ -11,8 +11,10 @@ import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameMapImpl;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 import it.unibo.tnk23.game.model.impl.WorldImpl;
+import it.unibo.tnk23.input.api.InputController;
 import it.unibo.tnk23.input.impl.KeyEventHandler;
-import it.unibo.tnk23.input.impl.KeyboardInputController;
+import it.unibo.tnk23.input.impl.PlayerOneKeyboardController;
+import it.unibo.tnk23.input.impl.PlayerTwoKeyboardController;
 import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
 import javafx.application.Platform;
@@ -59,8 +61,8 @@ public class FxGameView implements GameView {
     @Override
     public void setGameScene() {
         var keyEventHandler = new KeyEventHandler();
-        var inputController = new KeyboardInputController();
-        keyEventHandler.addInputController(inputController);
+        var inputControllerOne = new PlayerOneKeyboardController();
+        keyEventHandler.addInputController(inputControllerOne);
 
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::onKeyPressed);
         this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::onKeyReleased);
@@ -70,7 +72,12 @@ public class FxGameView implements GameView {
             }
         });
 
-        world.getPlayers().forEach(p -> p.addComponent(new InputComponent(p, inputController)));
+        world.getPlayer(1).ifPresent(p -> p.addComponent(new InputComponent(p, inputControllerOne)));
+        world.getPlayer(2).ifPresent(p -> {
+            var inputControllerTwo = new PlayerTwoKeyboardController();
+            keyEventHandler.addInputController(inputControllerTwo);
+            p.addComponent(new InputComponent(p, inputControllerTwo));
+        });
 
         gameEngine = new GameEngineImpl(world, this);
         this.renderingEngine = new FxRenderingEngine(world, this);
