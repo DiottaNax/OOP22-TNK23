@@ -8,6 +8,7 @@ import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.input.api.InputController;
+import it.unibo.tnk23.input.impl.FollowTargetAi;
 
 public class AiComponent implements Component {
     
@@ -19,7 +20,7 @@ public class AiComponent implements Component {
     private int currentFrame;
     private Optional<Point2D> lastPos = Optional.empty();
 
-    public AiComponent(GameObject entity, InputController ai, int updatePeriod) {
+    private AiComponent(GameObject entity, InputController ai, int updatePeriod) {
         this.entity = entity;
         this.ai = ai;
         this.updatePeriod = updatePeriod;
@@ -28,7 +29,9 @@ public class AiComponent implements Component {
 
     public AiComponent(GameObject entity, InputController ai) {
         this(entity, ai, DEAFULT_UPDATE_PERIOD);
-        this.lastPos = Optional.of(entity.getPosition());
+        if (ai instanceof FollowTargetAi) {
+            this.lastPos = Optional.of(entity.getPosition());
+        }
     }
 
     private boolean canUpdate() {
@@ -46,6 +49,9 @@ public class AiComponent implements Component {
         return currentFrame >= updatePeriod;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         this.currentFrame++;
