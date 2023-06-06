@@ -23,8 +23,8 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     public FxRenderingEngine(final World world, final GameView gameView) {
         this.root = new Pane();
         this.root.setStyle("-fx-background-color: #0C0C0C;");
-        this.setCachedSprites();
         this.world = world;
+        this.setCachedSprites();
         this.sprites = new HashMap<>();
     }
 
