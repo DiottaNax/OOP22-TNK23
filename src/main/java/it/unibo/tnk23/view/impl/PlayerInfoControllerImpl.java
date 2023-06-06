@@ -37,23 +37,26 @@ public class PlayerInfoControllerImpl implements SidiesController{
 
         var plyr1Sprite = player1.get().getComponent(GraphicComponent.class).get().getSpriteName();
         this.plry1 = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + plyr1Sprite + ".gif"));
-        this.player1Image.setImage(plry1);
 
         if (player2.isPresent()) {
             var plyr2Sprite = player2.get().getComponent(GraphicComponent.class).get().getSpriteName();
-            this.player2Label.setText("Player 2");
             this.plyr2 = Optional
                     .of(new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + plyr2Sprite + ".gif")));
-            plyr2.ifPresent(player2Image::setImage);
         }
     }
 
     @Override
     public void updateLabels() {
-        player1Life.setText("x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
+        player1Life.setText(
+                "x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
+        this.player1Image.setImage(plry1);
+        
         if (this.world.getPlayer(2).isPresent()) {
+            this.player2Label.setText("Player 2");
+            plyr2.ifPresent(player2Image::setImage);
             player2Label.setText("Player 2:");
-            player2Life.setText("x " + this.world.getPlayer(2).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
+            player2Life.setText(
+                    "x " + this.world.getPlayer(2).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         }
     }
     
