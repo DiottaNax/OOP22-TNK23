@@ -22,8 +22,8 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
 
     public FxRenderingEngine(final World world, final GameView gameView) {
         this.root = new Pane();
-        this.root.setStyle("-fx-background-color: #0C0C0C;");
         this.world = world;
+        this.root.setStyle("-fx-background-color: #0C0C0C;");
         this.setCachedSprites();
         this.sprites = new HashMap<>();
     }
@@ -62,7 +62,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.world.getEntities().stream().filter(this.sprites::containsKey).forEach(e -> {
             var x = e.getPosition().getX();
             var y = e.getPosition().getY();
-            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType())) {
+            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType()) || TypeObjectFactory.isTower(e.getType())) {
                 x += 6;
                 y += 6;
             }

@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import it.unibo.tnk23.common.Pair;
+import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventListener;
 import it.unibo.tnk23.game.model.api.GameMap;
@@ -24,13 +27,15 @@ public class WorldImpl implements World {
         this.players = new ArrayList<>();
         this.obstacles = new HashSet<>();
         this.entities = new HashSet<>();
-
+        
         var objFactory = new GameObjectFactoryImpl(this);
         var toAdd = gameMap.getWalls().stream().map(objFactory::getWall).toList();
         this.obstacles.addAll(toAdd);
         toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall).toList();
         this.obstacles.addAll(toAdd);
         this.entities.addAll(this.obstacles);
+        addTower();
+        
     }
 
     @Override
@@ -39,6 +44,7 @@ public class WorldImpl implements World {
                 : Optional.empty();
     }
 
+    @Override
     public void addPlayer(GameObject player) {
         this.entities.add(player);
         this.players.add(player);
@@ -90,6 +96,32 @@ public class WorldImpl implements World {
         this.getEntities().stream().parallel().forEach(GameObject::update);
     }
     
-    /*private void addTower() {
-    }*/
+    private void addTower() {
+        int towerBoxSize = 4;
+        int tileSize = Configuration.TILE_SIZE;
+        var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
+        var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE -1);
+        var wallGridPos = new Pair<>(Configuration.GRID_SIZE-2, (Configuration.GRID_SIZE * 2) - 3); 
+        var obstacleSize = tileSize / 2;
+        GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
+        this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * Configuration.TILE_SIZE,
+                towerGridPos.getY() * Configuration.TILE_SIZE));
+        
+        for (int i = 0; i < towerBoxSize-1; i++) {
+            for (int j = 0; j < towerBoxSize; j++) {
+                var pos = new Pair<>(wallGridPos.getX() + j, wallGridPos.getY() + i);
+                wallNearTower.add(pos);
+            }
+        }
+        
+        this.entities.add(this.tower);
+        var towerPos = tower.getPosition();
+        this.entities.addAll(wallNearTower.stream()
+                .map(p -> new Point2D(p.getX() * obstacleSize, p.getY() * obstacleSize))
+                .filter(p -> !(p.getX() >= towerPos.getX() && p.getX() <= towerPos.getX() + obstacleSize
+                        && p.getY() >= towerPos.getY() && p.getY() <= towerPos.getY() + obstacleSize))
+                .map(objectFactory::getDestroyableWall)
+                .toList());
+    }
+    
 }
