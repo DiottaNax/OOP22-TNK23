@@ -1,8 +1,5 @@
 package it.unibo.tnk23.common;
 
-import java.util.List;
-import java.util.Random;
-
 public enum Directions {
     NORTH(0, -1),
     SOUTH(0, 1),
