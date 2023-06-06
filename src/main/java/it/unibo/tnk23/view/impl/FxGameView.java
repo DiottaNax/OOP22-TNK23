@@ -41,6 +41,8 @@ public class FxGameView implements GameView {
 
         this.stage.setOnCloseRequest(e -> this.exitGame());
 
+        this.setDefaultWorld();
+
         this.setMenuScene();
         this.stage.show();
     }
@@ -134,4 +136,10 @@ public class FxGameView implements GameView {
         Runtime.getRuntime().exit(0);
     }
 
+    private void setDefaultWorld() {
+        this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
+        var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(400, 400));
+        player.addComponent(new GraphicComponent(player, "pinkPlayer"));
+        world.addPlayer(player);
+    }
 }
