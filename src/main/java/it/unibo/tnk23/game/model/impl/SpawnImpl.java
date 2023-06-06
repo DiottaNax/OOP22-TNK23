@@ -28,7 +28,7 @@ public class SpawnImpl implements Spawn{
     private final long delay;
     private final Timer timer = new Timer();
     private final Random random = new Random();
-    private final static long SPAWN_DELAY = 3000;
+    private final static long SPAWN_DELAY = 5000;
 
 
 
@@ -51,9 +51,11 @@ public class SpawnImpl implements Spawn{
             public void run() {
                 if (!roundEnemies.isEmpty()) {
                     var enemy = roundEnemies.get(0);
-                    roundEnemies.remove(0);
-                    activeEnemies.add(enemy);
-                    getSpawnPos().ifPresent(p -> round.getWorld().notifyEvent(new WorldEventImpl(p,enemy, WorldEventType.SPAWN_EVENT)));
+                    getSpawnPos().ifPresent(p -> {
+                        roundEnemies.remove(0);
+                        round.getWorld().notifyEvent(new WorldEventImpl(p, enemy, WorldEventType.SPAWN_EVENT));
+                        activeEnemies.add(enemy);
+                    });
                 }
             } 
         }, SPAWN_DELAY, this.delay);
@@ -63,14 +65,19 @@ public class SpawnImpl implements Spawn{
     public void update() {
         if (this.roundEnemies.isEmpty() && this.round.isOver()) {
             this.timer.cancel();
-            roundEnemies = Collections.synchronizedList(this.round.getEnemies());
-        } else {
-        var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies))
-            .stream().filter(this::isEnemyDead).toList();
-        this.round.getEnemies().removeAll(diedEnemies);
-        activeEnemies.removeAll(diedEnemies);
-        diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
-        } 
+            this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
+        }
+        synchronized (activeEnemies) {
+            var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies)).stream()
+            .filter(this::isEnemyDead).toList();
+            synchronized (diedEnemies) {
+                this.round.getEnemies().removeAll(diedEnemies);
+                activeEnemies.removeAll(diedEnemies);
+                diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
+            }
+            
+        }
+        
     }
 
     private Optional<Point2D> getSpawnPos() {
@@ -84,7 +91,9 @@ public class SpawnImpl implements Spawn{
     }
     
     private boolean isEnemyDead(final GameObject enemy) {
-        return !round.getWorld().getEntities().contains(enemy);
+        synchronized (activeEnemies) {
+            return !round.getWorld().getEntities().contains(enemy);
+        }
     }
     
 }

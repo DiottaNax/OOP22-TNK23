@@ -87,9 +87,9 @@ public class RoundImpl implements Round{
         if (this.isOver()) {
             this.round++;
             this.setDelay();
+            this.startRound();
             this.fillEnemiesList();
             this.totalEnemies = this.enemies.size();
-            this.startRound();
         }
     }
     
