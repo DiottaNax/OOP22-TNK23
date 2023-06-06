@@ -31,7 +31,6 @@ public class FxGameView implements GameView {
 
     private GameEngine gameEngine;
     private FxRenderingEngine renderingEngine;
-    //private SideScenesControllerImpl sidiesController;
     private PlayerInfoControllerImpl playerController;
     private RoundInfoControllerImpl roundController;
     private World world;
