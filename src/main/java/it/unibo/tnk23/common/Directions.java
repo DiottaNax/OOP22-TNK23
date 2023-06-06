@@ -1,8 +1,5 @@
 package it.unibo.tnk23.common;
 
-import java.util.List;
-import java.util.Random;
-
 public enum Directions {
     NORTH(0, -1),
     SOUTH(0, 1),
@@ -10,19 +7,19 @@ public enum Directions {
     EAST(1, 0),
     NONE(0, 0);
 
-    private Vector2D direction;
+    private Vector2D vel;
 
-    private Directions(final int x, final int y) {
-        direction = new Vector2D(x, y);
+    Directions(final int x, final int y) {
+        vel = new Vector2D(x, y);
     }
 
     public Vector2D getVel() {
-        return this.direction;
+        return this.vel;
     }
 
     public static Directions fromVector(Vector2D v) {
         for (var d : values()) {
-            if (d.direction.equals(v)) {
+            if (d.vel.equals(v)) {
                 return d;
             }
         }
@@ -30,7 +27,7 @@ public enum Directions {
     }
 
     public Directions flipped() {
-        return fromVector(this.direction.mul(-1));
+        return fromVector(this.vel.mul(-1));
     }
 
     public static Directions fromAngle(int angle) {
