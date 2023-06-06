@@ -62,7 +62,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.world.getEntities().stream().filter(this.sprites::containsKey).forEach(e -> {
             var x = e.getPosition().getX();
             var y = e.getPosition().getY();
-            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType())) {
+            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType()) || TypeObjectFactory.isTower(e.getType())) {
                 x += 6;
                 y += 6;
             }
