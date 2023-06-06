@@ -118,7 +118,7 @@ public class ColorPickerController extends Scene implements Initializable {
             players.get(1).addComponent(new GraphicComponent(players.get(1), spriteTwo));
         }
         
-        world.getPlayers().addAll(this.players);
+        this.players.forEach(this.world::addPlayer);
         view.setWorld(this.world);
     }
     
