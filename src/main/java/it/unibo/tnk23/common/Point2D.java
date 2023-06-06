@@ -39,4 +39,22 @@ public class Point2D {
         return "Point2D [x=" + this.x + ", y=" + this.y + "]";
     }
 
+    @Override
+    public boolean equals(Object v) {
+        if (v != null && v instanceof Vector2D) {
+            var v2d = (Vector2D) v;
+            return (Double.compare(y, v2d.getY()) + Double.compare(x, v2d.getX())) == 0;
+        }
+        
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        var result = 31;
+        result *= this.x;
+        result += this.y;
+        return result;
+    }
+
 }
