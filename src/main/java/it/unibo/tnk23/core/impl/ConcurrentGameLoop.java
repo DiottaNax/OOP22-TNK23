@@ -32,6 +32,8 @@ public class ConcurrentGameLoop extends GameLoopDecorator {
 
                 render();
             }
+
+            this.gameEngine.getGameView().setGameOverScene();
         }
     }
 }

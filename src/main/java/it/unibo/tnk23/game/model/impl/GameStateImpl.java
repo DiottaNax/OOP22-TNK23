@@ -51,9 +51,11 @@ public class GameStateImpl implements GameState {
 
     @Override
     public void update() {
-        var entites = this.world.getEntities();
+        var entities = this.world.getEntities();
         this.round.update();
-        isGameOver = this.world.getPlayers().stream().noneMatch(entites::contains);
+        var tower = this.world.getTower();
+        isGameOver = this.world.getPlayers().stream().noneMatch(entities::contains)
+                || !this.world.getEntities().contains(tower);
     }
 
     

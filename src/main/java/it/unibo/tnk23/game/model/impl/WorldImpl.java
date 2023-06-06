@@ -26,8 +26,11 @@ public class WorldImpl implements World {
     public WorldImpl(final GameMap gameMap) {
         this.players = new ArrayList<>();
         this.obstacles = new HashSet<>();
-        this.entities = new HashSet<>();
-        
+        this.entities = Collections.synchronizedSet(new HashSet<>());
+        /*
+         * created a synchronized list to avoid a ConcurrentModificationException that
+         * occurred in getEntities().
+         */
         var objFactory = new GameObjectFactoryImpl(this);
         var toAdd = gameMap.getWalls().stream().map(objFactory::getWall).toList();
         this.obstacles.addAll(toAdd);
@@ -57,7 +60,13 @@ public class WorldImpl implements World {
 
     @Override
     public Set<GameObject> getEntities() {
-        return Collections.unmodifiableSet(this.entities);
+        Set<GameObject> toPass = new HashSet<>();
+        /*
+         * thanks to Synchronized list the forEach below should be "atomic"
+         * avoiding ConcurrentModificationException.
+         */
+        this.entities.forEach(toPass::add);
+        return toPass;
     }
 
     @Override
@@ -100,8 +109,8 @@ public class WorldImpl implements World {
         int towerBoxSize = 4;
         int tileSize = Configuration.TILE_SIZE;
         var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
-        var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE -1);
-        var wallGridPos = new Pair<>(Configuration.GRID_SIZE-2, (Configuration.GRID_SIZE * 2) - 3); 
+        var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
+        var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
         var obstacleSize = tileSize / 2;
         GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
         this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * Configuration.TILE_SIZE,
