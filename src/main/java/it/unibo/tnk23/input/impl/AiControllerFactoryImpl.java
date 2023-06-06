@@ -39,21 +39,14 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
         return () -> iterator.next();       
     }
 
-    private InputController getFollowStillTargetAi(GameObject entity, GameObject target) {
-        this.graph.setGoal(target.getPosition());
-        var path = this.graph.getPathFrom(entity.getPosition());
-        var iterator = path.iterator();
-        return () -> iterator.hasNext() ? iterator.next() : Directions.NONE;
-    }
-
     @Override
     public InputController getFollowTowerAi(GameObject entity) {
-        return this.getFollowStillTargetAi(entity, this.world.getTower());
+        return new FollowTargetAi(graph, entity, this.world.getTower());
     }
 
     @Override
     public InputController getFollowMovingTargetAi(GameObject entity, GameObject target) {
-        return new FollowMovingTargetAi(graph, entity, target);
+        return new FollowTargetAi(graph, entity, target);
     }
     
 }
