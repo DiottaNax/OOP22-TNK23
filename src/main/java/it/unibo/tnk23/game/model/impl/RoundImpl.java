@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -109,19 +110,18 @@ public class RoundImpl implements Round{
         numFollowTargetEnemies = 0;
         numTowerEnemies = 0;
         double rateFollowTargetEnemies = 2.0;
-        double rateTowerEnemies = 4.0;
 
         if (round==1) {
             numRandomEnemies = 6;
         } else {
             numRandomEnemies = this.round*3;
             numFollowTargetEnemies = (int) (this.round/rateFollowTargetEnemies);
-            numTowerEnemies = (int) (this.round / rateTowerEnemies);
+            numTowerEnemies = (int) (this.round / rateFollowTargetEnemies);
         }
 
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
         addEnemies(numFollowTargetEnemies, this::generateFollowMovingTargetEnemies);
-        //addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
+        addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
     }
 
     private void setDelay() {
@@ -137,25 +137,27 @@ public class RoundImpl implements Round{
 
     private GameObject generateRandomMovingEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi(), Configuration.FPS));
         enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
         return enemy;
     }
 
     private GameObject generateFollowMovingTargetEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
+        var players = this.world.getPlayers();
+        var randomPlayer = players.get(new Random().nextInt(players.size()));
         enemy.addComponent(new AiComponent(enemy,
-                aiFactory.getFollowMovingTargetAi(enemy, this.world.getPlayer(1).get())));
+                aiFactory.getFollowMovingTargetAi(enemy, randomPlayer)));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
     }
     
-    /*private GameObject generateFollowTowerEnemies() {
+    private GameObject generateFollowTowerEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
-        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi()));
+        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi(enemy)));
         enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
         return enemy;
-    }*/
+    }
 
     private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
         Stream.iterate(0, i -> i + 1)
