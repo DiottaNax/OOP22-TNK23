@@ -19,7 +19,7 @@ public interface AiControllerFactory {
      * to reach a the Tower returned by {@link World}
      * @return an {@link InputController}
      */
-    InputController getFollowTowerAi();
+    InputController getFollowTowerAi(GameObject entity);
 
     /**
      * A method that returns an {@link InputController} that generates the exact {@link Directions}
@@ -29,5 +29,5 @@ public interface AiControllerFactory {
      * @param target the {@link GameObject} to reach
      * @return an {@link InputController}
      */
-    InputController getFollowMovingTargetAi(GameObject target);
+    InputController getFollowMovingTargetAi(GameObject entity, GameObject target);
 }

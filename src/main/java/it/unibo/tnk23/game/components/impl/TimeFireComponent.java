@@ -1,31 +1,26 @@
 package it.unibo.tnk23.game.components.impl;
 
+import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 public class TimeFireComponent extends AbstractFireComponent{
 
-    private long firePeriod;
-    private long currentTime;
-    private long lastTime;
+    private final static int SHOOT_PERIOD = 3 * Configuration.FPS;
 
     public TimeFireComponent(GameObject entity, World world) {
         super(entity, world);
-        firePeriod = 1000;
-        currentTime = System.currentTimeMillis();
-        lastTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void update() {
+        super.currentFarme++;
+        super.update();
     }
 
     @Override
     protected boolean canShoot() {
-        if((currentTime-lastTime) <= firePeriod) {
-            currentTime = (System.currentTimeMillis() - lastTime);
-            return false;
-        } else {
-            currentTime = System.currentTimeMillis();
-            lastTime = System.currentTimeMillis();
-            return true;
-        }
+        return currentFarme >= SHOOT_PERIOD;
     }
     
 }

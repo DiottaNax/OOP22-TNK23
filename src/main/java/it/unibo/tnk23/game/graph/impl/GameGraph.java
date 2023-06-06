@@ -13,10 +13,12 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
-    private final VisitableGridGraph graph;
-    private final static int PRECISION = 2;
+    public final static int PRECISION = 2;
     public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
+    private final static int UPDATE_PERIOD = Configuration.FPS * 4;
 
+    private final VisitableGridGraph graph;
+    private int currentFrame = UPDATE_PERIOD;
     private World world;
     private List<GameObject> obstacles;
 
@@ -31,9 +33,9 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
 
     private Pair<Integer,Integer> getGraphPos(Point2D pos){
-        double graphTileSize = Configuration.getTileSize() / PRECISION;
+        double graphTileSize = (double) Configuration.getTileSize() / PRECISION;
         return new Pair<>((int) Math.round(pos.getX() / graphTileSize),
-                (int) Math.round(pos.getX() / graphTileSize));
+                (int) Math.round(pos.getY() / graphTileSize));
     }
 
     public void setGoal(Point2D goal) {
@@ -45,13 +47,14 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
     
     private void performToGraph(GameObject obst, Consumer<Pair<Integer, Integer>> action) {
-        var graphPos = this.getGraphPos(obst.getPosition());
+            var graphPos = this.getGraphPos(obst.getPosition());
 
-        for (int i = -1; i < graphPos.getY(); i++) {
-            for (int j = -1; j < graphPos.getX(); j++) {
-                action.accept(new Pair<>(graphPos.getX() +j , graphPos.getY() + i));
+            for (int i = - 1; i < PRECISION; i++) {
+                for (int j = - 1; j < PRECISION; j++) {
+                    var pos = new Pair<>(graphPos.getX() + j, graphPos.getY() + i);
+                    action.accept(pos);
+                }
             }
-        }
     }
 
     private void addObstacleToGraph(GameObject obst) {
@@ -63,13 +66,22 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
 
     public void update() {
-        var worldObstacles = world.getObstacles();
-        worldObstacles.stream().filter(o -> !obstacles.contains(o)).forEach(o -> {
-            this.addObstacleToGraph(o);
-            this.obstacles.add(o);
-        });
+        var worldObstacles = new ArrayList<>(world.getObstacles());
+        if (currentFrame >= UPDATE_PERIOD) {
+            worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
+                this.addObstacleToGraph(o);
+                this.obstacles.add(o);
+            });
 
-        this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).forEach(this::removeObstacleFromGraph);
+            this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
+                this.removeObstacleFromGraph(o);
+                this.obstacles.remove(o);
+            });
+
+            currentFrame = 0;
+        }
+        
+        currentFrame++;
     }
 
 }

@@ -2,11 +2,11 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
+import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.RenderingEngine;
 import javafx.scene.image.Image;
@@ -22,9 +22,9 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
 
     public FxRenderingEngine(final World world, final GameView gameView) {
         this.root = new Pane();
+        this.world = world;
         this.root.setStyle("-fx-background-color: #0C0C0C;");
         this.setCachedSprites();
-        this.world = world;
         this.sprites = new HashMap<>();
     }
 
@@ -33,22 +33,13 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         return this.root;
     }
 
-    @Override
-    public void render() {
-        this.update();
-        root.getChildren().clear();
-        this.world.getEntities().forEach(e -> {
-            this.sprites.get(e).setX(e.getPosition().getX());
-            this.sprites.get(e).setY(e.getPosition().getY());
-            this.sprites.get(e).setRotate(e.getRotation());
-        });
-        root.getChildren().addAll(this.sprites.values());
-    }
-
     private void setCachedSprites() {
         this.cachedSprites = new HashMap<>();
-        this.cachedSprites.put("pinkPlayer",
-                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/pinkPlayer.gif")));
+        this.world.getPlayers().stream()
+                .filter(p -> p.getComponent(GraphicComponent.class).isPresent())
+                .map(p -> p.getComponent(GraphicComponent.class).get())
+                .forEach(g -> this.cachedSprites.put(g.getSpriteName(),
+                        new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + g.getSpriteName() + ".gif"))));
         this.cachedSprites.put("wall", new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/wall.png")));
         this.cachedSprites.put("destroyableWall",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/destroyableWall.png")));
@@ -60,7 +51,31 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/superTank.gif")));
         this.cachedSprites.put("tower",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/tower.png")));
+        this.cachedSprites.put("bullet",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/bullet.png")));
     }
+        
+    @Override
+    public void render() {
+        this.update();
+        root.getChildren().clear();
+        this.world.getEntities().stream().filter(this.sprites::containsKey).forEach(e -> {
+            var x = e.getPosition().getX();
+            var y = e.getPosition().getY();
+            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType()) || TypeObjectFactory.isTower(e.getType())) {
+                x += 6;
+                y += 6;
+            }
+            this.sprites.get(e).setX(x);
+            this.sprites.get(e).setY(y);
+            this.sprites.get(e).setRotate(e.getRotation());
+        });
+        var toRemove = this.sprites.keySet().stream().filter(k -> !this.world.getEntities().contains(k)).toList();
+        toRemove.forEach(this.sprites::remove);
+        root.getChildren().addAll(this.sprites.values());
+    }
+
+    
     
     public void addSprite(final GameObject entity) {
         if (!sprites.containsKey(entity)) {
@@ -74,9 +89,6 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     
     public void update() {
         this.world.getEntities().stream().filter(e -> !sprites.containsKey(e)).forEach(this::addSprite);
-        this.sprites.keySet().stream()
-                .filter(k -> !this.world.getEntities().contains(k))
-                .forEach(this.sprites::remove);
     }
 
 }

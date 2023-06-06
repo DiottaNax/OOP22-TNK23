@@ -1,10 +1,10 @@
 package it.unibo.tnk23.core.impl;
 
+import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.core.api.GameEngine;
 
 public class SynchronizedGameLoop extends GameLoopImpl {
 
-    private final long MAX_FPS = 120;
     private final long UPDATE_PERIOD;
     private long lag;
     private long currentTime;
@@ -12,7 +12,7 @@ public class SynchronizedGameLoop extends GameLoopImpl {
     
     public SynchronizedGameLoop(final GameEngine engine) {
         super(engine);
-        UPDATE_PERIOD = Math.round(1000 / MAX_FPS);
+        UPDATE_PERIOD = Math.round(1000 / Configuration.FPS);
         this.lastUpdateTime = System.currentTimeMillis();
     }
 

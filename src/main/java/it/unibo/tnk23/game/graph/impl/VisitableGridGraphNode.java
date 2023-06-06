@@ -1,11 +1,8 @@
 package it.unibo.tnk23.game.graph.impl;
 
-import java.util.Optional;
-
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.game.graph.api.AbstractVisitableNode;
-import it.unibo.tnk23.game.graph.api.VisitableNode;
 
 public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode> {
 

@@ -54,7 +54,10 @@ public final class TypeObjectFactory {
         return types.get("enemy");
     }
 
-    
+    public static TypeObject getTowerType() {
+        return types.get("tower");
+    }
+
     public static boolean isPlayer(TypeObject type) {
         return type.equals(types.get("player"));
     }
@@ -69,6 +72,10 @@ public final class TypeObjectFactory {
 
     public static boolean isObstacle(TypeObject type) {
         return type.equals(types.get("obstacle"));
+    }
+
+    public static boolean isTower(TypeObject type) {
+        return type.equals(types.get("tower"));
     }
 
     

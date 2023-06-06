@@ -39,4 +39,13 @@ public class Point2D {
         return "Point2D [x=" + this.x + ", y=" + this.y + "]";
     }
 
+
+    @Override
+    public int hashCode() {
+        var result = 31;
+        result *= this.x;
+        result += this.y;
+        return result;
+    }
+
 }

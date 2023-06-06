@@ -24,15 +24,15 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
 
     @Override
     public void update() {
-        if (health == 0) {
+        if (health <= 0) {
             world.notifyEvent(new WorldEventImpl(this.entity.getPosition(), this.entity, WorldEventType.DEATH_EVENT));
         }
     }
 
     @Override
     public <X> void receive(Message<X> x) {
-        if ((isTouchable()) && (x instanceof GameObject)) {
-            GameObject obj = (GameObject) x;
+        if ((isTouchable()) && (x.getMessage() instanceof GameObject)) {
+            GameObject obj = (GameObject) x.getMessage();
             health -= obj.getPower();
         }
     }
