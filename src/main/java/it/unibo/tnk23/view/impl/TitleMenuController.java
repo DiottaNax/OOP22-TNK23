@@ -1,15 +1,8 @@
 package it.unibo.tnk23.view.impl;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import it.unibo.tnk23.game.model.api.GameMap;
-import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.impl.GameMapImpl;
-import it.unibo.tnk23.game.model.impl.WorldImpl;
 
 
 public class TitleMenuController {
