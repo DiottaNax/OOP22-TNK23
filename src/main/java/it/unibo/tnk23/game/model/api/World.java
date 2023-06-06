@@ -8,6 +8,8 @@ import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventListener;
 
 public interface World {
+
+    void addPlayer(GameObject player);
     
     Optional<GameObject> getPlayer(int id);
 

@@ -39,6 +39,7 @@ public class WorldImpl implements World {
                 : Optional.empty();
     }
 
+    @Override
     public void addPlayer(GameObject player) {
         this.entities.add(player);
         this.players.add(player);
