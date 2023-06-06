@@ -1,7 +1,8 @@
 package it.unibo.tnk23.core.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.api.GameLoop;
@@ -14,7 +15,7 @@ public class GameLoopImpl implements GameLoop {
     private final GameEngine engine;
     private final World wrld;
     private final WorldEventHandler eventHandler;
-    private Queue<WorldEvent> eventQueue = new LinkedList<>();
+    private List<WorldEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
     
     public GameLoopImpl(final GameEngine engine) {
         this.engine = engine;
@@ -29,11 +30,7 @@ public class GameLoopImpl implements GameLoop {
 
     @Override
     public void processInput() {
-        try{
-            this.eventQueue.forEach(eventHandler::handle);
-        } catch(NullPointerException e){
-            e.printStackTrace();
-        }
+        this.eventQueue.forEach(eventHandler::handle);
         this.eventQueue.clear();
     }
 
