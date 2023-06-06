@@ -2,6 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.io.IOException;
 
+import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.impl.GameEngineImpl;
@@ -11,7 +12,6 @@ import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameMapImpl;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 import it.unibo.tnk23.game.model.impl.WorldImpl;
-import it.unibo.tnk23.input.api.InputController;
 import it.unibo.tnk23.input.impl.KeyEventHandler;
 import it.unibo.tnk23.input.impl.PlayerOneKeyboardController;
 import it.unibo.tnk23.input.impl.PlayerTwoKeyboardController;
@@ -145,7 +145,7 @@ public class FxGameView implements GameView {
 
     private void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
-        var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(400, 400));
+        var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);
     }
