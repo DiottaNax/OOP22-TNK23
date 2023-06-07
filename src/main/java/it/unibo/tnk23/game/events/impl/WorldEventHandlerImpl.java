@@ -9,24 +9,42 @@ import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 
+/**
+ * Implementation of the {@link WorldEventHandler} interface that handles various events
+ * and performs corresponding actions in the world
+ */
 public class WorldEventHandlerImpl implements WorldEventHandler {
 
     private final World world;
 
+    /**
+     * Constructs a new {@link WorldEventHandlerImpl} with the specified world.
+     * 
+     * @param world the {@link World} istance to handle events in.
+     */
     public WorldEventHandlerImpl(final World world) {
         this.world = world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(WorldEvent we) {
         WorldEventType type = we.getType();
         var actor = we.getEventActor();
         switch (type) {
             case DEATH_EVENT:
+                /*
+                 * Remove the entity from the world.
+                 */
                 world.removeEntity(actor);
                 break;
 
             case SHOOT_EVENT:
+                /*
+                 * Create a bullet entity and add it to the world.
+                 */
                 var pos = actor.getPosition();
                 var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR; /*mi basta usare getwidth perchè chi spara è quadrato*/
                 var bulletPos = pos;
@@ -39,11 +57,17 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 break;
 
             case SPAWN_EVENT:
+                /*
+                 * Set the actor's position and add it to the world.
+                 */
                 actor.setPosition(we.getposition());
                 world.addEntity(actor);
                 break;
 
             default:
+                /*
+                 * No action needed for the other event types.
+                 */
                 break;
         }
     }
