@@ -35,12 +35,10 @@ public class Point2D {
         return this.sum(new Vector2D(-v.getX(), -v.getY()));
     }
 
-
     @Override
     public String toString() {
         return "Point2D [x=" + this.x + ", y=" + this.y + "]";
     }
-
 
     @Override
     public int hashCode() {
