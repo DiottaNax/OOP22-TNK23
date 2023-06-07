@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.components.impl.PhysicsComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
-import it.unibo.tnk23.game.components.impl.TimeFireComponent;
+import it.unibo.tnk23.game.components.impl.EnemiesFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
 import it.unibo.tnk23.game.model.api.World;
@@ -27,7 +27,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObject getEnemy(Point2D pos) {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
         enemy.addComponent(new EntitiesHealthComponent(enemy, world));
-        enemy.addComponent(new TimeFireComponent(enemy, world));
+        enemy.addComponent(new EnemiesFireComponent(enemy, world));
         enemy.addComponent(new PhysicsComponent(enemy, world));
         enemy.addComponent(new CollisionComponent(enemy, world));
         return enemy;

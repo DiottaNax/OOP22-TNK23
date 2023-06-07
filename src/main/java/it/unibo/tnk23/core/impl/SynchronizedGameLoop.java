@@ -3,16 +3,26 @@ package it.unibo.tnk23.core.impl;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.core.api.GameEngine;
 
+/**
+ * The {@code SynchronizedGameLoop} class extends the {@link GameLoopImpl} class and provides a synchronized game loop implementation.
+ * It ensures that the game updates and rendering occur at a fixed frame rate defined by the configuration.
+ * 
+ * @author Federico Diotallevi
+ */
 public class SynchronizedGameLoop extends GameLoopImpl {
 
-    private final long UPDATE_PERIOD;
+    private static final long UPDATE_PERIOD = Math.round(1000.0 / Configuration.FPS);
     private long lag;
     private long currentTime;
     private long lastUpdateTime;
     
+    /**
+     * Constructs a {@code SynchronizedGameLoop} instance with the given game engine.
+     *
+     * @param engine the game engine associated with the game loop.
+     */
     public SynchronizedGameLoop(final GameEngine engine) {
         super(engine);
-        UPDATE_PERIOD = Math.round(1000 / Configuration.FPS);
         this.lastUpdateTime = System.currentTimeMillis();
     }
 
@@ -20,7 +30,7 @@ public class SynchronizedGameLoop extends GameLoopImpl {
     public void update() {
         this.currentTime = System.currentTimeMillis();
         this.lag = this.lag + this.currentTime - this.lastUpdateTime;
-        this.lastUpdateTime = System.currentTimeMillis();
+        this.lastUpdateTime = this.currentTime;
 
         while (lag >= UPDATE_PERIOD) {
             super.update();
@@ -28,7 +38,12 @@ public class SynchronizedGameLoop extends GameLoopImpl {
         }
     }
 
-    public void waitForNextFrame(final long currentTime) {
+    /**
+     * Waits for the remaining time until the next frame based on the current time.
+     *
+     * @param currentTime the current time in milliseconds.
+     */
+    private void waitForNextFrame(final long currentTime) {
         long remainingTime = System.currentTimeMillis() - currentTime;
         if (remainingTime < UPDATE_PERIOD) {
             try {
@@ -39,6 +54,7 @@ public class SynchronizedGameLoop extends GameLoopImpl {
         }
     }
 
+    
     @Override
     public void render() {
         super.render();

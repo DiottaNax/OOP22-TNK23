@@ -5,13 +5,13 @@ import java.util.Optional;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.view.api.SidiesController;
+import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class PlayerInfoControllerImpl implements SidiesController{
+public class PlayerInfoControllerImpl implements SideScenesController{
 
     private final World world;
 
@@ -46,7 +46,7 @@ public class PlayerInfoControllerImpl implements SidiesController{
     }
 
     @Override
-    public void updateLabels() {
+    public void updateGraphic() {
         player1Life.setText(
                 "x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         this.player1Image.setImage(plry1);

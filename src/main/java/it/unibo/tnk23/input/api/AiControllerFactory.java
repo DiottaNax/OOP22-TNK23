@@ -1,33 +1,36 @@
 package it.unibo.tnk23.input.api;
 
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.common.Directions;
 
+
+/**
+ * The {@code AiControllerFactory} interface defines a factory for creating AI controllers.
+ * It provides methods to obtain different types of AI controllers based on specific requirements.
+ */
 public interface AiControllerFactory {
     
     /**
-     * A method that returns an {@link InputController} that generates random {@link Directions}.
-     * The first direction returned should always be SOUTH.
-     * 
-     * @return an {@link InputController} generating random directions
+     * Returns an AI controller that generates random directions.
+     * The first direction generated should always be {@code SOUTH}
+     *
+     * @return A random AI controller.
      */
     InputController getRandomAi();
 
-
     /**
-     * A method that returns an {@link InputController} that generates the exact path of {@link Directions}
-     * to reach a the Tower returned by {@link World}
-     * @return an {@link InputController}
+     * Returns an AI controller that makes the entity follow the game tower.
+     *
+     * @param entity The game object representing the entity.
+     * @return An AI controller for following the game tower.
      */
     InputController getFollowTowerAi(GameObject entity);
 
     /**
-     * A method that returns an {@link InputController} that generates the exact {@link Directions}
-     * to reach a target. The path is updated every once in a while, so the target to reach could be
-     * a moving {@link GameObject}
-     * 
-     * @param target the {@link GameObject} to reach
-     * @return an {@link InputController}
+     * Returns an AI controller that makes the entity follow a moving target.
+     *
+     * @param entity The game object representing the entity.
+     * @param target The game object representing the moving target to follow.
+     * @return An AI controller for following a moving target.
      */
     InputController getFollowMovingTargetAi(GameObject entity, GameObject target);
 }
