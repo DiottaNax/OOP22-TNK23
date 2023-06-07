@@ -4,11 +4,11 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
-public class TimeFireComponent extends AbstractFireComponent{
+public class EnemiesFireComponent extends AbstractFireComponent{
 
     private final static int SHOOT_PERIOD = 3 * Configuration.FPS;
 
-    public TimeFireComponent(GameObject entity, World world) {
+    public EnemiesFireComponent(GameObject entity, World world) {
         super(entity, world);
     }
 
