@@ -19,9 +19,12 @@ import it.unibo.tnk23.game.model.api.World;
  * It extends the functionality of the underlying graph implementation by adding game-specific features.
  */
 public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
-    public final static int PRECISION = 2;
-    public final static int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
-    private final static int UPDATE_PERIOD = Configuration.FPS * 4;
+    private static final int PRECISION = 2;
+    private static final int UPDATE_PERIOD = Configuration.FPS * 4;
+    /**
+     * The size of a {@code GameGraph}'s tile in pixel.
+     */
+    public static final int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
 
     private final VisitableGridGraph graph;
     private final List<GameObject> obstacles;
@@ -54,7 +57,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * @param pos the position to convert
      * @return the position converted
      */
-    private Pair<Integer,Integer> getGraphPos(final Point2D pos){
+    private Pair<Integer, Integer> getGraphPos(final Point2D pos) {
         final double graphTileSize = (double) Configuration.TILE_SIZE / PRECISION;
         return new Pair<>((int) Math.round(pos.getX() / graphTileSize),
                 (int) Math.round(pos.getY() / graphTileSize));
@@ -78,7 +81,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     public List<Directions> getPathFrom(final Point2D pos) {
         return this.graph.getPathFrom(new VisitableGridGraphNode(this.getGraphPos(pos)));
     }
-    
+
     private Set<Pair<Integer, Integer>> getConnectedNodes(final GameObject obst) {
         /**
          * When a wall is added or removed from the graph even some adjacent positions are conditioned.
@@ -116,7 +119,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
 
             currentFrame = 0;
         }
-        
+
         currentFrame++;
     }
 

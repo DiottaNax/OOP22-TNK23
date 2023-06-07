@@ -20,10 +20,10 @@ import it.unibo.tnk23.game.graph.api.VisitableGraph;
  */
 public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode> {
 
-    final private Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
-    final private Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
-    final private int gridSize;
-    final private VisitableGridGraphNode goal = new VisitableGridGraphNode(new Pair<>(-1, -1));
+    private final Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
+    private final Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
+    private final int gridSize;
+    private final VisitableGridGraphNode goal = new VisitableGridGraphNode(new Pair<>(-1, -1));
 
     /**
      * Constructs a new {@code VisitableGridGraph} with the specified grid size.
@@ -45,7 +45,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
     public int getGridSize() {
         return this.gridSize;
     }
-    
+
     /**
      * Initializes the graph by adding nodes and their adjacencies.
      */
@@ -73,7 +73,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
                 .filter(this.graphNodes::containsKey)
                 .map(this.graphNodes::get);
     }
-    
+
     private void addAdjacencies() {
         /**
          * Adds adjacencies to all nodes in the graph.

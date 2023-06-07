@@ -9,8 +9,8 @@ import it.unibo.tnk23.common.Pair;
  * The {@code GridGraphNode} class represents a node in a grid-based graph.
  */
 public class GridGraphNode {
-    
-    protected final Pair<Integer, Integer> gridPos;
+
+    private final Pair<Integer, Integer> gridPos;
 
     /**
      * Constructs a new {@code GridGraphNode} with the specified grid position.
@@ -29,13 +29,13 @@ public class GridGraphNode {
     public Pair<Integer, Integer> getGraphIndex() {
         return this.gridPos;
     }
-    
+
     /**
      * Retrieves the list of adjacent grid indexes to the node.
      *
      * @return a list of adjacent grid indexes
      */
-    public List<Pair<Integer,Integer>> getAdjacentIndexes(){
+    public List<Pair<Integer, Integer>> getAdjacentIndexes() {
         return Stream.of(new Pair<>(1, 0), new Pair<>(0, 1))
                     .flatMap(p -> Stream.of(p, new Pair<>(-p.getX(), -p.getY())))
                     .map(p -> new Pair<>(gridPos.getX() + p.getX(), gridPos.getY() + p.getY()))

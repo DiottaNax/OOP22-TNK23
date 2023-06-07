@@ -54,7 +54,8 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
     }
 
     /**
-     * Resets the node by calling the superclass implementation and setting the direction to the parent node to {@link Directions#NONE}.
+     * Resets the node by calling the superclass implementation and setting the direction to the parent node to 
+     * {@link Directions#NONE}.
      */
     @Override
     public void reset() {
@@ -69,7 +70,8 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
      */
     @Override
     public int hashCode() {
-        return 37 * super.getNode().hashCode();
+        final int prime = 37;
+        return prime * super.getNode().hashCode();
     }
 
     /**
