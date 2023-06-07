@@ -7,6 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * The RoundInfoControllerImpl class implments the SideScenesController interface and
+ * represents a controller for the round information in a game interface.
+ * It handles the display and updating of round information, including enemy counts and images.
+ */
 public class RoundInfoControllerImpl implements SideScenesController {
 
     private final Round round;
@@ -30,6 +35,11 @@ public class RoundInfoControllerImpl implements SideScenesController {
     private final Image aiEnemies;
     private final Image missingEnemies;
 
+    /**
+     * Constructs a RoundInfoControllerImpl object with the specified Round instance.
+     * 
+     * @param round The Round instance that represent the current round of the game.
+     */
     public RoundInfoControllerImpl(final Round round) {
         this.round = round;
         rdmEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
@@ -38,6 +48,10 @@ public class RoundInfoControllerImpl implements SideScenesController {
                 ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.gif"));
     }
 
+    /**
+     * {@inheritDoc}
+     * his method is called to refresh the display of round information in the game interface.
+     */
     @Override
     public void updateGraphic() {
         randomEnemiesImage.setImage(rdmEnemies);
