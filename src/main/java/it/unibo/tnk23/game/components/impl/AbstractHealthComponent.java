@@ -12,16 +12,30 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.TypeObject;
 import it.unibo.tnk23.game.model.api.World;
 
+/**
+ * This abstract class represents a health component for game objects. It extends the
+ * AbstractComponent class and implements the NotifiableComponent interface.
+ */
 public abstract class AbstractHealthComponent extends AbstractComponent implements NotifiableComponent {
 
     protected int health;
     protected Set<TypeObject> weaknesses = new HashSet<>();
 
+    /**
+     * Constructs an AbstractHealthComponent with the specified parameters GameObject and World.
+     *
+     * @param entity the GameObject associated with this component
+     * @param world  the World object in which the component exists
+     */
     public AbstractHealthComponent(GameObject entity, World world) {
         super(entity, world);
         this.health = (int) entity.getType().getHealth();
     }
 
+    /**
+     * Updates the health component. If the health reaches or goes below zero, a death event
+     * is notified through the world-object.
+     */
     @Override
     public void update() {
         if (health <= 0) {
@@ -29,6 +43,13 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
         }
     }
 
+    /**
+     * Receives a message and updates the health component based on the message content. Only
+     * GameObject-messages are considered, if the component is touchable.
+     *
+     * @param x the message to receive
+     * @param <X> the type of the message
+     */
     @Override
     public <X> void receive(Message<X> x) {
         if ((isTouchable()) && (x.getMessage() instanceof GameObject)) {
@@ -37,9 +58,19 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
         }
     }
 
+    /**
+     * Returns the current health value of the component.
+     *
+     * @return the current health value
+     */
     public int getHealth() {
         return this.health;
     }
-    
+
+    /**
+     * Checks if the component is touchable.
+     *
+     * @return true if the component is touchable, false otherwise
+     */
     protected abstract boolean isTouchable();
 }
