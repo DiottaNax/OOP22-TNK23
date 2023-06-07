@@ -4,16 +4,27 @@ import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.input.api.KeyboardInputController;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * The PlayerTwoKeyboardController class implements the KeyboardInputController interface
+ * and represents a keyboard controller for player two that provides directional input
+ * and shooting functionality.
+ */
 public class PlayerTwoKeyboardController implements KeyboardInputController {
 
     private Directions direction = Directions.NONE;
     private boolean isShooting;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Directions getDirection() {
         return direction;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnKeyPressed(KeyEvent e) {
         switch(e.getCode()) {
@@ -39,6 +50,9 @@ public class PlayerTwoKeyboardController implements KeyboardInputController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnKeyReleased(KeyEvent e) {        
         switch (e.getCode()) {
@@ -56,6 +70,9 @@ public class PlayerTwoKeyboardController implements KeyboardInputController {
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isShooting() {
         return this.isShooting;
