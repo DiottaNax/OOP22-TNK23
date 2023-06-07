@@ -10,7 +10,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class EnemiesFireComponent extends AbstractFireComponent{
 
-    private final static int SHOOT_PERIOD = 3 * Configuration.FPS;
+    private final static int SHOOT_PERIOD = 2 * Configuration.FPS;
 
     /**
      * Constructs a new {@link EnemiesFireComponent} with te specified entity and world.

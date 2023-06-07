@@ -15,6 +15,12 @@ import it.unibo.tnk23.game.model.api.GameMap;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
+/**
+* Implementation of the World interface that represents the game world.
+* It maintains a collection of players, entities, obstacles, and a tower.
+* The WorldImpl class provides methods to add and retrieve players, entities, and obstacles,
+* as well as update the game state.
+*/
 public class WorldImpl implements World {
 
     private List<GameObject> players;
@@ -23,6 +29,12 @@ public class WorldImpl implements World {
     private GameObject tower;
     private WorldEventListener weListener;
 
+   /**
+     * Constructs a new WorldImpl instance with the specified game map.
+     * Initializes the players, obstacles, entities, and tower based on the game map.
+     *
+     * @param gameMap the game map containing the walls, destroyable walls and tower configuration
+     */
     public WorldImpl(final GameMap gameMap) {
         this.players = new ArrayList<>();
         this.obstacles = new HashSet<>();
@@ -41,23 +53,35 @@ public class WorldImpl implements World {
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<GameObject> getPlayer(int id) {
         return this.players.size() >= id && id > 0 ? Optional.of(players.get(id - 1))
                 : Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPlayer(GameObject player) {
         this.entities.add(player);
         this.players.add(player);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<GameObject> getPlayers() {
         return Collections.unmodifiableList(this.players);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<GameObject> getEntities() {
         Set<GameObject> toPass = new HashSet<>();
@@ -69,37 +93,58 @@ public class WorldImpl implements World {
         return toPass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeEntity(GameObject obj) {
         this.entities.remove(obj);
         this.obstacles.remove(obj);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addEntity(GameObject obj) {
         this.entities.add(obj);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<GameObject> getObstacles() {
         return Collections.unmodifiableSet(this.obstacles);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getTower() {
         return this.tower;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setWorldEventListener(WorldEventListener weListener) {
         this.weListener = weListener;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyEvent(WorldEvent we) {
         weListener.notifyEvent(we);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         this.getEntities().stream().parallel().forEach(GameObject::update);

@@ -8,7 +8,7 @@ public interface Component {
     
     /**
      * Updates the component's state or carries out any required operations.
-     * Is typically invoked once per farme.
+     * Is typically invoked once per frame.
      */
     void update();
 
