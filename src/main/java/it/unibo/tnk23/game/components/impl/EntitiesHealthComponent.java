@@ -28,8 +28,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
     }
 
     /**
-     * Updates the component's state. If enough time has passed based on the cool-down period,
-     * the component becomes touchable.
+     * {@inheritDoc}
      */
     @Override
     public void update() {
@@ -42,10 +41,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
     }
 
     /**
-     * Receives a message and, if the component is touchable, check if it's a Bullet-type GameObject to eventually performs health-decrement actions (getting the entity which shoted the bullet).
-     *
-     * @param <X> the type of message being received
-     * @param x   the message to receive
+     * {@inheritDoc}
      */
     @Override
     public <X> void receive(Message<X> x) {
@@ -63,9 +59,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
     }
 
     /**
-     * Checks if the component is touchable.
-     *
-     * @return true if the component is touchable, false otherwise
+     * {@inheritDoc}
      */
     @Override
     protected boolean isTouchable() {
