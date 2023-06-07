@@ -48,7 +48,7 @@ public class ConcurrentGameLoop extends GameLoopDecorator {
         /**
          * Runs the game loop logic in a continuous loop until the game is over.
          * It calls the processInput, update, and render methods of the game loop's decorated object.
-         * Once the game is over, it sets the game over scene in the game view.
+         * Once the game is over, it ends the loop.
          */
         @Override
         public void run() {
@@ -59,8 +59,6 @@ public class ConcurrentGameLoop extends GameLoopDecorator {
 
                 render();
             }
-
-            this.gameEngine.getGameView().setGameOverScene();
         }
     }
 }

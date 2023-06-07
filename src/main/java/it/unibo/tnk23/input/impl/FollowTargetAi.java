@@ -18,6 +18,19 @@ import it.unibo.tnk23.input.api.InputController;
  * to provide an AI input controller that follows a target game object.
  * It uses a {@link GameGraph} to calculate the path to the target and provides the next direction to move.
  * 
+ * <p>The AI periodically updates the path to the target, and if the target is no longer present or 
+ * the entity's position hasn't changed for a significant time, a backup AI is activated to provide 
+ * alternative directions.
+ * 
+ * <p>The backup AI is provided by the {@link AiControllerFactoryImpl} class and is used in case the 
+ * principal AI loses the path to the target. If the target is no longer present, the backup AI becomes 
+ * a random AI, otherwise it hangs around a bit to find an alternative path.
+ * 
+ * <p>Note that the backup AI is only activated when necessary, and the principal AI is used whenever 
+ * a valid path is available.
+ * 
+ * <p>Instances of this class should be created using the {@link AiControllerFactoryImpl} to ensure proper initialization.
+ * 
  * @author Federico Diotallevi
  */
 public class FollowTargetAi implements InputController {
@@ -36,11 +49,12 @@ public class FollowTargetAi implements InputController {
     private final Timer timer;
 
     /**
-     * Constructs a new instance of {@code FollowTargetAi} with the specified game graph, entity, and target.
+     * Constructs a new instance of {@code FollowTargetAi} with the specified game graph, entity, target, and world.
      *
      * @param graph  The game graph used for pathfinding.
      * @param entity The entity controlled by the AI.
-     * @param target The target game object to follow.
+     * @param target The game object target to follow.
+     * @param world  The game world.
      */
     public FollowTargetAi(GameGraph graph, GameObject entity, GameObject target, World world) {
         this.graph = graph;
@@ -60,7 +74,7 @@ public class FollowTargetAi implements InputController {
     /**
      * Starts the periodic update task to recalculate the path to the target.
      */
-    public void startUpdate() {
+    private void startUpdate() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -81,7 +95,9 @@ public class FollowTargetAi implements InputController {
     @Override
     public Directions getDirection() {
         lastPos = this.entity.getPosition();
+
         if (timeToUpdate) {
+            // If enough time passed, the ai updates the path. 
             this.graph.setGoal(target.getPosition());
             path.clear();
             this.path.addAll(this.graph.getPathFrom(entity.getPosition()));
@@ -102,15 +118,12 @@ public class FollowTargetAi implements InputController {
                 } while (dir.equals(Directions.NONE));
                 this.path.addAll(List.of(dir, dir, dir, dir, dir));
                 /*
-                 * The update period for this ai is very short, doing this it gets longer.
-                 * Otherwise it would change direction every half tile.
+                 * The update period for this ai is very short, doing this it gets longer,
+                 * otherwise it would change direction every half tile.
                  */ 
                 iterator = path.iterator();
             }
         }
-        System.out.println("FOLLOWS TOWER? " + target.equals(world.getTower()));
-        System.out.println("PATH: " + path);
-        System.out.println("IS BACKUP ACTIVE? " + backupAiIsActive);
         return backupAiIsActive ? backupAi.getDirection()
                 : iterator.hasNext() ? iterator.next() : Directions.NONE;
     }
