@@ -4,16 +4,27 @@ import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.input.api.KeyboardInputController;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * The PlayerOneKeyboardController class implements the KeyboardInputController interface
+ * and represents a keyboard controller for player one that provides directional input
+ * and shooting functionality.
+ */
 public class PlayerOneKeyboardController implements KeyboardInputController {
 
     private Directions direction = Directions.NONE;
     private boolean isShooting;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Directions getDirection() {
         return direction;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnKeyPressed(KeyEvent e) {
         switch(e.getCode()) {
@@ -24,7 +35,7 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
                 direction = Directions.SOUTH;
                 break;
             case LEFT:
-            direction = Directions.WEST;
+                direction = Directions.WEST;
                 break;
             case RIGHT:
                 direction = Directions.EAST;
@@ -32,13 +43,14 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
             case ENTER:
                 isShooting = true;
                 break;
-
             default:
                 break;
-
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOnKeyReleased(KeyEvent e) {        
         switch (e.getCode()) {
@@ -49,15 +61,18 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
                 direction = Directions.NONE;
                 break;
             case ENTER:
-                this.isShooting = false;
+                isShooting = false;
                 break;
             default:
                 break;
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isShooting() {
-        return this.isShooting;
+        return isShooting;
     }
 }
