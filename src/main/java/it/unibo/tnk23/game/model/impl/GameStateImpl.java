@@ -18,7 +18,7 @@ public class GameStateImpl implements GameState {
     private final World world;
     private final Round round;
     private boolean isGameOver;
-    
+
     /**
      * Constructs a GameStateImpl object with the specified World.
      *

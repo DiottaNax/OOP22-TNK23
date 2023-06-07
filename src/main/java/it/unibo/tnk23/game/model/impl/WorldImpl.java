@@ -50,7 +50,6 @@ public class WorldImpl implements World {
         this.obstacles.addAll(toAdd);
         this.entities.addAll(this.obstacles);
         addTower();
-        
     }
 
     /**
@@ -149,7 +148,7 @@ public class WorldImpl implements World {
     public void update() {
         this.getEntities().stream().parallel().forEach(GameObject::update);
     }
-    
+
     /**
      * Adds a tower to the game.
      * The tower is placed at a specific grid position and creates walls near it as obstacles.
@@ -160,21 +159,22 @@ public class WorldImpl implements World {
         final int tileSize = Configuration.TILE_SIZE;
         final var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
         final var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
-        final var towerPos = new Point2D(towerGridPos.getX() * tileSize , towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
+        final var towerPos = new Point2D(towerGridPos.getX() * tileSize,
+                towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
         final var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
         final var obstacleSize = tileSize / 2;
         final GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
-        
+
         this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * tileSize + Configuration.DISPLACEMENT,
                 towerGridPos.getY() * tileSize));
-        
-        for (int i = 0; i < towerBoxSize-1; i++) {
+
+        for (int i = 0; i < towerBoxSize - 1; i++) {
             for (int j = 0; j < towerBoxSize; j++) {
                 final var pos = new Pair<>(wallGridPos.getX() + j, wallGridPos.getY() + i);
                 wallNearTower.add(pos);
             }
         }
-        
+
         this.entities.add(this.tower);
         this.entities.addAll(wallNearTower.stream()
                 .map(p -> new Point2D(p.getX() * obstacleSize, p.getY() * obstacleSize - Configuration.DISPLACEMENT))
@@ -183,5 +183,5 @@ public class WorldImpl implements World {
                 .map(objectFactory::getDestroyableWall)
                 .toList());
     }
-    
+
 }

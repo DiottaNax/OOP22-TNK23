@@ -8,7 +8,7 @@ import java.util.Optional;
  * It provides information about the current round, player lives, and game over status.
  */
 public interface GameState {
-    
+
     /**
      * Retrieves the current round of the game.
      *
@@ -29,7 +29,7 @@ public interface GameState {
      * @return A Map containing GameObjects as keys and their respective life counts as values.
      */
     Map<GameObject, Integer> getPlayerLifes();
-    
+
     /**
      * Retrieves the life count for a specific player identified by the given ID.
      *

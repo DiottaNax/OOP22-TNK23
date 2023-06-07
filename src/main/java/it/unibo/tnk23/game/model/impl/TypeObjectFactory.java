@@ -23,14 +23,14 @@ import it.unibo.tnk23.game.model.api.TypeObject;
  */
 public final class TypeObjectFactory {
 
-    private static final Map<String,TypeObject> TYPES = retrieveTypes();
-    private final static Logger LOGGER = Logger.getLogger("TypeObjectFactoryLogger");
+    private static final Map<String, TypeObject> TYPES = retrieveTypes();
+    private static final Logger LOGGER = Logger.getLogger("TypeObjectFactoryLogger");
     /**
-     * Utility classes' constructor should never be called
+     * Utility classes' constructor should never be called.
      */
     private TypeObjectFactory() {
     }
-    
+
     /**
      * Retrieves types by parsing a JSON file and creating {@link TypeObjectImpl} instances.
      *
@@ -157,5 +157,5 @@ public final class TypeObjectFactory {
         return type.equals(TYPES.get("tower"));
     }
 
-    
+
 }
