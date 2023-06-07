@@ -14,7 +14,7 @@ import it.unibo.tnk23.game.events.api.WorldEventListener;
 public interface World {
 
     /**
-     * Adds a plyer to the game world.
+     * Adds a player to the game world.
      * 
      * @param player the GameObject to be added.
      */
@@ -29,7 +29,7 @@ public interface World {
     Optional<GameObject> getPlayer(int id);
 
     /**
-     * Gets a set of all players in the game world.
+     * Gets a list of all players in the game world.
      * 
      * @return a list of players GameObjects.
      */
