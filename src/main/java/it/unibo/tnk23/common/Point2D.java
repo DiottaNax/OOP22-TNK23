@@ -1,5 +1,7 @@
 package it.unibo.tnk23.common;
 
+import java.util.Objects;
+
 public class Point2D {
     private double x;
     private double y;
@@ -42,10 +44,26 @@ public class Point2D {
 
     @Override
     public int hashCode() {
-        var result = 31;
-        result *= this.x;
-        result += this.y;
+        int result = 31;
+        result = 13 * result + Objects.hashCode(this.x);
+        result = 13 * result + Objects.hashCode(this.y);
         return result;
+    }
+
+    @Override
+    public boolean equals(Object p) {
+        if (p != null && p.getClass().equals(this.getClass())) {
+            var p2d = (Point2D) p;
+            if (Double.compare(p2d.getX(), -0.0) == 0) {
+                p2d.setX(0);
+            } else if (Double.compare(p2d.getY(), -0.0) == 0) {
+                p2d.setY(0);
+            }
+
+            return Double.compare(y, p2d.getY()) == 0 && Double.compare(x, p2d.getX()) == 0;
+        }
+        
+        return false;
     }
 
 }
