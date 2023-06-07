@@ -7,7 +7,6 @@ import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
-import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.RenderingEngine;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +19,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     private final World world;
     private Map<String, Image> cachedSprites;
 
-    public FxRenderingEngine(final World world, final GameView gameView) {
+    public FxRenderingEngine(final World world) {
         this.root = new Pane();
         this.world = world;
         this.root.setStyle("-fx-background-color: #0C0C0C;");
@@ -62,16 +61,15 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.world.getEntities().stream().filter(this.sprites::containsKey).forEach(e -> {
             var x = e.getPosition().getX();
             var y = e.getPosition().getY();
-            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType()) || TypeObjectFactory.isTower(e.getType())) {
-                x += 6;
-                y += 6;
+            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType())) {
+                x += Configuration.DISPLACEMENT;
+                y += Configuration.DISPLACEMENT;
             }
             this.sprites.get(e).setX(x);
             this.sprites.get(e).setY(y);
             this.sprites.get(e).setRotate(e.getRotation());
         });
-        var toRemove = this.sprites.keySet().stream().filter(k -> !this.world.getEntities().contains(k)).toList();
-        toRemove.forEach(this.sprites::remove);
+        this.sprites.keySet().removeIf(k -> !this.world.getEntities().contains(k));
         root.getChildren().addAll(this.sprites.values());
     }
 
