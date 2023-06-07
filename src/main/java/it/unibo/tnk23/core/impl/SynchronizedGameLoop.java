@@ -44,7 +44,7 @@ public class SynchronizedGameLoop extends GameLoopImpl {
      * @param currentTime the current time in milliseconds.
      */
     private void waitForNextFrame(final long currentTime) {
-        long remainingTime = System.currentTimeMillis() - currentTime;
+        final long remainingTime = System.currentTimeMillis() - currentTime;
         if (remainingTime < UPDATE_PERIOD) {
             try {
                 Thread.sleep(UPDATE_PERIOD - remainingTime);

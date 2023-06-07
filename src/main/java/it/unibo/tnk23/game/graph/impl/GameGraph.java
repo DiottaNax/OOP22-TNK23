@@ -24,16 +24,16 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final static int UPDATE_PERIOD = Configuration.FPS * 4;
 
     private final VisitableGridGraph graph;
+    private final List<GameObject> obstacles;
     private int currentFrame = UPDATE_PERIOD;
     private World world;
-    private List<GameObject> obstacles;
 
     /**
      * Creates a new {@code GameGraph} instance with the specified underlying graph implementation.
      *
      * @param toDecorate the underlying graph implementation to decorate
      */
-    public GameGraph(VisitableGridGraph toDecorate) {
+    public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
         this.graph = toDecorate;
         this.obstacles = new ArrayList<>();
@@ -54,8 +54,8 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * @param pos the position to convert
      * @return the position converted
      */
-    private Pair<Integer,Integer> getGraphPos(Point2D pos){
-        double graphTileSize = (double) Configuration.TILE_SIZE / PRECISION;
+    private Pair<Integer,Integer> getGraphPos(final Point2D pos){
+        final double graphTileSize = (double) Configuration.TILE_SIZE / PRECISION;
         return new Pair<>((int) Math.round(pos.getX() / graphTileSize),
                 (int) Math.round(pos.getY() / graphTileSize));
     }
@@ -65,7 +65,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      *
      * @param goal the goal position to set
      */
-    public void setGoal(Point2D goal) {
+    public void setGoal(final Point2D goal) {
         this.graph.setGoal(new VisitableGridGraphNode(this.getGraphPos(goal)));
     }
 
@@ -75,25 +75,25 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * @param pos the starting position
      * @return the list of directions representing the path to the goal
      */
-    public List<Directions> getPathFrom(Point2D pos) {
+    public List<Directions> getPathFrom(final Point2D pos) {
         return this.graph.getPathFrom(new VisitableGridGraphNode(this.getGraphPos(pos)));
     }
     
-    private Set<Pair<Integer, Integer>> getConnectedNodes(GameObject obst) {
+    private Set<Pair<Integer, Integer>> getConnectedNodes(final GameObject obst) {
         /**
          * When a wall is added or removed from the graph even some adjacent positions are conditioned.
          * This function retrieves and returns the adjacent positions that should be modified after a changing to the graph.
          */
-        var graphPos = this.getGraphPos(obst.getPosition());
+        final var graphPos = this.getGraphPos(obst.getPosition());
         return Stream.of(graphPos, new Pair<>(graphPos.getX() - 1, graphPos.getY()))
                 .flatMap(p -> Stream.of(p, new Pair<>(p.getX(), p.getY() - 1))).collect(Collectors.toSet());
     }
 
-    private void addObstacleToGraph(GameObject obst) {
+    private void addObstacleToGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(this.graph::removeNode);
     }
 
-    private void removeObstacleFromGraph(GameObject obst) {
+    private void removeObstacleFromGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(this.graph::addNode);
     }
 
@@ -101,7 +101,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * Updates the graph state by adding or removing obstacles based on changes in the game world.
      */
     public void update() {
-        var worldObstacles = new ArrayList<>(world.getObstacles());
+        final var worldObstacles = new ArrayList<>(world.getObstacles());
         if (currentFrame >= UPDATE_PERIOD) {
 
             this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {

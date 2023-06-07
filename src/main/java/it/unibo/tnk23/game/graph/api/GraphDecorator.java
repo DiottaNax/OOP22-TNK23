@@ -15,7 +15,7 @@ public abstract class GraphDecorator<N> implements Graph<N> {
      *
      * @param toDecorate the graph to decorate
      */
-    public GraphDecorator(Graph<N> toDecorate) {
+    public GraphDecorator(final Graph<N> toDecorate) {
         this.toDecorate = toDecorate;
     }
 
@@ -31,7 +31,7 @@ public abstract class GraphDecorator<N> implements Graph<N> {
      * {@inheritDoc}
      */
     @Override
-    public N addNode(N node) {
+    public N addNode(final N node) {
         return this.toDecorate.addNode(node);
     }
 
@@ -39,7 +39,7 @@ public abstract class GraphDecorator<N> implements Graph<N> {
      * {@inheritDoc}
      */
     @Override
-    public void removeNode(N node) {
+    public void removeNode(final N node) {
         this.toDecorate.removeNode(node);
     }
 
@@ -47,7 +47,7 @@ public abstract class GraphDecorator<N> implements Graph<N> {
      * {@inheritDoc}
      */
     @Override
-    public Set<N> getAdjacencies(N node) {
+    public Set<N> getAdjacencies(final N node) {
         return this.toDecorate.getAdjacencies(node);
     }
 }

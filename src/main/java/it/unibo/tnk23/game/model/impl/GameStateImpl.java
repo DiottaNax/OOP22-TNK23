@@ -38,7 +38,7 @@ public class GameStateImpl implements GameState {
     }
 
     @Override
-    public Optional<Integer> getPlayerLife(int id) {
+    public Optional<Integer> getPlayerLife(final int id) {
         return this.world.getPlayer(id)
                 .map(o -> o.getComponent(EntitiesHealthComponent.class))
                 .map(o -> o.get().getHealth());
@@ -51,9 +51,9 @@ public class GameStateImpl implements GameState {
 
     @Override
     public void update() {
-        var entities = this.world.getEntities();
+        final var entities = this.world.getEntities();
         this.round.update();
-        var tower = this.world.getTower();
+        final var tower = this.world.getTower();
         isGameOver = this.world.getPlayers().stream().noneMatch(entities::contains)
                 || !this.world.getEntities().contains(tower);
     }

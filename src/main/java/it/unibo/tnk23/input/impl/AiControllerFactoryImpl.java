@@ -41,8 +41,8 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      * @param dir The current direction.
      * @return A pseudo-random direction.
      */
-    private Directions getPseudoRandomDir(Directions dir) {
-        var possibilities = new ArrayList<>(
+    private Directions getPseudoRandomDir(final Directions dir) {
+        final var possibilities = new ArrayList<>(
                 List.of(Directions.NONE, Directions.SOUTH, Directions.WEST, Directions.EAST));
         possibilities.addAll(possibilities);
         possibilities.remove(dir);
@@ -55,7 +55,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      */
     @Override
     public InputController getRandomAi() {
-        var iterator = Stream.iterate(Directions.SOUTH, this::getPseudoRandomDir).iterator();
+        final var iterator = Stream.iterate(Directions.SOUTH, this::getPseudoRandomDir).iterator();
         return () -> iterator.next();       
     }
 
@@ -63,7 +63,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      * {@inheritDoc}
      */
     @Override
-    public InputController getFollowTowerAi(GameObject entity) {
+    public InputController getFollowTowerAi(final GameObject entity) {
         return new FollowTargetAi(graph, entity, this.world.getTower(), this.world);
     }
 
@@ -71,7 +71,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      * {@inheritDoc}
      */
     @Override
-    public InputController getFollowMovingTargetAi(GameObject entity, GameObject target) {
+    public InputController getFollowMovingTargetAi(final GameObject entity, final GameObject target) {
         return new FollowTargetAi(graph, entity, target, this.world);
     }
     

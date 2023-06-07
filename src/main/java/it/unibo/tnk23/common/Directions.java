@@ -39,8 +39,8 @@ public enum Directions {
      * @param v The vector to convert into a direction.
      * @return The {@code Directions} enum value corresponding to the provided vector.
      */
-    public static Directions fromVector(Vector2D v) {
-        for (var d : values()) {
+    public static Directions fromVector(final Vector2D v) {
+        for (final var d : values()) {
             if (d.vel.equals(v)) {
                 return d;
             }
@@ -65,7 +65,7 @@ public enum Directions {
      * @param angle The angle to convert into a direction.
      * @return The {@code Directions} enum value corresponding to the provided angle.
      */
-    public static Directions fromAngle(int angle) {
+    public static Directions fromAngle(final int angle) {
         var dir = NONE;
         switch (angle) {
             case 0:

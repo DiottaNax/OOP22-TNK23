@@ -107,9 +107,9 @@ public class Point2D {
      * @return true if the objects are equal, false otherwise
      */
     @Override
-    public boolean equals(Object p) {
+    public boolean equals(final Object p) {
         if (p != null && p.getClass().equals(this.getClass())) {
-            var p2d = (Point2D) p;
+            final var p2d = (Point2D) p;
             if (Double.compare(p2d.getX(), -0.0) == 0) {
                 p2d.setX(0);
             } else if (Double.compare(p2d.getY(), -0.0) == 0) {

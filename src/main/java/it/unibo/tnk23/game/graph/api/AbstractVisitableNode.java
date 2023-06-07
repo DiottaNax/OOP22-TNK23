@@ -18,9 +18,12 @@ public abstract class AbstractVisitableNode<N> implements VisitableNode<N> {
      *
      * @param node the node
      */
-    public AbstractVisitableNode(N node) {
+    public AbstractVisitableNode(final N node) {
         this.node = node;
-        this.reset();
+        // No call to this.reset due to a PMD error
+        this.visited = false;
+        this.parent = Optional.empty();
+        this.distance = -1;
     }
 
     /**
@@ -59,7 +62,7 @@ public abstract class AbstractVisitableNode<N> implements VisitableNode<N> {
      * {@inheritDoc}
      */
     @Override
-    public void setParent(VisitableNode<N> parent) {
+    public void setParent(final VisitableNode<N> parent) {
         this.parent = Optional.of(parent);
     }
 
@@ -75,7 +78,7 @@ public abstract class AbstractVisitableNode<N> implements VisitableNode<N> {
      * {@inheritDoc}
      */
     @Override
-    public void setDistance(int distance) {
+    public void setDistance(final int distance) {
         this.distance = distance;
     }
 

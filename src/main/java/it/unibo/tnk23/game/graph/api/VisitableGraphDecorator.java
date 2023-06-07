@@ -18,7 +18,7 @@ public abstract class VisitableGraphDecorator<N extends VisitableNode<?>> extend
      *
      * @param toDecorate the graph to decorate
      */
-    public VisitableGraphDecorator(VisitableGraph<N> toDecorate) {
+    public VisitableGraphDecorator(final VisitableGraph<N> toDecorate) {
         super(toDecorate);
         this.toDecorate = toDecorate;
     }
@@ -30,7 +30,7 @@ public abstract class VisitableGraphDecorator<N extends VisitableNode<?>> extend
      * @return a list of directions representing the path from the starting node to the goal node
      */
     @Override
-    public List<Directions> getPathFrom(N node) {
+    public List<Directions> getPathFrom(final N node) {
         return this.toDecorate.getPathFrom(node);
     }
 
@@ -40,7 +40,7 @@ public abstract class VisitableGraphDecorator<N extends VisitableNode<?>> extend
      * @param goal the goal node to set
      */
     @Override
-    public void setGoal(N goal) {
+    public void setGoal(final N goal) {
         this.setGoal(goal);
     }
 }

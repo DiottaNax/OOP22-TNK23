@@ -20,17 +20,17 @@ import it.unibo.tnk23.game.graph.api.VisitableGraph;
  */
 public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode> {
 
-    private Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
-    private Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
-    private int gridSize;
-    private VisitableGridGraphNode goal = new VisitableGridGraphNode(new Pair<>(-1, -1));
+    final private Map<VisitableGridGraphNode, Set<VisitableGridGraphNode>> graph;
+    final private Map<VisitableGridGraphNode, VisitableGridGraphNode> graphNodes;
+    final private int gridSize;
+    final private VisitableGridGraphNode goal = new VisitableGridGraphNode(new Pair<>(-1, -1));
 
     /**
      * Constructs a new {@code VisitableGridGraph} with the specified grid size.
      *
      * @param gridSize the size of the grid
      */
-    public VisitableGridGraph(int gridSize) {
+    public VisitableGridGraph(final int gridSize) {
         this.gridSize = gridSize;
         this.graph = new HashMap<>(gridSize * gridSize);
         this.graphNodes = new HashMap<>(gridSize * gridSize);
@@ -91,7 +91,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      */
     @Override
     public List<Directions> getPathFrom(final VisitableGridGraphNode node) {
-        var path = new LinkedList<Directions>();
+        final var path = new LinkedList<Directions>();
         if (this.graphNodes.containsKey(node)) {
             var current = this.graphNodes.get(node);
 
@@ -109,8 +109,8 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
         /**
          * Detects the direction from the current node to the next node in the graph.
          */
-        var c = current.getNode().getGraphIndex();
-        var n = next.getNode().getGraphIndex();
+        final var c = current.getNode().getGraphIndex();
+        final var n = next.getNode().getGraphIndex();
         return c.getX().equals(n.getX()) ? c.getY() < n.getY() ? Directions.SOUTH : Directions.NORTH
                 : c.getX() < n.getX() ? Directions.EAST : Directions.WEST;
     }
@@ -121,16 +121,16 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      * @param goal the goal node
      */
     @Override
-    public void setGoal(VisitableGridGraphNode goal) {
+    public void setGoal(final VisitableGridGraphNode goal) {
         if (!this.goal.equals(goal) && this.graph.containsKey(goal)) {
             // Here starts BFS
             this.graph.keySet().forEach(VisitableGridGraphNode::reset);
-            var source = this.graphNodes.get(goal);
+            final var source = this.graphNodes.get(goal);
             source.setDistance(0);
-            Queue<VisitableGridGraphNode> q = new LinkedList<>();
+            final Queue<VisitableGridGraphNode> q = new LinkedList<>();
             q.add(source);
             while (q.size() != 0) {
-                var current = q.poll();
+                final var current = q.poll();
 
                 this.graph.get(current).stream()
                         .filter(this.graph::containsKey)
@@ -155,7 +155,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      * @return a set of adjacent nodes or an empty set if the node is not present
      */
     @Override
-    public Set<VisitableGridGraphNode> getAdjacencies(VisitableGridGraphNode node) {
+    public Set<VisitableGridGraphNode> getAdjacencies(final VisitableGridGraphNode node) {
         return this.graph.containsKey(node) ? Set.copyOf(this.graph.get(node)) : Set.of();
     }
 
@@ -165,7 +165,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      * @param node the node to remove
      */
     @Override
-    public void removeNode(VisitableGridGraphNode node) {
+    public void removeNode(final VisitableGridGraphNode node) {
         this.graphNodes.remove(node);
         this.graph.remove(node);
         this.getAdjacentNodes(node).forEach(n -> this.graph.get(n).remove(node));
@@ -188,10 +188,10 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      * @return the added node or the existing equivalent node if already present in the graph
      */
     @Override
-    public VisitableGridGraphNode addNode(VisitableGridGraphNode node) {
+    public VisitableGridGraphNode addNode(final VisitableGridGraphNode node) {
         if (!this.graphNodes.containsKey(node)) {
             this.graphNodes.put(node, node);
-            var adjacentNodes = this.getAdjacentNodes(node).toList();
+            final var adjacentNodes = this.getAdjacentNodes(node).toList();
             this.graph.put(node, adjacentNodes.stream().collect(Collectors.toCollection(HashSet::new)));
             adjacentNodes.forEach(n -> {
                 this.graph.get(n).remove(node);
@@ -208,7 +208,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      *
      * @param node the node to remove
      */
-    public void removeNode(Pair<Integer, Integer> node) {
+    public void removeNode(final Pair<Integer, Integer> node) {
         this.removeNode(new VisitableGridGraphNode(node));
     }
 
@@ -217,7 +217,7 @@ public class VisitableGridGraph implements VisitableGraph<VisitableGridGraphNode
      *
      * @param node the node to add
      */
-    public void addNode(Pair<Integer, Integer> node) {
+    public void addNode(final Pair<Integer, Integer> node) {
         this.addNode(new VisitableGridGraphNode(node));
     }
 

@@ -78,8 +78,8 @@ public class FxGameView implements GameView {
      */
     @Override
     public void setGameScene() {
-        var keyEventHandler = new KeyEventHandler();
-        var inputControllerOne = new PlayerOneKeyboardController();
+        final var keyEventHandler = new KeyEventHandler();
+        final var inputControllerOne = new PlayerOneKeyboardController();
         keyEventHandler.addInputController(inputControllerOne);
 
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::onKeyPressed);
@@ -92,12 +92,12 @@ public class FxGameView implements GameView {
 
         world.getPlayer(1).ifPresent(p -> p.addComponent(new InputComponent(p, inputControllerOne)));
         world.getPlayer(2).ifPresent(p -> {
-            var inputControllerTwo = new PlayerTwoKeyboardController();
+            final var inputControllerTwo = new PlayerTwoKeyboardController();
             keyEventHandler.addInputController(inputControllerTwo);
             p.addComponent(new InputComponent(p, inputControllerTwo));
         });
 
-        gameEngine = new GameEngineImpl(world, this);
+        this.gameEngine = new GameEngineImpl(world, this);
         this.renderingEngine = new FxRenderingEngine(world);
         this.gameEngine.startEngine();
         this.playerController = new PlayerInfoControllerImpl(world);
@@ -168,7 +168,7 @@ public class FxGameView implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = world;
     }
 
@@ -191,7 +191,7 @@ public class FxGameView implements GameView {
      */
     private void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
-        var player = new GameObjectFactoryImpl(world).getPlayer(
+        final var player = new GameObjectFactoryImpl(world).getPlayer(
                 new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);

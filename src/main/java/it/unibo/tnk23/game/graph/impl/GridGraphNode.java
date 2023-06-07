@@ -17,7 +17,7 @@ public class GridGraphNode {
      *
      * @param gridPos the grid position of the node
      */
-    public GridGraphNode(Pair<Integer, Integer> gridPos) {
+    public GridGraphNode(final Pair<Integer, Integer> gridPos) {
         this.gridPos = gridPos;
     }
 
@@ -49,7 +49,7 @@ public class GridGraphNode {
      * @return {@code true} if the objects are equal, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
@@ -64,7 +64,7 @@ public class GridGraphNode {
      */
     @Override
     public int hashCode() {
-        int prime = 17;
+        final int prime = 17;
         return prime * gridPos.hashCode();
     }
 

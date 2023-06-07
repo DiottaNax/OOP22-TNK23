@@ -23,9 +23,9 @@ import it.unibo.tnk23.game.model.api.World;
 */
 public class WorldImpl implements World {
 
-    private List<GameObject> players;
-    private Set<GameObject> entities;
-    private Set<GameObject> obstacles;
+    private final List<GameObject> players;
+    private final Set<GameObject> entities;
+    private final Set<GameObject> obstacles;
     private GameObject tower;
     private WorldEventListener weListener;
 
@@ -43,7 +43,7 @@ public class WorldImpl implements World {
          * created a synchronized list to avoid a ConcurrentModificationException that
          * occurred in getEntities().
          */
-        var objFactory = new GameObjectFactoryImpl(this);
+        final var objFactory = new GameObjectFactoryImpl(this);
         var toAdd = gameMap.getWalls().stream().map(objFactory::getWall).toList();
         this.obstacles.addAll(toAdd);
         toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall).toList();
@@ -57,7 +57,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public Optional<GameObject> getPlayer(int id) {
+    public Optional<GameObject> getPlayer(final int id) {
         return this.players.size() >= id && id > 0 ? Optional.of(players.get(id - 1))
                 : Optional.empty();
     }
@@ -66,7 +66,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void addPlayer(GameObject player) {
+    public void addPlayer(final GameObject player) {
         this.entities.add(player);
         this.players.add(player);
     }
@@ -97,7 +97,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void removeEntity(GameObject obj) {
+    public void removeEntity(final GameObject obj) {
         this.entities.remove(obj);
         this.obstacles.remove(obj);
     }
@@ -106,7 +106,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void addEntity(GameObject obj) {
+    public void addEntity(final GameObject obj) {
         this.entities.add(obj);
     }
 
@@ -130,7 +130,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void setWorldEventListener(WorldEventListener weListener) {
+    public void setWorldEventListener(final WorldEventListener weListener) {
         this.weListener = weListener;
     }
 
@@ -138,7 +138,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(WorldEvent we) {
+    public void notifyEvent(final WorldEvent we) {
         weListener.notifyEvent(we);
     }
 
@@ -151,21 +151,21 @@ public class WorldImpl implements World {
     }
     
     private void addTower() {
-        int towerBoxSize = 4;
-        int tileSize = Configuration.TILE_SIZE;
-        var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
-        var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
-        var towerPos = new Point2D(towerGridPos.getX() * tileSize , towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
-        var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
-        var obstacleSize = tileSize / 2;
-        GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
+        final int towerBoxSize = 4;
+        final int tileSize = Configuration.TILE_SIZE;
+        final var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
+        final var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
+        final var towerPos = new Point2D(towerGridPos.getX() * tileSize , towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
+        final var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
+        final var obstacleSize = tileSize / 2;
+        final GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
         
         this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * tileSize + Configuration.DISPLACEMENT,
                 towerGridPos.getY() * tileSize));
         
         for (int i = 0; i < towerBoxSize-1; i++) {
             for (int j = 0; j < towerBoxSize; j++) {
-                var pos = new Pair<>(wallGridPos.getX() + j, wallGridPos.getY() + i);
+                final var pos = new Pair<>(wallGridPos.getX() + j, wallGridPos.getY() + i);
                 wallNearTower.add(pos);
             }
         }

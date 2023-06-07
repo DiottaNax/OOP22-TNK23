@@ -15,8 +15,8 @@ import javafx.scene.transform.Scale;
 public class SceneFactoryImpl implements SceneFactory{
 
     @Override
-    public Scene getMenuScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
+    public Scene getMenuScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
         loader.setController(new TitleMenuController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);
@@ -25,8 +25,8 @@ public class SceneFactoryImpl implements SceneFactory{
     }
 
     @Override
-    public Scene getColorPickerScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
+    public Scene getColorPickerScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
         loader.setController(new ColorPickerController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);
@@ -35,8 +35,8 @@ public class SceneFactoryImpl implements SceneFactory{
     }
 
     @Override
-    public Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController,
-            RoundInfoControllerImpl roundController) throws IOException {
+    public Scene getGameScene(final Pane gamePane, final PlayerInfoControllerImpl playerController,
+            final RoundInfoControllerImpl roundController) throws IOException {
 
         return new GameScene(
                 new BorderPane(
@@ -45,8 +45,8 @@ public class SceneFactoryImpl implements SceneFactory{
     }
 
     @Override
-    public Scene getGameOverScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/gameover.fxml"));
+    public Scene getGameOverScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/gameover.fxml"));
         loader.setController(new GameOverController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);

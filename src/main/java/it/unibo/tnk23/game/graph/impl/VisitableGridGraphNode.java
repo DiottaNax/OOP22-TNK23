@@ -19,9 +19,8 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
      *
      * @param gridPos the grid position of the node
      */
-    public VisitableGridGraphNode(Pair<Integer, Integer> gridPos) {
-        super(new GridGraphNode(gridPos));
-        this.reset();
+    public VisitableGridGraphNode(final Pair<Integer, Integer> gridPos) {
+        this(new GridGraphNode(gridPos));
     }
 
     /**
@@ -29,9 +28,11 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
      *
      * @param node the {@code GridGraphNode} representing the node
      */
-    public VisitableGridGraphNode(GridGraphNode node) {
+    public VisitableGridGraphNode(final GridGraphNode node) {
         super(node);
-        this.reset();
+        //no call to this.reset() due tu a PMD error
+        super.reset();
+        this.dirToParent = Directions.NONE;
     }
 
     /**
@@ -48,7 +49,7 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
      *
      * @param dirToParent the direction to the parent node
      */
-    public void setDirectionToParent(Directions dirToParent) {
+    public void setDirectionToParent(final Directions dirToParent) {
         this.dirToParent = dirToParent;
     }
 
@@ -78,9 +79,9 @@ public class VisitableGridGraphNode extends AbstractVisitableNode<GridGraphNode>
      * @return {@code true} if the node is equal to the object, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj != null && obj.getClass().equals(this.getClass())) {
-            var node = (VisitableGridGraphNode) obj;
+            final var node = (VisitableGridGraphNode) obj;
             return node.getNode().equals(this.getNode());
         }
         return false;

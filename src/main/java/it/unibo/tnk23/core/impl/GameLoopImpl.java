@@ -21,7 +21,7 @@ public class GameLoopImpl implements GameLoop {
     private final GameEngine engine;
     private final World wrld;
     private final WorldEventHandler eventHandler;
-    private List<WorldEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
+    private final List<WorldEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
     
     /**
      * Constructs a {@code GameLoopImpl} instance with the given game engine.
@@ -73,7 +73,7 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(WorldEvent e) {
+    public void notifyEvent(final WorldEvent e) {
         this.eventQueue.add(e);
     }
     

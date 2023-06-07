@@ -10,7 +10,7 @@ public final class TNK23 {
     private TNK23() {
     }
 
-    public static void main(String... args) {
+    public static void main(final String... args) {
         Application.launch(TNK23App.class, args);
     }
 }

@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class TNK23App extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         new FxGameView(primaryStage);
     }
     
