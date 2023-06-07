@@ -8,7 +8,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
  * It provides methods to obtain different types of AI controllers based on specific requirements.
  */
 public interface AiControllerFactory {
-    
+
     /**
      * Returns an AI controller that generates random directions.
      * The first direction generated should always be {@code SOUTH}

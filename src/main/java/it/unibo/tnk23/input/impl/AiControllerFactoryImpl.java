@@ -56,7 +56,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
     @Override
     public InputController getRandomAi() {
         final var iterator = Stream.iterate(Directions.SOUTH, this::getPseudoRandomDir).iterator();
-        return () -> iterator.next();       
+        return () -> iterator.next();
     }
 
     /**
@@ -74,5 +74,5 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
     public InputController getFollowMovingTargetAi(final GameObject entity, final GameObject target) {
         return new FollowTargetAi(graph, entity, target, this.world);
     }
-    
+
 }

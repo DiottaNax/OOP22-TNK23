@@ -35,7 +35,7 @@ import it.unibo.tnk23.input.api.InputController;
  */
 public class FollowTargetAi implements InputController {
 
-    private final static long UPDATE_PERIOD = 2000;
+    private static final long UPDATE_PERIOD = 2000;
     private final World world;
     private final InputController backupAi;
     private Point2D lastPos;
@@ -107,15 +107,16 @@ public class FollowTargetAi implements InputController {
             iterator = this.path.iterator();
             timeToUpdate = false;
         }
-        
+
         if (backupAiIsActive) {
             final int backupSize = 15;
             this.path.clear();
             while (path.size() < backupSize) {
                 Directions dir;
-                do{
+                do {
                     dir = backupAi.getDirection();
                 } while (dir.equals(Directions.NONE));
+                // If the backup ai is activated the entity was already still, there's no point in setting Direction.NONE.
                 this.path.addAll(List.of(dir, dir, dir, dir, dir));
                 /*
                  * The update period for this ai is very short, doing this it gets longer,
