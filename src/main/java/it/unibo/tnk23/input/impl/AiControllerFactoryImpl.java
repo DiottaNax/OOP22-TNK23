@@ -64,7 +64,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      */
     @Override
     public InputController getFollowTowerAi(GameObject entity) {
-        return new FollowTargetAi(graph, entity, this.world.getTower());
+        return new FollowTargetAi(graph, entity, this.world.getTower(), this.world);
     }
 
     /**
@@ -72,7 +72,7 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
      */
     @Override
     public InputController getFollowMovingTargetAi(GameObject entity, GameObject target) {
-        return new FollowTargetAi(graph, entity, target);
+        return new FollowTargetAi(graph, entity, target, this.world);
     }
     
 }
