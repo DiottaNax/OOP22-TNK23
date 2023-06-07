@@ -10,33 +10,53 @@ import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.World;
 
+/**
+ * The implementation of the GameState interface that represents the current state of the game.
+ */
 public class GameStateImpl implements GameState {
 
     private final World world;
     private final Round round;
     private boolean isGameOver;
     
+    /**
+     * Constructs a GameStateImpl object with the specified World.
+     *
+     * @param world The World object representing the game world.
+     */
     public GameStateImpl(final World world) {
         this.world = world;
         this.round = new RoundImpl(world);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Round getRound() {
         return this.round;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isRoundOver() {
         return this.round.isOver();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<GameObject, Integer> getPlayerLifes() {
         return this.world.getPlayers().stream().collect(
                 Collectors.toMap(e -> e, e -> e.getComponent(EntitiesHealthComponent.class).get().getHealth()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Integer> getPlayerLife(int id) {
         return this.world.getPlayer(id)
@@ -44,11 +64,17 @@ public class GameStateImpl implements GameState {
                 .map(o -> o.get().getHealth());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isGameOver() {
         return isGameOver;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         var entities = this.world.getEntities();
@@ -58,6 +84,4 @@ public class GameStateImpl implements GameState {
                 || !this.world.getEntities().contains(tower);
     }
 
-    
-    
 }
