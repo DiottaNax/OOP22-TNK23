@@ -52,8 +52,8 @@ public class FxGameView implements GameView {
     public void renderView() {
         Platform.runLater(() -> {
             renderingEngine.render();
-            playerController.updateLabels();
-            roundController.updateLabels();
+            playerController.updateGraphic();
+            roundController.updateGraphic();
         });
     }
 
