@@ -8,7 +8,7 @@ import it.unibo.tnk23.game.model.api.World;
 
 /**
  * An abstract base class for fire components.
- * Fire components rapresent a component that handel shooting behavior.
+ * Fire components represent a component that handel shooting behavior.
  * It provide common functionality and variables for fire components.
  */
 public abstract class AbstractFireComponent extends AbstractComponent{

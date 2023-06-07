@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
- * Rappresent a component for a bullet entity
+ * Represent a component for a bullet entity
  * Implements the {@link NotifiableComponent} interface for receiving messages.
  * The BulletComponent handles the behavior of bullet GameObject.
  */

@@ -7,7 +7,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
- * A component rapresenting the firing bheavior of a player.
+ * A component representing the firing bheavior of a player.
  * Implements the {@link NotifiableComponent} interface for receiving messages.
  * The PlayerFireComponent handles the firing logic based on a fixed time interval for player GameObject.
  */

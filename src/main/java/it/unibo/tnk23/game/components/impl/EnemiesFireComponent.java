@@ -5,7 +5,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
- * A component rapresenting the firing behavior of enemies.
+ * A component representing the firing behavior of enemies.
  * The EnemiesFireComponent handles the firing logics based on a fixed time interval for enemies GameObject.
  */
 public class EnemiesFireComponent extends AbstractFireComponent{
