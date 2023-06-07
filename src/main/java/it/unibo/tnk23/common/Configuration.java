@@ -19,7 +19,7 @@ public final class Configuration {
         return (int) Math.min(screenDim.getHeight(),screenDim.getWidth());
     }
 
-    public static int getTileSize() {
+    private static int getTileSize() {
         final int rounded = (int) getMinorScreenEdge() / GRID_SIZE;
         return (rounded % 2) == 0 ? rounded : Math.decrementExact(rounded);
     }
