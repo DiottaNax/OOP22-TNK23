@@ -39,7 +39,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 break;
 
             case SPAWN_EVENT:
-                actor.setPosition(we.getposition());
+                actor.setPosition(we.getPosition());
                 world.addEntity(actor);
                 break;
 
