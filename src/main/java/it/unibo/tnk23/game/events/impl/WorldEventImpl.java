@@ -31,15 +31,21 @@ public class WorldEventImpl implements WorldEvent {
      * {@inheritDoc}
      */
     @Override
-    public Point2D getposition() {
+    public Point2D getPosition() {
         return position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getEventActor() {
         return actor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public WorldEventType getType() {
         return type;
