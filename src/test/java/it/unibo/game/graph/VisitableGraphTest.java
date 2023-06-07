@@ -33,8 +33,8 @@ public class VisitableGraphTest {
         assertEquals(testNode2, new VisitableGridGraphNode(new Pair<>(1, 1)));
         assertEquals(testNode3, new VisitableGridGraphNode(new Pair<>(1, 1)));
         mockGraph.addNode(testNode1);
-        assertNotNull(mockGraph.getAdiacencies(new VisitableGridGraphNode(new Pair<>(1, 1))));
-        assertNotNull(mockGraph.getAdiacencies(new VisitableGridGraphNode(new Pair<>(-1, -1))));
+        assertNotNull(mockGraph.getAdjacencies(new VisitableGridGraphNode(new Pair<>(1, 1))));
+        assertNotNull(mockGraph.getAdjacencies(new VisitableGridGraphNode(new Pair<>(-1, -1))));
     }
 
     @Test
@@ -47,16 +47,16 @@ public class VisitableGraphTest {
     }
 
     @Test
-    public void testGetAdiacencies() {
+    public void testgetAdjacencies() {
         final var nodes = this.graph.getNodes();
         var expectedSizes = List.of(2, 3, 2, 3, 4, 3, 2, 3, 2);
         var actualSizes = this.graph.getNodes().stream()
-                        .map(n -> graph.getAdiacencies((VisitableGridGraphNode) n))
+                        .map(n -> graph.getAdjacencies((VisitableGridGraphNode) n))
                         .map(l -> l.size()).toList();
         assertEquals(expectedSizes.size(), actualSizes.size());
         assertTrue(expectedSizes.containsAll(actualSizes));
 
-        var adiacencies = this.graph.getAdiacencies(upperLeft);
+        var adiacencies = this.graph.getAdjacencies(upperLeft);
         var expectedAdjacencies = new HashSet<>(
                     List.of(new VisitableGridGraphNode(new Pair<>(0, 1)),
                                             new VisitableGridGraphNode(new Pair<>(1, 0))));
@@ -65,18 +65,18 @@ public class VisitableGraphTest {
         expectedAdjacencies.addAll(
                     List.of(new VisitableGridGraphNode(new Pair<>(2, 1)),
                                         new VisitableGridGraphNode(new Pair<>(1, 2))));
-        adiacencies = this.graph.getAdiacencies(central);
+        adiacencies = this.graph.getAdjacencies(central);
         assertEquals(adiacencies, expectedAdjacencies);
 
         expectedAdjacencies.removeAll(
                         List.of(new VisitableGridGraphNode(new Pair<>(0, 1)),
                                     new VisitableGridGraphNode(new Pair<>(1, 0))));
-        adiacencies = this.graph.getAdiacencies(bottomRight);
+        adiacencies = this.graph.getAdjacencies(bottomRight);
         assertEquals(adiacencies, expectedAdjacencies);
 
         assertTrue(nodes.stream()
                         .allMatch(n -> graph.getNodes()
-                                        .containsAll(graph.getAdiacencies((VisitableGridGraphNode) n))));
+                                        .containsAll(graph.getAdjacencies((VisitableGridGraphNode) n))));
     }
     
     @Test

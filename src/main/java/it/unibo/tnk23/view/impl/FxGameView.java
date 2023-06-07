@@ -24,6 +24,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * The JavaFX implementation of the {@link GameView} interface.
+ * It provides the functionality for rendering the game view and managing different scenes in the game.
+ */
 public class FxGameView implements GameView {
 
     private final Stage stage;
@@ -35,7 +39,11 @@ public class FxGameView implements GameView {
     private RoundInfoControllerImpl roundController;
     private World world;
 
-
+    /**
+     * Constructs a new instance of {@link FxGameView}.
+     *
+     * @param stage the JavaFX stage for the game view
+     */
     public FxGameView(Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl();
@@ -49,6 +57,9 @@ public class FxGameView implements GameView {
         this.stage.show();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void renderView() {
         if (gameEngine.getGameState().isGameOver()) {
@@ -60,9 +71,11 @@ public class FxGameView implements GameView {
                 roundController.updateGraphic();
             });
         }
-        
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameScene() {
         var keyEventHandler = new KeyEventHandler();
@@ -98,9 +111,12 @@ public class FxGameView implements GameView {
         this.stage.setFullScreen(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setMenuScene() {
-        try{
+        try {
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getMenuScene(this));
             this.stage.show();
@@ -109,9 +125,12 @@ public class FxGameView implements GameView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setColorPickerScene() {
-        try{
+        try {
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getColorPickerScene(this));
             this.stage.show();
@@ -121,10 +140,13 @@ public class FxGameView implements GameView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameOverScene() {
         this.setDefaultWorld();
-        try{
+        try {
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getGameOverScene(this));
             this.stage.show();
@@ -134,16 +156,27 @@ public class FxGameView implements GameView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameEngine getGameEngine() {
         return this.gameEngine;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setWorld(World world) {
         this.world = world;
     }
 
+    /**
+     * Sets the JavaFX scene passed as the stage scene.
+     *
+     * @param scene the JavaFX scene to set
+     */
     public void setScene(final Scene scene) {
         this.stage.setScene(scene);
     }
@@ -153,6 +186,9 @@ public class FxGameView implements GameView {
         Runtime.getRuntime().exit(0);
     }
 
+    /**
+     * This function creates a default world if the users doesn't change settings.
+     */
     private void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
         var player = new GameObjectFactoryImpl(world).getPlayer(
@@ -161,3 +197,4 @@ public class FxGameView implements GameView {
         world.addPlayer(player);
     }
 }
+
