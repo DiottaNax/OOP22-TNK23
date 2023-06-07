@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
+
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameMap;
@@ -24,16 +25,25 @@ public class GameMapImpl implements GameMap {
         generateWalls();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Point2D> getDestroyableWalls() {
         return this.destroyableWalls;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Point2D> getWalls() {
         return this.walls;
     }
     
+    /**
+     * Generates the walls and destroyable walls based on the provided map file.
+     */
     public void generateWalls() {
         try {
             BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile));
@@ -62,5 +72,4 @@ public class GameMapImpl implements GameMap {
             e.printStackTrace();
         }
     }
-    
 }

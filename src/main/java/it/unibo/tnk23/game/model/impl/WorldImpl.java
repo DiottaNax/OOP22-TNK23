@@ -150,6 +150,11 @@ public class WorldImpl implements World {
         this.getEntities().stream().parallel().forEach(GameObject::update);
     }
     
+    /**
+     * Adds a tower to the game.
+     * The tower is placed at a specific grid position and creates walls near it as obstacles.
+     * The tower and walls are added to the list of entities in the game.
+     */
     private void addTower() {
         final int towerBoxSize = 4;
         final int tileSize = Configuration.TILE_SIZE;
