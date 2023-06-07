@@ -8,6 +8,9 @@ import it.unibo.tnk23.view.impl.RoundInfoControllerImpl;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
+/**
+ * The {@code SceneFactory} interface provides methods for creating different scenes used in the game.
+ */
 public interface SceneFactory {
 
     /**
