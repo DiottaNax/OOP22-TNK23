@@ -18,7 +18,7 @@ import it.unibo.tnk23.input.impl.FollowTargetAi;
  */
 public class AiComponent implements Component {
 
-    private final static int DEAFULT_UPDATE_PERIOD = 2 * Configuration.FPS;
+    private static final int DEAFULT_UPDATE_PERIOD = 2 * Configuration.FPS;
     private final int updatePeriod;
     private final GameObject entity;
     private final InputController ai;
@@ -52,8 +52,11 @@ public class AiComponent implements Component {
         if (lastPos.isPresent()) {
             final var last = this.lastPos.get();
             final var current = this.entity.getPosition();
+
+            //gets the distance travelled between current and last position.
             final var travelled = Math
-                    .abs(Double.compare(current.getX(), last.getX()) == 0 ? current.getY() - last.getY() : current.getX() - last.getX());
+                    .abs(Double.compare(current.getX(), last.getX()) == 0 ? current.getY() - last.getY()
+                            : current.getX() - last.getX());
             if (travelled >= GameGraph.GRAPH_TILE_SIZE) {
                 this.lastPos = Optional.of(entity.getPosition());
                 return true;

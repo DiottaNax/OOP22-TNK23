@@ -29,24 +29,22 @@ public class ConcurrentGameLoop extends GameLoopDecorator {
     public void runGameLoop() {
         this.gameLoopThread.start();
     }
-    
+
     /**
      * The {@code GameLoopThread} class is responsible for running the game loop in a separate thread.
      * It implements the {@link Runnable} interface and performs the game loop logic, including processing input,
      * updating the game state, and rendering the game view.
      */
-    private class GameLoopThread implements Runnable{
+    private class GameLoopThread implements Runnable {
         private final GameEngine gameEngine;
 
         /**
          * Constructs a new {@code GameLoopThread} instance with the specified game engine.
-         *
-         * @param gameEngine the game engine to use for updating and rendering the game state
          */
-        public GameLoopThread() {
+        protected GameLoopThread() {
             this.gameEngine = getGameEngine();
         }
-        
+
         /**
          * Runs the game loop logic in a continuous loop until the game is over.
          * It calls the processInput, update, and render methods of the game loop's decorated object.

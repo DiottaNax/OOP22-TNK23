@@ -4,7 +4,8 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.core.api.GameEngine;
 
 /**
- * The {@code SynchronizedGameLoop} class extends the {@link GameLoopImpl} class and provides a synchronized game loop implementation.
+ * The {@code SynchronizedGameLoop} class extends the {@link GameLoopImpl} class and provides a synchronized game loop 
+ * implementation.
  * It ensures that the game updates and rendering occur at a fixed frame rate defined by the configuration.
  * 
  * @author Federico Diotallevi
@@ -15,7 +16,7 @@ public class SynchronizedGameLoop extends GameLoopImpl {
     private long lag;
     private long currentTime;
     private long lastUpdateTime;
-    
+
     /**
      * Constructs a {@code SynchronizedGameLoop} instance with the given game engine.
      *
@@ -26,6 +27,9 @@ public class SynchronizedGameLoop extends GameLoopImpl {
         this.lastUpdateTime = System.currentTimeMillis();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         this.currentTime = System.currentTimeMillis();
@@ -54,12 +58,14 @@ public class SynchronizedGameLoop extends GameLoopImpl {
         }
     }
 
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         super.render();
 
         this.waitForNextFrame(currentTime);
     }
-    
+
 }

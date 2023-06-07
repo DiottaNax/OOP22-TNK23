@@ -17,7 +17,7 @@ import javafx.scene.transform.Scale;
  * for creating different scenes used in the game.
  */
 public class SceneFactoryImpl implements SceneFactory {
-    
+
     /**
      * {@inheritDoc}
      */

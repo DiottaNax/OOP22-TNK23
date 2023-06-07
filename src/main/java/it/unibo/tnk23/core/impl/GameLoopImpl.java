@@ -22,7 +22,7 @@ public class GameLoopImpl implements GameLoop {
     private final World wrld;
     private final WorldEventHandler eventHandler;
     private final List<WorldEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
-    
+
     /**
      * Constructs a {@code GameLoopImpl} instance with the given game engine.
      * Initializes the world, event handler, and event queue.
@@ -76,5 +76,5 @@ public class GameLoopImpl implements GameLoop {
     public void notifyEvent(final WorldEvent e) {
         this.eventQueue.add(e);
     }
-    
+
 }

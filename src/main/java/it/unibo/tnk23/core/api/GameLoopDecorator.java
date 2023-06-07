@@ -7,8 +7,11 @@ import it.unibo.tnk23.game.events.api.WorldEvent;
  * It serves as a base class for implementing decorators for the game loop.
  * Decorators can extend this class to add additional behavior or modify the behavior of the decorated game loop.
  */
-public abstract class GameLoopDecorator implements GameLoop{
-    protected final GameLoop toDecorate;
+public abstract class GameLoopDecorator implements GameLoop {
+    /**
+     * The {@link GameLoop} to decorate.
+     */
+    private final GameLoop toDecorate;
 
     /**
      * Constructs a new {@code GameLoopDecorator} instance with the specified game loop to decorate.
@@ -55,7 +58,7 @@ public abstract class GameLoopDecorator implements GameLoop{
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(WorldEvent e) {
+    public void notifyEvent(final WorldEvent e) {
         toDecorate.notifyEvent(e);
     }
 

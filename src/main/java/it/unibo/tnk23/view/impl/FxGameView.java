@@ -19,7 +19,6 @@ import it.unibo.tnk23.view.api.GameView;
 import it.unibo.tnk23.view.api.SceneFactory;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;

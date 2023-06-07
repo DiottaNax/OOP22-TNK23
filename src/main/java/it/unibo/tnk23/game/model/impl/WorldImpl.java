@@ -69,7 +69,7 @@ public class WorldImpl implements World {
         this.entities.add(player);
         this.players.add(player);
     }
-    
+
     /**
      * {@inheritDoc}
      */

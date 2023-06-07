@@ -22,7 +22,7 @@ public class GameEngineImpl implements GameEngine {
      * @param world the game world
      * @param view the game view
      */
-    public GameEngineImpl(final World world, final GameView view){
+    public GameEngineImpl(final World world, final GameView view) {
         this.world = world;
         this.state = new GameStateImpl(world);
         this.loop = new ConcurrentGameLoop(new SynchronizedGameLoop(this));

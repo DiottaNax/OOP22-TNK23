@@ -8,7 +8,10 @@ import java.util.Set;
  * @param <N> the type of nodes in the graph
  */
 public abstract class GraphDecorator<N> implements Graph<N> {
-    protected final Graph<N> toDecorate;
+    /**
+     * The graph to decorate
+     */
+    private final Graph<N> toDecorate;
 
     /**
      * Constructs a GraphDecorator object with the specified graph to decorate.
