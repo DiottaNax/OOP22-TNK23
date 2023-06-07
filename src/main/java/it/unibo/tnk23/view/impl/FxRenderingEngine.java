@@ -2,6 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -19,6 +20,11 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     private final World world;
     private Map<String, Image> cachedSprites;
 
+    /**
+     * Constructs an instance of the FxRenderingEngine.
+     *
+     * @param world the game world
+     */
     public FxRenderingEngine(final World world) {
         this.root = new Pane();
         this.world = world;
@@ -26,7 +32,10 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.setCachedSprites();
         this.sprites = new HashMap<>();
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Pane getGamePane() {
         return this.root;
@@ -53,7 +62,10 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.cachedSprites.put("bullet",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/bullet.png")));
     }
-        
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         this.update();
@@ -73,8 +85,11 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         root.getChildren().addAll(this.sprites.values());
     }
 
-    
-    
+    /**
+     * Adds a sprite for the specified game object.
+     *
+     * @param entity the game object to add a sprite for
+     */
     public void addSprite(final GameObject entity) {
         if (!sprites.containsKey(entity)) {
             var gc = entity.getComponent(GraphicComponent.class).get();
@@ -85,7 +100,11 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         }
     }
     
-    public void update() {
+    /**
+     * Updates the sprites based on the current state of the game world.
+     * This method adds sprites for new game objects that do not have a corresponding sprite yet.
+     */
+    private void update() {
         this.world.getEntities().stream().filter(e -> !sprites.containsKey(e)).forEach(this::addSprite);
     }
 
