@@ -34,7 +34,7 @@ public enum Directions {
 
     /**
      * Converts a {@link Vector2D} object into the corresponding {@code Directions} enum value.
-     * If the provided vector does not match any predefined direction, {@code NONE} is returned.
+     * If the provided vector does not match any predefined direction, {@link #NONE} is returned.
      *
      * @param v The vector to convert into a direction.
      * @return The {@code Directions} enum value corresponding to the provided vector.
@@ -59,8 +59,8 @@ public enum Directions {
 
     /**
      * Converts an angle (in degrees) into the corresponding {@code Directions} enum value.
-     * It maps specific angles to the predefined directions (0 degrees - {@code NORTH},
-     * 90 degrees - {@code EAST}, -90 degrees - {@code WEST}, 180 degrees - {@code SOUTH}).
+     * It maps specific angles to the predefined directions (0 degrees - {@link #NORTH},
+     * 90 degrees - {@link #EAST}, -90 degrees - {@link #WEST}, 180 degrees - {@link #SOUTH}).
      *
      * @param angle The angle to convert into a direction.
      * @return The {@code Directions} enum value corresponding to the provided angle.
