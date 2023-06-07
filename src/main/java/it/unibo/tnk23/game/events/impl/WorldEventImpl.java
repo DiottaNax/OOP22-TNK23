@@ -18,7 +18,7 @@ public class WorldEventImpl implements WorldEvent {
     }
 
     @Override
-    public Point2D getposition() {
+    public Point2D getPosition() {
         return position;
     }
 
