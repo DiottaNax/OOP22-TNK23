@@ -110,11 +110,13 @@ public class WorldImpl implements World {
         int tileSize = Configuration.TILE_SIZE;
         var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
         var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
+        var towerPos = new Point2D(towerGridPos.getX() * tileSize , towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
         var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
         var obstacleSize = tileSize / 2;
         GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
-        this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * Configuration.TILE_SIZE,
-                towerGridPos.getY() * Configuration.TILE_SIZE));
+        
+        this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * tileSize + Configuration.DISPLACEMENT,
+                towerGridPos.getY() * tileSize));
         
         for (int i = 0; i < towerBoxSize-1; i++) {
             for (int j = 0; j < towerBoxSize; j++) {
@@ -124,9 +126,8 @@ public class WorldImpl implements World {
         }
         
         this.entities.add(this.tower);
-        var towerPos = tower.getPosition();
         this.entities.addAll(wallNearTower.stream()
-                .map(p -> new Point2D(p.getX() * obstacleSize, p.getY() * obstacleSize))
+                .map(p -> new Point2D(p.getX() * obstacleSize, p.getY() * obstacleSize - Configuration.DISPLACEMENT))
                 .filter(p -> !(p.getX() >= towerPos.getX() && p.getX() <= towerPos.getX() + obstacleSize
                         && p.getY() >= towerPos.getY() && p.getY() <= towerPos.getY() + obstacleSize))
                 .map(objectFactory::getDestroyableWall)

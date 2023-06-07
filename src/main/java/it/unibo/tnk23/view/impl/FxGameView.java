@@ -85,7 +85,7 @@ public class FxGameView implements GameView {
         });
 
         gameEngine = new GameEngineImpl(world, this);
-        this.renderingEngine = new FxRenderingEngine(world, this);
+        this.renderingEngine = new FxRenderingEngine(world);
         this.gameEngine.startEngine();
         this.playerController = new PlayerInfoControllerImpl(world);
         this.roundController = new RoundInfoControllerImpl(this.gameEngine.getGameState().getRound());
