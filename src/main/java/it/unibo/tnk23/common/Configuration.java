@@ -6,14 +6,34 @@ import javafx.stage.Screen;
  * Configuration class that contains various constants and settings for the game.
  */
 public final class Configuration {
-
-    private final static int ORIGINAL_TILE_SIZE = 24;
-    public final static int FPS = 120;
-    public final static int GRID_SIZE = 19;
-    public final static int TILE_SIZE = getTileSize();
-    public final static double SCALE_FACTOR = (double) TILE_SIZE / ORIGINAL_TILE_SIZE;
-    public final static int GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE;
-    public final static int DISPLACEMENT = 6;
+    /**
+     * The original tile size in pixel.
+     */
+    private static final int ORIGINAL_TILE_SIZE = 24;
+    /**
+     * The max frame rate of the game.
+     */
+    public static final int FPS = 120;
+    /**
+     * The size of the game grid.
+     */
+    public static final int GRID_SIZE = 19;
+    /**
+     * The size of each tile in pixel adapted to the monitor.
+     */
+    public static final int TILE_SIZE = getTileSize();
+    /**
+     * The scale factor for resizing graphics based on the tile size.
+     */
+    public static final double SCALE_FACTOR = (double) TILE_SIZE / ORIGINAL_TILE_SIZE;
+    /**
+     * The dimension of the game scene in pixel.
+     */
+    public static final int GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE;
+    /**
+     * The displacement value describing the displacement between model and graphics.
+     */
+    public static final int DISPLACEMENT = 6;
 
     private Configuration() {
     }
