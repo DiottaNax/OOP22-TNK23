@@ -4,20 +4,32 @@ import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.input.api.KeyboardInputController;
 import it.unibo.tnk23.game.model.api.GameObject;
 
+/**
+ * This class represents an input component to move a game object. It implements the Component interface
+ * and provides functionality for updating the game object's direction and notifying components about shooting actions.
+ */
 public class InputComponent implements Component {
 
-    GameObject player;
-    KeyboardInputController ctrl;
+    private GameObject player;
+    private KeyboardInputController ctrl;
 
+    /**
+     * Constructs an InputComponent object with the specified player game object and keyboard input controller.
+     *
+     * @param player the game object to control
+     * @param ctrl   the keyboard input controller for receiving input
+     */
     public InputComponent(GameObject player, KeyboardInputController ctrl) {
         this.ctrl = ctrl;
         this.player = player;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         player.setDirection(ctrl.getDirection());
         player.notifyComponents(ctrl::isShooting, PlayerFireComponent.class);
     }
-
 }
