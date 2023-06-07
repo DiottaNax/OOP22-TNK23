@@ -19,6 +19,10 @@ import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 
+/**
+ * The SpawnImpl calss implments the functionality of spawning enemies during a game round.
+ * It manages the spawning position, timing, and updates of enemies in the game world.
+ */
 public class SpawnImpl implements Spawn{
 
     private Round round;
@@ -30,8 +34,12 @@ public class SpawnImpl implements Spawn{
     private final Random random = new Random();
     private final static long SPAWN_DELAY = 5000;
 
-
-
+    /**
+     * Constructs a new {@link SpawnImpl} object with the specified delay and game round.
+     * 
+     * @param delay The delay between enemy spawns in milliseconds.
+     * @param round The game round.
+     */
     public SpawnImpl(final long delay, final Round round) {
         this.delay = delay;
         this.round = round;
@@ -41,8 +49,15 @@ public class SpawnImpl implements Spawn{
         );
         this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
         this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
+        /*
+         * created a synchronized list to avoid a ConcurrentModificationException
+         * that occurred in run() nmethod of TimerTask.
+         */
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startSpawn() {
         this.timer.schedule(new TimerTask() {
@@ -61,12 +76,19 @@ public class SpawnImpl implements Spawn{
         }, SPAWN_DELAY, this.delay);
     }
 
+    /**
+     * {@inheritDoc}
+     * Updates the state of enemy spawns and removes defeated enemies from the list that contains the enemies.
+     */
     @Override
     public void update() {
         if (this.roundEnemies.isEmpty() && this.round.isOver()) {
             this.timer.cancel();
             this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
         }
+        /*
+         * I have to use the synchronized block to avoid ConcurrentModificationException.
+         */
         synchronized (activeEnemies) {
             var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies)).stream()
             .filter(this::isEnemyDead).toList();
@@ -80,6 +102,11 @@ public class SpawnImpl implements Spawn{
         
     }
 
+    /**
+     * Retrives a valid spawn position for an enemy
+     * 
+     * @return An optional 'Point2D' representing the spawn position, or an empty optional if there isn't position is available.
+     */
     private Optional<Point2D> getSpawnPos() {
         var worldEnties = new HashSet<>(round.getWorld().getEntities());
         var colidableEntities = worldEnties.stream().filter(e -> !TypeObjectFactory.isObstacle(e.getType()))

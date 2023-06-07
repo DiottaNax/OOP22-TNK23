@@ -19,7 +19,10 @@ import it.unibo.tnk23.input.api.AiControllerFactory;
 import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
 
 
-
+/**
+ * Implmentation of the Round interface representing a game round.
+ * The RoundImpl class contains the implmentation of the logic taht drives the behavior and progrssion behind a game round.
+ */
 public class RoundImpl implements Round{
 
     private List<GameObject> enemies;
@@ -34,6 +37,11 @@ public class RoundImpl implements Round{
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
 
+    /**
+     * Constructs a new {@link RoundImpl} with the specified world.
+     * 
+     * @param world the game world associated with this round.
+     */
     public RoundImpl(final World world) {
         this.round = 1;
         this.enemies = new ArrayList<>();
@@ -46,41 +54,66 @@ public class RoundImpl implements Round{
         this.totalEnemies = this.enemies.size();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<GameObject> getEnemies() {
         return this.enemies;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isOver() {
         return this.totalEnemies == 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRound() {
         return this.round;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public World getWorld() {
         return this.world;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRandomEnemiesNum() {
         return this.numRandomEnemies;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getAIEnemiesNum() {
         return (this.numFollowTargetEnemies + this.numTowerEnemies);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getTotalEnemies() {
         return this.totalEnemies;
     }
 
+    /**
+     * {@inheritDoc}
+     * This method is responsible for updating the round's spawning process, game graph, and checking if the round is over.
+     */
     @Override
     public void update() {
         this.spawn.update();
@@ -94,11 +127,17 @@ public class RoundImpl implements Round{
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startRound() {
         this.spawn.startSpawn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void notifyEnemyDeath() {
         this.totalEnemies--;
