@@ -23,7 +23,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     private final VisitableGridGraph graph;
     private int currentFrame = UPDATE_PERIOD;
     private World world;
-    public List<GameObject> obstacles;
+    private List<GameObject> obstacles;
 
     public GameGraph(VisitableGridGraph toDecorate) {
         super(toDecorate);
