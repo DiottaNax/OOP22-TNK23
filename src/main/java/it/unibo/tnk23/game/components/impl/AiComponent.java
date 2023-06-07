@@ -20,18 +20,19 @@ public class AiComponent implements Component {
     private int currentFrame;
     private Optional<Point2D> lastPos = Optional.empty();
 
-    private AiComponent(GameObject entity, InputController ai, int updatePeriod) {
+    public AiComponent(GameObject entity, InputController ai) {
         this.entity = entity;
         this.ai = ai;
-        this.updatePeriod = updatePeriod;
+        var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
+                * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed());
+        /*
+         * According to the equation of motion, x-x0 = vt, the frames to travel a tile are:
+         * t = tileSize / speed, as graph tile are smaller we obtain:
+         * t = tileSize / graphTile * tileSize / speed.
+         */
+        this.updatePeriod = ai instanceof FollowTargetAi ? framesToTravelGraphTile : DEAFULT_UPDATE_PERIOD;
+        //The default update period is useful for a random ai, which needs to update slower
         this.currentFrame = updatePeriod;
-    }
-
-    public AiComponent(GameObject entity, InputController ai) {
-        this(entity, ai, DEAFULT_UPDATE_PERIOD);
-        if (ai instanceof FollowTargetAi) {
-            this.lastPos = Optional.of(entity.getPosition());
-        }
     }
 
     private boolean canUpdate() {

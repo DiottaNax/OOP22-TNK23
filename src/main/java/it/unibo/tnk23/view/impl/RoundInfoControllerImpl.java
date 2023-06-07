@@ -45,7 +45,7 @@ public class RoundInfoControllerImpl implements SideScenesController {
         rdmEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
         aiEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
         missingEnemies = new Image(
-                ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.png"));
+                ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.gif"));
     }
 
     /**

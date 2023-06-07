@@ -17,5 +17,5 @@ public interface SceneFactory {
     Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController,
             RoundInfoControllerImpl roundController) throws IOException;
 
-    Scene getGameOverScene();
+    Scene getGameOverScene(FxGameView view) throws IOException;
 }
