@@ -14,15 +14,28 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
 import it.unibo.tnk23.game.model.api.World;
 
+
+/**
+ * The GameObjectFactoryImpl class implements the GameObjectFactory interface and provides
+ * methods for creating various game objects.
+ */
 public class GameObjectFactoryImpl implements GameObjectFactory {
 
     private final World world;
 
+    
+    /**
+     * Creates a new GameObjectFactoryImpl instance with the specified World.
+     *
+     * @param world the game world
+     */
     public GameObjectFactoryImpl(World world) {
         this.world = world;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getEnemy(Point2D pos) {
         var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
@@ -33,6 +46,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return enemy;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getPlayer(Point2D pos) {
         var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
@@ -43,6 +59,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return player;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getBullet(Point2D pos) {
         var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
@@ -54,6 +73,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return bullet;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getWall(Point2D pos) {
         var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
@@ -62,6 +84,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return wall;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getDestroyableWall(Point2D pos) {
         var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
@@ -71,6 +96,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return destroyableWall;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameObject getTower(Point2D pos) {
         var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
