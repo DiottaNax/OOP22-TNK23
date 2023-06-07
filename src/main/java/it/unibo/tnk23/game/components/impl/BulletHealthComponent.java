@@ -23,9 +23,7 @@ public class BulletHealthComponent extends AbstractHealthComponent {
     }
 
     /**
-     * Checks if the bullet is touchable.
-     *
-     * @return true if the bullet is touchable, false otherwise
+     * {@inheritDoc}
      */
     @Override
     protected boolean isTouchable() {

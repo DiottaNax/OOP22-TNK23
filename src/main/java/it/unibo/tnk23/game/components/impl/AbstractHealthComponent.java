@@ -33,8 +33,7 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
     }
 
     /**
-     * Updates the health component. If the health reaches or goes below zero, a death event
-     * is notified through the world-object.
+     * {@inheritDoc}
      */
     @Override
     public void update() {
@@ -44,11 +43,7 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
     }
 
     /**
-     * Receives a message and updates the health component based on the message content. Only
-     * GameObject-messages are considered, if the component is touchable.
-     *
-     * @param x the message to receive
-     * @param <X> the type of the message
+     * {@inheritDoc}
      */
     @Override
     public <X> void receive(Message<X> x) {
