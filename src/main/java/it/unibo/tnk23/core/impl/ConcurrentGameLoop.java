@@ -7,6 +7,8 @@ import it.unibo.tnk23.core.api.GameLoopDecorator;
 /**
  * The {@code ConcurrentGameLoop} class is a decorator for the {@link GameLoop} interface
  * that runs the game loop in a separate thread.
+ * 
+ * @author Federico Diotallevi
  */
 public class ConcurrentGameLoop extends GameLoopDecorator {
     private final Thread gameLoopThread;
