@@ -1,13 +1,13 @@
 package it.unibo.tnk23.view.impl;
 
 import it.unibo.tnk23.game.model.api.Round;
-import it.unibo.tnk23.view.api.SidiesController;
+import it.unibo.tnk23.view.api.SideScenesController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class RoundInfoControllerImpl implements SidiesController {
+public class RoundInfoControllerImpl implements SideScenesController {
 
     private final Round round;
 
@@ -39,7 +39,7 @@ public class RoundInfoControllerImpl implements SidiesController {
     }
 
     @Override
-    public void updateLabels() {
+    public void updateGraphic() {
         randomEnemiesImage.setImage(rdmEnemies);
         aiEnemiesImage.setImage(aiEnemies);
         missingEnemiesImage.setImage(missingEnemies);
