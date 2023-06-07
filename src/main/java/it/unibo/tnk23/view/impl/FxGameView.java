@@ -118,9 +118,14 @@ public class FxGameView implements GameView {
 
     @Override
     public void setGameOverScene() {
-        this.stage.setFullScreen(false);
-        this.stage.setScene(this.sceneFactory.getGameOverScene());
-        this.stage.sizeToScene();
+        try{
+            this.stage.setFullScreen(false);
+            this.stage.setScene(this.sceneFactory.getGameOverScene(this));
+            this.stage.show();
+            this.stage.sizeToScene();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
