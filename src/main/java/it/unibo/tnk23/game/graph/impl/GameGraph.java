@@ -2,7 +2,10 @@ package it.unibo.tnk23.game.graph.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
@@ -46,36 +49,32 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
         return this.graph.getPathFrom(new VisitableGridGraphNode(this.getGraphPos(pos)));
     }
     
-    private void performToGraph(GameObject obst, Consumer<Pair<Integer, Integer>> action) {
-            var graphPos = this.getGraphPos(obst.getPosition());
-
-            for (int i = - 1; i < PRECISION; i++) {
-                for (int j = - 1; j < PRECISION; j++) {
-                    var pos = new Pair<>(graphPos.getX() + j, graphPos.getY() + i);
-                    action.accept(pos);
-                }
-            }
+    private Set<Pair<Integer,Integer>> getConnectedNodes(GameObject obst) {
+        var graphPos = this.getGraphPos(obst.getPosition());
+        return Stream.of(graphPos, new Pair<>(graphPos.getX() - 1, graphPos.getY()))
+                .flatMap(p -> Stream.of(p, new Pair<>(p.getX(), p.getY() - 1))).collect(Collectors.toSet());
     }
 
     private void addObstacleToGraph(GameObject obst) {
-        this.performToGraph(obst, p -> this.graph.removeNode(p));
+        this.getConnectedNodes(obst).forEach(this.graph::removeNode);
     }
 
     private void removeObstacleFromGraph(GameObject obst) {
-        this.performToGraph(obst, p -> this.graph.addNode(p));
+        this.getConnectedNodes(obst).forEach(this.graph::addNode);
     }
 
     public void update() {
         var worldObstacles = new ArrayList<>(world.getObstacles());
         if (currentFrame >= UPDATE_PERIOD) {
-            worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
-                this.addObstacleToGraph(o);
-                this.obstacles.add(o);
-            });
 
             this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
                 this.removeObstacleFromGraph(o);
                 this.obstacles.remove(o);
+            });
+
+            worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
+                this.addObstacleToGraph(o);
+                this.obstacles.add(o);
             });
 
             currentFrame = 0;

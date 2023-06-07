@@ -1,6 +1,7 @@
 package it.unibo.game.graph;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -10,6 +11,8 @@ import org.junit.Test;
 
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
+import it.unibo.tnk23.game.graph.api.VisitableNode;
+import it.unibo.tnk23.game.graph.impl.GridGraphNode;
 import it.unibo.tnk23.game.graph.impl.VisitableGridGraph;
 import it.unibo.tnk23.game.graph.impl.VisitableGridGraphNode;
 
@@ -20,6 +23,19 @@ public class VisitableGraphTest {
     private final VisitableGridGraphNode upperLeft = new VisitableGridGraphNode(new Pair<>(0, 0));
     private final VisitableGridGraphNode bottomRight = new VisitableGridGraphNode(new Pair<>(2, 2));
 
+    @Test
+    public void testVisitableGridGraphNodes() {
+        final var mockGraph = new VisitableGridGraph(0);
+        final var testNode1 = new VisitableGridGraphNode(new Pair<>(1, 1));
+        final var testNode2 = new VisitableGridGraphNode(new GridGraphNode(new Pair<>(1, 1)));
+        final VisitableNode<GridGraphNode> testNode3 = new VisitableGridGraphNode(testNode1.getNode());
+        assertEquals(testNode1, new VisitableGridGraphNode(new Pair<>(1, 1)));
+        assertEquals(testNode2, new VisitableGridGraphNode(new Pair<>(1, 1)));
+        assertEquals(testNode3, new VisitableGridGraphNode(new Pair<>(1, 1)));
+        mockGraph.addNode(testNode1);
+        assertNotNull(mockGraph.getAdiacencies(new VisitableGridGraphNode(new Pair<>(1, 1))));
+        assertNotNull(mockGraph.getAdiacencies(new VisitableGridGraphNode(new Pair<>(-1, -1))));
+    }
 
     @Test
     public void testGetNodes() {
