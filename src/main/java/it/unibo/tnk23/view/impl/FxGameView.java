@@ -43,6 +43,7 @@ public class FxGameView implements GameView {
         this.stage.setOnCloseRequest(e -> this.exitGame());
 
         this.setDefaultWorld();
+        this.stage.setResizable(false);
 
         this.setMenuScene();
         this.stage.show();
@@ -50,11 +51,16 @@ public class FxGameView implements GameView {
 
     @Override
     public void renderView() {
-        Platform.runLater(() -> {
-            renderingEngine.render();
-            playerController.updateGraphic();
-            roundController.updateGraphic();
-        });
+        if (gameEngine.getGameState().isGameOver()) {
+            Platform.runLater(this::setGameOverScene);
+        } else {
+            Platform.runLater(() -> {
+                renderingEngine.render();
+                playerController.updateGraphic();
+                roundController.updateGraphic();
+            });
+        }
+        
     }
 
     @Override
@@ -98,9 +104,8 @@ public class FxGameView implements GameView {
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getMenuScene(this));
             this.stage.show();
-            this.stage.sizeToScene();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.setGameScene();
         }
     }
 
@@ -112,19 +117,20 @@ public class FxGameView implements GameView {
             this.stage.show();
             this.stage.sizeToScene();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.setMenuScene();
         }
     }
 
     @Override
     public void setGameOverScene() {
+        this.setDefaultWorld();
         try{
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getGameOverScene(this));
             this.stage.show();
             this.stage.sizeToScene();
         } catch (IOException e) {
-            e.printStackTrace();
+            this.exitGame();
         }
     }
 
@@ -149,7 +155,8 @@ public class FxGameView implements GameView {
 
     private void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
-        var player = new GameObjectFactoryImpl(world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
+        var player = new GameObjectFactoryImpl(world).getPlayer(
+                new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);
     }
