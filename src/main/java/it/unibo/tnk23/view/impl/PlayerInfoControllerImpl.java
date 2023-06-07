@@ -11,6 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * The PlayerInfoControllerImpl class implements the SideScenesController interface and
+ * represents a controller for the player information in a game interface.
+ * It handles the display and updating of player information, including health and sprites.
+ */
 public class PlayerInfoControllerImpl implements SideScenesController{
 
     private final World world;
@@ -30,6 +35,11 @@ public class PlayerInfoControllerImpl implements SideScenesController{
     @FXML
     private Optional<Image> plyr2;
 
+    /**
+     * Constructs a PlyerInfoControllerImpl object with the specified World instance
+     * 
+     * @param world The World instance taht represent the game world.
+     */
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
         var player1 = this.world.getPlayer(1);
@@ -45,6 +55,10 @@ public class PlayerInfoControllerImpl implements SideScenesController{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * This method is called to refresh the display of player information in the game interface.
+     */
     @Override
     public void updateGraphic() {
         player1Life.setText(

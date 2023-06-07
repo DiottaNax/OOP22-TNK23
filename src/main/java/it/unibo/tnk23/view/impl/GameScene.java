@@ -12,12 +12,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 
+/**
+ * The GameScene class represents a custom scene for the game interface.
+ * It extends the JavaFX Scene class and provides additional functionality for displaying player and round information.
+ */
 public class GameScene extends Scene{
 
     private BorderPane root;
     private double height;
     private double width;
 
+    /**
+     * Constructs a GameScene object with the specified parameters.
+     * 
+     * @param root The root BorderPane of the scene.
+     * @param playerController The implementation of the PlayerInfoController for displaying player information.
+     * @param roundController The implementation of the RoundInfoController for displaying round information.
+     * @throws IOException If an error occurs during the loading of FXML files.
+     */
     public GameScene(final BorderPane root, final PlayerInfoControllerImpl playerController,
             final RoundInfoControllerImpl roundController) throws IOException {
         
