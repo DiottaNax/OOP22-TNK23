@@ -2,7 +2,11 @@ package it.unibo.tnk23.common;
 
 import javafx.stage.Screen;
 
+/**
+ * Configuration class that contains various constants and settings for the game.
+ */
 public final class Configuration {
+
     private final static int ORIGINAL_TILE_SIZE = 24;
     public final static int FPS = 120;
     public final static int GRID_SIZE = 19;
@@ -11,12 +15,12 @@ public final class Configuration {
     public final static int GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE;
     public final static int DISPLACEMENT = 6;
 
-    private Configuration() {   
+    private Configuration() {
     }
 
-    private static double getMinorScreenEdge(){
+    private static double getMinorScreenEdge() {
         final var screenDim = Screen.getPrimary().getBounds();
-        return (int) Math.min(screenDim.getHeight(),screenDim.getWidth());
+        return (int) Math.min(screenDim.getHeight(), screenDim.getWidth());
     }
 
     private static int getTileSize() {
