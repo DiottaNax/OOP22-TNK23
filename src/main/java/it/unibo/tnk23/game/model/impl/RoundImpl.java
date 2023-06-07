@@ -137,7 +137,7 @@ public class RoundImpl implements Round{
 
     private GameObject generateRandomMovingEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
-        enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi(), Configuration.FPS));
+        enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
         enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
         return enemy;
     }
