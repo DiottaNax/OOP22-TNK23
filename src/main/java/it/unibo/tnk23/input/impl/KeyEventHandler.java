@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
  */
 public class KeyEventHandler {
 
-    final private List<KeyboardInputController> inputControllers;
+    private final List<KeyboardInputController> inputControllers;
 
     /**
      * Constructs a new KeyEventHandler object.

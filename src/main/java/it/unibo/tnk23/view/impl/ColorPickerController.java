@@ -35,9 +35,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ColorPickerController extends Scene implements Initializable {
 
-    final private List<GameObject> players = new LinkedList<>();
-    final private GameView view;
-    final private World world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
+    private final List<GameObject> players = new LinkedList<>();
+    private final GameView view;
+    private final World world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
 
     @FXML
     private Label labelOne;
@@ -62,7 +62,7 @@ public class ColorPickerController extends Scene implements Initializable {
 
     @FXML
     private Slider slider;
-    final private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
+    final String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
     private String myColorPlayerOne = "Pink";
     private String myColorPlayerTwo = "Cyan";
     private int multiplayer;

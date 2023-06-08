@@ -10,8 +10,8 @@ import it.unibo.tnk23.game.model.api.GameObject;
  */
 public class InputComponent implements Component {
 
-    final private GameObject player;
-    final private KeyboardInputController ctrl;
+    private final GameObject player;
+    private final KeyboardInputController ctrl;
 
     /**
      * Constructs an InputComponent object with the specified player game object and keyboard input controller.

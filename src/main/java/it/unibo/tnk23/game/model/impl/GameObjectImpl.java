@@ -19,12 +19,12 @@ import it.unibo.tnk23.game.model.api.GameObjectType;
  */
 public class GameObjectImpl implements GameObject {
 
-    final private GameObjectType type;
+    private final GameObjectType type;
     private Point2D position;
     private Directions direction;
     private int power = 1;
     private double rotation;
-    final private Set<Component> components;
+    private final Set<Component> components;
 
     /**
      * Creates a new GameObjectImpl instance with the specified type and position.

@@ -12,12 +12,12 @@ import javafx.scene.control.Button;
 public class TitleMenuController {
 
     @FXML
-    final private Button startButton = new Button();
+    private final Button startButton = new Button();
 
     @FXML
-    final private Button colorButton = new Button();
+    private final Button colorButton = new Button();
 
-    final private FxGameView view;
+    private final FxGameView view;
 
 
     /**

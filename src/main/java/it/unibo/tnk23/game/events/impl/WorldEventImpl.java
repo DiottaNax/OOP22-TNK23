@@ -26,7 +26,7 @@ public class WorldEventImpl implements WorldEvent {
         value = {
             "EI2"
         }, 
-            justification = "The WorldEventImpl must store the Point2D of the event and the GammeObject that is the actor of the event to use its methods."
+            justification = "The WorldEventImpl must store the Point2D and the GameObject of the event to use its methods."
     )
     public WorldEventImpl(final Point2D position, final GameObject actor, final WorldEventType type) {
         this.position = position;
@@ -49,7 +49,8 @@ public class WorldEventImpl implements WorldEvent {
         value = {
             "EI"
         }, 
-            justification = "The WorldEventImpl must provide the actor that is passed to it from the constructor because that way anyone who needs to know can identify who caused that particular event."
+        justification="The WorldEventImpl must provide the actor that is passed to it from" +
+            "the constructor because that way anyone who needs to know can identify who caused that particular event."
     )
     @Override
     public GameObject getEventActor() {

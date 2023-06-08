@@ -11,12 +11,12 @@ import javafx.scene.control.Button;
 public class GameOverController {
 
     @FXML
-    final private Button restartButton = new Button();
+    private final Button restartButton = new Button();
 
     @FXML
-    final private Button exitButton = new Button();
+    private final Button exitButton = new Button();
 
-    final private FxGameView view;
+    private final FxGameView view;
 
 
     /**
