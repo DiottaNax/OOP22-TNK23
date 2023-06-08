@@ -38,7 +38,7 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
     @Override
     public void update() {
         if (health <= 0) {
-            world.notifyEvent(new WorldEventImpl(this.entity.getPosition(), this.entity, WorldEventType.DEATH_EVENT));
+            this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
         }
     }
 

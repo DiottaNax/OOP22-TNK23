@@ -33,7 +33,7 @@ public class TemporaryHealthComponent extends AbstractComponent {
     @Override
     public void update() {
         if (currentFrame >= lifeTime) {
-            world.notifyEvent(new WorldEventImpl(this.entity.getPosition(), this.entity, WorldEventType.DEATH_EVENT));
+            this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
         }
         else {
             currentFrame++;

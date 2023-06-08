@@ -12,5 +12,5 @@ public interface Message<X> {
      * 
      * @return the message content.
      */
-    X getMessage();   
+    X getMessage();
 }

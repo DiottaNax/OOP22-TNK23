@@ -8,18 +8,18 @@ import it.unibo.tnk23.game.model.api.World;
  * It provides common funciotnality and fields for components.
  */
 public abstract class AbstractComponent implements Component {
-    
+
     /**
-     * The GameObject associated with this component
+     * The GameObject associated with this component.
      */
-    protected GameObject entity;
+    private GameObject entity;
     /**
      *  The game World in which the component exists.
      */
-    protected World world;
-    
+    private World world;
+
     /**
-     * Constructs a new {@link AbstractComponent} with the specified entity and world
+     * Constructs a new {@link AbstractComponent} with the specified entity and world.
      * 
      * @param entity the GameObject associated with this component.
      * @param world the game World in which the component resides.
@@ -28,4 +28,23 @@ public abstract class AbstractComponent implements Component {
         this.entity = entity;
         this.world = world;
     }
+
+    /**
+     * Retrieves the GameObject associated with this instance. 
+     * 
+     * @return The GameObject associated with this instance.
+     */
+    public GameObject getEntity() {
+        return this.entity;
+    }
+
+    /**
+     * Retrieves the World instance associated with this instance.
+     *
+     * @return The World instance associated with this instance.
+     */
+    public World getWorld() {
+        return this.world;
+    }
+
 }

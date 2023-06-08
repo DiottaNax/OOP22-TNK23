@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  * represents a controller for the player information in a game interface.
  * It handles the display and updating of player information, including health and sprites.
  */
-public class PlayerInfoControllerImpl implements SideScenesController{
+public class PlayerInfoControllerImpl implements SideScenesController {
 
     private final World world;
 
@@ -36,7 +36,7 @@ public class PlayerInfoControllerImpl implements SideScenesController{
     private Optional<Image> plyr2;
 
     /**
-     * Constructs a PlyerInfoControllerImpl object with the specified World instance
+     * Constructs a PlyerInfoControllerImpl object with the specified World instance.
      * 
      * @param world The World instance taht represent the game world.
      */
@@ -64,7 +64,6 @@ public class PlayerInfoControllerImpl implements SideScenesController{
         player1Life.setText(
                 "x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         this.player1Image.setImage(plry1);
-        
         if (this.world.getPlayer(2).isPresent()) {
             this.player2Label.setText("Player 2");
             plyr2.ifPresent(player2Image::setImage);
@@ -73,5 +72,5 @@ public class PlayerInfoControllerImpl implements SideScenesController{
                     "x " + this.world.getPlayer(2).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         }
     }
-    
+
 }

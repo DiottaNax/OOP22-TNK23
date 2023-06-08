@@ -29,7 +29,7 @@ public class BulletCollisionComponent extends AbstractComponent {
         var type = entity.getType();
         var width = type.getWidth() * (Configuration.SCALE_FACTOR - 0.05);
         var height = type.getHeight() * (Configuration.SCALE_FACTOR - 0.05);
-        this.hitbox = new Rect2D(width, height, this.entity.getPosition());
+        this.hitbox = new Rect2D(width, height, this.getEntity().getPosition());
     }
 
     /**
@@ -47,25 +47,25 @@ public class BulletCollisionComponent extends AbstractComponent {
      * Performs collision detection and resolution for the bullet.
      */
     public void update() {
-        if (!entity.getDirection().equals(Directions.NONE)) {
-            this.hitbox.setPos(this.entity.getPosition());
+        if (!this.getEntity().getDirection().equals(Directions.NONE)) {
+            this.hitbox.setPos(this.getEntity().getPosition());
 
-            var collidedList = world.getEntities().stream()
-                    .filter(e -> !e.equals(entity))
+            var collidedList = this.getWorld().getEntities().stream()
+                    .filter(e -> !e.equals(this.getEntity()))
                     .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
                     .filter(e -> e.getComponent(CollisionComponent.class).get()
                             .isCollidingWith((Shape) hitbox))
                     .toList();
 
             if (!collidedList.isEmpty()) {
-                this.world.notifyEvent(new WorldEventImpl(entity.getPosition(), entity, WorldEventType.DEATH_EVENT));
+                this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
             }
 
             collidedList.forEach(e -> {
-                e.notifyComponents(() -> entity, EntitiesHealthComponent.class);
-                e.notifyComponents(() -> entity, BulletHealthComponent.class);
+                e.notifyComponents(() -> this.getEntity(), EntitiesHealthComponent.class);
+                e.notifyComponents(() -> this.getEntity(), BulletHealthComponent.class);
             });
-            collidedList.stream().findAny().ifPresent(e -> entity.notifyComponents(() -> e, PhysicsComponent.class));
+            collidedList.stream().findAny().ifPresent(e -> this.getEntity().notifyComponents(() -> e, PhysicsComponent.class));
         }
     }
 }
