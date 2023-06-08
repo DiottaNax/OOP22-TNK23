@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
  */
 public class FxRenderingEngine implements RenderingEngine<Pane> {
 
-    final private Pane root;
+    private final Pane root;
     private final Map<GameObject, ImageView> sprites;
     private final World world;
     private Map<String, Image> cachedSprites;
