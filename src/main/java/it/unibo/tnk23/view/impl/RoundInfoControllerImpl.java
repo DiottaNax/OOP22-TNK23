@@ -50,7 +50,7 @@ public class RoundInfoControllerImpl implements SideScenesController {
 
     /**
      * {@inheritDoc}
-     * his method is called to refresh the display of round information in the game interface.
+     * This method is called to refresh the display of round information in the game interface.
      */
     @Override
     public void updateGraphic() {
