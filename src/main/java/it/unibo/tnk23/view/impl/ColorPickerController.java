@@ -62,7 +62,7 @@ public class ColorPickerController extends Scene implements Initializable {
 
     @FXML
     private Slider slider;
-    final String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
+    private final String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
     private String myColorPlayerOne = "Pink";
     private String myColorPlayerTwo = "Cyan";
     private int multiplayer;

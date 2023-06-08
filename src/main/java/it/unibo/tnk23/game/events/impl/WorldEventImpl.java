@@ -49,8 +49,8 @@ public class WorldEventImpl implements WorldEvent {
         value = {
             "EI"
         }, 
-        justification="The WorldEventImpl must provide the actor that is passed to it from" +
-            "the constructor because that way anyone who needs to know can identify who caused that particular event."
+            justification = "The WorldEventImpl must provide the actor that is passed to it from"
+            + "the constructor because that way anyone who needs to know can identify who caused that particular event."
     )
     @Override
     public GameObject getEventActor() {
