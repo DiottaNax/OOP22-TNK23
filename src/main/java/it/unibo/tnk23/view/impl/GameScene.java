@@ -3,6 +3,7 @@ package it.unibo.tnk23.view.impl;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,6 +31,12 @@ public class GameScene extends Scene {
      * @param roundController The implementation of the RoundInfoController for displaying round information.
      * @throws IOException If an error occurs during the loading of FXML files.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        }, 
+            justification = "GameScene must store the root on which it should base to set the side scenes."
+    )
     public GameScene(final BorderPane root, final PlayerInfoControllerImpl playerController,
             final RoundInfoControllerImpl roundController) throws IOException {
 

@@ -2,6 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.World;
@@ -50,6 +51,12 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      * 
      * @param world The World instance taht represent the game world.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        }, 
+            justification = "PlayerInfoControllerImpl must store the original world it belongs to in order to update the labels and images."
+    )
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
         final var player1 = this.world.getPlayer(1);

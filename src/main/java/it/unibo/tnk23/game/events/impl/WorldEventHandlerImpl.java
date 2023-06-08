@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.events.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
@@ -22,6 +23,12 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
      * 
      * @param world the {@link World} istance to handle events in.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        }, 
+            justification = "WorldEventHandlerImpl must store the original world in order to use its methods."
+    )
     public WorldEventHandlerImpl(final World world) {
         this.world = world;
     }
@@ -38,7 +45,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 /*
                  * Remove the entity from the world.
                  */
-                world.removeEntity(actor);
+                this.world.removeEntity(actor);
                 break;
 
             case SHOOT_EVENT:
@@ -57,11 +64,11 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 final double rateCalculationBulletPos =  0.6;
                 bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel()
                         .mul(actorEdge * rateCalculationBulletPos));
-                final var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
+                final var bullet = new GameObjectFactoryImpl(this.world).getBullet(bulletPos);
                 bullet.setPower(actor.getPower());
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
                 bullet.notifyComponents(we::getEventActor, BulletComponent.class);
-                world.addEntity(bullet);
+                this.world.addEntity(bullet);
                 break;
 
             case SPAWN_EVENT:
@@ -69,7 +76,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                  * Set the actor's position and add it to the world
                  */
                 actor.setPosition(we.getPosition());
-                world.addEntity(actor);
+                this.world.addEntity(actor);
                 break;
 
             default:
