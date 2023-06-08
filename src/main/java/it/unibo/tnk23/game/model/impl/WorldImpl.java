@@ -83,7 +83,7 @@ public class WorldImpl implements World {
      */
     @Override
     public Set<GameObject> getEntities() {
-        Set<GameObject> toPass = new HashSet<>();
+        final Set<GameObject> toPass = new HashSet<>();
         /*
          * thanks to Synchronized list the forEach below should be "atomic"
          * avoiding ConcurrentModificationException.
