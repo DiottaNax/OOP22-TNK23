@@ -25,19 +25,17 @@ public class Rect2D implements Shape {
     }
 
     /**
-     * Returns the width of the rectangle.
-     *
-     * @return the width of the rectangle
+     * {@inheritDoc}
      */
+    @Override
     public double getWidth() {
         return this.width;
     }
 
     /**
-     * Returns the height of the rectangle.
-     *
-     * @return the height of the rectangle
+     * {@inheritDoc}
      */
+    @Override
     public double getHeight() {
         return this.height;
     }

@@ -36,7 +36,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getEnemy(final Point2D pos) {
-        var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
+        final var enemy = new GameObjectImpl(TypeObjectFactory.getEnemyType(), pos);
         enemy.addComponent(new EntitiesHealthComponent(enemy, world));
         enemy.addComponent(new EnemiesFireComponent(enemy, world));
         enemy.addComponent(new PhysicsComponent(enemy, world));
@@ -49,7 +49,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getPlayer(final Point2D pos) {
-        var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
+        final var player = new GameObjectImpl(TypeObjectFactory.getPlayerType(), pos);
         player.addComponent(new EntitiesHealthComponent(player, world));
         player.addComponent(new PlayerFireComponent(player, world));
         player.addComponent(new PhysicsComponent(player, world));
@@ -62,7 +62,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getBullet(final Point2D pos) {
-        var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
+        final  var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
         bullet.addComponent(new BulletHealthComponent(bullet, world));
         bullet.addComponent(new PhysicsComponent(bullet, world));
         bullet.addComponent(new CollisionComponent(bullet, world));
@@ -76,7 +76,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getWall(final Point2D pos) {
-        var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        final var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         wall.addComponent(new CollisionComponent(wall, world));
         wall.addComponent(new GraphicComponent("wall"));
         return wall;
@@ -87,7 +87,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getDestroyableWall(final Point2D pos) {
-        var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        final var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         destroyableWall.addComponent(new CollisionComponent(destroyableWall, world));
         destroyableWall.addComponent(new EntitiesHealthComponent(destroyableWall, world));
         destroyableWall.addComponent(new GraphicComponent("destroyableWall"));
@@ -99,7 +99,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObject getTower(final Point2D pos) {
-        var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
+        final var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         twr.addComponent(new EntitiesHealthComponent(twr, world));
         twr.addComponent(new CollisionComponent(twr, world));
         twr.addComponent(new GraphicComponent("tower"));

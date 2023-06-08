@@ -18,7 +18,7 @@ import it.unibo.tnk23.common.shape.Shape;
  */
 public class CollisionComponent extends AbstractComponent {
 
-    private Rect2D hitbox;
+    private final Rect2D hitbox;
     /**
     * Sensibility constant used for approximation of the hitbox.
     */
@@ -32,9 +32,9 @@ public class CollisionComponent extends AbstractComponent {
      */
     public CollisionComponent(final GameObject entity, final World world) {
         super(entity, world);
-        var type = entity.getType();
-        var width = type.getWidth() * (Configuration.SCALE_FACTOR - SENSIBILITY);
-        var height = type.getHeight() * (Configuration.SCALE_FACTOR - SENSIBILITY);
+        final var type = entity.getType();
+        final var width = type.getWidth() * (Configuration.SCALE_FACTOR - SENSIBILITY);
+        final var height = type.getHeight() * (Configuration.SCALE_FACTOR - SENSIBILITY);
         this.hitbox = new Rect2D(width, height, this.getEntity().getPosition());
     }
 
@@ -49,14 +49,14 @@ public class CollisionComponent extends AbstractComponent {
     }
 
     /**
-     * Updates the collision component.
-     * Performs collision detection and resolution for the entity.
+     * {@inheritDoc}
      */
+    @Override
     public void update() {
         if (!this.getEntity().getDirection().equals(Directions.NONE)) {
             this.hitbox.setPos(this.getEntity().getPosition());
 
-            var collidedList = this.getWorld().getEntities().stream()
+            final var collidedList = this.getWorld().getEntities().stream()
                     .filter(e -> !e.equals(this.getEntity()))
                     .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
                     .filter(e -> e.getComponent(CollisionComponent.class).get()

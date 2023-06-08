@@ -18,7 +18,6 @@ import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
 public class PhysicsComponent extends AbstractComponent implements NotifiableComponent {
 
     private double speed;
-    private int angle = 180;
 
     /**
      * Constructs a PhysicsComponent for the given entity and world.
@@ -28,7 +27,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
      */
     public PhysicsComponent(final GameObject entity, final World world) {
         super(entity, world);
-        var type = entity.getType();
+        final var type = entity.getType();
         this.speed = ((double) Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
     }
 
@@ -37,8 +36,8 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
      */
     @Override
     public void update() {
-        var nextPos = this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(this.speed));
-
+        final var nextPos = this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(this.speed));
+        final int angle = 180;
         if (nextPos.getX() >= Configuration.DISPLACEMENT
                 && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION
                 - this.getEntity().getType().getWidth() - Configuration.DISPLACEMENT
@@ -51,7 +50,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
             this.getWorld().notifyEvent(
                     new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
         }
-        var rotation = this.getEntity().getDirection().getVel().getX() * (angle / 2)
+        final var rotation = this.getEntity().getDirection().getVel().getX() * (angle / 2)
                 + this.getEntity().getDirection().getVel().getY() * angle;
         if (rotation != 0) {
             this.getEntity().setRotation(rotation != (-angle) ? rotation : 0);
@@ -81,11 +80,9 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
      */
     @Override
     public <X> void receive(final Message<X> x) {
-        if (x.getMessage() instanceof GameObject) {
-            if (!this.getEntity().getDirection().equals(Directions.NONE)) {
+        if (x.getMessage() instanceof GameObject && !this.getEntity().getDirection().equals(Directions.NONE)) {
                 this.getEntity().setPosition(
                         this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(-this.speed)));
-            }
         }
     }
 }

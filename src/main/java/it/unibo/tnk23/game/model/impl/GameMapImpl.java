@@ -1,10 +1,13 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.System.Logger.Level;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
@@ -15,9 +18,11 @@ import it.unibo.tnk23.game.model.api.GameMap;
     */
 public class GameMapImpl implements GameMap {
 
-    private InputStream mapFile;
-    private Set<Point2D> destroyableWalls;
-    private Set<Point2D> walls;
+    private final InputStream mapFile;
+    private final Set<Point2D> destroyableWalls;
+    private final Set<Point2D> walls;
+    private static final Logger LOGGER = Logger.getLogger("GameMapImplLogger");
+
 
     static final int MAP_SIZE = Configuration.GRID_SIZE * 2;
 
@@ -51,14 +56,14 @@ public class GameMapImpl implements GameMap {
     /**
      * Generates the walls and destroyable walls based on the provided map file.
      */
-    public void generateWalls() {
+    private void generateWalls() {
         try {
-            BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile));
+            final BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile));
 
             for (int l = 0; l < MAP_SIZE; l++) {
-                var line = mapReader.readLine().toCharArray();
+                final var line = mapReader.readLine().toCharArray();
                 for (int c = 0; c < MAP_SIZE; c++) {
-                    var ch = line[c];
+                    final var ch = line[c];
                     switch (ch) {
                         case 'D':
                             this.destroyableWalls
@@ -75,8 +80,8 @@ public class GameMapImpl implements GameMap {
             }
 
             mapReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error reading or closing the map file", e);
         }
     }
 }
