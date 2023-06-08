@@ -47,7 +47,8 @@ public class AiControllerFactoryImpl implements AiControllerFactory {
         possibilities.addAll(possibilities);
         possibilities.remove(dir);
         possibilities.remove(Directions.NONE);
-        return possibilities.get(new Random().nextInt(possibilities.size()));
+        final var random = new Random();
+        return possibilities.get(random.nextInt(possibilities.size()));
     }
 
     /**

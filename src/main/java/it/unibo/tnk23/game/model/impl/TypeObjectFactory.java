@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -41,7 +42,7 @@ public final class TypeObjectFactory {
         JSONArray jsonArray;
         final Map<String, TypeObject> toReturn = new HashMap<>();
         try (var fileReader = new FileReader(
-                new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI()))) {
+                new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI()), StandardCharsets.UTF_8)) {
             jsonArray = (JSONArray) parser.parse(fileReader);
 
             for (final Object o : jsonArray) {
@@ -52,7 +53,6 @@ public final class TypeObjectFactory {
                                 (double) jo.get("speed"),
                                 (long) jo.get("health")));
             }
-            fileReader.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Json file about types not found: ", e);
         } catch (ParseException e) {
