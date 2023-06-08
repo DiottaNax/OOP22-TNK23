@@ -11,12 +11,12 @@ import it.unibo.tnk23.game.model.api.World;
  * Fire components represent a component that handle shooting behavior.
  * It provide common functionality and variables for fire components.
  */
-public abstract class AbstractFireComponent extends AbstractComponent{
+public abstract class AbstractFireComponent extends AbstractComponent {
     
     /**
      * The current frame for shooting.
      */
-    protected int currentFarme = 0;
+    private int currentFrame = 0;
 
     /**
      * Constructs a new {@link AbstractFireComponent} whith the specified entity and wolrd.
@@ -33,10 +33,21 @@ public abstract class AbstractFireComponent extends AbstractComponent{
      */
     @Override
     public void update() {
+        this.currentFrame++;
         if (canShoot()) {
-            currentFarme = 0;
-            world.notifyEvent(new WorldEventImpl(entity.getPosition(), entity, WorldEventType.SHOOT_EVENT));
+            currentFrame = 0;
+            this.getWorld().notifyEvent(
+                    new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.SHOOT_EVENT));
         }
+    }
+    
+    /**
+     * Retrieves the current frame number.
+     *
+     * @return The current frame number.
+     */
+    public int getCurrentFrame() {
+        return this.currentFrame;
     }
     
     /**

@@ -10,6 +10,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class EnemiesFireComponent extends AbstractFireComponent{
 
+    private int currentFrame;
     private final static int SHOOT_PERIOD = 2 * Configuration.FPS;
 
     /**
@@ -28,7 +29,7 @@ public class EnemiesFireComponent extends AbstractFireComponent{
      */
     @Override
     public void update() {
-        super.currentFarme++;
+        this.currentFrame = this.getCurrentFrame();
         super.update();
     }
 
@@ -37,7 +38,7 @@ public class EnemiesFireComponent extends AbstractFireComponent{
      */
     @Override
     protected boolean canShoot() {
-        return currentFarme >= SHOOT_PERIOD;
+        return this.currentFrame >= SHOOT_PERIOD;
     }
     
 }

@@ -36,20 +36,20 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
      */
     @Override
     public void update() {
-        var nextPos = entity.getPosition().sum(entity.getDirection().getVel().mul(this.speed));
+        var nextPos = this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(this.speed));
 
         if (nextPos.getX() >= Configuration.DISPLACEMENT
-                && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getWidth() - Configuration.DISPLACEMENT
+                && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION - this.getEntity().getType().getWidth() - Configuration.DISPLACEMENT
                 && nextPos.getY() >= Configuration.DISPLACEMENT
-                && nextPos.getY() <= Configuration.GAME_SCENE_DIMENSION - this.entity.getType().getHeight() - Configuration.DISPLACEMENT) {
+                && nextPos.getY() <= Configuration.GAME_SCENE_DIMENSION - this.getEntity().getType().getHeight() - Configuration.DISPLACEMENT) {
 
-            this.entity.setPosition(nextPos);
-        } else if (TypeObjectFactory.isBullet(entity.getType())) {
-            this.world.notifyEvent(new WorldEventImpl(entity.getPosition(), entity, WorldEventType.DEATH_EVENT));
+            this.getEntity().setPosition(nextPos);
+        } else if (TypeObjectFactory.isBullet(this.getEntity().getType())) {
+            this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
         }
-        var rotation = entity.getDirection().getVel().getX() * (90) + entity.getDirection().getVel().getY() * 180;
+        var rotation = this.getEntity().getDirection().getVel().getX() * (90) + this.getEntity().getDirection().getVel().getY() * 180;
         if (rotation != 0) {
-            this.entity.setRotation(rotation != -180 ? rotation : 0);
+            this.getEntity().setRotation(rotation != -180 ? rotation : 0);
         }
     }
 
@@ -77,8 +77,8 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     @Override
     public <X> void receive(Message<X> x) {
         if (x.getMessage() instanceof GameObject) {
-            if (!entity.getDirection().equals(Directions.NONE)) {
-                entity.setPosition(entity.getPosition().sum(entity.getDirection().getVel().mul(-this.speed)));
+            if (!this.getEntity().getDirection().equals(Directions.NONE)) {
+                this.getEntity().setPosition(this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(-this.speed)));
             }
         }
     }

@@ -193,7 +193,7 @@ public class FxGameView implements GameView {
     /**
      * This function creates a default world if the users doesn't change settings.
      */
-    private void setDefaultWorld() {
+    public void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
         final var player = new GameObjectFactoryImpl(world).getPlayer(
                 new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));

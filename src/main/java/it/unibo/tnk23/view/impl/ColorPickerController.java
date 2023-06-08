@@ -27,6 +27,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 
+ /**
+ * It's the controller of the scene that offers to set the multiplayer mode and allows players to choose their tank-colors, confirm their selection, and then automatically sets up the player sprites in the game.
+ */
 public class ColorPickerController extends Scene implements Initializable {
 
     private List<GameObject> players = new LinkedList<>();
@@ -63,12 +66,23 @@ public class ColorPickerController extends Scene implements Initializable {
     private int multiplayer;
 
 
+    /**
+     * Constructs a new ColorPickerController object with the specified GameView.
+     * 
+     * @param view The GameView object to associate with the controller.
+     */
     public ColorPickerController(GameView view) {
         super(new AnchorPane());
         this.view = view;
         multiplayer = 0;
     }
 
+    /**
+     * Initializes the ColorPickerController's choice box after its root element has been processed.
+     * 
+     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         slider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -94,16 +108,30 @@ public class ColorPickerController extends Scene implements Initializable {
         
     }
 
+    /**
+     * Handles the action event when the color is selected from the choice box.
+     * 
+     * @param event The ActionEvent representing the color selection event.
+     */
     public void getColor(ActionEvent event) {
         myColorPlayerOne = choiceBoxPlayerOne.getValue();
         myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
     }
 
+    /**
+     * Handles the action event when the confirm button is clicked.
+     * Sets up the player sprites and switches back to the Title-Menu Scene.
+     * 
+     * @param event The ActionEvent representing the confirm button click event.
+     */
     public void confirm(ActionEvent event) {
         this.setPlayerSprite();
         view.setMenuScene();
     }
 
+    /**
+     * Sets up the player sprites based on the selected colors and adds them to the game world.
+     */
     public void setPlayerSprite() {
         String spriteOne = myColorPlayerOne.toLowerCase() + "Player";
         players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
