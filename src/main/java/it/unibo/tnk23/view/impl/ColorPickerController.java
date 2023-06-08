@@ -29,8 +29,6 @@ import javafx.scene.layout.AnchorPane;
 
  /**
  * It's the controller of the scene that offers to set the multiplayer mode and allows players to choose their tank-colors, confirm their selection, and then automatically sets up the player sprites in the game.
- * 
- * @param event The ActionEvent representing the color selection event.
  */
 public class ColorPickerController extends Scene implements Initializable {
 
