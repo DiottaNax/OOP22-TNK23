@@ -35,7 +35,7 @@ public class CollisionComponent extends AbstractComponent {
         final var type = entity.getType();
         final var width = type.getWidth() * (Configuration.SCALE_FACTOR - SENSIBILITY);
         final var height = type.getHeight() * (Configuration.SCALE_FACTOR - SENSIBILITY);
-        this.hitbox = new Rect2D(width, height, this.getEntity().getPosition());
+        this.hitbox = new Rect2D(width, height, entity.getPosition());
     }
 
     /**

@@ -5,7 +5,6 @@ package it.unibo.tnk23.common;
  * Each direction is associated with a velocity vector represented by the {@link Vector2D} class.
  */
 public enum Directions {
-    
     /**
      * The north direction (up).
      */

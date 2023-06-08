@@ -18,7 +18,7 @@ public class Pair<X, Y> {
      * @param x the first value
      * @param y the second value
      */
-    public Pair(final X x,final Y y) {
+    public Pair(final X x, final Y y) {
         this.x = x;
         this.y = y;
     }
@@ -57,8 +57,8 @@ public class Pair<X, Y> {
             return false;
         }
         final Pair<?, ?> other = (Pair<?, ?>) obj;
-        return Objects.equals(x, other.x) &&
-                Objects.equals(y, other.y);
+        return Objects.equals(x, other.x)
+                && Objects.equals(y, other.y);
     }
 
     /**
@@ -70,8 +70,9 @@ public class Pair<X, Y> {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + Objects.hashCode(x);
-        result = 31 * result + Objects.hashCode(y);
+        final int prime = 31;
+        result = prime * result + Objects.hashCode(x);
+        result = prime * result + Objects.hashCode(y);
         return result;
     }
 

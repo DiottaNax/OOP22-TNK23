@@ -12,49 +12,57 @@ public class TypeObjectFactoryTest {
     
     @Test
     public void testGetPlayer() {
-        final long HEALTH = 3, EDGES = 24;
-        final double SPEED = 1.5;
+        final long health = 3;
+        final long edges = 24;
+        final double speed = 1.5;
         final GameObjectType player = GameObjectTypeManager.getPlayerType();
 
-        assertEquals(HEALTH, player.getHealth());
-        assertEquals(EDGES, player.getHeight());
-        assertEquals(EDGES, player.getWidth());
-        assertTrue(Double.compare(player.getSpeed(), SPEED) == 0);
+        assertEquals(health, player.getHealth());
+        assertEquals(edges, player.getHeight());
+        assertEquals(edges, player.getWidth());
+        assertTrue(Double.compare(player.getSpeed(), speed) == 0); //NOPMD
+        //assertEquals for double is deprecated
     }
     
     @Test
     public void testGetEnemy() {
-        final long HEALTH = 1, EDGES = 24;
-        final double SPEED = 1;
+        final long health = 1;
+        final long edges = 24;
+        final double speed = 1;
         final GameObjectType enemy = GameObjectTypeManager.getEnemyType();
 
-        assertEquals(HEALTH, enemy.getHealth());
-        assertEquals(EDGES, enemy.getHeight());
-        assertEquals(EDGES, enemy.getWidth());
-        assertTrue(Double.compare(enemy.getSpeed(), SPEED) == 0);
+        assertEquals(health, enemy.getHealth());
+        assertEquals(edges, enemy.getHeight());
+        assertEquals(edges, enemy.getWidth());
+        assertTrue(Double.compare(enemy.getSpeed(), speed) == 0); //NOPMD
+        //assertEquals for double is deprecated
     }
     
     @Test
     public void testGetBullet() {
-        final long HEALTH = 1, EDGES = 24;
-        final double SPEED = 5;
+        final long health = 1;
+        final long edges = 6;
+        final double speed = 5.0;
         final GameObjectType bullet = GameObjectTypeManager.getBulletType();
 
-        assertEquals(HEALTH, bullet.getHealth());
-        assertEquals(EDGES, bullet.getHeight());
-        assertEquals(EDGES, bullet.getWidth());
-        assertTrue(Double.compare(bullet.getSpeed(), SPEED) == 0);
+        assertEquals(health, bullet.getHealth());
+        assertEquals(edges, bullet.getHeight());
+        assertEquals(edges, bullet.getWidth());
+        assertTrue(Double.compare(bullet.getSpeed(), speed) == 0); //NOPMD
+        //assertEquals for double is deprecated
     }
     
     @Test
     public void testGetObstacle() {
-        final long HEALTH = 1, EDGES = 24;
-        final double SPEED = 0;
+        final long health = 1;
+        final long edges = 12;
+        final double speed = 0.0;
         final GameObjectType obstacle = GameObjectTypeManager.getObstacleType();
 
-        assertEquals(HEALTH, obstacle.getHealth());
-        assertEquals(EDGES, obstacle.getHeight());
-        assertEquals(EDGES, obstacle.getWidth());
-        assertTrue(Double.compare(obstacle.getSpeed(), SPEED) == 0);        
+        assertEquals(health, obstacle.getHealth());
+        assertEquals(edges, obstacle.getHeight());
+        assertEquals(edges, obstacle.getWidth());
+        assertTrue(Double.compare(obstacle.getSpeed(), speed) == 0); //NOPMD
+        //assertEquals for double is deprecated        
     }
 }

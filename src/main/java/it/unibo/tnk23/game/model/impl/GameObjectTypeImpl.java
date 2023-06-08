@@ -1,5 +1,7 @@
 package it.unibo.tnk23.game.model.impl;
 
+import java.util.Objects;
+
 import it.unibo.tnk23.game.model.api.GameObjectType;
 
 /**
@@ -58,6 +60,37 @@ public final class GameObjectTypeImpl implements GameObjectType {
     @Override
     public long getHealth() {
         return this.health;
+    }
+
+        /**
+     * Verifica se l'oggetto specificato è uguale a questo GameObjectTypeImpl.
+     *
+     * @param o l'oggetto da confrontare
+     * @return true se l'oggetto specificato è uguale a questo GameObjectTypeImpl, false altrimenti
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GameObjectTypeImpl that = (GameObjectTypeImpl) o;
+        return width == that.width &&
+                height == that.height &&
+                Double.compare(that.speed, speed) == 0 &&
+                health == that.health;
+    }
+
+    /**
+     * Restituisce l'hash code di questo GameObjectTypeImpl.
+     *
+     * @return l'hash code di questo GameObjectTypeImpl
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, speed, health);
     }
 
     /**
