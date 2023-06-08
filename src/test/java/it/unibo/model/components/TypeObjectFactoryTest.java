@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import it.unibo.tnk23.game.model.api.TypeObject;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.api.GameObjectType;
+import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 
 public class TypeObjectFactoryTest {
     
@@ -14,7 +14,7 @@ public class TypeObjectFactoryTest {
     public void testGetPlayer() {
         final long HEALTH = 3, EDGES = 24;
         final double SPEED = 1.5;
-        final TypeObject player = TypeObjectFactory.getPlayerType();
+        final GameObjectType player = GameObjectTypeManager.getPlayerType();
 
         assertEquals(HEALTH, player.getHealth());
         assertEquals(EDGES, player.getHeight());
@@ -26,7 +26,7 @@ public class TypeObjectFactoryTest {
     public void testGetEnemy() {
         final long HEALTH = 1, EDGES = 24;
         final double SPEED = 1;
-        final TypeObject enemy = TypeObjectFactory.getEnemyType();
+        final GameObjectType enemy = GameObjectTypeManager.getEnemyType();
 
         assertEquals(HEALTH, enemy.getHealth());
         assertEquals(EDGES, enemy.getHeight());
@@ -38,7 +38,7 @@ public class TypeObjectFactoryTest {
     public void testGetBullet() {
         final long HEALTH = 1, EDGES = 24;
         final double SPEED = 5;
-        final TypeObject bullet = TypeObjectFactory.getBulletType();
+        final GameObjectType bullet = GameObjectTypeManager.getBulletType();
 
         assertEquals(HEALTH, bullet.getHealth());
         assertEquals(EDGES, bullet.getHeight());
@@ -50,7 +50,7 @@ public class TypeObjectFactoryTest {
     public void testGetObstacle() {
         final long HEALTH = 1, EDGES = 24;
         final double SPEED = 0;
-        final TypeObject obstacle = TypeObjectFactory.getObstacleType();
+        final GameObjectType obstacle = GameObjectTypeManager.getObstacleType();
 
         assertEquals(HEALTH, obstacle.getHealth());
         assertEquals(EDGES, obstacle.getHeight());

@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.api.GameObjectType;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
@@ -19,7 +19,7 @@ import it.unibo.tnk23.game.model.api.World;
 public abstract class AbstractHealthComponent extends AbstractComponent implements NotifiableComponent {
 
     protected int health;
-    protected Set<TypeObject> weaknesses = new HashSet<>();
+    protected Set<GameObjectType> weaknesses = new HashSet<>();
 
     /**
      * Constructs an AbstractHealthComponent with the specified parameters GameObject and World.

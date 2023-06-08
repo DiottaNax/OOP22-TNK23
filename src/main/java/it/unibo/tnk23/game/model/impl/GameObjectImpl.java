@@ -11,7 +11,7 @@ import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.api.GameObjectType;
 
 /**
  * The GameObjectImpl class implements the GameObject interface and represents a game object
@@ -19,7 +19,7 @@ import it.unibo.tnk23.game.model.api.TypeObject;
  */
 public class GameObjectImpl implements GameObject {
 
-    private TypeObject type;
+    private GameObjectType type;
     private Point2D position;
     private Directions direction;
     private int power = 1;
@@ -32,7 +32,7 @@ public class GameObjectImpl implements GameObject {
      * @param type     the type of the game object
      * @param position the position of the game object
      */
-    public GameObjectImpl(TypeObject type, Point2D position) {
+    public GameObjectImpl(GameObjectType type, Point2D position) {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
@@ -59,7 +59,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public TypeObject getType() {
+    public GameObjectType getType() {
         return type;
     }
 

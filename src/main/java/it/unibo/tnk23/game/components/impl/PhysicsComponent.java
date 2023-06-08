@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 
 /**
  * Represents a physics component for game entities.
@@ -46,7 +46,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
                 - this.getEntity().getType().getHeight() - Configuration.DISPLACEMENT) {
 
             this.getEntity().setPosition(nextPos);
-        } else if (TypeObjectFactory.isBullet(this.getEntity().getType())) {
+        } else if (GameObjectTypeManager.isBullet(this.getEntity().getType())) {
             this.getWorld().notifyEvent(
                     new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
         }

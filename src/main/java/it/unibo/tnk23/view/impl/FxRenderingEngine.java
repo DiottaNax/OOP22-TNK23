@@ -7,7 +7,7 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 import it.unibo.tnk23.view.api.RenderingEngine;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,7 +73,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.world.getEntities().stream().filter(this.sprites::containsKey).forEach(e -> {
             var x = e.getPosition().getX();
             var y = e.getPosition().getY();
-            if (TypeObjectFactory.isObstacle(e.getType()) || TypeObjectFactory.isBullet(e.getType())) {
+            if (GameObjectTypeManager.isObstacle(e.getType()) || GameObjectTypeManager.isBullet(e.getType())) {
                 x += Configuration.DISPLACEMENT;
                 y += Configuration.DISPLACEMENT;
             }

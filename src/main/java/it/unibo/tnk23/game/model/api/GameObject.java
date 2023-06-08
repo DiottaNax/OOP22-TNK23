@@ -30,7 +30,7 @@ public interface GameObject {
      *
      * @return the type of the game object
      */
-    TypeObject getType();
+    GameObjectType getType();
 
     /**
      * Notifies the components of the game object with a message.

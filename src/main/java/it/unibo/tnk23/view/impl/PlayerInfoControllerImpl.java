@@ -20,16 +20,26 @@ public class PlayerInfoControllerImpl implements SideScenesController {
 
     private final World world;
 
+    /*
+     * I have suppressed the PMD warnings because the images 
+     * and labels need to be updated during the round,
+     * and therefore, they cannot be final.
+     */
     @FXML
-    private final Label player2Label;
+    private Label player2Label = new Label(); //NOPMD
+    // suppressed as it is a false positive
     @FXML
-    private final Label player1Life;
+    private Label player1Life = new Label(); //NOPMD
+    // suppressed as it is a false positive
     @FXML
-    private final Label player2Life;
+    private Label player2Life = new Label(); //NOPMD
+    // suppressed as it is a false positive
     @FXML
-    private final ImageView player1Image;
+    private ImageView player1Image = new ImageView(); //NOPMD
+    // suppressed as it is a false positive
     @FXML
-    private final ImageView player2Image;
+    private ImageView player2Image = new ImageView(); //NOPMD
+    // suppressed as it is a false positive
     @FXML
     private final Image plry1;
     @FXML
@@ -42,12 +52,6 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      */
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
-        this.player2Label = new Label();
-        this.player1Life = new Label();
-        this.player2Life = new Label();
-        this.player1Image = new ImageView();
-        this.player2Image = new ImageView();
-
         final var player1 = this.world.getPlayer(1);
         final var player2 = this.world.getPlayer(2);
 

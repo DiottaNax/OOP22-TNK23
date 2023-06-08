@@ -9,7 +9,7 @@ import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 import it.unibo.tnk23.common.shape.Shape;
 
 /**
@@ -62,7 +62,7 @@ public class CollisionComponent extends AbstractComponent {
                     .filter(e -> e.getComponent(CollisionComponent.class).get()
                             .isCollidingWith((Shape) hitbox))
                     .toList();
-             if (!collidedList.isEmpty() && TypeObjectFactory.isBullet(this.getEntity().getType())) {
+             if (!collidedList.isEmpty() && GameObjectTypeManager.isBullet(this.getEntity().getType())) {
                  this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(),
                          WorldEventType.DEATH_EVENT));
             }
