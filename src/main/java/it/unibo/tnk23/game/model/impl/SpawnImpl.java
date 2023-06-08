@@ -113,7 +113,7 @@ public class SpawnImpl implements Spawn {
      */
     private Optional<Point2D> getSpawnPos() {
         final var worldEnties = new HashSet<>(round.getWorld().getEntities());
-        final var colidableEntities = worldEnties.stream().filter(e -> !TypeObjectFactory.isObstacle(e.getType()))
+        final var colidableEntities = worldEnties.stream().filter(e -> !GameObjectTypeManager.isObstacle(e.getType()))
                 .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
         final List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
