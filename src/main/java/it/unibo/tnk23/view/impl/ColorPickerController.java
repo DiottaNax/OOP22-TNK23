@@ -28,7 +28,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 
  /**
- * It's the controller of the scene that offers to set the multiplayer mode and allows players to choose their tank-colors, confirm their selection, and then automatically sets up the player sprites in the game.
+ * It's the controller of the scene that offers to set the multiplayer mode
+ * and allows players to choose their tank-colors,
+ * confirm their selection, and then automatically sets up the player sprites in the game.
  */
 public class ColorPickerController extends Scene implements Initializable {
 
@@ -71,7 +73,7 @@ public class ColorPickerController extends Scene implements Initializable {
      * 
      * @param view The GameView object to associate with the controller.
      */
-    public ColorPickerController(GameView view) {
+    public ColorPickerController(final FxGameView view) {
         super(new AnchorPane());
         this.view = view;
         multiplayer = 0;
@@ -84,16 +86,15 @@ public class ColorPickerController extends Scene implements Initializable {
      * @param resources The resources used to localize the root object, or null if the root object was not localized.
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
                 multiplayer = (int) slider.getValue();
                 if (multiplayer > 0) {
                     labelTwo.setDisable(false);
                     choiceBoxPlayerTwo.setDisable(false);
-                }
-                else {
+                } else {
                     labelTwo.setDisable(true);
                     choiceBoxPlayerTwo.setDisable(true);
                 }
@@ -104,8 +105,7 @@ public class ColorPickerController extends Scene implements Initializable {
         choiceBoxPlayerOne.setOnAction(this::getColor);
 
         choiceBoxPlayerTwo.getItems().addAll(colors);
-        choiceBoxPlayerTwo.setOnAction(this::getColor);
-        
+        choiceBoxPlayerTwo.setOnAction(this::getColor);        
     }
 
     /**
@@ -113,7 +113,7 @@ public class ColorPickerController extends Scene implements Initializable {
      * 
      * @param event The ActionEvent representing the color selection event.
      */
-    public void getColor(ActionEvent event) {
+    public void getColor(final ActionEvent event) {
         myColorPlayerOne = choiceBoxPlayerOne.getValue();
         myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
     }
@@ -124,7 +124,7 @@ public class ColorPickerController extends Scene implements Initializable {
      * 
      * @param event The ActionEvent representing the confirm button click event.
      */
-    public void confirm(ActionEvent event) {
+    public void confirm(final ActionEvent event) {
         this.setPlayerSprite();
         view.setMenuScene();
     }
@@ -134,15 +134,17 @@ public class ColorPickerController extends Scene implements Initializable {
      */
     public void setPlayerSprite() {
         String spriteOne = myColorPlayerOne.toLowerCase() + "Player";
-        players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+        final int num = 7;
+        players.add(new GameObjectFactoryImpl(this.world).getPlayer(
+                new Point2D(num * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
         players.get(0).addComponent(new GraphicComponent(spriteOne));
         
         if (multiplayer > 0) {
             String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player";
-            players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(12 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+            players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(12 * Configuration.TILE_SIZE,
+                    Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
             players.get(1).addComponent(new GraphicComponent(spriteTwo));
         }
-        
         this.players.forEach(this.world::addPlayer);
         view.setWorld(this.world);
     }
