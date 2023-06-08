@@ -16,7 +16,7 @@ public abstract class AbstractFireComponent extends AbstractComponent {
     /**
      * The current frame for shooting.
      */
-    private int currentFrame = 0;
+    private int currentFrame;
 
     /**
      * Constructs a new {@link AbstractFireComponent} whith the specified entity and wolrd.
@@ -26,6 +26,7 @@ public abstract class AbstractFireComponent extends AbstractComponent {
      */
     public AbstractFireComponent(final GameObject entity, final World world) {
         super(entity, world);
+        currentFrame = 0;
     }
 
     /**

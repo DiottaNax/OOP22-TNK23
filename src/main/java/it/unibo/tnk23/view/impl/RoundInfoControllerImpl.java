@@ -17,19 +17,19 @@ public class RoundInfoControllerImpl implements SideScenesController {
     private final Round round;
 
     @FXML
-    private Label randomEnemiesLabel = new Label();
+    private final Label randomEnemiesLabel;
     @FXML
-    private Label aiEnemiesLabel = new Label();
+    private final Label aiEnemiesLabel;
     @FXML
-    private Label missingEnemiesLabel = new Label();
+    private final Label missingEnemiesLabel;
     @FXML
-    private Label roundLabel = new Label();
+    private final Label roundLabel;
     @FXML
-    private ImageView randomEnemiesImage = new ImageView();
+    private final ImageView randomEnemiesImage;
     @FXML
-    private ImageView aiEnemiesImage = new ImageView();
+    private final ImageView aiEnemiesImage;
     @FXML
-    private ImageView missingEnemiesImage = new ImageView();
+    private final ImageView missingEnemiesImage;
 
     private final Image rdmEnemies;
     private final Image aiEnemies;
@@ -42,6 +42,14 @@ public class RoundInfoControllerImpl implements SideScenesController {
      */
     public RoundInfoControllerImpl(final Round round) {
         this.round = round;
+        this.randomEnemiesLabel = new Label();
+        this.aiEnemiesLabel = new Label();
+        this.missingEnemiesLabel = new Label();
+        this.roundLabel = new Label();
+        this.randomEnemiesImage = new ImageView();
+        this.aiEnemiesImage = new ImageView();
+        this.missingEnemiesImage = new ImageView();
+
         rdmEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
         aiEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
         missingEnemies = new Image(

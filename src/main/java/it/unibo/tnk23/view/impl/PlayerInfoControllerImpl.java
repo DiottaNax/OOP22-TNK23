@@ -21,19 +21,19 @@ public class PlayerInfoControllerImpl implements SideScenesController {
     private final World world;
 
     @FXML
-    private Label player2Label = new Label();
+    private final Label player2Label;
     @FXML
-    private Label player1Life = new Label();
+    private final Label player1Life;
     @FXML
-    private Label player2Life = new Label();
+    private final Label player2Life;
     @FXML
-    private ImageView player1Image = new ImageView();
+    private final ImageView player1Image;
     @FXML
-    private ImageView player2Image = new ImageView();
+    private final ImageView player2Image;
     @FXML
-    private Image plry1;
+    private final Image plry1;
     @FXML
-    private Optional<Image> plyr2;
+    private final Optional<Image> plyr2;
 
     /**
      * Constructs a PlyerInfoControllerImpl object with the specified World instance.
@@ -42,16 +42,24 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      */
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
-        var player1 = this.world.getPlayer(1);
-        var player2 = this.world.getPlayer(2);
+        this.player2Label = new Label();
+        this.player1Life = new Label();
+        this.player2Life = new Label();
+        this.player1Image = new ImageView();
+        this.player2Image = new ImageView();
 
-        var plyr1Sprite = player1.get().getComponent(GraphicComponent.class).get().getSpriteName();
+        final var player1 = this.world.getPlayer(1);
+        final var player2 = this.world.getPlayer(2);
+
+        final var plyr1Sprite = player1.get().getComponent(GraphicComponent.class).get().getSpriteName();
         this.plry1 = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + plyr1Sprite + ".gif"));
 
         if (player2.isPresent()) {
-            var plyr2Sprite = player2.get().getComponent(GraphicComponent.class).get().getSpriteName();
+            final var plyr2Sprite = player2.get().getComponent(GraphicComponent.class).get().getSpriteName();
             this.plyr2 = Optional
                     .of(new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/" + plyr2Sprite + ".gif")));
+        } else {
+            this.plyr2 = Optional.empty();
         }
     }
 
