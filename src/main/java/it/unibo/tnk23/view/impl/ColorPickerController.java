@@ -122,8 +122,12 @@ public class ColorPickerController extends Scene implements Initializable {
      * @param event The ActionEvent representing the color selection event.
      */
     public void setColor(final ActionEvent event) {
-        myColorPlayerOne = choiceBoxPlayerOne.getValue();
-        myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
+        if (!choiceBoxPlayerOne.getSelectionModel().isEmpty()) {
+            myColorPlayerOne = choiceBoxPlayerOne.getValue();
+        }
+        if (!choiceBoxPlayerTwo.getSelectionModel().isEmpty()) {
+            myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
+        }
     }
 
     /**
