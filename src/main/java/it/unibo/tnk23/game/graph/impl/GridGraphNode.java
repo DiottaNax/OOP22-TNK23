@@ -9,15 +9,15 @@ import it.unibo.tnk23.common.Pair;
  * The {@code GridGraphNode} class represents a node in a grid-based graph.
  */
 public class GridGraphNode {
-    
-    protected final Pair<Integer, Integer> gridPos;
+
+    private final Pair<Integer, Integer> gridPos;
 
     /**
      * Constructs a new {@code GridGraphNode} with the specified grid position.
      *
      * @param gridPos the grid position of the node
      */
-    public GridGraphNode(Pair<Integer, Integer> gridPos) {
+    public GridGraphNode(final Pair<Integer, Integer> gridPos) {
         this.gridPos = gridPos;
     }
 
@@ -29,13 +29,13 @@ public class GridGraphNode {
     public Pair<Integer, Integer> getGraphIndex() {
         return this.gridPos;
     }
-    
+
     /**
      * Retrieves the list of adjacent grid indexes to the node.
      *
      * @return a list of adjacent grid indexes
      */
-    public List<Pair<Integer,Integer>> getAdjacentIndexes(){
+    public List<Pair<Integer, Integer>> getAdjacentIndexes() {
         return Stream.of(new Pair<>(1, 0), new Pair<>(0, 1))
                     .flatMap(p -> Stream.of(p, new Pair<>(-p.getX(), -p.getY())))
                     .map(p -> new Pair<>(gridPos.getX() + p.getX(), gridPos.getY() + p.getY()))
@@ -49,7 +49,7 @@ public class GridGraphNode {
      * @return {@code true} if the objects are equal, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
@@ -64,7 +64,7 @@ public class GridGraphNode {
      */
     @Override
     public int hashCode() {
-        int prime = 17;
+        final int prime = 17;
         return prime * gridPos.hashCode();
     }
 

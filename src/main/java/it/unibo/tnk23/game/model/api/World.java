@@ -19,7 +19,7 @@ public interface World {
      * @param player the GameObject to be added.
      */
     void addPlayer(GameObject player);
-    
+
     /**
      * Gets the player with the specified ID from the game world.
      * 
@@ -62,7 +62,7 @@ public interface World {
      * @return a set of obstacles GameObjects.
      */
     Set<GameObject> getObstacles();
-    
+
     /**
      * Gets the tower object in the game world.
      * 

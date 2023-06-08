@@ -18,7 +18,7 @@ public class Pair<X, Y> {
      * @param x the first value
      * @param y the second value
      */
-    public Pair(X x, Y y) {
+    public Pair(final X x,final Y y) {
         this.x = x;
         this.y = y;
     }
@@ -38,7 +38,7 @@ public class Pair<X, Y> {
      * @return the second value
      */
     public Y getY() {
-        return y;
+        return this.y;
     }
 
     /**
@@ -49,14 +49,14 @@ public class Pair<X, Y> {
      * @return true if the objects are equal, false otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Pair<?, ?> other = (Pair<?, ?>) obj;
+        final Pair<?, ?> other = (Pair<?, ?>) obj;
         return Objects.equals(x, other.x) &&
                 Objects.equals(y, other.y);
     }

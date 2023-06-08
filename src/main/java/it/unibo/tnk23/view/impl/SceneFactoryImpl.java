@@ -12,11 +12,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 
-public class SceneFactoryImpl implements SceneFactory{
-
+/**
+ * The {@code SceneFactoryImpl} class implements the {@link SceneFactory} interface and provides methods
+ * for creating different scenes used in the game.
+ */
+public class SceneFactoryImpl implements SceneFactory {
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Scene getMenuScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
+    public Scene getMenuScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/titlemenu.fxml"));
         loader.setController(new TitleMenuController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);
@@ -24,9 +31,12 @@ public class SceneFactoryImpl implements SceneFactory{
         return new Scene(root, Configuration.GAME_SCENE_DIMENSION * 0.5, Configuration.GAME_SCENE_DIMENSION * 0.5);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Scene getColorPickerScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
+    public Scene getColorPickerScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/colorpicker.fxml"));
         loader.setController(new ColorPickerController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);
@@ -34,19 +44,25 @@ public class SceneFactoryImpl implements SceneFactory{
         return new Scene(root, Configuration.GAME_SCENE_DIMENSION * 0.5, Configuration.GAME_SCENE_DIMENSION * 0.5);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController,
-            RoundInfoControllerImpl roundController) throws IOException {
+    public Scene getGameScene(final Pane gamePane, final PlayerInfoControllerImpl playerController,
+            final RoundInfoControllerImpl roundController) throws IOException {
 
-        return new GameScene(
-                new BorderPane(
-                        new SubScene(gamePane, Configuration.GAME_SCENE_DIMENSION, Configuration.GAME_SCENE_DIMENSION)),
-                playerController, roundController);
+        final var root = new BorderPane(new SubScene(gamePane, Configuration.GAME_SCENE_DIMENSION,
+                Configuration.GAME_SCENE_DIMENSION));
+        root.setStyle("-fx-background-color: #000000;");
+        return new GameScene(root, playerController, roundController);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Scene getGameOverScene(FxGameView view) throws IOException {
-        var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/gameover.fxml"));
+    public Scene getGameOverScene(final FxGameView view) throws IOException {
+        final var loader = new FXMLLoader(ClassLoader.getSystemResource("it/unibo/style/gameover.fxml"));
         loader.setController(new GameOverController(view));
         final Parent root = loader.load();
         final double size = (Configuration.GAME_SCENE_DIMENSION * 0.5) / root.prefHeight(0);
@@ -54,5 +70,4 @@ public class SceneFactoryImpl implements SceneFactory{
         return new Scene(root, Configuration.GAME_SCENE_DIMENSION * 0.5, Configuration.GAME_SCENE_DIMENSION * 0.5);
     }
 
-    
 }

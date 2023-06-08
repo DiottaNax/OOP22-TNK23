@@ -32,10 +32,10 @@ public class AiComponent implements Component {
      * @param entity The game object associated with the AI component.
      * @param ai     The AI input controller used to control the entity's movement.
      */
-    public AiComponent(GameObject entity, InputController ai) {
+    public AiComponent(final GameObject entity, final InputController ai) {
         this.entity = entity;
         this.ai = ai;
-        var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
+        final var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
                 * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed());
         /*
          * According to the equation of motion, x-x0 = vt, the frames to travel a tile are:
@@ -50,10 +50,10 @@ public class AiComponent implements Component {
 
     private boolean canUpdate() {
         if (lastPos.isPresent()) {
-            var last = this.lastPos.get();
-            var current = this.entity.getPosition();
-            var travelled = Math
-                    .abs(current.getX() == last.getX() ? current.getY() - last.getY() : current.getX() - last.getX());
+            final var last = this.lastPos.get();
+            final var current = this.entity.getPosition();
+            final var travelled = Math
+                    .abs(Double.compare(current.getX(), last.getX()) == 0 ? current.getY() - last.getY() : current.getX() - last.getX());
             if (travelled >= GameGraph.GRAPH_TILE_SIZE) {
                 this.lastPos = Optional.of(entity.getPosition());
                 return true;

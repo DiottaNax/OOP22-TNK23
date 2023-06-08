@@ -35,16 +35,16 @@ import it.unibo.tnk23.input.api.InputController;
  */
 public class FollowTargetAi implements InputController {
 
-    private final static long UPDATE_PERIOD = 2000;
+    private static final long UPDATE_PERIOD = 2000;
     private final World world;
     private final InputController backupAi;
     private Point2D lastPos;
-    private List<Directions> path = new ArrayList<>();
+    private final List<Directions> path = new ArrayList<>();
     private Iterator<Directions> iterator;
     private final GameGraph graph;
     private final GameObject entity;
     private final GameObject target;
-    private boolean backupAiIsActive = false;
+    private boolean backupAiIsActive;
     private boolean timeToUpdate = true;
     private final Timer timer;
 
@@ -56,7 +56,7 @@ public class FollowTargetAi implements InputController {
      * @param target The game object target to follow.
      * @param world  The game world.
      */
-    public FollowTargetAi(GameGraph graph, GameObject entity, GameObject target, World world) {
+    public FollowTargetAi(final GameGraph graph, final GameObject entity, final GameObject target, final World world) {
         this.graph = graph;
         this.entity = entity;
         this.lastPos = entity.getPosition();
@@ -78,7 +78,7 @@ public class FollowTargetAi implements InputController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                var distance = path.size();
+                final var distance = path.size();
                 if (!world.getEntities().contains(target) || entity.getPosition().equals(lastPos) && distance > 8) {
                     backupAiIsActive = true;
                 } else {
@@ -107,15 +107,16 @@ public class FollowTargetAi implements InputController {
             iterator = this.path.iterator();
             timeToUpdate = false;
         }
-        
+
         if (backupAiIsActive) {
-            int backupSize = 12;
+            final int backupSize = 15;
             this.path.clear();
             while (path.size() < backupSize) {
                 Directions dir;
-                do{
+                do {
                     dir = backupAi.getDirection();
                 } while (dir.equals(Directions.NONE));
+                // If the backup ai is activated the entity was already still, there's no point in setting Direction.NONE.
                 this.path.addAll(List.of(dir, dir, dir, dir, dir));
                 /*
                  * The update period for this ai is very short, doing this it gets longer,

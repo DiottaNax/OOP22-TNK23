@@ -21,7 +21,7 @@ public final class TypeObjectImpl implements TypeObject {
      * @param speed  the speed of the game object type
      * @param health the health of the game object type
      */
-    public TypeObjectImpl(long width, long height, double speed, long health) {
+    public TypeObjectImpl(final long width, final long height, final double speed, final long health) {
         this.height = height;
         this.width = width;
         this.speed = speed;

@@ -44,7 +44,7 @@ public class FxGameView implements GameView {
      *
      * @param stage the JavaFX stage for the game view
      */
-    public FxGameView(Stage stage) {
+    public FxGameView(final Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl();
 
@@ -78,33 +78,32 @@ public class FxGameView implements GameView {
      */
     @Override
     public void setGameScene() {
-        var keyEventHandler = new KeyEventHandler();
-        var inputControllerOne = new PlayerOneKeyboardController();
+        final var keyEventHandler = new KeyEventHandler();
+        final var inputControllerOne = new PlayerOneKeyboardController();
         keyEventHandler.addInputController(inputControllerOne);
 
+        // Setting key event handler to the stage.
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, keyEventHandler::onKeyPressed);
         this.stage.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler::onKeyReleased);
-        this.stage.addEventHandler(KeyEvent.KEY_TYPED, e -> {
-            if (e.getCode().equals(KeyCode.ESCAPE)) {
-                this.exitGame();
-            }
-        });
 
+        // Setting players' keyboard input controllers.
         world.getPlayer(1).ifPresent(p -> p.addComponent(new InputComponent(p, inputControllerOne)));
         world.getPlayer(2).ifPresent(p -> {
-            var inputControllerTwo = new PlayerTwoKeyboardController();
+            final var inputControllerTwo = new PlayerTwoKeyboardController();
             keyEventHandler.addInputController(inputControllerTwo);
             p.addComponent(new InputComponent(p, inputControllerTwo));
         });
 
-        gameEngine = new GameEngineImpl(world, this);
+        // Setting and starting game engines.
+        this.gameEngine = new GameEngineImpl(world, this);
         this.renderingEngine = new FxRenderingEngine(world);
         this.gameEngine.startEngine();
         this.playerController = new PlayerInfoControllerImpl(world);
         this.roundController = new RoundInfoControllerImpl(this.gameEngine.getGameState().getRound());
 
         try {
-            this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), playerController, roundController));
+            this.stage.setScene(this.sceneFactory.getGameScene(this.renderingEngine.getGamePane(), playerController,
+                    roundController));
         } catch (IOException e) {
             this.stage.setScene(new Scene(new BorderPane(this.renderingEngine.getGamePane())));
         }
@@ -168,7 +167,7 @@ public class FxGameView implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void setWorld(World world) {
+    public void setWorld(final World world) {
         this.world = world;
     }
 
@@ -191,7 +190,7 @@ public class FxGameView implements GameView {
      */
     public void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
-        var player = new GameObjectFactoryImpl(world).getPlayer(
+        final var player = new GameObjectFactoryImpl(world).getPlayer(
                 new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
         player.addComponent(new GraphicComponent(player, "pinkPlayer"));
         world.addPlayer(player);

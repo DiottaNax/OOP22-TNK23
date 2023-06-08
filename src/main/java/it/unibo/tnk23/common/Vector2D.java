@@ -117,9 +117,9 @@ public class Vector2D {
      * @return true if the objects are equal, false otherwise
      */
     @Override
-    public boolean equals(Object v) {
+    public boolean equals(final Object v) {
         if (v != null && v.getClass().equals(this.getClass())) {
-            var v2d = (Vector2D) v;
+            final var v2d = (Vector2D) v;
             if (Double.compare(v2d.getX(), -0.0) == 0) {
                 v2d.setX(0);
             } else if (Double.compare(v2d.getY(), -0.0) == 0) {
