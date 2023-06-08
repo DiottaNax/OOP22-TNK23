@@ -89,7 +89,7 @@ public class ColorPickerController extends Scene implements Initializable {
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(final ObservableValue<? extends Number> observable,
-                    final Number oldValue, final Number newValue) {   
+                    final Number oldValue, final Number newValue) {
                 multiplayer = (int) slider.getValue();
                 if (multiplayer > 0) {
                     labelTwo.setDisable(false);

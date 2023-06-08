@@ -7,7 +7,8 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
- * The TemporaryHealthComponent class represents a component that tracks the remaining lifetime of a visual-decoration (game object with temporary health) such as an explosion or a visual-cooldown effect.
+ * The TemporaryHealthComponent class represents a component that tracks the remaining lifetime
+ * of a visual-decoration (game object with temporary health) such as an explosion or a visual-cooldown effect.
  * When the lifetime reaches zero, the decoration dies and the death event is reported to the game-world.
  */
 public class TemporaryHealthComponent extends AbstractComponent {
@@ -22,7 +23,7 @@ public class TemporaryHealthComponent extends AbstractComponent {
      * @param world     the game world in which the component operates
      * @param lifeTime  the lifetime of the game object in frames
      */
-    public TemporaryHealthComponent(GameObject entity, World world, int lifeTime) {
+    public TemporaryHealthComponent(final GameObject entity, final World world, final int lifeTime) {
         super(entity, world);
         this.lifeTime = lifeTime;
     }
@@ -33,9 +34,9 @@ public class TemporaryHealthComponent extends AbstractComponent {
     @Override
     public void update() {
         if (currentFrame >= lifeTime) {
-            this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
-        }
-        else {
+            this.getWorld().notifyEvent(
+                    new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
+        } else {
             currentFrame++;
         }
     }

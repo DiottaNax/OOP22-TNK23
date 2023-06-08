@@ -11,7 +11,7 @@ import javafx.scene.input.KeyEvent;
  * It allows adding and removing input controllers to receive key events.
  */
 public class KeyEventHandler {
-    
+
     private List<KeyboardInputController> inputControllers;
 
     /**
@@ -27,7 +27,7 @@ public class KeyEventHandler {
      * 
      * @param e The KeyEvent representing the key pressed event.
      */
-    public void onKeyPressed(KeyEvent e) {
+    public void onKeyPressed(final KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyPressed(e));
     }
 
@@ -36,7 +36,7 @@ public class KeyEventHandler {
      * 
      * @param e The KeyEvent representing the key released event.
      */
-    public void onKeyReleased(KeyEvent e) {
+    public void onKeyReleased(final KeyEvent e) {
         inputControllers.forEach(c -> c.setOnKeyReleased(e));
     }
 
@@ -45,7 +45,7 @@ public class KeyEventHandler {
      * 
      * @param k The KeyboardInputController to be added.
      */
-    public void addInputController(KeyboardInputController k) {
+    public void addInputController(final KeyboardInputController k) {
         this.inputControllers.add(k);
     }
 
@@ -54,7 +54,7 @@ public class KeyEventHandler {
      * 
      * @param k The KeyboardInputController to be removed.
      */
-    public void removeInputController(KeyboardInputController k) {
+    public void removeInputController(final KeyboardInputController k) {
         this.inputControllers.remove(k);
     }
 }

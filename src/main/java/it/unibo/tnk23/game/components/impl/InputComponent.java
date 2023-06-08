@@ -19,7 +19,7 @@ public class InputComponent implements Component {
      * @param player the game object to control
      * @param ctrl   the keyboard input controller for receiving input
      */
-    public InputComponent(GameObject player, KeyboardInputController ctrl) {
+    public InputComponent(final GameObject player, final KeyboardInputController ctrl) {
         this.ctrl = ctrl;
         this.player = player;
     }

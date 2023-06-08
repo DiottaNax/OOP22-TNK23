@@ -24,7 +24,7 @@ public class GameOverController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
-    public GameOverController(FxGameView view) {
+    public GameOverController(final FxGameView view) {
         this.view = view;
     }
 
@@ -36,13 +36,13 @@ public class GameOverController {
     private void restartGame() {
         this.view.setMenuScene();
     }
-    
+
     /**
      * Handles the action event when the exit button is clicked.
      * Exits the application by terminating the JVM.
      */
     @FXML
-    private void exit() {     
+    private void exit() { 
         System.exit(0);
     }
 

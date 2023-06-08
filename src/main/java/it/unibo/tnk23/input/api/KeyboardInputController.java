@@ -15,7 +15,7 @@ public interface KeyboardInputController extends InputController {
      * @return true if shooting action is triggered, false otherwise
      */
     boolean isShooting();
-    
+
     /**
      * Sets the event handler for a key press event.
      *
