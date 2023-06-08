@@ -104,4 +104,33 @@ public final class GameObjectTypeImpl implements GameObjectType {
                 + "]";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        int result = (int) (width ^ (width >>> 32));
+        result = 31 * result + (int) (height ^ (height >>> 32));
+        long temp = Double.doubleToLongBits(speed);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (int) (health ^ (health >>> 32));
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        GameObjectTypeImpl other = (GameObjectTypeImpl) obj;
+        return width == other.width &&
+                height == other.height &&
+                Double.compare(speed, other.speed) == 0 &&
+                health == other.health;
+    }
+
 }

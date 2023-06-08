@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
@@ -19,12 +20,12 @@ import it.unibo.tnk23.game.model.api.GameObjectType;
  */
 public class GameObjectImpl implements GameObject {
 
-    private GameObjectType type;
+    private final GameObjectType type;
     private Point2D position;
     private Directions direction;
     private int power = 1;
     private double rotation;
-    private Set<Component> components;
+    private final Set<Component> components;
 
     /**
      * Creates a new GameObjectImpl instance with the specified type and position.
@@ -32,7 +33,13 @@ public class GameObjectImpl implements GameObject {
      * @param type     the type of the game object
      * @param position the position of the game object
      */
-    public GameObjectImpl(GameObjectType type, Point2D position) {
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The GameObjectImpl must store these parameters in order to use its methods."
+    )
+    public GameObjectImpl(final GameObjectType type, final Point2D position) {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
@@ -67,7 +74,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc) {
+    public <X> void notifyComponents(final Message<X> message, final Class<? extends NotifiableComponent> nc) {
         components.stream()
                 .filter(nc::isInstance)
                 .map(nc::cast)
@@ -79,6 +86,13 @@ public class GameObjectImpl implements GameObject {
      *
      * @return the position of the game object
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+            justification = "The GameObjectImpl must return the original position and not a copy of it."
+    )
+    @Override
     public Point2D getPosition() {
         return position;
     }
@@ -95,7 +109,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setPower(int power) {
+    public void setPower(final int power) {
         this.power = power;
     }
 
@@ -103,7 +117,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public <C extends Component> Optional<C> getComponent(Class<C> clas) {
+    public <C extends Component> Optional<C> getComponent(final Class<C> clas) {
         return components.stream()
                 .filter(clas::isInstance)
                 .map(clas::cast)
@@ -113,8 +127,14 @@ public class GameObjectImpl implements GameObject {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The GameObjectImpl must store this parameter in order to use its methods."
+    )
     @Override
-    public void setPosition(Point2D position) {
+    public void setPosition(final Point2D position) {
         this.position = position;
     }
 
@@ -130,7 +150,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setDirection(Directions direction) {
+    public void setDirection(final Directions direction) {
         this.direction = direction;
     }
 
@@ -138,7 +158,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void addComponent(Component comp) {
+    public void addComponent(final Component comp) {
         components.add(comp);
     }
 
@@ -146,10 +166,13 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setRotation(double rotation) {
+    public void setRotation(final double rotation) {
         this.rotation = rotation;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getRotation() {
         return rotation;

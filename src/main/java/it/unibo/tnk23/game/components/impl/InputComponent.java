@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.components.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.input.api.KeyboardInputController;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -10,8 +11,8 @@ import it.unibo.tnk23.game.model.api.GameObject;
  */
 public class InputComponent implements Component {
 
-    private GameObject player;
-    private KeyboardInputController ctrl;
+    private final GameObject player;
+    private final KeyboardInputController ctrl;
 
     /**
      * Constructs an InputComponent object with the specified player game object and keyboard input controller.
@@ -19,7 +20,13 @@ public class InputComponent implements Component {
      * @param player the game object to control
      * @param ctrl   the keyboard input controller for receiving input
      */
-    public InputComponent(GameObject player, KeyboardInputController ctrl) {
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The InputComponent must store these parameters in order to use its methods."
+    )
+    public InputComponent(final GameObject player, final KeyboardInputController ctrl) {
         this.ctrl = ctrl;
         this.player = player;
     }

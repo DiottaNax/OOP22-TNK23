@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
@@ -27,6 +28,12 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      *
      * @param world the game world
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The GameObjectFactoryImpl must store this parameter in order to use its methods."
+    )
     public GameObjectFactoryImpl(final World world) {
         this.world = world;
     }

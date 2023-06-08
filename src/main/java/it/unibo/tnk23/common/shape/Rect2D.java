@@ -1,5 +1,6 @@
 package it.unibo.tnk23.common.shape;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Point2D;
 
 /**
@@ -18,6 +19,12 @@ public class Rect2D implements Shape {
      * @param height the height of the rectangle
      * @param pos    the position of the rectangle
      */
+    @SuppressFBWarnings (
+        value = {
+            "EI"
+        },
+            justification = "This constructor needs the position that is passed"
+    )
     public Rect2D(final double width, final double height, final Point2D pos) {
         this.width = width;
         this.height = height;
@@ -47,7 +54,7 @@ public class Rect2D implements Shape {
      */
     @Override
     public Point2D getPos() {
-        return this.pos;
+        return new Point2D(pos.getX(), pos.getY()); 
     }
 
     /**
@@ -57,7 +64,7 @@ public class Rect2D implements Shape {
      */
     @Override
     public void setPos(final Point2D newPos) {
-        this.pos = newPos;
+        this.pos = new Point2D(newPos.getX(), newPos.getY()); // Store a defensive copy of the newPos object
     }
 
     /**

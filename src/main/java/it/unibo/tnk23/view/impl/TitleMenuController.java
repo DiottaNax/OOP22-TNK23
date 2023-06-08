@@ -1,6 +1,8 @@
 package it.unibo.tnk23.view.impl;
 
 import java.io.IOException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -12,12 +14,12 @@ import javafx.scene.control.Button;
 public class TitleMenuController {
 
     @FXML
-    private Button startButton = new Button();
+    private final Button startButton = new Button();
 
     @FXML
-    private Button colorButton = new Button();
+    private final Button colorButton = new Button();
 
-    private FxGameView view;
+    private final FxGameView view;
 
 
     /**
@@ -25,7 +27,13 @@ public class TitleMenuController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
-    public TitleMenuController(FxGameView view) {
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The TitleMenuController must store these parameters in order to use its methods."
+    )
+    public TitleMenuController(final FxGameView view) {
         this.view = view;
     }
 
@@ -36,7 +44,7 @@ public class TitleMenuController {
      * @throws IOException if an I/O error occurs while loading the game scene.
      */
     @FXML
-    private void startGame() throws IOException {     
+    public void startGame() throws IOException {
         this.view.setGameScene();
     }
 
@@ -45,7 +53,7 @@ public class TitleMenuController {
      * Switches to the color picker scene to choose player colors.
      */
     @FXML
-    private void goPickColor() {
+    public void goPickColor() {
         this.view.setColorPickerScene();
     }
 

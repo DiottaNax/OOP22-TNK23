@@ -101,13 +101,17 @@ public class Vector2D {
      *
      * @return the computed hash code
      */
+    // CHECKSTYLE:OFF
     @Override
     public int hashCode() {
+        /*Disabilitated because result is effectevely a random prime number.*/
+        final int prime = 17;
         int result = 37;
-        result = 17 * result + Objects.hashCode(this.x);
-        result = 17 * result + Objects.hashCode(this.y);
+        result = prime * result + Objects.hashCode(this.x);
+        result = prime * result + Objects.hashCode(this.y);
         return result;
     }
+    // CHECKSTYLE:ON
 
     /**
      * Checks if this Vector2D object is equal to another object.
@@ -118,11 +122,12 @@ public class Vector2D {
      */
     @Override
     public boolean equals(final Object v) {
+        final double negativeZero = -0.0;
         if (v != null && v.getClass().equals(this.getClass())) {
             final var v2d = (Vector2D) v;
-            if (Double.compare(v2d.getX(), -0.0) == 0) {
+            if (Double.compare(v2d.getX(), negativeZero) == 0) {
                 v2d.setX(0);
-            } else if (Double.compare(v2d.getY(), -0.0) == 0) {
+            } else if (Double.compare(v2d.getY(), negativeZero) == 0) {
                 v2d.setY(0);
             }
 

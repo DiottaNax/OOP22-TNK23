@@ -22,7 +22,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
      * @param entity the GameObject associated with this component
      * @param world  the World object in which the component exists
      */
-    public EntitiesHealthComponent(GameObject entity, World world) {
+    public EntitiesHealthComponent(final GameObject entity, final World world) {
         super(entity, world);
         isTouchable = false;
     }
@@ -44,15 +44,15 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
      * {@inheritDoc}
      */
     @Override
-    public <X> void receive(Message<X> x) {
-        if (isTouchable()) {
-            if (x.getMessage() instanceof GameObject) {
-                GameObject obj = (GameObject) x.getMessage();
-                if (GameObjectTypeManager.isBullet(obj.getType())) {
-                    var bulletCmp = obj.getComponent(BulletComponent.class);
-                    if (bulletCmp.isPresent() && !this.getEntity().getType().equals(bulletCmp.get().getShooter())) {
-                        this.setHealth( this.getHealth() - obj.getPower());
-                    }
+    public <X> void receive(final Message<X> x) {
+        if (isTouchable() && x.getMessage() instanceof GameObject) {
+            final GameObject obj = (GameObject) x.getMessage();
+            if (GameObjectTypeManager.isBullet(obj.getType())) {
+                isTouchable = false;
+                currentFrame = 0;
+                final var bulletCmp = obj.getComponent(BulletComponent.class);
+                if (bulletCmp.isPresent() && !this.getEntity().getType().equals(bulletCmp.get().getShooter())) {
+                    this.setHealth(this.getHealth() - obj.getPower());
                 }
             }
         }

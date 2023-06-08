@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Pair;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.common.Configuration;
@@ -83,7 +85,7 @@ public class WorldImpl implements World {
      */
     @Override
     public Set<GameObject> getEntities() {
-        Set<GameObject> toPass = new HashSet<>();
+        final Set<GameObject> toPass = new HashSet<>();
         /*
          * thanks to Synchronized list the forEach below should be "atomic"
          * avoiding ConcurrentModificationException.
@@ -120,6 +122,12 @@ public class WorldImpl implements World {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (
+        value = {
+            "EI"
+        },
+            justification = "this method needs to return the tower object in the game world"
+    )
     @Override
     public GameObject getTower() {
         return this.tower;

@@ -1,5 +1,6 @@
 package it.unibo.tnk23.view.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -11,12 +12,12 @@ import javafx.scene.control.Button;
 public class GameOverController {
 
     @FXML
-    private Button restartButton = new Button();
+    private final Button restartButton = new Button();
 
     @FXML
-    private Button exiButton = new Button();
+    private final Button exitButton = new Button();
 
-    private FxGameView view;
+    private final FxGameView view;
 
 
     /**
@@ -24,7 +25,13 @@ public class GameOverController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
-    public GameOverController(FxGameView view) {
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The GameOverController must store this parameter in order to use its methods."
+    )
+    public GameOverController(final FxGameView view) {
         this.view = view;
     }
 
@@ -33,16 +40,16 @@ public class GameOverController {
      * Sets a new world-object and then switches to the menu scene to restart the game.
      */
     @FXML
-    private void restartGame() {
+    public void restartGame() {
         this.view.setMenuScene();
     }
-    
+
     /**
      * Handles the action event when the exit button is clicked.
      * Exits the application by terminating the JVM.
      */
     @FXML
-    private void exit() {     
+    public void exit() { 
         System.exit(0);
     }
 

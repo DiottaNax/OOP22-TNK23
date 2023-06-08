@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Point2D {
     private double x;
     private double y;
-
     /**
      * Constructs a new Point2D object with the specified coordinates.
      *
@@ -25,7 +24,7 @@ public class Point2D {
      *
      * @return the x-coordinate
      */
-    public double getX() {
+    public final double getX() {
         return this.x;
     }
 
@@ -43,7 +42,7 @@ public class Point2D {
      *
      * @return the y-coordinate
      */
-    public double getY() {
+    public final double getY() {
         return this.y;
     }
 
@@ -91,11 +90,14 @@ public class Point2D {
      *
      * @return the computed hash code
      */
+    @SuppressWarnings("checkstyle:hashcode")
     @Override
     public int hashCode() {
+        /*Disabled because result is effectevely a random prime number.*/
         int result = 31;
-        result = 13 * result + Objects.hashCode(this.x);
-        result = 13 * result + Objects.hashCode(this.y);
+        final int prime = 13;
+        result = prime * result + Objects.hashCode(this.x);
+        result = prime * result + Objects.hashCode(this.y);
         return result;
     }
 
@@ -108,11 +110,12 @@ public class Point2D {
      */
     @Override
     public boolean equals(final Object p) {
+        final double negativeZero = -0.0;
         if (p != null && p.getClass().equals(this.getClass())) {
             final var p2d = (Point2D) p;
-            if (Double.compare(p2d.getX(), -0.0) == 0) {
+            if (Double.compare(p2d.getX(), negativeZero) == 0) {
                 p2d.setX(0);
-            } else if (Double.compare(p2d.getY(), -0.0) == 0) {
+            } else if (Double.compare(p2d.getY(), negativeZero) == 0) {
                 p2d.setY(0);
             }
 

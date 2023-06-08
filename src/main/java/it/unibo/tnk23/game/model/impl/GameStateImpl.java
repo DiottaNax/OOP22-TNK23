@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.model.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.model.api.Round;
@@ -21,6 +22,12 @@ public class GameStateImpl implements GameState {
      *
      * @param world The World object representing the game world.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        }, 
+            justification = "GameStateImpl must store the original world in order to use its methods."
+    )
     public GameStateImpl(final World world) {
         this.world = world;
         this.round = new RoundImpl(world);
@@ -29,6 +36,12 @@ public class GameStateImpl implements GameState {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+            justification = "We need to get the original round in order to use its methods."
+    )
     @Override
     public Round getRound() {
         return this.round;
