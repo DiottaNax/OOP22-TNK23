@@ -72,7 +72,7 @@ public class RoundImpl implements Round {
      */
     @Override
     public List<GameObject> getEnemies() {
-        return List.copyOf(this.enemies);
+        return this.enemies;
     }
 
     /**
