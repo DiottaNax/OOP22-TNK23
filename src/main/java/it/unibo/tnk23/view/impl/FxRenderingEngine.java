@@ -2,7 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
  */
 public class FxRenderingEngine implements RenderingEngine<Pane> {
 
-    final private Pane root;
+    private final Pane root;
     private final Map<GameObject, ImageView> sprites;
     private final World world;
     private Map<String, Image> cachedSprites;
@@ -27,6 +27,12 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
      *
      * @param world the game world
      */
+    @SuppressFBWarnings (
+        value = {
+            "EI"
+        },
+            justification = "FxRenderingEngine needs the world not a copy of it "
+    )
     public FxRenderingEngine(final World world) {
         this.root = new Pane();
         this.world = world;
@@ -37,6 +43,12 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings (
+        value = {
+            "EI"
+        },
+            justification = "this method needs to return the game pane for rendering,not a copy"
+    )
     @Override
     public Pane getGamePane() {
         return this.root;

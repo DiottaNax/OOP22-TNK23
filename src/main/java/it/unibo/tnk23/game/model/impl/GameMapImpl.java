@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.HashSet;
@@ -42,7 +43,7 @@ public class GameMapImpl implements GameMap {
      */
     @Override
     public Set<Point2D> getDestroyableWalls() {
-        return this.destroyableWalls;
+        return Set.copyOf(this.destroyableWalls);
     }
 
     /**
@@ -50,34 +51,37 @@ public class GameMapImpl implements GameMap {
      */
     @Override
     public Set<Point2D> getWalls() {
-        return this.walls;
+        return Set.copyOf(this.walls);
     }
     /**
      * Generates the walls and destroyable walls based on the provided map file.
      */
     private void generateWalls() {
         try {
-            final BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile));
-
+            final BufferedReader mapReader = new BufferedReader(new InputStreamReader(mapFile, StandardCharsets.UTF_8));
             for (int l = 0; l < MAP_SIZE; l++) {
-                final var line = mapReader.readLine().toCharArray();
-                for (int c = 0; c < MAP_SIZE; c++) {
-                    final var ch = line[c];
-                    switch (ch) {
-                        case 'D':
-                            this.destroyableWalls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE / 2, l * Configuration.TILE_SIZE / 2));
-                            break;
-                        case 'U':
-                            this.walls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE / 2, l * Configuration.TILE_SIZE / 2));
-                            break;
-                        default:
-                            break;
+                final String line = mapReader.readLine();
+                if (line != null) {
+                    final char[] chars = line.toCharArray();
+                    for (int c = 0; c < MAP_SIZE; c++) {
+                        final char ch = chars[c];
+                        switch (ch) {
+                            case 'D':
+                                this.destroyableWalls
+                                        .add(new Point2D((double) (c * Configuration.TILE_SIZE) / 2,
+                                                (double) (l * Configuration.TILE_SIZE) / 2));
+                                break;
+                            case 'U':
+                                this.walls
+                                        .add(new Point2D((double) (c * Configuration.TILE_SIZE) / 2,
+                                                (double) (l * Configuration.TILE_SIZE) / 2));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
-
             mapReader.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error reading or closing the map file", e);
