@@ -34,7 +34,6 @@ public class GameOverController {
      */
     @FXML
     private void restartGame() {
-        this.view.setDefaultWorld();
         this.view.setMenuScene();
     }
     

@@ -1,12 +1,12 @@
 package it.unibo.tnk23.game.model.impl;
 
-import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.api.GameObjectType;
 
 /**
  * The TypeObjectImpl class implements the TypeObject interface and represents
  * the characteristics of a game object type.
  */
-public final class TypeObjectImpl implements TypeObject {
+public final class GameObjectTypeImpl implements GameObjectType {
 
     private final long width;
     private final long height;
@@ -21,7 +21,7 @@ public final class TypeObjectImpl implements TypeObject {
      * @param speed  the speed of the game object type
      * @param health the health of the game object type
      */
-    public TypeObjectImpl(final long width, final long height, final double speed, final long health) {
+    public GameObjectTypeImpl(final long width, final long height, final double speed, final long health) {
         this.height = height;
         this.width = width;
         this.speed = speed;

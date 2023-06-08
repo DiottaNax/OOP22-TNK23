@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Pair;
@@ -27,7 +28,6 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      */
     public static final int GRAPH_TILE_SIZE = Configuration.TILE_SIZE / PRECISION;
 
-    private final VisitableGridGraph graph;
     private final List<GameObject> obstacles;
     private int currentFrame = UPDATE_PERIOD;
     private World world;
@@ -39,7 +39,6 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      */
     public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
-        this.graph = toDecorate;
         this.obstacles = new ArrayList<>();
     }
 
@@ -48,6 +47,12 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      *
      * @param world the game world to set
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "The World should change even in the graph if modified externally."
+    )
     public void setWorld(final World world) {
         this.world = world;
     }
@@ -70,7 +75,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * @param goal the goal position to set
      */
     public void setGoal(final Point2D goal) {
-        this.graph.setGoal(new VisitableGridGraphNode(this.getGraphPos(goal)));
+        this.setGoal(new VisitableGridGraphNode(this.getGraphPos(goal)));
     }
 
     /**
@@ -80,7 +85,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * @return the list of directions representing the path to the goal
      */
     public List<Directions> getPathFrom(final Point2D pos) {
-        return this.graph.getPathFrom(new VisitableGridGraphNode(this.getGraphPos(pos)));
+        return this.getPathFrom(new VisitableGridGraphNode(this.getGraphPos(pos)));
     }
 
     private Set<Pair<Integer, Integer>> getConnectedNodes(final GameObject obst) {
@@ -94,18 +99,18 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     }
 
     private void addObstacleToGraph(final GameObject obst) {
-        this.getConnectedNodes(obst).forEach(this.graph::removeNode);
+        this.getConnectedNodes(obst).forEach(o -> this.removeNode(new VisitableGridGraphNode(o)));
     }
 
     private void removeObstacleFromGraph(final GameObject obst) {
-        this.getConnectedNodes(obst).forEach(this.graph::addNode);
+        this.getConnectedNodes(obst).forEach(o -> this.addNode(new VisitableGridGraphNode(o)));
     }
 
     /**
      * Updates the graph state by adding or removing obstacles based on changes in the game world.
      */
     public void update() {
-        if(Objects.nonNull(this.world)){
+        if (Objects.nonNull(this.world)) {
             final var worldObstacles = new ArrayList<>(world.getObstacles());
             if (currentFrame >= UPDATE_PERIOD) {
 

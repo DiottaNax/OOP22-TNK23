@@ -4,8 +4,8 @@ import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.api.TypeObject;
-import it.unibo.tnk23.game.model.impl.TypeObjectFactory;
+import it.unibo.tnk23.game.model.api.GameObjectType;
+import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
@@ -15,7 +15,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class BulletComponent extends AbstractComponent implements NotifiableComponent {
 
-    private TypeObject shooterType;
+    private GameObjectType shooterType;
 
     /**
      * Constructs a new {@link BulletComponent} with the specified entity and world.
@@ -25,7 +25,7 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
      */
     public BulletComponent(final GameObject entity, final World world) {
         super(entity, world);
-        shooterType = TypeObjectFactory.getBulletType();
+        shooterType = GameObjectTypeManager.getBulletType();
     }
 
     /**
@@ -53,7 +53,7 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
      * 
      * @return the type of the shooter.
      */
-    public TypeObject getShooter() {
+    public GameObjectType getShooter() {
         return shooterType;
     }
 

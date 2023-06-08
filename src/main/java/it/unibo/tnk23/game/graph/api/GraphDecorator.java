@@ -2,6 +2,8 @@ package it.unibo.tnk23.game.graph.api;
 
 import java.util.Set;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * An abstract class that serves as a base decorator for the Graph interface.
  *
@@ -18,6 +20,12 @@ public abstract class GraphDecorator<N> implements Graph<N> {
      *
      * @param toDecorate the graph to decorate
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "The GraphDecorator must store the base graph in order to use its methods."
+    )
     public GraphDecorator(final Graph<N> toDecorate) {
         this.toDecorate = toDecorate;
     }

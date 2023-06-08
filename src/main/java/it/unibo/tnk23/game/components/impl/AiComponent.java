@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.components.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
@@ -32,6 +33,12 @@ public class AiComponent implements Component {
      * @param entity The game object associated with the AI component.
      * @param ai     The AI input controller used to control the entity's movement.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "The Ai component must store the entity in order to see its position"
+    )
     public AiComponent(final GameObject entity, final InputController ai) {
         this.entity = entity;
         this.ai = ai;
