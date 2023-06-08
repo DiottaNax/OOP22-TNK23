@@ -25,7 +25,7 @@ public class TitleMenuController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
-    public TitleMenuController(FxGameView view) {
+    public TitleMenuController(final FxGameView view) {
         this.view = view;
     }
 
@@ -36,7 +36,7 @@ public class TitleMenuController {
      * @throws IOException if an I/O error occurs while loading the game scene.
      */
     @FXML
-    private void startGame() throws IOException {     
+    private void startGame() throws IOException {
         this.view.setGameScene();
     }
 

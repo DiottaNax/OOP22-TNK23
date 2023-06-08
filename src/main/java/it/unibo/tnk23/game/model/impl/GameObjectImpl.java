@@ -32,7 +32,7 @@ public class GameObjectImpl implements GameObject {
      * @param type     the type of the game object
      * @param position the position of the game object
      */
-    public GameObjectImpl(GameObjectType type, Point2D position) {
+    public GameObjectImpl(final GameObjectType type, final Point2D position) {
         this.type = type;
         this.position = position;
         this.direction = Directions.NONE;
@@ -67,7 +67,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public <X> void notifyComponents(Message<X> message, Class<? extends NotifiableComponent> nc) {
+    public <X> void notifyComponents(final Message<X> message, final Class<? extends NotifiableComponent> nc) {
         components.stream()
                 .filter(nc::isInstance)
                 .map(nc::cast)
@@ -95,7 +95,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setPower(int power) {
+    public void setPower(final int power) {
         this.power = power;
     }
 
@@ -103,7 +103,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public <C extends Component> Optional<C> getComponent(Class<C> clas) {
+    public <C extends Component> Optional<C> getComponent(final Class<C> clas) {
         return components.stream()
                 .filter(clas::isInstance)
                 .map(clas::cast)
@@ -114,7 +114,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setPosition(Point2D position) {
+    public void setPosition(final Point2D position) {
         this.position = position;
     }
 
@@ -130,7 +130,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setDirection(Directions direction) {
+    public void setDirection(final Directions direction) {
         this.direction = direction;
     }
 
@@ -138,7 +138,7 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void addComponent(Component comp) {
+    public void addComponent(final Component comp) {
         components.add(comp);
     }
 
@@ -146,10 +146,13 @@ public class GameObjectImpl implements GameObject {
      * {@inheritDoc}
      */
     @Override
-    public void setRotation(double rotation) {
+    public void setRotation(final double rotation) {
         this.rotation = rotation;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getRotation() {
         return rotation;

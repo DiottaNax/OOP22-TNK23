@@ -7,7 +7,7 @@ import it.unibo.tnk23.common.Directions;
  * directional input.
  */
 public interface InputController {
-    
+
     /**
      * Retrieves the direction input from the controller.
      *

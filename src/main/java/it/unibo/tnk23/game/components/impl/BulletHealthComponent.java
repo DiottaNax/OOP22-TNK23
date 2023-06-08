@@ -17,7 +17,7 @@ public class BulletHealthComponent extends AbstractHealthComponent {
      * @param entity the GameObject associated with this component
      * @param world  the World object in which the component exists
      */
-    public BulletHealthComponent(GameObject entity, World world) {
+    public BulletHealthComponent(final GameObject entity,final  World world) {
         super(entity, world);
         isTouchable = true;
     }

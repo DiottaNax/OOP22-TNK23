@@ -21,13 +21,13 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
     public Directions getDirection() {
         return direction;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setOnKeyPressed(KeyEvent e) {
-        switch(e.getCode()) {
+    public void setOnKeyPressed(final KeyEvent e) {
+        switch (e.getCode()) {
             case UP:
                 direction = Directions.NORTH;
                 break;
@@ -52,7 +52,7 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
      * {@inheritDoc}
      */
     @Override
-    public void setOnKeyReleased(KeyEvent e) {        
+    public void setOnKeyReleased(final KeyEvent e) {
         switch (e.getCode()) {
             case UP:
             case DOWN:
@@ -67,7 +67,7 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
                 break;
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
