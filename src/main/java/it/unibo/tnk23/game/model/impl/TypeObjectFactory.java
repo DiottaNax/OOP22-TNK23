@@ -40,9 +40,9 @@ public final class TypeObjectFactory {
         final JSONParser parser = new JSONParser();
         JSONArray jsonArray;
         final Map<String, TypeObject> toReturn = new HashMap<>();
-        try {
-            jsonArray = (JSONArray) parser.parse(
-                    new FileReader(new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI())));
+        try (var fileReader = new FileReader(
+                new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI()))) {
+            jsonArray = (JSONArray) parser.parse(fileReader);
 
             for (final Object o : jsonArray) {
                 final JSONObject jo = (JSONObject) o;
@@ -52,6 +52,7 @@ public final class TypeObjectFactory {
                                 (double) jo.get("speed"),
                                 (long) jo.get("health")));
             }
+            fileReader.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Json file about types not found: ", e);
         } catch (ParseException e) {
@@ -59,6 +60,7 @@ public final class TypeObjectFactory {
         } catch (URISyntaxException e) {
             LOGGER.log(Level.SEVERE, "Error while converting file to URI", e);
         }
+
         return toReturn;
     }
 

@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public abstract class GraphDecorator<N> implements Graph<N> {
     /**
-     * The graph to decorate
+     * The graph to decorate.
      */
     private final Graph<N> toDecorate;
 

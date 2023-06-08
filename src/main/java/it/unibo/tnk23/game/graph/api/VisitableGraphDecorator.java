@@ -41,7 +41,7 @@ public abstract class VisitableGraphDecorator<N extends VisitableNode<?>> extend
      */
     @Override
     public void setGoal(final N goal) {
-        this.setGoal(goal);
+        this.toDecorate.setGoal(goal);
     }
 }
 

@@ -29,7 +29,7 @@ public enum Directions {
      * @return The velocity vector of the direction.
      */
     public Vector2D getVel() {
-        return this.vel;
+        return new Vector2D(this.vel.getX(), this.vel.getY());
     }
 
     /**

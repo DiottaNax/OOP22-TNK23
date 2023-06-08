@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.graph.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -104,23 +105,25 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      * Updates the graph state by adding or removing obstacles based on changes in the game world.
      */
     public void update() {
-        final var worldObstacles = new ArrayList<>(world.getObstacles());
-        if (currentFrame >= UPDATE_PERIOD) {
+        if(Objects.nonNull(this.world)){
+            final var worldObstacles = new ArrayList<>(world.getObstacles());
+            if (currentFrame >= UPDATE_PERIOD) {
 
-            this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
-                this.removeObstacleFromGraph(o);
-                this.obstacles.remove(o);
-            });
+                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
+                    this.removeObstacleFromGraph(o);
+                    this.obstacles.remove(o);
+                });
 
-            worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
-                this.addObstacleToGraph(o);
-                this.obstacles.add(o);
-            });
+                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
+                    this.addObstacleToGraph(o);
+                    this.obstacles.add(o);
+                });
 
-            currentFrame = 0;
-        }
+                currentFrame = 0;
+            }
 
-        currentFrame++;
+            currentFrame++;
+            }
     }
 
 }

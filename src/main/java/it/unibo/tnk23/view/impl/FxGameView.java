@@ -51,8 +51,15 @@ public class FxGameView implements GameView {
 
         this.setDefaultWorld();
         this.stage.setResizable(false);
+        this.stage.setFullScreen(false);
 
-        this.setMenuScene();
+        // Avoided calling this.setMenuScene() due to a spotbugs error.
+        try {
+            this.stage.setScene(this.sceneFactory.getMenuScene(this));
+        } catch (IOException e) {
+            this.setGameScene();
+        }
+
         this.stage.show();
     }
 
@@ -117,7 +124,6 @@ public class FxGameView implements GameView {
         try {
             this.stage.setFullScreen(false);
             this.stage.setScene(this.sceneFactory.getMenuScene(this));
-            this.stage.show();
         } catch (IOException e) {
             this.setGameScene();
         }
