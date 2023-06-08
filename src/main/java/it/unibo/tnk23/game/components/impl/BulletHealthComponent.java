@@ -9,8 +9,6 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class BulletHealthComponent extends AbstractHealthComponent {
 
-    private boolean isTouchable;
-
     /**
      * Constructs a BulletHealthComponent using the specified parameters GameObject and World.
      *
@@ -19,7 +17,6 @@ public class BulletHealthComponent extends AbstractHealthComponent {
      */
     public BulletHealthComponent(final GameObject entity, final  World world) {
         super(entity, world);
-        isTouchable = true;
     }
 
     /**
@@ -27,7 +24,7 @@ public class BulletHealthComponent extends AbstractHealthComponent {
      */
     @Override
     protected boolean isTouchable() {
-        return isTouchable;
+        return true;
     }
 
 }
