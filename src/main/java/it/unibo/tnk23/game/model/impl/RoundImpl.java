@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.AiComponent;
@@ -43,6 +44,12 @@ public class RoundImpl implements Round {
      * 
      * @param world the game world associated with this round.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        }, 
+            justification = "RoundImpl must store the world, and not a copy of it, in order to use its methods."
+    )
     public RoundImpl(final World world) {
         this.totalEnemies = 0;
         this.round = 1;
@@ -65,7 +72,7 @@ public class RoundImpl implements Round {
      */
     @Override
     public List<GameObject> getEnemies() {
-        return this.enemies;
+        return List.copyOf(this.enemies);
     }
 
     /**
@@ -87,6 +94,12 @@ public class RoundImpl implements Round {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        }, 
+            justification = "We need the original world that is passed to it from the constructor and not a copy of it."
+    )
     @Override
     public World getWorld() {
         return this.world;
