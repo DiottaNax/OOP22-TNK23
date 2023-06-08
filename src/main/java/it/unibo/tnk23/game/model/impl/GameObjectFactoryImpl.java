@@ -1,7 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
 import it.unibo.tnk23.common.Point2D;
-import it.unibo.tnk23.game.components.impl.BulletCollisionComponent;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
@@ -67,7 +66,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
         bullet.addComponent(new BulletHealthComponent(bullet, world));
         bullet.addComponent(new PhysicsComponent(bullet, world));
-        bullet.addComponent(new BulletCollisionComponent(bullet, world));
+        bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
         bullet.addComponent(new GraphicComponent("bullet"));
         return bullet;
