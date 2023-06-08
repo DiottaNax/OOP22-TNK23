@@ -16,7 +16,7 @@ import javafx.stage.Screen;
  * The GameScene class represents a custom scene for the game interface.
  * It extends the JavaFX Scene class and provides additional functionality for displaying player and round information.
  */
-public class GameScene extends Scene{
+public class GameScene extends Scene {
 
     private BorderPane root;
     private double height;
@@ -32,7 +32,7 @@ public class GameScene extends Scene{
      */
     public GameScene(final BorderPane root, final PlayerInfoControllerImpl playerController,
             final RoundInfoControllerImpl roundController) throws IOException {
-        
+
         super(root);
         this.root = root;
         AnchorPane playerInfoRoot;
@@ -54,7 +54,7 @@ public class GameScene extends Scene{
         var dim = Screen.getPrimary().getBounds();
         return dim.getWidth() > dim.getHeight() ? root::setLeft : root::setBottom;
     }
-    
+
     private Consumer<Node> getSetterRoundInfoMenu() {
         var dim = Screen.getPrimary().getBounds();
         return dim.getWidth() > dim.getHeight() ? root::setRight : root::setTop;
@@ -70,5 +70,5 @@ public class GameScene extends Scene{
             this.width = (dim.getWidth() - Configuration.GAME_SCENE_DIMENSION) / 2;
         }
     }
-    
+
 }

@@ -10,7 +10,7 @@ import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 
 /**
- * Implementation of the {@link WorldEventHandler} interface that handles various events
+ * Implementation of the {@link WorldEventHandler} interface that handles various events.
  * and performs corresponding actions in the world
  */
 public class WorldEventHandlerImpl implements WorldEventHandler {
@@ -30,7 +30,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
      * {@inheritDoc}
      */
     @Override
-    public void handle(WorldEvent we) {
+    public void handle(final WorldEvent we) {
         WorldEventType type = we.getType();
         var actor = we.getEventActor();
         switch (type) {
@@ -46,9 +46,17 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                  * Create a bullet entity and add it to the world.
                  */
                 var pos = actor.getPosition();
-                var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR; /*mi basta usare getwidth perchè chi spara è quadrato*/
+                /*
+                 * I just use getwidth because the shooter is square.
+                 */
+                var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR;
                 var bulletPos = pos;
-                bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel().mul(actorEdge * 0.6));
+                /*
+                 * I need just a bit more than the size of the tile size.
+                 */
+                final double rateCalculationBulletPos =  0.6;
+                bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel()
+                        .mul(actorEdge * rateCalculationBulletPos));
                 var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
                 bullet.setPower(actor.getPower());
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
@@ -71,5 +79,5 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 break;
         }
     }
-    
+
 }

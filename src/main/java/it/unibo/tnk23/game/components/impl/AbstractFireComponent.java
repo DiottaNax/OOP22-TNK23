@@ -12,7 +12,7 @@ import it.unibo.tnk23.game.model.api.World;
  * It provide common functionality and variables for fire components.
  */
 public abstract class AbstractFireComponent extends AbstractComponent {
-    
+
     /**
      * The current frame for shooting.
      */
@@ -40,7 +40,7 @@ public abstract class AbstractFireComponent extends AbstractComponent {
                     new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.SHOOT_EVENT));
         }
     }
-    
+
     /**
      * Retrieves the current frame number.
      *
@@ -49,9 +49,9 @@ public abstract class AbstractFireComponent extends AbstractComponent {
     public int getCurrentFrame() {
         return this.currentFrame;
     }
-    
+
     /**
-     * Checks if the entity can shoot
+     * Checks if the entity can shoot.
      * 
      * @return {@code true} if the entity can shoot, {@code false} otherwise.
      */
