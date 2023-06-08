@@ -15,25 +15,36 @@ import javafx.scene.image.ImageView;
 public class RoundInfoControllerImpl implements SideScenesController {
 
     private final Round round;
-
-    @FXML
-    private final Label randomEnemiesLabel;
-    @FXML
-    private final Label aiEnemiesLabel;
-    @FXML
-    private final Label missingEnemiesLabel;
-    @FXML
-    private final Label roundLabel;
-    @FXML
-    private final ImageView randomEnemiesImage;
-    @FXML
-    private final ImageView aiEnemiesImage;
-    @FXML
-    private final ImageView missingEnemiesImage;
-
     private final Image rdmEnemies;
     private final Image aiEnemies;
     private final Image missingEnemies;
+
+    /*
+     * I have suppressed the PMD warnings because the images 
+     * and labels need to be updated during the round,
+     * and therefore, they cannot be final.
+     */
+    @FXML
+    private Label randomEnemiesLabel  = new Label(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private Label aiEnemiesLabel  = new Label(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private Label missingEnemiesLabel  = new Label(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private Label roundLabel  = new Label(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private ImageView randomEnemiesImage  = new ImageView(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private ImageView aiEnemiesImage  = new ImageView(); //NOPMD
+    // suppressed as it is a false positive
+    @FXML
+    private ImageView missingEnemiesImage  = new ImageView(); //NOPMD
+    // suppressed as it is a false positive
 
     /**
      * Constructs a RoundInfoControllerImpl object with the specified Round instance.
@@ -42,18 +53,11 @@ public class RoundInfoControllerImpl implements SideScenesController {
      */
     public RoundInfoControllerImpl(final Round round) {
         this.round = round;
-        this.randomEnemiesLabel = new Label();
-        this.aiEnemiesLabel = new Label();
-        this.missingEnemiesLabel = new Label();
-        this.roundLabel = new Label();
-        this.randomEnemiesImage = new ImageView();
-        this.aiEnemiesImage = new ImageView();
-        this.missingEnemiesImage = new ImageView();
-
-        rdmEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
-        aiEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
-        missingEnemies = new Image(
+        this.rdmEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/brownEnemy.gif"));
+        this.aiEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
+        this.missingEnemies = new Image(
                 ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.gif"));
+        
     }
 
     /**
@@ -62,9 +66,9 @@ public class RoundInfoControllerImpl implements SideScenesController {
      */
     @Override
     public void updateGraphic() {
-        randomEnemiesImage.setImage(rdmEnemies);
-        aiEnemiesImage.setImage(aiEnemies);
-        missingEnemiesImage.setImage(missingEnemies);
+        randomEnemiesImage.setImage(this.rdmEnemies);
+        aiEnemiesImage.setImage(this.aiEnemies);
+        missingEnemiesImage.setImage(this.missingEnemies);
         roundLabel.setText(String.valueOf(this.round.getRound()));
         randomEnemiesLabel.setText("x " + this.round.getRandomEnemiesNum());
         aiEnemiesLabel.setText("x " + this.round.getAIEnemiesNum());
