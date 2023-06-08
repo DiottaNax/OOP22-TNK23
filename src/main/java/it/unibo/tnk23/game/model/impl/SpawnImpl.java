@@ -25,11 +25,11 @@ import it.unibo.tnk23.game.events.impl.WorldEventImpl;
  */
 public class SpawnImpl implements Spawn {
 
-    private Round round;
     private List<GameObject> roundEnemies;
-    private List<GameObject> activeEnemies;
-    private List<Rect2D> spawns;
+    private final Round round;
     private final long delay;
+    private final List<GameObject> activeEnemies;
+    private final List<Rect2D> spawns;
     private final Timer timer = new Timer();
     private final Random random = new Random();
     private static final long SPAWN_DELAY = 5000;
@@ -41,8 +41,8 @@ public class SpawnImpl implements Spawn {
      * @param round The game round.
      */
     public SpawnImpl(final long delay, final Round round) {
-        this.delay = delay;
         this.round = round;
+        this.delay = delay;
         this.spawns = List.of(
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
                         new Point2D(Configuration.TILE_SIZE / 2, Configuration.TILE_SIZE / 2)),
@@ -69,7 +69,7 @@ public class SpawnImpl implements Spawn {
             @Override
             public void run() {
                 if (!roundEnemies.isEmpty()) {
-                    var enemy = roundEnemies.get(0);
+                    final var enemy = roundEnemies.get(0);
                     getSpawnPos().ifPresent(p -> {
                         roundEnemies.remove(0);
                         round.getWorld().notifyEvent(new WorldEventImpl(p, enemy, WorldEventType.SPAWN_EVENT));
@@ -94,7 +94,7 @@ public class SpawnImpl implements Spawn {
          * I have to use the synchronized block to avoid ConcurrentModificationException.
          */
         synchronized (activeEnemies) {
-            var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies)).stream()
+            final var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies)).stream()
             .filter(this::isEnemyDead).toList();
             synchronized (diedEnemies) {
                 this.round.getEnemies().removeAll(diedEnemies);
@@ -112,11 +112,11 @@ public class SpawnImpl implements Spawn {
      * @return An optional 'Point2D' representing the spawn position, or an empty optional if there isn't position is available.
      */
     private Optional<Point2D> getSpawnPos() {
-        var worldEnties = new HashSet<>(round.getWorld().getEntities());
-        var colidableEntities = worldEnties.stream().filter(e -> !TypeObjectFactory.isObstacle(e.getType()))
+        final var worldEnties = new HashSet<>(round.getWorld().getEntities());
+        final var colidableEntities = worldEnties.stream().filter(e -> !TypeObjectFactory.isObstacle(e.getType()))
                 .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
-        List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
+        final List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
                 .map(Rect2D::getPos).toList();
         return pos.isEmpty() ? Optional.empty() : Optional.of(pos.get(random.nextInt(pos.size())));
     }

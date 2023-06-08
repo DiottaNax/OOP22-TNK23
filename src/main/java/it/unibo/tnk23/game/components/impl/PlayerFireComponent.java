@@ -13,7 +13,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class PlayerFireComponent extends AbstractFireComponent implements NotifiableComponent {
 
-    private boolean canShoot = false;
+    private boolean canShoot;
     private int currentFarme;
     private static final int SHOOT_PERIOD = 1 * Configuration.FPS;
 
@@ -25,6 +25,7 @@ public class PlayerFireComponent extends AbstractFireComponent implements Notifi
      */
     public PlayerFireComponent(final GameObject entity, final World world) {
         super(entity, world);
+        this.canShoot = false;
     }
 
     /**
@@ -34,7 +35,7 @@ public class PlayerFireComponent extends AbstractFireComponent implements Notifi
     @Override
     public <X> void receive(final Message<X> x) {
         if (x.getMessage() instanceof Boolean) {
-            canShoot = (Boolean) x.getMessage();
+            this.canShoot = (Boolean) x.getMessage();
         }
     }
 
@@ -44,7 +45,7 @@ public class PlayerFireComponent extends AbstractFireComponent implements Notifi
      */
     @Override
     public void update() {
-        currentFarme = this.getCurrentFrame();
+        this.currentFarme = this.getCurrentFrame();
         super.update();
     }
 

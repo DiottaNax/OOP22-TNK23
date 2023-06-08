@@ -12,11 +12,11 @@ public abstract class AbstractComponent implements Component {
     /**
      * The GameObject associated with this component.
      */
-    private GameObject entity;
+    private final GameObject entity;
     /**
      *  The game World in which the component exists.
      */
-    private World world;
+    private final World world;
 
     /**
      * Constructs a new {@link AbstractComponent} with the specified entity and world.

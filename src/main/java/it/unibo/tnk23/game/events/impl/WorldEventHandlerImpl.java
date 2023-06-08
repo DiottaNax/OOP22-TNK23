@@ -31,8 +31,8 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
      */
     @Override
     public void handle(final WorldEvent we) {
-        WorldEventType type = we.getType();
-        var actor = we.getEventActor();
+        final WorldEventType type = we.getType();
+        final var actor = we.getEventActor();
         switch (type) {
             case DEATH_EVENT:
                 /*
@@ -45,11 +45,11 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 /*
                  * Create a bullet entity and add it to the world.
                  */
-                var pos = actor.getPosition();
+                final var pos = actor.getPosition();
                 /*
                  * I just use getwidth because the shooter is square.
                  */
-                var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR;
+                final var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR;
                 var bulletPos = pos;
                 /*
                  * I need just a bit more than the size of the tile size.
@@ -57,7 +57,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 final double rateCalculationBulletPos =  0.6;
                 bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel()
                         .mul(actorEdge * rateCalculationBulletPos));
-                var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
+                final var bullet = new GameObjectFactoryImpl(world).getBullet(bulletPos);
                 bullet.setPower(actor.getPower());
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
                 bullet.notifyComponents(we::getEventActor, BulletComponent.class);
