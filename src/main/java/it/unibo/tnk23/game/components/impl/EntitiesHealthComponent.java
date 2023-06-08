@@ -51,7 +51,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
                 if (GameObjectTypeManager.isBullet(obj.getType())) {
                     var bulletCmp = obj.getComponent(BulletComponent.class);
                     if (bulletCmp.isPresent() && !this.getEntity().getType().equals(bulletCmp.get().getShooter())) {
-                        health -= obj.getPower();
+                        this.setHealth( this.getHealth() - obj.getPower());
                     }
                 }
             }
