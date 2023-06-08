@@ -62,9 +62,9 @@ public class CollisionComponent extends AbstractComponent {
                     .filter(e -> e.getComponent(CollisionComponent.class).get()
                             .isCollidingWith((Shape) hitbox))
                     .toList();
-            
              if (!collidedList.isEmpty() && TypeObjectFactory.isBullet(this.getEntity().getType())) {
-                this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
+                 this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(),
+                         WorldEventType.DEATH_EVENT));
             }
 
             collidedList.forEach(e -> {

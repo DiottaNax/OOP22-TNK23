@@ -14,7 +14,7 @@ public class GraphicComponent implements Component {
      *
      * @param spriteName the name of the sprite associated with the entity
      */
-    public GraphicComponent(String spriteName) {
+    public GraphicComponent(final String spriteName) {
         this.spritename = spriteName;
     }
 
@@ -39,7 +39,7 @@ public class GraphicComponent implements Component {
      *
      * @param spriteName the sprite name to set
      */
-    public void setSpriteName(String spriteName) {
+    public void setSpriteName(final String spriteName) {
         this.spritename = spriteName;
     }
 

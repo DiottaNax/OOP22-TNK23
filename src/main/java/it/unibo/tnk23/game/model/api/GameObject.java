@@ -82,14 +82,12 @@ public interface GameObject {
      * @param power the new power of the game object
      */
     void setPower(int power);
-    
     /**
      * Adds a component to the game object.
      *
      * @param comp the component to add
      */
     void addComponent(Component comp);
-    
     /**
      * Retrieves a component of the specified class from the game object.
      *

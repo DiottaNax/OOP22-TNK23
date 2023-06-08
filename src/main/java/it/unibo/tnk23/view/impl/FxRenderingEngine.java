@@ -12,7 +12,9 @@ import it.unibo.tnk23.view.api.RenderingEngine;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
+/**
+ * FxRenderingEngine is an implementation of the RenderingEngine interface that uses JavaFX for rendering the game.
+ */
 public class FxRenderingEngine implements RenderingEngine<Pane> {
 
     private Pane root;
@@ -32,7 +34,6 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.setCachedSprites();
         this.sprites = new HashMap<>();
     }
-    
     /**
      * {@inheritDoc}
      */
@@ -62,7 +63,6 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
         this.cachedSprites.put("bullet",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/bullet.png")));
     }
-    
     /**
      * {@inheritDoc}
      */
@@ -99,7 +99,6 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
             this.sprites.get(entity).setScaleY(Configuration.SCALE_FACTOR);
         }
     }
-    
     /**
      * Updates the sprites based on the current state of the game world.
      * This method adds sprites for new game objects that do not have a corresponding sprite yet.
