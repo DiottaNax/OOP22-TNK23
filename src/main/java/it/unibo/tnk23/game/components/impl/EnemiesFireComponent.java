@@ -8,10 +8,10 @@ import it.unibo.tnk23.game.model.api.World;
  * A component representing the firing behavior of enemies.
  * The EnemiesFireComponent handles the firing logics based on a fixed time interval for enemies GameObject.
  */
-public class EnemiesFireComponent extends AbstractFireComponent{
+public class EnemiesFireComponent extends AbstractFireComponent {
 
     private int currentFrame;
-    private final static int SHOOT_PERIOD = 2 * Configuration.FPS;
+    private static final int SHOOT_PERIOD = 2 * Configuration.FPS;
 
     /**
      * Constructs a new {@link EnemiesFireComponent} with te specified entity and world.
@@ -19,7 +19,7 @@ public class EnemiesFireComponent extends AbstractFireComponent{
      * @param entity the GameObject associated with this fire component
      * @param world the World in which the enemy fire component exists.
      */
-    public EnemiesFireComponent(GameObject entity, World world) {
+    public EnemiesFireComponent(final GameObject entity, final World world) {
         super(entity, world);
     }
 
@@ -40,5 +40,5 @@ public class EnemiesFireComponent extends AbstractFireComponent{
     protected boolean canShoot() {
         return this.currentFrame >= SHOOT_PERIOD;
     }
-    
+
 }

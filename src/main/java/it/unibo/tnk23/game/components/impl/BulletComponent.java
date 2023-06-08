@@ -41,8 +41,8 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
      * Save in {@code shooterType} the type of the sender.
      */
     @Override
-    public <X> void receive(Message<X> x) {
-        if(x.getMessage() instanceof GameObject) {
+    public <X> void receive(final Message<X> x) {
+        if (x.getMessage() instanceof GameObject) {
             GameObject obj = (GameObject) x.getMessage();
             shooterType = obj.getType();
         }

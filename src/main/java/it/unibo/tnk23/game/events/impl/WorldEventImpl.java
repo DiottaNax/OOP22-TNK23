@@ -10,9 +10,9 @@ import it.unibo.tnk23.game.model.api.GameObject;
  */
 public class WorldEventImpl implements WorldEvent {
 
-    Point2D position;
-    GameObject actor;
-    WorldEventType type;
+    private Point2D position;
+    private GameObject actor;
+    private WorldEventType type;
 
     /**
      * Constructs a new {@link WorldEventImpl} with the specified position, actor, and event type.
@@ -21,7 +21,7 @@ public class WorldEventImpl implements WorldEvent {
      * @param actor the {@link GameObject} associated with the event
      * @param type the {@link WorldEventType} representing the type of the event
      */
-    public WorldEventImpl(Point2D position, GameObject actor, WorldEventType type) {
+    public WorldEventImpl(final Point2D position, final GameObject actor, final WorldEventType type) {
         this.position = position;
         this.actor = actor;
         this.type = type;
@@ -50,5 +50,5 @@ public class WorldEventImpl implements WorldEvent {
     public WorldEventType getType() {
         return type;
     }
-    
+
 }
