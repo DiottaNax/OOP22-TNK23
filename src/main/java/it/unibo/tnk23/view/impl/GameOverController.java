@@ -11,12 +11,12 @@ import javafx.scene.control.Button;
 public class GameOverController {
 
     @FXML
-    private Button restartButton = new Button();
+    final private Button restartButton = new Button();
 
     @FXML
-    private Button exiButton = new Button();
+    final private Button exitButton = new Button();
 
-    private FxGameView view;
+    final private FxGameView view;
 
 
     /**
@@ -33,7 +33,7 @@ public class GameOverController {
      * Sets a new world-object and then switches to the menu scene to restart the game.
      */
     @FXML
-    private void restartGame() {
+    public void restartGame() {
         this.view.setMenuScene();
     }
 
@@ -42,7 +42,7 @@ public class GameOverController {
      * Exits the application by terminating the JVM.
      */
     @FXML
-    private void exit() { 
+    public void exit() { 
         System.exit(0);
     }
 

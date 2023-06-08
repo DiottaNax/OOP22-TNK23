@@ -12,12 +12,12 @@ import javafx.scene.control.Button;
 public class TitleMenuController {
 
     @FXML
-    private Button startButton = new Button();
+    final private Button startButton = new Button();
 
     @FXML
-    private Button colorButton = new Button();
+    final private Button colorButton = new Button();
 
-    private FxGameView view;
+    final private FxGameView view;
 
 
     /**
@@ -36,7 +36,7 @@ public class TitleMenuController {
      * @throws IOException if an I/O error occurs while loading the game scene.
      */
     @FXML
-    private void startGame() throws IOException {
+    public void startGame() throws IOException {
         this.view.setGameScene();
     }
 
@@ -45,7 +45,7 @@ public class TitleMenuController {
      * Switches to the color picker scene to choose player colors.
      */
     @FXML
-    private void goPickColor() {
+    public void goPickColor() {
         this.view.setColorPickerScene();
     }
 

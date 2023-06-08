@@ -19,12 +19,12 @@ import it.unibo.tnk23.game.model.api.GameObjectType;
  */
 public class GameObjectImpl implements GameObject {
 
-    private GameObjectType type;
+    final private GameObjectType type;
     private Point2D position;
     private Directions direction;
     private int power = 1;
     private double rotation;
-    private Set<Component> components;
+    final private Set<Component> components;
 
     /**
      * Creates a new GameObjectImpl instance with the specified type and position.
@@ -79,6 +79,7 @@ public class GameObjectImpl implements GameObject {
      *
      * @return the position of the game object
      */
+    @Override
     public Point2D getPosition() {
         return position;
     }

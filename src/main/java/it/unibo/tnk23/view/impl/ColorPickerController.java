@@ -3,6 +3,7 @@ package it.unibo.tnk23.view.impl;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import it.unibo.tnk23.common.Configuration;
@@ -34,9 +35,9 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ColorPickerController extends Scene implements Initializable {
 
-    private List<GameObject> players = new LinkedList<>();
-    private GameView view;
-    private World world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
+    final private List<GameObject> players = new LinkedList<>();
+    final private GameView view;
+    final private World world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
 
     @FXML
     private Label labelOne;
@@ -61,7 +62,7 @@ public class ColorPickerController extends Scene implements Initializable {
 
     @FXML
     private Slider slider;
-    private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
+    final private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
     private String myColorPlayerOne = "Pink";
     private String myColorPlayerTwo = "Cyan";
     private int multiplayer;
@@ -102,10 +103,10 @@ public class ColorPickerController extends Scene implements Initializable {
         });
 
         choiceBoxPlayerOne.getItems().addAll(colors);
-        choiceBoxPlayerOne.setOnAction(this::getColor);
+        choiceBoxPlayerOne.setOnAction(this::setColor);
 
         choiceBoxPlayerTwo.getItems().addAll(colors);
-        choiceBoxPlayerTwo.setOnAction(this::getColor);
+        choiceBoxPlayerTwo.setOnAction(this::setColor);
     }
 
     /**
@@ -113,7 +114,7 @@ public class ColorPickerController extends Scene implements Initializable {
      * 
      * @param event The ActionEvent representing the color selection event.
      */
-    public void getColor(final ActionEvent event) {
+    public void setColor(final ActionEvent event) {
         myColorPlayerOne = choiceBoxPlayerOne.getValue();
         myColorPlayerTwo = choiceBoxPlayerTwo.getValue();
     }
@@ -133,14 +134,14 @@ public class ColorPickerController extends Scene implements Initializable {
      * Sets up the player sprites based on the selected colors and adds them to the game world.
      */
     public void setPlayerSprite() {
-        String spriteOne = myColorPlayerOne.toLowerCase() + "Player";
+        final String spriteOne = myColorPlayerOne.toLowerCase(Locale.ENGLISH) + "Player";
         final int num1 = 7;
         players.add(new GameObjectFactoryImpl(this.world).getPlayer(
                 new Point2D(num1 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
         players.get(0).addComponent(new GraphicComponent(spriteOne));
         if (multiplayer > 0) {
             final int num2 = 12;
-            String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player";
+            String spriteTwo = myColorPlayerTwo.toLowerCase(Locale.ENGLISH) + "Player";
             players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(num2 * Configuration.TILE_SIZE,
                     Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
             players.get(1).addComponent(new GraphicComponent(spriteTwo));
