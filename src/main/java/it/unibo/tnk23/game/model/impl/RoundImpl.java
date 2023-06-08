@@ -23,7 +23,7 @@ import it.unibo.tnk23.input.impl.AiControllerFactoryImpl;
  * Implmentation of the Round interface representing a game round.
  * The RoundImpl class contains the implmentation of the logic taht drives the behavior and progrssion behind a game round.
  */
-public class RoundImpl implements Round{
+public class RoundImpl implements Round {
 
     private List<GameObject> enemies;
     private int totalEnemies = 0;
@@ -126,7 +126,7 @@ public class RoundImpl implements Round{
             this.totalEnemies = this.enemies.size();
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -148,13 +148,15 @@ public class RoundImpl implements Round{
         numRandomEnemies = 0;
         numFollowTargetEnemies = 0;
         numTowerEnemies = 0;
-        double rateFollowTargetEnemies = 2.0;
+        final int firstRoundRdmEnemies = 6;
+        final double rateFollowTargetEnemies = 2.0;
+        final int rateRandomEnemies = 3;
 
-        if (round==1) {
-            numRandomEnemies = 6;
+        if (round == 1) {
+            numRandomEnemies = firstRoundRdmEnemies;
         } else {
-            numRandomEnemies = this.round*3;
-            numFollowTargetEnemies = (int) (this.round/rateFollowTargetEnemies);
+            numRandomEnemies = this.round * rateRandomEnemies;
+            numFollowTargetEnemies = (int) (this.round / rateFollowTargetEnemies);
             numTowerEnemies = (int) (this.round / rateFollowTargetEnemies);
         }
 
@@ -164,12 +166,12 @@ public class RoundImpl implements Round{
     }
 
     private void setDelay() {
+        final int hardRound = 5;
         final long simpleDelay = 4000;
         final long hardDelay = 3000;
 
         this.spawnDelay = simpleDelay;
-        
-        if(round >= 5) {
+        if (round >= hardRound) {
             this.spawnDelay = hardDelay;
         }
     }
@@ -177,7 +179,7 @@ public class RoundImpl implements Round{
     private GameObject generateRandomMovingEnemies() {
         var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         enemy.addComponent(new AiComponent(enemy, aiFactory.getRandomAi()));
-        enemy.addComponent(new GraphicComponent(enemy, "brownEnemy"));
+        enemy.addComponent(new GraphicComponent("brownEnemy"));
         return enemy;
     }
 
@@ -187,22 +189,21 @@ public class RoundImpl implements Round{
         var randomPlayer = players.get(new Random().nextInt(players.size()));
         enemy.addComponent(new AiComponent(enemy,
                 aiFactory.getFollowMovingTargetAi(enemy, randomPlayer)));
-        enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
-        return enemy;
-    }
-    
-    private GameObject generateFollowTowerEnemies() {
-        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
-        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi(enemy)));
-        enemy.addComponent(new GraphicComponent(enemy, "greyEnemy"));
+        enemy.addComponent(new GraphicComponent("greyEnemy"));
         return enemy;
     }
 
-    private void addEnemies(int numEnemies, Supplier<GameObject> enemyGenerator) {
+    private GameObject generateFollowTowerEnemies() {
+        var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
+        enemy.addComponent(new AiComponent(enemy, this.aiFactory.getFollowTowerAi(enemy)));
+        enemy.addComponent(new GraphicComponent("greyEnemy"));
+        return enemy;
+    }
+
+    private void addEnemies(final int numEnemies, final Supplier<GameObject> enemyGenerator) {
         Stream.iterate(0, i -> i + 1)
                 .limit(numEnemies)
                 .forEach(i -> this.enemies.add(enemyGenerator.get()));
     }
-
-    
+ 
 }
