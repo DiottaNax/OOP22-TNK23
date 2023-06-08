@@ -1,5 +1,6 @@
 package it.unibo.tnk23.view.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -24,6 +25,12 @@ public class GameOverController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The GameOverController must store this parameter in order to use its methods."
+    )
     public GameOverController(final FxGameView view) {
         this.view = view;
     }

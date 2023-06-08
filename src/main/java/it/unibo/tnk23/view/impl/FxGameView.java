@@ -2,6 +2,7 @@ package it.unibo.tnk23.view.impl;
 
 import java.io.IOException;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.core.api.GameEngine;
@@ -43,6 +44,12 @@ public class FxGameView implements GameView {
      *
      * @param stage the JavaFX stage for the game view
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The FxGameView must store this parameter in order to use its methods."
+    )
     public FxGameView(final Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl();
@@ -164,6 +171,12 @@ public class FxGameView implements GameView {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The FxGameView must store this parameter in order to use its methods."
+    )
     @Override
     public void setWorld(final World world) {
         this.world = world;

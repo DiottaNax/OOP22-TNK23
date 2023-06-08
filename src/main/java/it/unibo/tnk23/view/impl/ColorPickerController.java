@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
@@ -73,6 +74,12 @@ public class ColorPickerController extends Scene implements Initializable {
      * 
      * @param view The GameView object to associate with the controller.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The ColorPickerController must store this parameter in order to use its methods."
+    )
     public ColorPickerController(final FxGameView view) {
         super(new AnchorPane());
         this.view = view;

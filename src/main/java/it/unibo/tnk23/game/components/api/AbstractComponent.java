@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.components.api;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
 
@@ -24,6 +25,12 @@ public abstract class AbstractComponent implements Component {
      * @param entity the GameObject associated with this component.
      * @param world the game World in which the component resides.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The AbstractComponent must store these parameters in order to use its methods."
+    )
     public AbstractComponent(final GameObject entity, final World world) {
         this.entity = entity;
         this.world = world;
@@ -34,6 +41,12 @@ public abstract class AbstractComponent implements Component {
      * 
      * @return The GameObject associated with this instance.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+            justification = "The AbstractComponent must return the original entitity and not a copy of it."
+    )
     public GameObject getEntity() {
         return this.entity;
     }
@@ -43,6 +56,12 @@ public abstract class AbstractComponent implements Component {
      *
      * @return The World instance associated with this instance.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+            justification = "The AbstractComponent must return the original world and not a copy of it."
+    )
     public World getWorld() {
         return this.world;
     }

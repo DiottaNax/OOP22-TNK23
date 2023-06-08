@@ -1,6 +1,8 @@
 package it.unibo.tnk23.view.impl;
 
 import java.io.IOException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -25,6 +27,12 @@ public class TitleMenuController {
      * 
      * @param view The FxGameView object to associate with the controller.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The TitleMenuController must store these parameters in order to use its methods."
+    )
     public TitleMenuController(final FxGameView view) {
         this.view = view;
     }
