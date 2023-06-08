@@ -43,8 +43,8 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
      */
     @Override
     public <X> void receive(final Message<X> x) {
-        if ((isTouchable()) && (x.getMessage() instanceof GameObject)) {
-            GameObject obj = (GameObject) x.getMessage();
+        if (isTouchable() && x.getMessage() instanceof GameObject) {
+            final GameObject obj = (GameObject) x.getMessage();
             health -= obj.getPower();
         }
     }
