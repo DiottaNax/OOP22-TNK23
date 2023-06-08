@@ -1,11 +1,8 @@
 package it.unibo.tnk23.game.model.impl;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
-import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.World;
@@ -43,15 +40,6 @@ public class GameStateImpl implements GameState {
     @Override
     public boolean isRoundOver() {
         return this.round.isOver();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<GameObject, Integer> getPlayerLifes() {
-        return this.world.getPlayers().stream().collect(
-                Collectors.toMap(e -> e, e -> e.getComponent(EntitiesHealthComponent.class).get().getHealth()));
     }
 
     /**

@@ -15,32 +15,32 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import it.unibo.tnk23.game.model.api.TypeObject;
+import it.unibo.tnk23.game.model.api.GameObjectType;
 
 /**
  * This is a utility class for creating and managing TypeObject instances.
  * It parses a JSON file to set up the types and provides methods to retrieve TypeObjects
  * for specific types and perform type-related checks.
  */
-public final class TypeObjectFactory {
+public final class GameObjectTypeManager {
 
-    private static final Map<String, TypeObject> TYPES = retrieveTypes();
+    private static final Map<String, GameObjectType> TYPES = retrieveTypes();
     private static final Logger LOGGER = Logger.getLogger("TypeObjectFactoryLogger");
     /**
      * Utility classes' constructor should never be called.
      */
-    private TypeObjectFactory() {
+    private GameObjectTypeManager() {
     }
 
     /**
-     * Retrieves types by parsing a JSON file and creating {@link TypeObjectImpl} instances.
+     * Retrieves types by parsing a JSON file and creating {@link GameObjectTypeImpl} instances.
      *
-     * @return a map of type names to corresponding {@link TypeObject} instances
+     * @return a map of type names to corresponding {@link GameObjectType} instances
      */
-    private static Map<String, TypeObject> retrieveTypes() {
+    private static Map<String, GameObjectType> retrieveTypes() {
         final JSONParser parser = new JSONParser();
         JSONArray jsonArray;
-        final Map<String, TypeObject> toReturn = new HashMap<>();
+        final Map<String, GameObjectType> toReturn = new HashMap<>();
         try (var fileReader = new FileReader(
                 new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI()), StandardCharsets.UTF_8)) {
             jsonArray = (JSONArray) parser.parse(fileReader);
@@ -48,7 +48,7 @@ public final class TypeObjectFactory {
             for (final Object o : jsonArray) {
                 final JSONObject jo = (JSONObject) o;
                 toReturn.put((String) jo.get("type"),
-                        new TypeObjectImpl((long) jo.get("height"),
+                        new GameObjectTypeImpl((long) jo.get("height"),
                                 (long) jo.get("width"),
                                 (double) jo.get("speed"),
                                 (long) jo.get("health")));
@@ -69,7 +69,7 @@ public final class TypeObjectFactory {
      *
      * @return the TypeObject for the player type
      */
-    public static TypeObject getPlayerType() {
+    public static GameObjectType getPlayerType() {
         return TYPES.get("player");
     }
 
@@ -78,7 +78,7 @@ public final class TypeObjectFactory {
      *
      * @return the TypeObject for the obstacle type
      */
-    public static TypeObject getObstacleType() {
+    public static GameObjectType getObstacleType() {
         return TYPES.get("obstacle");
     }
 
@@ -87,7 +87,7 @@ public final class TypeObjectFactory {
      *
      * @return the TypeObject for the bullet type
      */
-    public static TypeObject getBulletType() {
+    public static GameObjectType getBulletType() {
         return TYPES.get("bullet");
     }
 
@@ -96,7 +96,7 @@ public final class TypeObjectFactory {
      *
      * @return the TypeObject for the enemy type
      */
-    public static TypeObject getEnemyType() {
+    public static GameObjectType getEnemyType() {
         return TYPES.get("enemy");
     }
 
@@ -105,7 +105,7 @@ public final class TypeObjectFactory {
      *
      * @return the TypeObject for the tower type
      */
-    public static TypeObject getTowerType() {
+    public static GameObjectType getTowerType() {
         return TYPES.get("tower");
     }
 
@@ -115,7 +115,7 @@ public final class TypeObjectFactory {
      * @param type the TypeObject to check
      * @return true if the TypeObject represents the player type, false otherwise
      */
-    public static boolean isPlayer(final TypeObject type) {
+    public static boolean isPlayer(final GameObjectType type) {
         return type.equals(TYPES.get("player"));
     }
 
@@ -125,7 +125,7 @@ public final class TypeObjectFactory {
      * @param type the TypeObject to check
      * @return true if the TypeObject represents the enemy type, false otherwise
      */
-    public static boolean isEnemy(final TypeObject type) {
+    public static boolean isEnemy(final GameObjectType type) {
         return type.equals(TYPES.get("enemy"));
     }
 
@@ -135,7 +135,7 @@ public final class TypeObjectFactory {
      * @param type the TypeObject to check
      * @return true if the TypeObject represents the bullet type, false otherwise
      */
-    public static boolean isBullet(final TypeObject type) {
+    public static boolean isBullet(final GameObjectType type) {
         return type.equals(TYPES.get("bullet"));
     }
 
@@ -145,7 +145,7 @@ public final class TypeObjectFactory {
      * @param type the TypeObject to check
      * @return true if the TypeObject represents the obstacle type, false otherwise
      */
-    public static boolean isObstacle(final TypeObject type) {
+    public static boolean isObstacle(final GameObjectType type) {
         return type.equals(TYPES.get("obstacle"));
     }
 
@@ -155,7 +155,7 @@ public final class TypeObjectFactory {
      * @param type the TypeObject to check
      * @return true if the TypeObject represents the tower type, false otherwise
      */
-    public static boolean isTower(final TypeObject type) {
+    public static boolean isTower(final GameObjectType type) {
         return type.equals(TYPES.get("tower"));
     }
 

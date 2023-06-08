@@ -51,15 +51,8 @@ public class FxGameView implements GameView {
 
         this.setDefaultWorld();
         this.stage.setResizable(false);
-        this.stage.setFullScreen(false);
 
-        // Avoided calling this.setMenuScene() due to a spotbugs error.
-        try {
-            this.stage.setScene(this.sceneFactory.getMenuScene(this));
-        } catch (IOException e) {
-            this.setGameScene();
-        }
-
+        this.setMenuScene();
         this.stage.show();
     }
 
@@ -193,7 +186,7 @@ public class FxGameView implements GameView {
     /**
      * This function creates a default world if the users doesn't change settings.
      */
-    public void setDefaultWorld() {
+    private void setDefaultWorld() {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
         final var player = new GameObjectFactoryImpl(world).getPlayer(
                 new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));

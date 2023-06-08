@@ -3,7 +3,7 @@ package it.unibo.tnk23.game.model.api;
 /**
  * The TypeObject interface represents the characteristics of a game object type.
  */
-public interface TypeObject {
+public interface GameObjectType {
 
     /**
      * Retrieves the width of the game object type.

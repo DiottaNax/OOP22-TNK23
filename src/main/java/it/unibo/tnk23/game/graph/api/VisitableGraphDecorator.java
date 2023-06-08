@@ -2,6 +2,7 @@ package it.unibo.tnk23.game.graph.api;
 
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Directions;
 
 /**
@@ -18,6 +19,12 @@ public abstract class VisitableGraphDecorator<N extends VisitableNode<?>> extend
      *
      * @param toDecorate the graph to decorate
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+            justification = "The VisitableGraphDecorator must store the VisitableGraph to decorate in order to use its methods."
+    )
     public VisitableGraphDecorator(final VisitableGraph<N> toDecorate) {
         super(toDecorate);
         this.toDecorate = toDecorate;

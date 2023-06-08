@@ -1,6 +1,5 @@
 package it.unibo.tnk23.game.model.api;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -22,13 +21,6 @@ public interface GameState {
      * @return true if the round is over, false otherwise.
      */
     boolean isRoundOver();
-
-    /**
-     * Retrieves a map of GameObjects and their corresponding life counts for each player.
-     *
-     * @return A Map containing GameObjects as keys and their respective life counts as values.
-     */
-    Map<GameObject, Integer> getPlayerLifes();
 
     /**
      * Retrieves the life count for a specific player identified by the given ID.
