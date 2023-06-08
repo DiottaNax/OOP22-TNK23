@@ -10,14 +10,22 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameMap;
 
+    /**
+    * Implementation of the {@link GameMap} interface that represents a game map with walls and destroyable walls.
+    */
 public class GameMapImpl implements GameMap {
 
     private InputStream mapFile;
     private Set<Point2D> destroyableWalls;
     private Set<Point2D> walls;
 
-    static final private int MAP_SIZE = Configuration.GRID_SIZE * 2;
+    static final int MAP_SIZE = Configuration.GRID_SIZE * 2;
 
+    /**
+     * Constructs a GameMapImpl object with the provided map file.
+     *
+     * @param file The input stream of the map file.
+     */
     public GameMapImpl(final InputStream file) {
         this.mapFile = file;
         this.walls = new HashSet<>();
@@ -40,7 +48,6 @@ public class GameMapImpl implements GameMap {
     public Set<Point2D> getWalls() {
         return this.walls;
     }
-    
     /**
      * Generates the walls and destroyable walls based on the provided map file.
      */
@@ -55,11 +62,11 @@ public class GameMapImpl implements GameMap {
                     switch (ch) {
                         case 'D':
                             this.destroyableWalls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE/2, l * Configuration.TILE_SIZE/2));
+                                    .add(new Point2D(c * Configuration.TILE_SIZE / 2, l * Configuration.TILE_SIZE / 2));
                             break;
                         case 'U':
                             this.walls
-                                    .add(new Point2D(c * Configuration.TILE_SIZE/2, l * Configuration.TILE_SIZE/2));
+                                    .add(new Point2D(c * Configuration.TILE_SIZE / 2, l * Configuration.TILE_SIZE / 2));
                             break;
                         default:
                             break;

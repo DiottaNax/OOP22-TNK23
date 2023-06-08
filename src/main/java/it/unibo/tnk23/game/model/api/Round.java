@@ -16,7 +16,7 @@ public interface Round {
     List<GameObject> getEnemies();
 
     /**
-     * Checks if the current round is over
+     * Checks if the current round is over.
      * 
      * @return {@code true} if the round is over, {@code false} otherwise.
      */

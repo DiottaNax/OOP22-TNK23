@@ -5,7 +5,7 @@ package it.unibo.tnk23.view.api;
  * It provides methods to update the graphics of the side scenes.
  */
 public interface SideScenesController {
-    
+
     /**
      * Updates the graphics of the side scenes.
      * This method is responsible for refreshing the visual representation of the side scenes in the user interface.

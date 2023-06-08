@@ -135,12 +135,12 @@ public class ColorPickerController extends Scene implements Initializable {
     public void setPlayerSprite() {
         String spriteOne = myColorPlayerOne.toLowerCase() + "Player";
         players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
-        players.get(0).addComponent(new GraphicComponent(players.get(0), spriteOne));
+        players.get(0).addComponent(new GraphicComponent(spriteOne));
         
         if (multiplayer > 0) {
             String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player";
             players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(12 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
-            players.get(1).addComponent(new GraphicComponent(players.get(1), spriteTwo));
+            players.get(1).addComponent(new GraphicComponent(spriteTwo));
         }
         
         this.players.forEach(this.world::addPlayer);

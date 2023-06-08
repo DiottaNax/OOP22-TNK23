@@ -1,8 +1,6 @@
 package it.unibo.tnk23.game.components.impl;
 
 import it.unibo.tnk23.game.components.api.Component;
-import it.unibo.tnk23.game.model.api.GameObject;
-
 /**
  * Represents a graphic component for game entities.
  * Handles the rendering and sprite management for entities.
@@ -14,10 +12,9 @@ public class GraphicComponent implements Component {
     /**
      * Constructs a GraphicComponent for the given entity and sprite name.
      *
-     * @param entity the entity to which this component belongs
      * @param spriteName the name of the sprite associated with the entity
      */
-    public GraphicComponent(GameObject entity, String spriteName) {
+    public GraphicComponent(String spriteName) {
         this.spritename = spriteName;
     }
 

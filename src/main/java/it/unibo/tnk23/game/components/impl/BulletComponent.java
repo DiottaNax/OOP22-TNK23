@@ -15,7 +15,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class BulletComponent extends AbstractComponent implements NotifiableComponent {
 
-    private static TypeObject shooterType;
+    private TypeObject shooterType;
 
     /**
      * Constructs a new {@link BulletComponent} with the specified entity and world.
@@ -41,9 +41,9 @@ public class BulletComponent extends AbstractComponent implements NotifiableComp
      * Save in {@code shooterType} the type of the sender.
      */
     @Override
-    public <X> void receive(Message<X> x) {
-        if(x.getMessage() instanceof GameObject) {
-            GameObject obj = (GameObject) x.getMessage();
+    public <X> void receive(final Message<X> x) {
+        if (x.getMessage() instanceof GameObject) {
+            final GameObject obj = (GameObject) x.getMessage();
             shooterType = obj.getType();
         }
     }

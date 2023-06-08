@@ -5,7 +5,7 @@ package it.unibo.tnk23.game.model.api;
  * The Spawn interface provides methods to start and update the spawning process.
  */
 public interface Spawn {
-    
+
     /**
      * Starts the spawning process.
      * This method is called to intiate the spawning of new game objects.

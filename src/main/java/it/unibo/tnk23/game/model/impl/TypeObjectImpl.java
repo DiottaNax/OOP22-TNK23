@@ -12,7 +12,7 @@ public final class TypeObjectImpl implements TypeObject {
     private final long height;
     private final double speed;
     private final long health;
-    
+
     /**
      * Creates a new TypeObjectImpl instance with the specified width, height, speed, and health.
      *
@@ -70,5 +70,5 @@ public final class TypeObjectImpl implements TypeObject {
         return "TypeObjectImpl [width=" + width + ", height=" + height + ", speed=" + speed + ", health=" + health
                 + "]";
     }
-    
+
 }

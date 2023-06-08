@@ -197,7 +197,7 @@ public class FxGameView implements GameView {
         this.world = new WorldImpl(new GameMapImpl(ClassLoader.getSystemResourceAsStream("it/unibo/maps/map1.txt")));
         final var player = new GameObjectFactoryImpl(world).getPlayer(
                 new Point2D(7 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1)));
-        player.addComponent(new GraphicComponent(player, "pinkPlayer"));
+        player.addComponent(new GraphicComponent("pinkPlayer"));
         world.addPlayer(player);
     }
 }

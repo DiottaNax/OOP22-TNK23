@@ -1,13 +1,13 @@
-/**
- * The WorldEvent interface represents an event that occurs within the game world.
- */
 package it.unibo.tnk23.game.events.api;
 
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.model.api.GameObject;
 
+/**
+ * The WorldEvent interface represents an event that occurs within the game world.
+ */
 public interface WorldEvent {
-   
+
     /**
      * Recives the position associated with the event.
      *

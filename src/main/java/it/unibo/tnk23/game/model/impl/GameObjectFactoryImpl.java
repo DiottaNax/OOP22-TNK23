@@ -1,7 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
 import it.unibo.tnk23.common.Point2D;
-import it.unibo.tnk23.game.components.impl.BulletCollisionComponent;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
@@ -67,9 +66,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var bullet = new GameObjectImpl(TypeObjectFactory.getBulletType(), pos);
         bullet.addComponent(new BulletHealthComponent(bullet, world));
         bullet.addComponent(new PhysicsComponent(bullet, world));
-        bullet.addComponent(new BulletCollisionComponent(bullet, world));
+        bullet.addComponent(new CollisionComponent(bullet, world));
         bullet.addComponent(new BulletComponent(bullet, world));
-        bullet.addComponent(new GraphicComponent(bullet, "bullet"));
+        bullet.addComponent(new GraphicComponent("bullet"));
         return bullet;
     }
 
@@ -80,7 +79,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObject getWall(Point2D pos) {
         var wall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         wall.addComponent(new CollisionComponent(wall, world));
-        wall.addComponent(new GraphicComponent(wall, "wall"));
+        wall.addComponent(new GraphicComponent("wall"));
         return wall;
     }
 
@@ -92,7 +91,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var destroyableWall = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         destroyableWall.addComponent(new CollisionComponent(destroyableWall, world));
         destroyableWall.addComponent(new EntitiesHealthComponent(destroyableWall, world));
-        destroyableWall.addComponent(new GraphicComponent(destroyableWall, "destroyableWall"));
+        destroyableWall.addComponent(new GraphicComponent("destroyableWall"));
         return destroyableWall;
     }
 
@@ -104,7 +103,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         var twr = new GameObjectImpl(TypeObjectFactory.getObstacleType(), pos);
         twr.addComponent(new EntitiesHealthComponent(twr, world));
         twr.addComponent(new CollisionComponent(twr, world));
-        twr.addComponent(new GraphicComponent(twr, "tower"));
+        twr.addComponent(new GraphicComponent("tower"));
         return twr;
     }
     
