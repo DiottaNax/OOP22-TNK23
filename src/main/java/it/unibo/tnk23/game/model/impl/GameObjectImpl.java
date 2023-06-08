@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
@@ -33,15 +32,9 @@ public class GameObjectImpl implements GameObject {
      * @param type     the type of the game object
      * @param position the position of the game object
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        },
-            justification = "The GameObjectImpl must store these parameters in order to use its methods."
-    )
     public GameObjectImpl(final GameObjectType type, final Point2D position) {
         this.type = type;
-        this.position = position;
+        this.position = new Point2D(position.getX(), position.getY());
         this.direction = Directions.NONE;
         this.components = new LinkedHashSet<>();
     }
@@ -86,15 +79,10 @@ public class GameObjectImpl implements GameObject {
      *
      * @return the position of the game object
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI"
-        },
-            justification = "The GameObjectImpl must return the original position and not a copy of it."
-    )
     @Override
     public Point2D getPosition() {
-        return position;
+        Point2D pos = new Point2D(this.position.getX(), this.position.getY());
+        return pos;
     }
 
     /**
@@ -127,15 +115,9 @@ public class GameObjectImpl implements GameObject {
     /**
      * {@inheritDoc}
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        },
-            justification = "The GameObjectImpl must store this parameter in order to use its methods."
-    )
     @Override
     public void setPosition(final Point2D position) {
-        this.position = position;
+        this.position = new Point2D(position.getX(), position.getY());
     }
 
     /**
