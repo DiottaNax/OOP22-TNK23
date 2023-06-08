@@ -1,15 +1,11 @@
 package it.unibo.tnk23.game.components.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.api.GameObjectType;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
@@ -18,8 +14,7 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public abstract class AbstractHealthComponent extends AbstractComponent implements NotifiableComponent {
 
-    protected int health;
-    protected Set<GameObjectType> weaknesses = new HashSet<>();
+    private int health;
 
     /**
      * Constructs an AbstractHealthComponent with the specified parameters GameObject and World.

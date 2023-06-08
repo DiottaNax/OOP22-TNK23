@@ -61,7 +61,6 @@ public class ColorPickerController extends Scene implements Initializable {
 
     @FXML
     private Slider slider;
-    
     private String[] colors = { "Pink", "Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Purple" };
     private String myColorPlayerOne = "Pink";
     private String myColorPlayerTwo = "Cyan";
@@ -89,7 +88,8 @@ public class ColorPickerController extends Scene implements Initializable {
     public void initialize(final URL location, final ResourceBundle resources) {
         slider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
-            public void changed(final ObservableValue<? extends Number> observable, final Number oldValue, final Number newValue) {
+            public void changed(final ObservableValue<? extends Number> observable,
+                    final Number oldValue, final Number newValue) {   
                 multiplayer = (int) slider.getValue();
                 if (multiplayer > 0) {
                     labelTwo.setDisable(false);
@@ -105,7 +105,7 @@ public class ColorPickerController extends Scene implements Initializable {
         choiceBoxPlayerOne.setOnAction(this::getColor);
 
         choiceBoxPlayerTwo.getItems().addAll(colors);
-        choiceBoxPlayerTwo.setOnAction(this::getColor);        
+        choiceBoxPlayerTwo.setOnAction(this::getColor);
     }
 
     /**
@@ -134,19 +134,18 @@ public class ColorPickerController extends Scene implements Initializable {
      */
     public void setPlayerSprite() {
         String spriteOne = myColorPlayerOne.toLowerCase() + "Player";
-        final int num = 7;
+        final int num1 = 7;
         players.add(new GameObjectFactoryImpl(this.world).getPlayer(
-                new Point2D(num * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
+                new Point2D(num1 * Configuration.TILE_SIZE, Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
         players.get(0).addComponent(new GraphicComponent(spriteOne));
-        
         if (multiplayer > 0) {
+            final int num2 = 12;
             String spriteTwo = myColorPlayerTwo.toLowerCase() + "Player";
-            players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(12 * Configuration.TILE_SIZE,
+            players.add(new GameObjectFactoryImpl(this.world).getPlayer(new Point2D(num2 * Configuration.TILE_SIZE,
                     Configuration.TILE_SIZE * (Configuration.GRID_SIZE - 1))));
             players.get(1).addComponent(new GraphicComponent(spriteTwo));
         }
         this.players.forEach(this.world::addPlayer);
         view.setWorld(this.world);
     }
-    
 }
