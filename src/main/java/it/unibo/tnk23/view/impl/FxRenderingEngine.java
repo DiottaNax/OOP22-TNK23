@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
  */
 public class FxRenderingEngine implements RenderingEngine<Pane> {
 
-    private Pane root;
+    final private Pane root;
     private final Map<GameObject, ImageView> sprites;
     private final World world;
     private Map<String, Image> cachedSprites;
@@ -92,7 +92,7 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
      */
     public void addSprite(final GameObject entity) {
         if (!sprites.containsKey(entity)) {
-            var gc = entity.getComponent(GraphicComponent.class).get();
+            final var gc = entity.getComponent(GraphicComponent.class).get();
             this.sprites.put(entity, new ImageView());
             this.sprites.get(entity).setImage(this.cachedSprites.get(gc.getSpriteName()));
             this.sprites.get(entity).setScaleX(Configuration.SCALE_FACTOR);
