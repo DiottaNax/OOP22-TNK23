@@ -36,6 +36,7 @@ public class RoundImpl implements Round {
     private final SpawnImpl spawn;
     private final AiControllerFactory aiFactory;
     private final GameGraph graph;
+    private final Random random;
 
     /**
      * Constructs a new {@link RoundImpl} with the specified world.
@@ -54,6 +55,7 @@ public class RoundImpl implements Round {
         this.spawn = new SpawnImpl(this.spawnDelay, this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE * 2));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
+        this.random = new Random();
         this.fillEnemiesList();
         this.totalEnemies = this.enemies.size();
     }
@@ -190,9 +192,8 @@ public class RoundImpl implements Round {
     private GameObject generateFollowMovingTargetEnemies() {
         final var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
         final var players = this.world.getPlayers();
-        final var randomPlayer = players.get(new Random().nextInt(players.size()));
         enemy.addComponent(new AiComponent(enemy,
-                aiFactory.getFollowMovingTargetAi(enemy, randomPlayer)));
+                aiFactory.getFollowMovingTargetAi(enemy, players.get(this.random.nextInt(players.size())))));
         enemy.addComponent(new GraphicComponent("greyEnemy"));
         return enemy;
     }

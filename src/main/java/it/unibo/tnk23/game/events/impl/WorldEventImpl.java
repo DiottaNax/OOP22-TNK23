@@ -32,7 +32,7 @@ public class WorldEventImpl implements WorldEvent {
      */
     @Override
     public Point2D getPosition() {
-        return position;
+        return new Point2D(this.position.getX(), this.position.getY());
     }
 
     /**

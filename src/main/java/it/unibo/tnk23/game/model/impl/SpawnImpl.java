@@ -45,11 +45,11 @@ public class SpawnImpl implements Spawn {
         this.delay = delay;
         this.spawns = List.of(
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
-                        new Point2D(Configuration.TILE_SIZE / 2, Configuration.TILE_SIZE / 2)),
+                        new Point2D(Configuration.TILE_SIZE / 2.0, Configuration.TILE_SIZE / 2.0)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
-                        new Point2D((Configuration.GRID_SIZE / 2) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2)),
+                        new Point2D((Configuration.GRID_SIZE / 2.0) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2.0)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
-                        new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2))
+                        new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2.0))
         );
         this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
         this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
