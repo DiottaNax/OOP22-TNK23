@@ -10,5 +10,5 @@ public interface SideScenesController {
      * Updates the graphics of the side scenes.
      * This method is responsible for refreshing the visual representation of the side scenes in the user interface.
      */
-    void updateGraphic();
+    void updateGraphics();
 }

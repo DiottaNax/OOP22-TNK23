@@ -76,7 +76,7 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      * This method is called to refresh the display of player information in the game interface.
      */
     @Override
-    public void updateGraphic() {
+    public void updateGraphics() {
         player1Life.setText(
                 "x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         this.player1Image.setImage(plry1);

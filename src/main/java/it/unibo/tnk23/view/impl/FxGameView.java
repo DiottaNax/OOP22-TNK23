@@ -73,8 +73,8 @@ public class FxGameView implements GameView {
         } else {
             Platform.runLater(() -> {
                 renderingEngine.render();
-                playerController.updateGraphic();
-                roundController.updateGraphic();
+                playerController.updateGraphics();
+                roundController.updateGraphics();
             });
         }
     }
