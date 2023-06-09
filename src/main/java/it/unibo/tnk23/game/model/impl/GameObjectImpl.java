@@ -81,8 +81,7 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public Point2D getPosition() {
-        Point2D pos = new Point2D(this.position.getX(), this.position.getY());
-        return pos;
+        return new Point2D(this.position.getX(), this.position.getY());
     }
 
     /**

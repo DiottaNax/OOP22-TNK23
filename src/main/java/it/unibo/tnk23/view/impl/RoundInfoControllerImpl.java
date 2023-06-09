@@ -57,7 +57,7 @@ public class RoundInfoControllerImpl implements SideScenesController {
         this.aiEnemies = new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/greyEnemy.gif"));
         this.missingEnemies = new Image(
                 ClassLoader.getSystemResourceAsStream("it/unibo/sprites/enemyTankIcon.gif"));
-        
+
     }
 
     /**
@@ -65,7 +65,7 @@ public class RoundInfoControllerImpl implements SideScenesController {
      * This method is called to refresh the display of round information in the game interface.
      */
     @Override
-    public void updateGraphic() {
+    public void updateGraphics() {
         randomEnemiesImage.setImage(this.rdmEnemies);
         aiEnemiesImage.setImage(this.aiEnemies);
         missingEnemiesImage.setImage(this.missingEnemies);

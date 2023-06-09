@@ -23,11 +23,8 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
      * 
      * @param world the {@link World} istance to handle events in.
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        }, 
-            justification = "WorldEventHandlerImpl must store the original world in order to use its methods."
+    @SuppressFBWarnings(value = { "EI2" }, justification =
+    "WorldEventHandlerImpl must store the original world because we have to handle the events of that world."
     )
     public WorldEventHandlerImpl(final World world) {
         this.world = world;

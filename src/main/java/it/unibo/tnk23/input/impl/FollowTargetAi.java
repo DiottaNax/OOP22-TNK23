@@ -62,11 +62,11 @@ public class FollowTargetAi implements InputController {
         this.lastPos = entity.getPosition();
         this.target = target;
         this.world = world;
-        this.backupAi = new AiControllerFactoryImpl(graph, world).getRandomAi();
         /*
          * The backup ai is useful if the principal ai loose path, either beacause the target died or because of an error.
-         * If the target died this ai becomes a random one, otherwise it hangs around a bit to find an alternative path.
+         * If the target died this ai becomes a random one, otherwise it hangs around a bit to make the graph find an alternative path.
          */
+        this.backupAi = new AiControllerFactoryImpl(graph, world).getRandomAi();
         this.timer = new Timer();
         this.startUpdate();
     }
@@ -90,6 +90,47 @@ public class FollowTargetAi implements InputController {
     }
 
     /**
+     * If called it retrieves and returns path to the goal from the graph.
+     */
+    private void updatePath() {
+        this.graph.setGoal(target.getPosition());
+        path.clear();
+        this.path.addAll(this.graph.getPathFrom(entity.getPosition()));
+
+        if (this.path.stream().allMatch(d -> d.equals(Directions.NONE))) {
+            backupAiIsActive = true;
+        }
+
+        this.iterator = this.path.iterator();
+        this.backupAiIsActive = false;
+        this.timeToUpdate = false;
+    }
+
+    /**
+     * Should be called if the entity is stuck.
+     * If called sets up a different path to follow using the backup ai.
+     */
+    private void setBackupPath() {
+        final int backupSize = 15;
+        this.path.clear();
+        while (path.size() < backupSize) {
+            Directions dir;
+            do {
+                dir = backupAi.getDirection();
+                // If the backup ai is activated the entity was already still, there's no point in setting Direction.NONE.
+            } while (dir.equals(Directions.NONE));
+            
+            /**
+             * The update period for this ai is very short, doing this it gets longer,
+             * otherwise it would change direction every half tile.
+             */ 
+            this.path.addAll(List.of(dir, dir, dir));
+            
+            iterator = path.iterator();
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -98,33 +139,14 @@ public class FollowTargetAi implements InputController {
 
         if (timeToUpdate) {
             // If enough time passed, the ai updates the path. 
-            this.graph.setGoal(target.getPosition());
-            path.clear();
-            this.path.addAll(this.graph.getPathFrom(entity.getPosition()));
-            if (this.path.stream().allMatch(d -> d.equals(Directions.NONE))) {
-                backupAiIsActive = true;
-            }
-            iterator = this.path.iterator();
-            timeToUpdate = false;
+            this.updatePath();
         }
 
         if (backupAiIsActive) {
-            final int backupSize = 15;
-            this.path.clear();
-            while (path.size() < backupSize) {
-                Directions dir;
-                do {
-                    dir = backupAi.getDirection();
-                } while (dir.equals(Directions.NONE));
-                // If the backup ai is activated the entity was already still, there's no point in setting Direction.NONE.
-                this.path.addAll(List.of(dir, dir, dir, dir, dir));
-                /*
-                 * The update period for this ai is very short, doing this it gets longer,
-                 * otherwise it would change direction every half tile.
-                 */ 
-                iterator = path.iterator();
-            }
+            // If entity lost path is stuck a backup path is setted
+            this.setBackupPath();
         }
+
         return backupAiIsActive ? backupAi.getDirection()
                 : iterator.hasNext() ? iterator.next() : Directions.NONE;
     }

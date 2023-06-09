@@ -5,6 +5,7 @@ import java.io.IOException;
 import it.unibo.tnk23.view.impl.FxGameView;
 import it.unibo.tnk23.view.impl.PlayerInfoControllerImpl;
 import it.unibo.tnk23.view.impl.RoundInfoControllerImpl;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -40,7 +41,7 @@ public interface SceneFactory {
      * @return The created game scene.
      * @throws IOException If an I/O error occurs while creating the scene.
      */
-    Scene getGameScene(Pane gamePane, PlayerInfoControllerImpl playerController,
+    Scene getGameScene(Parent gamePane, PlayerInfoControllerImpl playerController,
             RoundInfoControllerImpl roundController) throws IOException;
 
     /**

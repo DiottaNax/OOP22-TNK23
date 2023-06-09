@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  * The JavaFX implementation of the {@link GameView} interface.
  * It provides the functionality for rendering the game view and managing different scenes in the game.
  */
-public class FxGameView implements GameView {
+public final class FxGameView implements GameView {
 
     private final Stage stage;
     private final SceneFactory sceneFactory;
@@ -73,8 +73,8 @@ public class FxGameView implements GameView {
         } else {
             Platform.runLater(() -> {
                 renderingEngine.render();
-                playerController.updateGraphic();
-                roundController.updateGraphic();
+                playerController.updateGraphics();
+                roundController.updateGraphics();
             });
         }
     }
@@ -130,9 +130,9 @@ public class FxGameView implements GameView {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the color picker scene.
+     * The color picker scene should let the player decide his tank's color.
      */
-    @Override
     public void setColorPickerScene() {
         try {
             this.stage.setFullScreen(false);

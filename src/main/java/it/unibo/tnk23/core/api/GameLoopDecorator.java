@@ -50,7 +50,7 @@ public abstract class GameLoopDecorator implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    public GameEngine getGameEngine() {
+    public final GameEngine getGameEngine() {
         return toDecorate.getGameEngine();
     }
 
@@ -58,7 +58,7 @@ public abstract class GameLoopDecorator implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(final WorldEvent e) {
+    public final void notifyEvent(final WorldEvent e) {
         toDecorate.notifyEvent(e);
     }
 

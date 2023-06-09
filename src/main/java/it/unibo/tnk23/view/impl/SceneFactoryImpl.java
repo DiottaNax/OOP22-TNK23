@@ -48,7 +48,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene getGameScene(final Pane gamePane, final PlayerInfoControllerImpl playerController,
+    public Scene getGameScene(final Parent gamePane, final PlayerInfoControllerImpl playerController,
             final RoundInfoControllerImpl roundController) throws IOException {
 
         final var root = new BorderPane(new SubScene(gamePane, Configuration.GAME_SCENE_DIMENSION,

@@ -51,11 +51,8 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      * 
      * @param world The World instance taht represent the game world.
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        }, 
-            justification = "PlayerInfoControllerImpl must store the original world it belongs to in order to update the labels and images."
+    @SuppressFBWarnings(value = { "EI2" }, justification =
+    "PlayerInfoControllerImpl must store the original world it belongs to in order to update the labels and images."
     )
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
@@ -79,7 +76,7 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      * This method is called to refresh the display of player information in the game interface.
      */
     @Override
-    public void updateGraphic() {
+    public void updateGraphics() {
         player1Life.setText(
                 "x " + this.world.getPlayer(1).get().getComponent(EntitiesHealthComponent.class).get().getHealth());
         this.player1Image.setImage(plry1);

@@ -1,10 +1,7 @@
 package it.unibo.tnk23.game.components.impl;
 
-import java.util.Optional;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
-import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
@@ -25,7 +22,6 @@ public class AiComponent implements Component {
     private final InputController ai;
 
     private int currentFrame;
-    private Optional<Point2D> lastPos = Optional.empty();
 
     /**
      * Constructs a new instance of the {@code AiComponent} class with the specified entity and AI input controller.
@@ -37,39 +33,27 @@ public class AiComponent implements Component {
         value = {
             "EI2"
         },
-        justification = "The Ai component must store the entity in order to see its position"
+        justification = "The Ai component must store the entity in order to see its direction"
     )
     public AiComponent(final GameObject entity, final InputController ai) {
         this.entity = entity;
         this.ai = ai;
-        final var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
-                * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed());
         /*
          * According to the equation of motion, x-x0 = vt, the frames to travel a tile are:
          * t = tileSize / speed, 
          * as graph tile are smaller we obtain:
          * t = tileSize / graphTile * tileSize / speed.
          */
-        this.updatePeriod = ai instanceof FollowTargetAi ? framesToTravelGraphTile : DEAFULT_UPDATE_PERIOD;
+        final var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
+                * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed()) + 2;
+
         // The default update period is useful for a random AI, which needs to update slower
+        this.updatePeriod = ai instanceof FollowTargetAi ? framesToTravelGraphTile : DEAFULT_UPDATE_PERIOD;
+
         this.currentFrame = updatePeriod;
     }
 
     private boolean canUpdate() {
-        if (lastPos.isPresent()) {
-            final var last = this.lastPos.get();
-            final var current = this.entity.getPosition();
-
-            //gets the distance travelled between current and last position.
-            final var travelled = Math
-                    .abs(Double.compare(current.getX(), last.getX()) == 0 ? current.getY() - last.getY()
-                            : current.getX() - last.getX());
-            if (travelled >= GameGraph.GRAPH_TILE_SIZE) {
-                this.lastPos = Optional.of(entity.getPosition());
-                return true;
-            }
-        }
-
         return currentFrame >= updatePeriod;
     }
 
