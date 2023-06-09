@@ -40,7 +40,7 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
             case RIGHT:
                 direction = Directions.EAST;
                 break;
-            case ENTER:
+            case SPACE:
                 isShooting = true;
                 break;
             default:
@@ -60,7 +60,7 @@ public class PlayerOneKeyboardController implements KeyboardInputController {
             case RIGHT:
                 direction = Directions.NONE;
                 break;
-            case ENTER:
+            case SPACE:
                 isShooting = false;
                 break;
             default:

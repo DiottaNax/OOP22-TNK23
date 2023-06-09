@@ -40,7 +40,7 @@ public class PlayerTwoKeyboardController implements KeyboardInputController {
             case D:
                 direction = Directions.EAST;
                 break;
-            case CAPS:
+            case Q:
                 isShooting = true;
                 break;
 
@@ -62,7 +62,7 @@ public class PlayerTwoKeyboardController implements KeyboardInputController {
             case D:
                 direction = Directions.NONE;
                 break;
-            case CAPS:
+            case Q:
                 this.isShooting = false;
                 break;
             default:
