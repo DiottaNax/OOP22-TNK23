@@ -1,7 +1,8 @@
 package it.unibo.tnk23.core.impl;
 
 import it.unibo.tnk23.common.Configuration;
-import it.unibo.tnk23.core.api.GameEngine;
+import it.unibo.tnk23.core.api.GameLoop;
+import it.unibo.tnk23.core.api.GameLoopDecorator;
 
 /**
  * The {@code SynchronizedGameLoop} class extends the {@link GameLoopImpl} class and provides a synchronized game loop 
@@ -10,7 +11,7 @@ import it.unibo.tnk23.core.api.GameEngine;
  * 
  * @author Federico Diotallevi
  */
-public class SynchronizedGameLoop extends GameLoopImpl {
+public class SynchronizedGameLoop extends GameLoopDecorator {
 
     private static final long UPDATE_PERIOD = Math.round(1000.0 / Configuration.FPS);
     private long lag;
@@ -22,8 +23,8 @@ public class SynchronizedGameLoop extends GameLoopImpl {
      *
      * @param engine the game engine associated with the game loop.
      */
-    public SynchronizedGameLoop(final GameEngine engine) {
-        super(engine);
+    public SynchronizedGameLoop(final GameLoop toDecorate) {
+        super(toDecorate);
         this.lastUpdateTime = System.currentTimeMillis();
     }
 
