@@ -40,7 +40,7 @@ public class GameStateImpl implements GameState {
         value = {
             "EI"
         },
-            justification = "We need to get the original round in order to use its methods."
+            justification = "We need to get the original round because we need to do his update."
     )
     @Override
     public Round getRound() {

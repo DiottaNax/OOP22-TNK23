@@ -62,37 +62,6 @@ public final class GameObjectTypeImpl implements GameObjectType {
         return this.health;
     }
 
-        /**
-     * Verifica se l'oggetto specificato è uguale a questo GameObjectTypeImpl.
-     *
-     * @param o l'oggetto da confrontare
-     * @return true se l'oggetto specificato è uguale a questo GameObjectTypeImpl, false altrimenti
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        GameObjectTypeImpl that = (GameObjectTypeImpl) o;
-        return width == that.width &&
-                height == that.height &&
-                Double.compare(that.speed, speed) == 0 &&
-                health == that.health;
-    }
-
-    /**
-     * Restituisce l'hash code di questo GameObjectTypeImpl.
-     *
-     * @return l'hash code di questo GameObjectTypeImpl
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(width, height, speed, health);
-    }
-
     /**
      * Returns a string representation of the TypeObjectImpl.
      *
@@ -109,12 +78,7 @@ public final class GameObjectTypeImpl implements GameObjectType {
      */
     @Override
     public int hashCode() {
-        int result = (int) (width ^ (width >>> 32));
-        result = 31 * result + (int) (height ^ (height >>> 32));
-        long temp = Double.doubleToLongBits(speed);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (int) (health ^ (health >>> 32));
-        return result;
+        return Objects.hash(width, height, speed, health);
     }
 
     /**

@@ -27,7 +27,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
         value = {
             "EI2"
         }, 
-            justification = "WorldEventHandlerImpl must store the original world in order to use its methods."
+            justification = "WorldEventHandlerImpl must store the original world because we have to handle the events of that world."
     )
     public WorldEventHandlerImpl(final World world) {
         this.world = world;

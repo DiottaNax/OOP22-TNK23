@@ -48,7 +48,7 @@ public class RoundImpl implements Round {
         value = {
             "EI2"
         }, 
-            justification = "RoundImpl must store the world, and not a copy of it, in order to use its methods."
+            justification = "RoundImpl must store the world in order to generate the enemies in the original world."
     )
     public RoundImpl(final World world) {
         this.totalEnemies = 0;
@@ -70,6 +70,12 @@ public class RoundImpl implements Round {
     /**
      * {@inheritDoc}
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        }, 
+            justification = "We need the original list of enemies because we are modifying it in SpawnImpl."
+    )
     @Override
     public List<GameObject> getEnemies() {
         return this.enemies;
