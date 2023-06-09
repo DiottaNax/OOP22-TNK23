@@ -85,16 +85,18 @@ public final class GameObjectTypeImpl implements GameObjectType {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        GameObjectTypeImpl other = (GameObjectTypeImpl) obj;
-        return width == other.width &&
-                height == other.height &&
-                Double.compare(speed, other.speed) == 0 &&
-                health == other.health;
+        } 
+        if (obj == null || getClass() != obj.getClass()) {
+             return false;
+        }
+        final GameObjectTypeImpl other = (GameObjectTypeImpl) obj;
+        return width == other.width
+                && height == other.height
+                && Double.compare(speed, other.speed) == 0
+                && health == other.health;
     }
 
 }
