@@ -21,12 +21,6 @@ public interface GameView {
     void setMenuScene();
 
     /**
-     * Sets the color picker scene.
-     * The color picker scene should let the player decide his tank's color.
-     */
-    void setColorPickerScene();
-
-    /**
      * Sets the game scene.
      *  This scene should display the main gameplay area where the game takes place.
      */

@@ -1,10 +1,7 @@
 package it.unibo.tnk23.game.components.impl;
 
-import java.util.Optional;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
-import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
 import it.unibo.tnk23.game.model.api.GameObject;
