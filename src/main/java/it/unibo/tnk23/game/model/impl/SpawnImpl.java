@@ -54,8 +54,8 @@ public class SpawnImpl implements Spawn {
         this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
         this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
         /*
-         * created a synchronized list to avoid a ConcurrentModificationException
-         * that occurred in run() nmethod of TimerTask.
+         * created synchronized lists to avoid a ConcurrentModificationException 
+         * that occurs in the run() method of TimerTask.
          */
     }
 
