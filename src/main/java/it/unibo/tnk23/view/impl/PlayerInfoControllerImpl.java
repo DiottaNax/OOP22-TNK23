@@ -51,11 +51,8 @@ public class PlayerInfoControllerImpl implements SideScenesController {
      * 
      * @param world The World instance taht represent the game world.
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        }, 
-            justification = "PlayerInfoControllerImpl must store the original world it belongs to in order to update the labels and images."
+    @SuppressFBWarnings(value = { "EI2" }, justification =
+    "PlayerInfoControllerImpl must store the original world it belongs to in order to update the labels and images."
     )
     public PlayerInfoControllerImpl(final World world) {
         this.world = world;
