@@ -113,7 +113,7 @@ class Vector2DTest {
      * Tests the hashCode method of the {@link Vector2D} class.
      */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         // Test the hashCode method
 
         final Vector2D vector1 = new Vector2D(1.0, 2.0);
