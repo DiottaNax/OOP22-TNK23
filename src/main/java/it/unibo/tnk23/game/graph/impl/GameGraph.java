@@ -37,6 +37,12 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      *
      * @param toDecorate the underlying graph implementation to decorate
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "World do not need to be initialized, there Objects.nonNull controls"
+    )
     public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
         this.obstacles = new ArrayList<>();
@@ -100,10 +106,12 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
 
     private void addObstacleToGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.removeNode(new VisitableGridGraphNode(o)));
+        this.obstacles.add(obst);
     }
 
     private void removeObstacleFromGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.addNode(new VisitableGridGraphNode(o)));
+        this.obstacles.remove(obst);
     }
 
     /**
@@ -114,15 +122,9 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
             final var worldObstacles = new ArrayList<>(world.getObstacles());
             if (currentFrame >= UPDATE_PERIOD) {
 
-                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
-                    this.removeObstacleFromGraph(o);
-                    this.obstacles.remove(o);
-                });
+                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(this::removeObstacleFromGraph);
 
-                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
-                    this.addObstacleToGraph(o);
-                    this.obstacles.add(o);
-                });
+                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(this::addObstacleToGraph);
 
                 currentFrame = 0;
             }
