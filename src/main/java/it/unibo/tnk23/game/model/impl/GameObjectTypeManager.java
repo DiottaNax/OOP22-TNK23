@@ -1,10 +1,8 @@
 package it.unibo.tnk23.game.model.impl;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -41,9 +39,9 @@ public final class GameObjectTypeManager {
         final JSONParser parser = new JSONParser();
         JSONArray jsonArray;
         final Map<String, GameObjectType> toReturn = new HashMap<>();
-        try (var fileReader = new FileReader(
-                new File(ClassLoader.getSystemResource("it/unibo/objectTypes.json").toURI()), StandardCharsets.UTF_8)) {
-            jsonArray = (JSONArray) parser.parse(fileReader);
+        final var name = ClassLoader.getSystemResourceAsStream("it/unibo/objectTypes.json");
+        try (Reader reader = new InputStreamReader(name, "UTF-8")) {
+            jsonArray = (JSONArray) parser.parse(reader);
 
             for (final Object o : jsonArray) {
                 final JSONObject jo = (JSONObject) o;
@@ -57,8 +55,6 @@ public final class GameObjectTypeManager {
             LOGGER.log(Level.SEVERE, "Json file about types not found: ", e);
         } catch (ParseException e) {
             LOGGER.log(Level.SEVERE, "Error while parsing json array", e);
-        } catch (URISyntaxException e) {
-            LOGGER.log(Level.SEVERE, "Error while converting file to URI", e);
         }
 
         return toReturn;
