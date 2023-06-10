@@ -86,17 +86,21 @@ public enum Directions {
      */
     public static Directions fromAngle(final int angle) {
         var dir = NONE;
+        final int northAngle = 0;
+        final int southAngle = 180;
+        final int eastAngle = 90;
+        final int westAngle = -eastAngle;
         switch (angle) {
-            case 0:
+            case northAngle:
                 dir = NORTH;
                 break;
-            case 90: //JavaFX calculates the rotation clockwise
+            case eastAngle: //JavaFX calculates the rotation clockwise
                 dir = EAST;
                 break;
-            case -90: //JavaFX calculates the rotation clockwise
+            case westAngle: //JavaFX calculates the rotation clockwise
                 dir = WEST;
                 break;
-            case 180:
+            case southAngle:
                 dir = SOUTH;
                 break;
             default:

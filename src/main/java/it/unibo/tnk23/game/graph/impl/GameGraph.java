@@ -39,6 +39,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      */
     public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
+        this.world = null;
         this.obstacles = new ArrayList<>();
     }
 
@@ -132,7 +133,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
             }
 
             currentFrame++;
-            }
+        }
     }
 
 }

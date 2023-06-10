@@ -5,7 +5,7 @@ import it.unibo.tnk23.core.api.GameLoop;
 import it.unibo.tnk23.core.api.GameLoopDecorator;
 
 /**
- * The {@code SynchronizedGameLoop} class extends the {@link GameLoopImpl} class and provides a synchronized game loop 
+ * The {@code SynchronizedGameLoop} class extends the {@link GameLoopDecorator} class and provides a synchronized game loop 
  * implementation.
  * It ensures that the game updates and rendering occur at a fixed frame rate defined by the configuration.
  * 
@@ -19,9 +19,9 @@ public class SynchronizedGameLoop extends GameLoopDecorator {
     private long lastUpdateTime;
 
     /**
-     * Constructs a {@code SynchronizedGameLoop} instance with the given game engine.
+     * Constructs a {@code SynchronizedGameLoop} instance with the given game loop.
      *
-     * @param engine the game engine associated with the game loop.
+     * @param toDecorate the game loop to decorate.
      */
     public SynchronizedGameLoop(final GameLoop toDecorate) {
         super(toDecorate);

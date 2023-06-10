@@ -64,7 +64,8 @@ public class FollowTargetAi implements InputController {
         this.world = world;
         /*
          * The backup ai is useful if the principal ai loose path, either beacause the target died or because of an error.
-         * If the target died this ai becomes a random one, otherwise it hangs around a bit to make the graph find an alternative path.
+         * If the target died this ai becomes a random one, otherwise it hangs around a bit to make the graph find
+         * an alternative path.
          */
         this.backupAi = new AiControllerFactoryImpl(graph, world).getRandomAi();
         this.timer = new Timer();
@@ -119,13 +120,13 @@ public class FollowTargetAi implements InputController {
                 dir = backupAi.getDirection();
                 // If the backup ai is activated the entity was already still, there's no point in setting Direction.NONE.
             } while (dir.equals(Directions.NONE));
-            
+
             /**
              * The update period for this ai is very short, doing this it gets longer,
              * otherwise it would change direction every half tile.
              */ 
             this.path.addAll(List.of(dir, dir, dir));
-            
+
             iterator = path.iterator();
         }
     }

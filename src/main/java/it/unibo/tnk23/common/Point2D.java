@@ -90,11 +90,11 @@ public class Point2D {
      *
      * @return the computed hash code
      */
-    @SuppressWarnings("checkstyle:hashcode")
     @Override
     public int hashCode() {
-        /*Disabled because result is effectevely a random prime number.*/
-        int result = 31;
+        //CHECKSTYLE:OFF: checkstyle:magicnumber
+        int result = 31; // Needs to be a random prime number
+        //CHECKSTYLE:ON: checkstyle:magicnumber
         final int prime = 13;
         result = prime * result + Objects.hashCode(this.x);
         result = prime * result + Objects.hashCode(this.y);
