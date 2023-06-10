@@ -31,7 +31,8 @@ public class GameObjectTypeManagerTest {
         assertEquals(health, player.getHealth());
         assertEquals(edges, player.getHeight());
         assertEquals(edges, player.getWidth());
-        assertTrue(Double.compare(player.getSpeed(), speed) == 0);
+        assertTrue(Double.compare(player.getSpeed(), speed) == 0); //NOPMD
+        // suppressed as it has to be Asserttrue
     }
 
     /**
@@ -52,7 +53,8 @@ public class GameObjectTypeManagerTest {
         assertEquals(health, enemy.getHealth());
         assertEquals(edges, enemy.getHeight());
         assertEquals(edges, enemy.getWidth());
-        assertTrue(Double.compare(enemy.getSpeed(), speed) == 0);
+        assertTrue(Double.compare(enemy.getSpeed(), speed) == 0); //NOPMD
+        // suppressed as it has to be Asserttrue
     }
 
     /**
@@ -63,7 +65,7 @@ public class GameObjectTypeManagerTest {
         // Test the getBulletType method
 
         final long health = 1;
-        final long edges = 24;
+        final long edges = 6;
         final double speed = 5;
 
         // Get the bullet game object type
@@ -73,7 +75,8 @@ public class GameObjectTypeManagerTest {
         assertEquals(health, bullet.getHealth());
         assertEquals(edges, bullet.getHeight());
         assertEquals(edges, bullet.getWidth());
-        assertTrue(Double.compare(bullet.getSpeed(), speed) == 0);
+        assertTrue(Double.compare(bullet.getSpeed(), speed) == 0); //NOPMD
+        // suppressed as it has to be Asserttrue
     }
 
     /**
@@ -84,7 +87,7 @@ public class GameObjectTypeManagerTest {
         // Test the getObstacleType method
 
         final long health = 1;
-        final long edges = 24;
+        final long edges = 12;
         final double speed = 0;
 
         // Get the obstacle game object type
