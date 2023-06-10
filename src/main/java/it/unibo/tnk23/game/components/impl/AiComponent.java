@@ -45,7 +45,7 @@ public class AiComponent implements Component {
          * t = tileSize / graphTile * tileSize / speed.
          */
         final var framesToTravelGraphTile = Configuration.TILE_SIZE / GameGraph.GRAPH_TILE_SIZE
-                * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed()) + 2;
+                * (int) Math.round(GameGraph.GRAPH_TILE_SIZE / entity.getType().getSpeed());
 
         // The default update period is useful for a random AI, which needs to update slower
         this.updatePeriod = ai instanceof FollowTargetAi ? framesToTravelGraphTile : DEAFULT_UPDATE_PERIOD;
