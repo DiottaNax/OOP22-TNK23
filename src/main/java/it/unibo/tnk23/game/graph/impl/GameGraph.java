@@ -37,12 +37,6 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      *
      * @param toDecorate the underlying graph implementation to decorate
      */
-    @SuppressFBWarnings(
-        value = {
-            "EI2"
-        },
-        justification = "World do not need to be initialized, there Objects.nonNull controls"
-    )
     public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
         this.obstacles = new ArrayList<>();
@@ -117,6 +111,12 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
     /**
      * Updates the graph state by adding or removing obstacles based on changes in the game world.
      */
+    @SuppressFBWarnings(
+        value = {
+            "UwF"
+        },
+        justification = "World do not need to be initialized, there Objects.nonNull controls"
+    )
     public void update() {
         if (Objects.nonNull(this.world)) {
             final var worldObstacles = new ArrayList<>(world.getObstacles());
