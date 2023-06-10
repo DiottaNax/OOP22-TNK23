@@ -1,7 +1,6 @@
-package it.unibo.game.graph;
+package it.unibo.tnk23.game.graph;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.tnk23.common.Directions;
@@ -14,19 +13,13 @@ import java.util.Set;
 
 class VisitableGridGraphTest {
 
-    private VisitableGridGraph graph;
-    private final int gridSize = 5;
-
-    @BeforeEach
-    void setUp() {
-        // Create a new VisitableGridGraph with grid size 5
-        graph = new VisitableGridGraph(gridSize);
-    }
+    private VisitableGridGraph graph = new VisitableGridGraph(GRID_SIZE);
+    private final static int GRID_SIZE = 5;
 
     @Test
     void testGetGridSize() {
         // Assert that the grid size is 5
-        Assertions.assertEquals(gridSize, graph.getGridSize());
+        Assertions.assertEquals(GRID_SIZE, graph.getGridSize());
     }
 
     @Test
@@ -40,7 +33,7 @@ class VisitableGridGraphTest {
         Set<VisitableGridGraphNode> nodes = graph.getNodes();
 
         // Assert that the graph contains the added nodes
-        Assertions.assertEquals(gridSize * gridSize, nodes.size());
+        Assertions.assertEquals(GRID_SIZE * GRID_SIZE, nodes.size());
         Assertions.assertTrue(nodes.contains(new VisitableGridGraphNode(new Pair<>(0, 0))));
         Assertions.assertTrue(nodes.contains(new VisitableGridGraphNode(new Pair<>(0, 1))));
         Assertions.assertTrue(nodes.contains(new VisitableGridGraphNode(new Pair<>(1, 0))));
@@ -58,7 +51,7 @@ class VisitableGridGraphTest {
 
         // Assert that the result is the existing node and the graph size remains 1
         Assertions.assertEquals(node, result);
-        Assertions.assertEquals(gridSize * gridSize, graph.getNodes().size());
+        Assertions.assertEquals(GRID_SIZE * GRID_SIZE, graph.getNodes().size());
     }
 
     @Test
@@ -71,12 +64,12 @@ class VisitableGridGraphTest {
         graph.addNode(node2);
 
         // Assert that the graph contains the node1
-        Assertions.assertEquals(gridSize * gridSize, nodes.size());
+        Assertions.assertEquals(GRID_SIZE * GRID_SIZE, nodes.size());
 
         // Remove node1 from the graph
         graph.removeNode(node1);
         // Assert that the graph does not contain the removed node
-        Assertions.assertEquals(gridSize * gridSize - 1, nodes.size());
+        Assertions.assertEquals(GRID_SIZE * GRID_SIZE - 1, nodes.size());
         Assertions.assertFalse(nodes.contains(node1));
         Assertions.assertTrue(nodes.contains(node2));
     }

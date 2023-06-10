@@ -1,12 +1,10 @@
-package it.unibo.common;
+package it.unibo.tnk23.common;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.junit.Test;
-
-import it.unibo.tnk23.common.Directions;
 
 public class DirectionsTest {
     

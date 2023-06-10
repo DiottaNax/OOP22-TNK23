@@ -1,10 +1,7 @@
-package it.unibo.common;
+package it.unibo.tnk23.common;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import it.unibo.tnk23.common.Point2D;
-import it.unibo.tnk23.common.Vector2D;
 
 class Point2DTest {
 

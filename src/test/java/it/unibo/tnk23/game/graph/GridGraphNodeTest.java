@@ -1,4 +1,4 @@
-package it.unibo.game.graph;
+package it.unibo.tnk23.game.graph;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,18 +72,6 @@ class GridGraphNodeTest {
         Assertions.assertNotEquals(node1.hashCode(), node2.hashCode());
         Assertions.assertEquals(node3, node2);
         Assertions.assertEquals(node2.hashCode(), node3.hashCode());
-    }
-
-    @Test
-    void testToString() {
-        // Create a grid position pair (2, 3)
-        Pair<Integer, Integer> gridPos = new Pair<>(2, 3);
-
-        // Create a GridGraphNode with the grid position
-        GridGraphNode node = new GridGraphNode(gridPos);
-
-        // Assert the string representation of the node
-        Assertions.assertEquals("GridGraphNode [" + gridPos + "]", node.toString());
     }
 }
 

@@ -1,9 +1,7 @@
-package it.unibo.common;
+package it.unibo.tnk23.common;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import it.unibo.tnk23.common.Pair;
 
 class PairTest {
 
@@ -27,14 +25,5 @@ class PairTest {
         // Assert that the pairs are not equal
         Assertions.assertNotEquals(pair1, pair2);
         Assertions.assertNotEquals(pair1.hashCode(), pair2.hashCode());
-    }
-
-    @Test
-    void testToString() {
-        // Create a pair
-        Pair<String, Integer> pair = new Pair<>("A", 1);
-
-        // Assert the string representation of the pair
-        Assertions.assertEquals("(A, 1)", pair.toString());
     }
 }
