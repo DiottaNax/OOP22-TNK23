@@ -57,14 +57,4 @@ public class TitleMenuController {
         this.view.setColorPickerScene();
     }
 
-    /**
-     * Initializes the controller after its root element has been completely processed.
-     * It performs assertions to check if the FXML-injected fields are not null.
-     */
-    @FXML
-    void initialize() {
-        assert colorButton != null : "fx:id=\"colorButton\" was not injected: check your FXML file 'titlemenu.fxml'.";
-        assert startButton != null : "fx:id=\"startButton\" was not injected: check your FXML file 'titlemenu.fxml'.";
-    }
-
 }
