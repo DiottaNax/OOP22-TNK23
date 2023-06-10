@@ -101,17 +101,10 @@ public class Vector2D {
      *
      * @return the computed hash code
      */
-    // CHECKSTYLE:OFF
     @Override
     public int hashCode() {
-        /*Disabilitated because result is effectevely a random prime number.*/
-        final int prime = 17;
-        int result = 37;
-        result = prime * result + Objects.hashCode(this.x);
-        result = prime * result + Objects.hashCode(this.y);
-        return result;
+        return Objects.hash(x, y);
     }
-    // CHECKSTYLE:ON
 
     /**
      * Checks if this Vector2D object is equal to another object.

@@ -92,13 +92,7 @@ public class Point2D {
      */
     @Override
     public int hashCode() {
-        //CHECKSTYLE:OFF: checkstyle:magicnumber
-        int result = 31; // Needs to be a random prime number
-        //CHECKSTYLE:ON: checkstyle:magicnumber
-        final int prime = 13;
-        result = prime * result + Objects.hashCode(this.x);
-        result = prime * result + Objects.hashCode(this.y);
-        return result;
+        return Objects.hash(x, y);
     }
 
     /**

@@ -39,7 +39,6 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
      */
     public GameGraph(final VisitableGridGraph toDecorate) {
         super(toDecorate);
-        this.world = null;
         this.obstacles = new ArrayList<>();
     }
 
@@ -101,20 +100,10 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
 
     private void addObstacleToGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.removeNode(new VisitableGridGraphNode(o)));
-        /*
-         * The method removeNode is called because in order not to consider a graph node during pathfinding it should be removed.
-         */
-
-        this.obstacles.add(obst);
     }
 
     private void removeObstacleFromGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.addNode(new VisitableGridGraphNode(o)));
-        /*
-         * The method addNode is called because in order to consider a graph node during pathfinding  it should be added.
-         */
-
-        this.obstacles.remove(obst);
     }
 
     /**
@@ -125,15 +114,21 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
             final var worldObstacles = new ArrayList<>(world.getObstacles());
             if (currentFrame >= UPDATE_PERIOD) {
 
-                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).forEach(this::removeObstacleFromGraph);
+                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
+                    this.removeObstacleFromGraph(o);
+                    this.obstacles.remove(o);
+                });
 
-                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(this::addObstacleToGraph);
+                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
+                    this.addObstacleToGraph(o);
+                    this.obstacles.add(o);
+                });
 
                 currentFrame = 0;
             }
 
             currentFrame++;
-        }
+            }
     }
 
 }
