@@ -97,6 +97,7 @@ public class GameObjectTypeManagerTest {
         assertEquals(health, obstacle.getHealth());
         assertEquals(edges, obstacle.getHeight());
         assertEquals(edges, obstacle.getWidth());
-        assertTrue(Double.compare(obstacle.getSpeed(), speed) == 0);
+        assertTrue(Double.compare(obstacle.getSpeed(), speed) == 0);//NOPMD
+        // suppressed as it has to be Asserttrue
     }
 }
