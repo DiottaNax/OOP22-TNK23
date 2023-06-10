@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -210,7 +211,7 @@ public class RoundImpl implements Round {
 
     private GameObject generateFollowMovingTargetEnemies() {
         final var enemy = new GameObjectFactoryImpl(world).getEnemy(new Point2D(0, 0));
-        final var players = this.world.getPlayers();
+        final var players = this.world.getPlayers().stream().filter(this.world.getEntities()::contains).toList();
         enemy.addComponent(new AiComponent(enemy,
                 aiFactory.getFollowMovingTargetAi(enemy, players.get(this.random.nextInt(players.size())))));
         enemy.addComponent(new GraphicComponent("greyEnemy"));

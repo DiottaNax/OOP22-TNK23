@@ -58,7 +58,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 /*
                  * I need just a bit more than the size of the tile size.
                  */
-                final double rateCalculationBulletPos =  0.6;
+                final double rateCalculationBulletPos =  0.7;
                 bulletPos = bulletPos.sum(Directions.fromAngle((int) actor.getRotation()).getVel()
                         .mul(actorEdge * rateCalculationBulletPos));
                 final var bullet = new GameObjectFactoryImpl(this.world).getBullet(bulletPos);
