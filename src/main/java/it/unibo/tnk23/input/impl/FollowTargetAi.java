@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.graph.impl.GameGraph;
@@ -56,6 +57,12 @@ public class FollowTargetAi implements InputController {
      * @param target The game object target to follow.
      * @param world  The game world.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "The fields graph, entity, target and world are supposed to reflect changes made by other classes."
+    )
     public FollowTargetAi(final GameGraph graph, final GameObject entity, final GameObject target, final World world) {
         this.graph = graph;
         this.entity = entity;

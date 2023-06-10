@@ -69,13 +69,7 @@ public class Pair<X, Y> {
      */
     @Override
     public int hashCode() {
-        //CHECKSTYLE:OFF: MagicNumber 
-        int result = 17; // Needs to be a random prime number.
-        //CHECKSTYLE:ON: checkstyle:magicnumber
-        final int prime = 31;
-        result = prime * result + Objects.hashCode(x);
-        result = prime * result + Objects.hashCode(y);
-        return result;
+        return Objects.hash(x, y);
     }
 
     /**

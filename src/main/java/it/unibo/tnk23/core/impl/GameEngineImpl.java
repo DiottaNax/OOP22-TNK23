@@ -1,5 +1,6 @@
 package it.unibo.tnk23.core.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.game.model.api.GameState;
 import it.unibo.tnk23.game.model.api.World;
@@ -22,6 +23,12 @@ public class GameEngineImpl implements GameEngine {
      * @param world the game world
      * @param view the game view
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI2"
+        },
+        justification = "The GameEngine must store the original World and GameView to run and update TNK23."
+    )
     public GameEngineImpl(final World world, final GameView view) {
         this.world = world;
         this.state = new GameStateImpl(world);
@@ -35,6 +42,12 @@ public class GameEngineImpl implements GameEngine {
      *
      * @return the game world
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+        justification = "The world returned is supposed to reflect changes made by other classes."
+    )
     @Override
     public World getWorld() {
         return this.world;
@@ -64,6 +77,12 @@ public class GameEngineImpl implements GameEngine {
      *
      * @return the game view
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI"
+        },
+        justification = "The GameEngine must return the original GameView in order to make other classes change scenes."
+    )
     @Override
     public GameView getGameView() {
         return view;
