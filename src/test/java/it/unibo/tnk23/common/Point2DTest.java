@@ -14,10 +14,13 @@ class Point2DTest {
     @Test
     void testGetX() {
         // Create a point with x-coordinate 2.5
-        final Point2D point = new Point2D(2.5, 3.0);
+        final double x = 2.5;
+        final double y = 3.0;
+        final double expected = 2.5;
+        final Point2D point = new Point2D(x, y);
 
         // Assert that the x-coordinate is 2.5
-        Assertions.assertEquals(2.5, point.getX());
+        Assertions.assertEquals(expected, point.getX());
     }
 
     /**
@@ -26,10 +29,13 @@ class Point2DTest {
     @Test
     void testGetY() {
         // Create a point with y-coordinate 3.0
-        final Point2D point = new Point2D(2.5, 3.0);
+        final double x = 2.5;
+        final double y = 3.0;
+        final double expected = 3.0;
+        final Point2D point = new Point2D(x, y);
 
         // Assert that the y-coordinate is 3.0
-        Assertions.assertEquals(3.0, point.getY());
+        Assertions.assertEquals(expected, point.getY());
     }
 
     /**
@@ -38,17 +44,23 @@ class Point2DTest {
     @Test
     void testSum() {
         // Create a point with coordinates (2.0, 3.0)
-        final Point2D point = new Point2D(2.0, 3.0);
+        final double x = 2.0;
+        final double y = 3.0;
+        final Point2D point = new Point2D(x, y);
 
         // Create a vector with coordinates (1.0, 1.5)
-        final Vector2D vector = new Vector2D(1.0, 1.5);
+        final double xVector = 1.0;
+        final double yvector = 1.5;
+        final Vector2D vector = new Vector2D(xVector, yvector);
 
         // Compute the sum of the point and the vector
         final Point2D result = point.sum(vector);
 
         // Assert that the result is a new point with coordinates (3.0, 4.5)
-        Assertions.assertEquals(3.0, result.getX());
-        Assertions.assertEquals(4.5, result.getY());
+        final double expectedX = 3.0;
+        final double expectedY = 4.5;
+        Assertions.assertEquals(expectedX, result.getX());
+        Assertions.assertEquals(expectedY, result.getY());
     }
 
     /**
@@ -57,17 +69,23 @@ class Point2DTest {
     @Test
     void testSub() {
         // Create a point with coordinates (2.0, 3.0)
-        final Point2D point = new Point2D(2.0, 3.0);
+        final double x = 2.0;
+        final double y = 3.0;
+        final Point2D point = new Point2D(x, y);
 
         // Create a vector with coordinates (1.0, 1.5)
-        final Vector2D vector = new Vector2D(1.0, 1.5);
+        final double xVector = 1.0;
+        final double yvector = 1.5;
+        final Vector2D vector = new Vector2D(xVector, yvector);
 
         // Compute the difference between the point and the vector
         final Point2D result = point.sub(vector);
 
         // Assert that the result is a new point with coordinates (1.0, 1.5)
-        Assertions.assertEquals(1.0, result.getX());
-        Assertions.assertEquals(1.5, result.getY());
+        final double expectedX = 1.0;
+        final double expectedY = 1.5;
+        Assertions.assertEquals(expectedX, result.getX());
+        Assertions.assertEquals(expectedY, result.getY());
     }
 
     /**
@@ -76,8 +94,10 @@ class Point2DTest {
     @Test
     void testEqualsAndHashCode() {
         // Create two points with the same coordinates
-        final Point2D point1 = new Point2D(2.0, 3.0);
-        final Point2D point2 = new Point2D(2.0, 3.0);
+        final double x = 2.0;
+        final double y = 3.0;
+        final Point2D point1 = new Point2D(x, y);
+        final Point2D point2 = new Point2D(x, y);
 
         // Assert that the points are equal
         Assertions.assertEquals(point1, point2);
@@ -90,8 +110,12 @@ class Point2DTest {
     @Test
     void testNotEquals() {
         // Create two points with different coordinates
-        final Point2D point1 = new Point2D(2.0, 3.0);
-        final Point2D point2 = new Point2D(1.0, 1.5);
+        final double x1 = 2.0;
+        final double y1 = 3.0;
+        final double x2 = 1.0;
+        final double y2 = 1.5;
+        final Point2D point1 = new Point2D(x1, y1);
+        final Point2D point2 = new Point2D(x2, y2);
 
         // Assert that the points are not equal
         Assertions.assertNotEquals(point1, point2);
