@@ -97,13 +97,23 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
         return Stream.of(graphPos, new Pair<>(graphPos.getX() - 1, graphPos.getY()))
                 .flatMap(p -> Stream.of(p, new Pair<>(p.getX(), p.getY() - 1))).collect(Collectors.toSet());
     }
-
+    
     private void addObstacleToGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.removeNode(new VisitableGridGraphNode(o)));
+        /*
+         * The method removeNode is called because in order not to consider a graph node during pathfinding it should be removed.
+         */
+
+        this.obstacles.add(obst);
     }
 
     private void removeObstacleFromGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.addNode(new VisitableGridGraphNode(o)));
+        /*
+         * The method addNode is called because in order to consider a graph node during pathfinding  it should be added.
+         */
+
+        this.obstacles.remove(obst);
     }
 
     /**
@@ -114,15 +124,9 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
             final var worldObstacles = new ArrayList<>(world.getObstacles());
             if (currentFrame >= UPDATE_PERIOD) {
 
-                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).toList().forEach(o -> {
-                    this.removeObstacleFromGraph(o);
-                    this.obstacles.remove(o);
-                });
+                this.obstacles.stream().filter(o -> !worldObstacles.contains(o)).forEach(this::removeObstacleFromGraph);
 
-                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(o -> {
-                    this.addObstacleToGraph(o);
-                    this.obstacles.add(o);
-                });
+                worldObstacles.stream().filter(o -> !this.obstacles.contains(o)).forEach(this::addObstacleToGraph);
 
                 currentFrame = 0;
             }
