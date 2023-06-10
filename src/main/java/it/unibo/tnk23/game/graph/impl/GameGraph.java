@@ -98,7 +98,7 @@ public class GameGraph extends VisitableGraphDecorator<VisitableGridGraphNode> {
         return Stream.of(graphPos, new Pair<>(graphPos.getX() - 1, graphPos.getY()))
                 .flatMap(p -> Stream.of(p, new Pair<>(p.getX(), p.getY() - 1))).collect(Collectors.toSet());
     }
-    
+
     private void addObstacleToGraph(final GameObject obst) {
         this.getConnectedNodes(obst).forEach(o -> this.removeNode(new VisitableGridGraphNode(o)));
         /*
