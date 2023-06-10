@@ -1,7 +1,6 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
