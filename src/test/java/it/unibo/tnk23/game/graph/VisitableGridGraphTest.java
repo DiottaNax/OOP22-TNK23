@@ -17,7 +17,7 @@ import java.util.Set;
 class VisitableGridGraphTest {
 
     private final VisitableGridGraph graph = new VisitableGridGraph(GRID_SIZE);
-    private final static int GRID_SIZE = 5;
+    private static final int GRID_SIZE = 5;
 
     /**
      * Tests the {@link VisitableGridGraph#getGridSize()} method.

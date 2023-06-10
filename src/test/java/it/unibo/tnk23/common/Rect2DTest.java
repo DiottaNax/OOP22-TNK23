@@ -3,7 +3,9 @@ package it.unibo.tnk23.common;
 import it.unibo.tnk23.common.shape.Rect2D;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Rect2DTest {
 
