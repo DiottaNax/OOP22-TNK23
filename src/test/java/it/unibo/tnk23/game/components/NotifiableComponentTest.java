@@ -6,18 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NotifiableComponentTest {
+/**
+ * The NotifiableComponentTest class is responsible for testing the functionality of the NotifiableComponent interface.
+ */
+class NotifiableComponentTest {
 
+    /**
+     * The TestComponent class is a test implementation of the NotifiableComponent interface.
+     */
     private static class TestComponent implements NotifiableComponent {
         private String receivedMessage;
 
         @Override
         public void update() {
-            // Implementazione vuota o necessaria per i test specifici
+            // Empty or necessary implementation for specific tests
         }
 
         @Override
-        public <X> void receive(Message<X> x) {
+        public <X> void receive(final Message<X> x) {
             receivedMessage = x.getMessage().toString();
         }
 
@@ -26,11 +32,15 @@ public class NotifiableComponentTest {
         }
     }
 
+    /**
+     * Test case for the receive() method.
+     * It verifies that the method sets the received message correctly.
+     */
     @Test
-    public void testReceive_ShouldSetReceivedMessage() {
+    void testReceive() {
         // Prepare test data
-        TestComponent component = new TestComponent();
-        Message<Integer> message = new TestMessage<>(42); // Utilizziamo TestMessage
+        final TestComponent component = new TestComponent();
+        final Message<Integer> message = new TestMessage<>(42); // Using TestMessage
 
         // Perform the test
         component.receive(message);
@@ -39,11 +49,14 @@ public class NotifiableComponentTest {
         assertEquals("42", component.getReceivedMessage());
     }
 
-    // Implementazione di TestMessage per scopi di test
+    /**
+     * The TestMessage class is a test implementation of the Message interface.
+     * It is used for testing purposes.
+     */
     private static class TestMessage<X> implements Message<X> {
         private final X message;
 
-        public TestMessage(X message) {
+        public TestMessage(final X message) {
             this.message = message;
         }
 
@@ -53,4 +66,3 @@ public class NotifiableComponentTest {
         }
     }
 }
-
