@@ -16,7 +16,7 @@ import java.util.Set;
  */
 class VisitableGridGraphTest {
 
-    private VisitableGridGraph graph = new VisitableGridGraph(GRID_SIZE);
+    private final VisitableGridGraph graph = new VisitableGridGraph(GRID_SIZE);
     private final static int GRID_SIZE = 5;
 
     /**
@@ -39,7 +39,7 @@ class VisitableGridGraphTest {
         graph.addNode(new VisitableGridGraphNode(new Pair<>(1, 0)));
 
         // Get all nodes from the graph
-        Set<VisitableGridGraphNode> nodes = graph.getNodes();
+        final Set<VisitableGridGraphNode> nodes = graph.getNodes();
 
         // Assert that the graph contains the added nodes
         Assertions.assertEquals(GRID_SIZE * GRID_SIZE, nodes.size());
@@ -54,12 +54,12 @@ class VisitableGridGraphTest {
     @Test
     void testAddExistingNode() {
         // Add a node to the graph
-        VisitableGridGraphNode node = new VisitableGridGraphNode(new Pair<>(0, 0));
+        final VisitableGridGraphNode node = new VisitableGridGraphNode(new Pair<>(0, 0));
         graph.addNode(node);
 
         // Add the same node again
-        VisitableGridGraphNode duplicateNode = new VisitableGridGraphNode(new Pair<>(0, 0));
-        VisitableGridGraphNode result = graph.addNode(duplicateNode);
+        final VisitableGridGraphNode duplicateNode = new VisitableGridGraphNode(new Pair<>(0, 0));
+        final VisitableGridGraphNode result = graph.addNode(duplicateNode);
 
         // Assert that the result is the existing node and the graph size remains 1
         Assertions.assertEquals(node, result);
@@ -72,9 +72,9 @@ class VisitableGridGraphTest {
     @Test
     void testRemoveNode() {
         // Add nodes to the graph
-        Set<VisitableGridGraphNode> nodes = graph.getNodes();
-        VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
-        VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
+        final Set<VisitableGridGraphNode> nodes = graph.getNodes();
+        final VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
+        final VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
         graph.addNode(node1);
         graph.addNode(node2);
 
@@ -96,12 +96,12 @@ class VisitableGridGraphTest {
     @Test
     void testGetAdjacencies() {
         // Add nodes to the graph
-        VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
-        VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
-        VisitableGridGraphNode node3 = new VisitableGridGraphNode(new Pair<>(1, 0));
+        final VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
+        final VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
+        final VisitableGridGraphNode node3 = new VisitableGridGraphNode(new Pair<>(1, 0));
 
         // Get the adjacent nodes for node1
-        Set<VisitableGridGraphNode> adjacencies = graph.getAdjacencies(node1);
+        final Set<VisitableGridGraphNode> adjacencies = graph.getAdjacencies(node1);
 
         // Assert that the adjacent nodes are correct
         Assertions.assertEquals(Set.of(node2, node3), adjacencies);
@@ -115,9 +115,9 @@ class VisitableGridGraphTest {
     @Test
     void testSetGoalAndGetPathFrom() {
         // Add nodes to the graph
-        VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
-        VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
-        VisitableGridGraphNode node3 = new VisitableGridGraphNode(new Pair<>(0, 2));
+        final VisitableGridGraphNode node1 = new VisitableGridGraphNode(new Pair<>(0, 0));
+        final VisitableGridGraphNode node2 = new VisitableGridGraphNode(new Pair<>(0, 1));
+        final VisitableGridGraphNode node3 = new VisitableGridGraphNode(new Pair<>(0, 2));
         graph.addNode(node1);
         graph.addNode(node2);
         graph.addNode(node3);
@@ -126,7 +126,7 @@ class VisitableGridGraphTest {
         graph.setGoal(node1);
 
         // Get the path from node3 to the goal
-        List<Directions> path = graph.getPathFrom(node3);
+        final List<Directions> path = graph.getPathFrom(node3);
 
         // Assert that the path is correct
         Assertions.assertEquals(3, path.size());
