@@ -52,11 +52,13 @@ class NotifiableComponentTest {
     /**
      * The TestMessage class is a test implementation of the Message interface.
      * It is used for testing purposes.
+     *
+     * @param <X> the type of the message
      */
     private static class TestMessage<X> implements Message<X> {
         private final X message;
 
-        public TestMessage(final X message) {
+        TestMessage(final X message) {
             this.message = message;
         }
 

@@ -40,7 +40,8 @@ class GameSceneTest {
             final BorderPane root = new BorderPane();
 
             // Create an instance of GameScene
-            final GameScene gameScene = new GameScene(root, new PlayerInfoControllerImpl(null), new RoundInfoControllerImpl(null));
+            final GameScene gameScene = new GameScene(root, new PlayerInfoControllerImpl(null),
+                    new RoundInfoControllerImpl(null));
 
             // Verify that the reference to the root BorderPane has been set correctly
             assertEquals(root, gameScene.getRoot());

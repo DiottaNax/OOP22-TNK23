@@ -10,7 +10,6 @@ import it.unibo.tnk23.game.components.api.Message;
  * The MessageTest class is responsible for testing the functionality of the Message interface.
  */
 public class MessageTest {
-    
     /**
      * Test case for the getMessage() method.
      * It verifies that the method returns the correct message.
