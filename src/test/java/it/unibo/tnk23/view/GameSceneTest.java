@@ -1,6 +1,5 @@
 package it.unibo.tnk23.view;
 
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.layout.BorderPane;
 import org.junit.jupiter.api.BeforeAll;
