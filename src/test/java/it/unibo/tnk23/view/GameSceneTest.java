@@ -13,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GameSceneTest {
-@BeforeAll
+
+    @BeforeAll
     public static void setup() {
         // Initialize the JavaFX toolkit for test execution
-        JFXPanel panel = new JFXPanel();
+        new JFXPanel();
     }
 
     @Test
