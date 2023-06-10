@@ -58,8 +58,8 @@ class Vector2DTest {
      */
     @Test
     void testSum() {
-        // Test the sum method
-
+        final double x = 4.0;        // Test the sum method
+        final double y = 6.0;
         final Vector2D vector1 = new Vector2D(1.0, 2.0);
         final Vector2D vector2 = new Vector2D(3.0, 4.0);
 
@@ -67,9 +67,9 @@ class Vector2DTest {
         final Vector2D result = vector1.sum(vector2);
 
         // Assert that the sum has the expected x and y values
-        assertTrue(Double.compare(4.0, result.getX()) == 0);    //NOPMD
+        assertTrue(Double.compare(x, result.getX()) == 0);    //NOPMD
         // suppressed as it has to be assertTrue
-        assertTrue(Double.compare(6.0, result.getY()) == 0);    //NOPMD
+        assertTrue(Double.compare(y, result.getY()) == 0);    //NOPMD
         // suppressed as it has to be assertTrue
     }
 
@@ -78,6 +78,7 @@ class Vector2DTest {
      */
     @Test
     void testModule() {
+        final double x = 5.0;
         // Test the module method
 
         final Vector2D vector = new Vector2D(3.0, 4.0);
@@ -86,7 +87,7 @@ class Vector2DTest {
         final double result = vector.module();
 
         // Assert that the module has the expected value
-        assertTrue(Double.compare(5.0, result) == 0);   //NOPMD
+        assertTrue(Double.compare(x, result) == 0);   //NOPMD
         // suppressed as it has to be assertTrue
     }
 
@@ -95,6 +96,8 @@ class Vector2DTest {
      */
     @Test
     void testMul() {
+        final double x = 5.0;
+        final double y = 7.5;
         // Test the mul method
 
         final Vector2D vector = new Vector2D(2.0, 3.0);
@@ -103,9 +106,9 @@ class Vector2DTest {
         final Vector2D result = vector.mul(2.5);
 
         // Assert that the resulting vector has the expected x and y values
-        assertTrue(Double.compare(5.0, result.getX()) == 0);    //NOPMD
+        assertTrue(Double.compare(x, result.getX()) == 0);    //NOPMD
         // suppressed as it has to be assertTrue
-        assertTrue(Double.compare(7.5, result.getY()) == 0);    //NOPMD
+        assertTrue(Double.compare(y, result.getY()) == 0);    //NOPMD
         // suppressed as it has to be assertTrue
     }
 
