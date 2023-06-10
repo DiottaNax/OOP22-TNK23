@@ -18,7 +18,6 @@ public class GameSceneTest {
     public static void setup() {
         // Initialize the JavaFX toolkit for test execution
         JFXPanel panel = new JFXPanel();
-        Platform.runLater(() -> {});
     }
 
     @Test
