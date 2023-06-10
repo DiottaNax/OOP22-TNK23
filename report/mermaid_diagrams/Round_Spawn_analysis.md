@@ -2,7 +2,7 @@ classDiagram
 
     Spawn --|> SpawnImpl
     Round --|> RoundImpl
-    Round --o Spawn
+    Spawn --o Round
     class Spawn {
         +startSpawn
         +update
