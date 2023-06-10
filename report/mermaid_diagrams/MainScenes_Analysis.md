@@ -1,7 +1,7 @@
 classDiagram
 
-ColorPickerController <|-- Initializable
-ColorPickerController <-- Scene
+ColorPickerController --|> Initializable
+ColorPickerController --> Scene
 
 GameOverController --o FxGameView
 TitleMenuController --o FxGameView

@@ -1,12 +1,12 @@
 classDiagram
 
-AbstractComponent <|-- Component
-NotifiableComponent <-- Component
-AbstractHealthComponent <-- AbstractComponent
-AbstractHealthComponent <|-- NotifiableComponent
-BulletHealthComponent <|-- AbstractHealthComponent
-EntitiesHealthComponent<|-- AbstractHealthComponent
-TemporaryHealthComponent <|-- AbstractHealthComponent
+AbstractComponent --|> Component
+NotifiableComponent --> Component
+AbstractHealthComponent --> AbstractComponent
+AbstractHealthComponent --|> NotifiableComponent
+BulletHealthComponent --|> AbstractHealthComponent
+EntitiesHealthComponent--|> AbstractHealthComponent
+TemporaryHealthComponent --|> AbstractHealthComponent
 
 class Component {
     <<interface>>

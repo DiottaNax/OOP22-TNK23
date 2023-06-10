@@ -1,8 +1,8 @@
 classDiagram
 
-KeyboardInputController <-- InputController
-PlayerOneKeyboardController <|-- KeyboardInputController
-PlayerTwoKeyboardController <|-- KeyboardInputController
+KeyboardInputController --> InputController
+PlayerOneKeyboardController --|> KeyboardInputController
+PlayerTwoKeyboardController --|> KeyboardInputController
 KeyEventHandler --o KeyboardInputController
 
 class InputController {
