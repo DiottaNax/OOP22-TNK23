@@ -1,12 +1,12 @@
 classDiagram
 
-AbstractComponent --|> Component
-NotifiableComponent --> Component
-AbstractHealthComponent --> AbstractComponent
-AbstractHealthComponent --|> NotifiableComponent
-BulletHealthComponent --|> AbstractHealthComponent
-EntitiesHealthComponent--|> AbstractHealthComponent
-TemporaryHealthComponent --|> AbstractHealthComponent
+AbstractComponent <|-- Component
+NotifiableComponent <-- Component
+AbstractHealthComponent <-- AbstractComponent
+AbstractHealthComponent <|-- NotifiableComponent
+BulletHealthComponent <|-- AbstractHealthComponent
+EntitiesHealthComponent<|-- AbstractHealthComponent
+TemporaryHealthComponent <|-- AbstractHealthComponent
 
 class Component {
     <<interface>>
@@ -21,13 +21,13 @@ class AbstractComponent {
 
 class NotifiableComponent {
     <<interface>>
-    +receive(x : Message<X>) : void
+    +receive(Message~X~) : void
 }
 
 class AbstractHealthComponent {
     <<abstract>>
     +getHealth() : int
-    +setHealth(health : int) : void
+    +setHealth(int) : void
     #isTouchable() : boolean
 }
 

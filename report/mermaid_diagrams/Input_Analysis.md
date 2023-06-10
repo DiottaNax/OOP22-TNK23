@@ -1,9 +1,9 @@
 classDiagram
 
-KeyboardInputController --> InputController
-PlayerOneKeyboardController --|> KeyboardInputController
-PlayerTwoKeyboardController --|> KeyboardInputController
-KeyEventHandler
+KeyboardInputController <-- InputController
+PlayerOneKeyboardController <|-- KeyboardInputController
+PlayerTwoKeyboardController <|-- KeyboardInputController
+KeyEventHandler --o KeyboardInputController
 
 class InputController {
     <<interface>>
@@ -11,9 +11,10 @@ class InputController {
 }
 
 class KeyboardInputController {
+    <<interface>>
     +isShooting() : boolean
-    +setOnKeyPressed(e : KeyEvent) : void
-    +setOnKeyReleased(e : KeyEvent) : void
+    +setOnKeyPressed(KeyEvent) : void
+    +setOnKeyReleased(KeyEvent) : void
 }
 
 class PlayerOneKeyboardController {
@@ -25,8 +26,8 @@ class PlayerTwoKeyboardController {
 }
 
 class KeyEventHandler {
-    +onKeyPressed(e : KeyEvent)
-    +onKeyReleased(e : KeyEvent)
-    +addInputController(k : KeyboardInputController)
-    +removeInputController(k : KeyboardInputController)
+    +onKeyPressed(KeyEvent)
+    +onKeyReleased(KeyEvent)
+    +addInputController(KeyboardInputController)
+    +removeInputController(KeyboardInputController)
 }
