@@ -2,7 +2,7 @@ classDiagram
 
     ConcurrentGameLoop ..|> GameLoopDecorator
     SynchronizedGameLoop ..|> GameLoopDecorator
-    GameLoopDecorator --o GameLoop
+    GameLoopDecorator o-- GameLoop
     GameLoopImpl ..|> GameLoop
 
     class ConcurrentGameLoop{

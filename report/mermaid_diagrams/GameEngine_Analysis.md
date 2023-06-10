@@ -1,6 +1,6 @@
 classDiagram
 
-    GameEngine --o ConcurrentGameLoop
+    GameEngine o-- ConcurrentGameLoop
     
     class GameEngine{
         <<Interface>>
