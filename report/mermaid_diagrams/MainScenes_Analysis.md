@@ -1,20 +1,11 @@
 classDiagram
 
-SceneFactoryImpl --|> SceneFactory
-ColorPickerController --|> Initializable
-ColorPickerController --> Scene
+ColorPickerController <|-- Initializable
+ColorPickerController <-- Scene
 
-class SceneFactory {
-    <<interface>>
-    + getMenuScene(view: FxGameView): Scene
-    + getColorPickerScene(view: FxGameView): Scene
-    + getGameScene(gamePane: Pane, playerController: PlayerInfoControllerImpl, roundController: RoundInfoControllerImpl): Scene
-    + getGameOverScene(view: FxGameView): Scene
-}
-
-class SceneFactoryImpl {
-    
-}
+GameOverController --o FxGameView
+TitleMenuController --o FxGameView
+ColorPickerController --o FxGameView
 
 class TitleMenuController {
     + startGame(): void
@@ -23,9 +14,9 @@ class TitleMenuController {
 }
 
 class ColorPickerController {
-    + initialize(location: URL, resources: ResourceBundle): void
-    + setColor(event: ActionEvent): void
-    + confirm(event: ActionEvent): void
+    + initialize(URL, ResourceBundle): void
+    + setColor(ActionEvent): void
+    + confirm(ActionEvent): void
     + setPlayerSprite(): void
 }
 
@@ -33,3 +24,5 @@ class GameOverController {
     + restartGame(): void
     + exit(): void
 }
+
+class FxGameView
