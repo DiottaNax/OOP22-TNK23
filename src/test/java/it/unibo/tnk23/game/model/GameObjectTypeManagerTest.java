@@ -8,8 +8,14 @@ import org.junit.Test;
 import it.unibo.tnk23.game.model.api.GameObjectType;
 import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 
+/**
+ * Unit tests for the {@link GameObjectTypeManager} class.
+ */
 public class GameObjectTypeManagerTest {
 
+    /**
+     * Tests the {@link GameObjectTypeManager#getPlayerType()} method.
+     */
     @Test
     public void testGetPlayer() {
         // Test the getPlayerType method
@@ -28,6 +34,9 @@ public class GameObjectTypeManagerTest {
         assertTrue(Double.compare(player.getSpeed(), speed) == 0);
     }
 
+    /**
+     * Tests the {@link GameObjectTypeManager#getEnemyType()} method.
+     */
     @Test
     public void testGetEnemy() {
         // Test the getEnemyType method
@@ -46,6 +55,9 @@ public class GameObjectTypeManagerTest {
         assertTrue(Double.compare(enemy.getSpeed(), speed) == 0);
     }
 
+    /**
+     * Tests the {@link GameObjectTypeManager#getBulletType()} method.
+     */
     @Test
     public void testGetBullet() {
         // Test the getBulletType method
@@ -64,6 +76,9 @@ public class GameObjectTypeManagerTest {
         assertTrue(Double.compare(bullet.getSpeed(), speed) == 0);
     }
 
+    /**
+     * Tests the {@link GameObjectTypeManager#getObstacleType()} method.
+     */
     @Test
     public void testGetObstacle() {
         // Test the getObstacleType method
@@ -82,4 +97,3 @@ public class GameObjectTypeManagerTest {
         assertTrue(Double.compare(obstacle.getSpeed(), speed) == 0);
     }
 }
-

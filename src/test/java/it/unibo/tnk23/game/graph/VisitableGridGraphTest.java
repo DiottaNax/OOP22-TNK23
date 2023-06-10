@@ -11,17 +11,26 @@ import it.unibo.tnk23.game.graph.impl.VisitableGridGraphNode;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Unit tests for the {@link VisitableGridGraph} class.
+ */
 class VisitableGridGraphTest {
 
     private VisitableGridGraph graph = new VisitableGridGraph(GRID_SIZE);
     private final static int GRID_SIZE = 5;
 
+    /**
+     * Tests the {@link VisitableGridGraph#getGridSize()} method.
+     */
     @Test
     void testGetGridSize() {
         // Assert that the grid size is 5
         Assertions.assertEquals(GRID_SIZE, graph.getGridSize());
     }
 
+    /**
+     * Tests the {@link VisitableGridGraph#addNode(VisitableGridGraphNode)} and {@link VisitableGridGraph#getNodes()} methods.
+     */
     @Test
     void testAddAndGetNodes() {
         // Add nodes to the graph
@@ -39,6 +48,9 @@ class VisitableGridGraphTest {
         Assertions.assertTrue(nodes.contains(new VisitableGridGraphNode(new Pair<>(1, 0))));
     }
 
+    /**
+     * Tests adding an existing node to the graph.
+     */
     @Test
     void testAddExistingNode() {
         // Add a node to the graph
@@ -54,6 +66,9 @@ class VisitableGridGraphTest {
         Assertions.assertEquals(GRID_SIZE * GRID_SIZE, graph.getNodes().size());
     }
 
+    /**
+     * Tests removing a node from the graph.
+     */
     @Test
     void testRemoveNode() {
         // Add nodes to the graph
@@ -63,17 +78,21 @@ class VisitableGridGraphTest {
         graph.addNode(node1);
         graph.addNode(node2);
 
-        // Assert that the graph contains the node1
+        // Assert that the graph contains node1
         Assertions.assertEquals(GRID_SIZE * GRID_SIZE, nodes.size());
 
         // Remove node1 from the graph
         graph.removeNode(node1);
+
         // Assert that the graph does not contain the removed node
         Assertions.assertEquals(GRID_SIZE * GRID_SIZE - 1, nodes.size());
         Assertions.assertFalse(nodes.contains(node1));
         Assertions.assertTrue(nodes.contains(node2));
     }
 
+    /**
+     * Tests the {@link VisitableGridGraph#getAdjacencies(VisitableGridGraphNode)} method.
+     */
     @Test
     void testGetAdjacencies() {
         // Add nodes to the graph
@@ -84,12 +103,15 @@ class VisitableGridGraphTest {
         // Get the adjacent nodes for node1
         Set<VisitableGridGraphNode> adjacencies = graph.getAdjacencies(node1);
 
-        Assertions.assertEquals(Set.of(node2, node3), adjacencies);
         // Assert that the adjacent nodes are correct
+        Assertions.assertEquals(Set.of(node2, node3), adjacencies);
         Assertions.assertEquals(2, adjacencies.size());
         Assertions.assertTrue(adjacencies.contains(node2));
     }
 
+    /**
+     * Tests setting the goal node and getting a path from a node to the goal.
+     */
     @Test
     void testSetGoalAndGetPathFrom() {
         // Add nodes to the graph
@@ -113,4 +135,3 @@ class VisitableGridGraphTest {
         Assertions.assertEquals(Directions.NONE, path.get(2));
     }
 }
-

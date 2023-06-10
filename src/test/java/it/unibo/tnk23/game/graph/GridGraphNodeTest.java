@@ -8,8 +8,14 @@ import it.unibo.tnk23.game.graph.impl.GridGraphNode;
 
 import java.util.List;
 
+/**
+ * Unit tests for the {@link GridGraphNode} class.
+ */
 class GridGraphNodeTest {
 
+    /**
+     * Tests the {@link GridGraphNode#getGraphIndex()} method.
+     */
     @Test
     void testGetGraphIndex() {
         // Create a grid position pair (2, 3)
@@ -22,6 +28,9 @@ class GridGraphNodeTest {
         Assertions.assertEquals(gridPos, node.getGraphIndex());
     }
 
+    /**
+     * Tests the {@link GridGraphNode#getAdjacentIndexes()} method.
+     */
     @Test
     void testGetAdjacentIndexes() {
         // Create a grid position pair (2, 3)
@@ -41,6 +50,9 @@ class GridGraphNodeTest {
         Assertions.assertTrue(adjacentIndexes.contains(new Pair<>(2, 2)));
     }
 
+    /**
+     * Tests the {@link GridGraphNode#equals(Object)} and {@link GridGraphNode#hashCode()} methods.
+     */
     @Test
     void testEqualsAndHashCode() {
         // Create two grid position pairs (2, 3)
@@ -56,6 +68,9 @@ class GridGraphNodeTest {
         Assertions.assertEquals(node1.hashCode(), node2.hashCode());
     }
 
+    /**
+     * Tests the {@link GridGraphNode#equals(Object)} and {@link GridGraphNode#hashCode()} methods for non-equal nodes.
+     */
     @Test
     void testNotEquals() {
         // Create two grid position pairs (2, 3) and (4, 5)
