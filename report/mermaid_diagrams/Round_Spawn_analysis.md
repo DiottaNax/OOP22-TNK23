@@ -1,8 +1,8 @@
 classDiagram
 
-    Spawn --|> SpawnImpl
-    Round --|> RoundImpl
-    Round --o Spawn
+    Spawn <|-- SpawnImpl
+    Round <|-- RoundImpl
+    Spawn --o Round
     class Spawn {
         +startSpawn
         +update

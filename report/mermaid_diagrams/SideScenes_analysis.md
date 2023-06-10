@@ -1,8 +1,9 @@
 classDiagram
 
-    SideScenesController --|> PlayerInfoController
-    SideScenesController --|> RoundInfoController
-    Scene --|> GameScene
+    PlayerInfoController <|-- SideScenesController
+    RoundInfoController <|-- SideScenesController
+    Scene <|-- GameScene
+    SideScenesController --o GameScene
     class SideScenesController {
         <<interface>>
         +updateGraphics()
