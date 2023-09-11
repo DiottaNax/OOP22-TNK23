@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.common.Stopwatch;
 import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Round;
@@ -27,10 +28,9 @@ public class SpawnImpl implements Spawn {
 
     private List<GameObject> roundEnemies;
     private final Round round;
-    private final long delay;
+    private final Stopwatch stopwatch;
     private final List<GameObject> activeEnemies;
     private final List<Rect2D> spawns;
-    private final Timer timer = new Timer();
     private final Random random = new Random();
     private static final long SPAWN_DELAY = 5000;
 
@@ -41,34 +41,23 @@ public class SpawnImpl implements Spawn {
      * @param round The game round.
      */
     public SpawnImpl(final long delay, final Round round) {
+        this.stopwatch = new Stopwatch();
         this.round = round;
-        this.delay = delay;
         this.spawns = List.of(
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
                         new Point2D(Configuration.TILE_SIZE / 2.0, Configuration.TILE_SIZE / 2.0)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
-                        new Point2D((Configuration.GRID_SIZE / 2.0) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2.0)),
+                        new Point2D((Configuration.GRID_SIZE / 2.0) * Configuration.TILE_SIZE,
+                                Configuration.TILE_SIZE / 2.0)),
                 new Rect2D(Configuration.TILE_SIZE, Configuration.TILE_SIZE,
-                        new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE, Configuration.TILE_SIZE / 2.0))
-        );
-        this.activeEnemies = Collections.synchronizedList(new ArrayList<>());
-        this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
-        /*
-         * created synchronized lists to avoid a ConcurrentModificationException 
-         * that occurs in the run() method of TimerTask.
-         */
+                        new Point2D((Configuration.GRID_SIZE - 1) * Configuration.TILE_SIZE,
+                                Configuration.TILE_SIZE / 2.0)));
+        this.activeEnemies = new ArrayList<>();
+        this.roundEnemies = this.round.getEnemies();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void startSpawn() {
-        this.timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                if (!roundEnemies.isEmpty()) {
+    
+    private void spawn() {
+        if (!roundEnemies.isEmpty()) {
                     final var enemy = roundEnemies.get(0);
                     getSpawnPos().ifPresent(p -> {
                         roundEnemies.remove(0);
@@ -76,8 +65,14 @@ public class SpawnImpl implements Spawn {
                         activeEnemies.add(enemy);
                     });
                 }
-            } 
-        }, SPAWN_DELAY, this.delay);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void startSpawn() {
+        this.stopwatch.start();
     }
 
     /**
@@ -87,23 +82,22 @@ public class SpawnImpl implements Spawn {
     @Override
     public void update() {
         if (this.roundEnemies.isEmpty() && this.round.isOver()) {
-            this.timer.cancel();
-            this.roundEnemies = Collections.synchronizedList(this.round.getEnemies());
+            this.roundEnemies = this.round.getEnemies();
         }
+
         /*
          * I have to use the synchronized block to avoid ConcurrentModificationException.
          */
-        synchronized (activeEnemies) {
-            final var diedEnemies = Collections.synchronizedList(new ArrayList<>(activeEnemies)).stream()
+        final var diedEnemies = new ArrayList<>(activeEnemies).stream()
             .filter(this::isEnemyDead).toList();
-            synchronized (diedEnemies) {
-                this.round.getEnemies().removeAll(diedEnemies);
-                activeEnemies.removeAll(diedEnemies);
-                diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
-            }
-
+        this.round.getEnemies().removeAll(diedEnemies);
+        activeEnemies.removeAll(diedEnemies);
+        diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
+        
+        if (stopwatch.getElapsedTime() >= SPAWN_DELAY) {
+            this.stopwatch.restart();
+            this.spawn();
         }
-
     }
 
     /**
@@ -118,6 +112,7 @@ public class SpawnImpl implements Spawn {
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
         final List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
                 .map(Rect2D::getPos).toList();
+                
         return pos.isEmpty() ? Optional.empty() : Optional.of(pos.get(random.nextInt(pos.size())));
     }
 
