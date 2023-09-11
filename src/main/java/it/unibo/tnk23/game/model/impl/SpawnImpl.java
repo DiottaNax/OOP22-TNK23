@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Point2D;
@@ -56,6 +54,9 @@ public class SpawnImpl implements Spawn {
         this.roundEnemies = this.round.getEnemies();
     }
     
+    /**
+     * If there's a free spawn generates a WolrdEvent to spawn an enemy from roundEnemies list.
+     */
     private void spawn() {
         if (!roundEnemies.isEmpty()) {
                     final var enemy = roundEnemies.get(0);
@@ -117,9 +118,7 @@ public class SpawnImpl implements Spawn {
     }
 
     private boolean isEnemyDead(final GameObject enemy) {
-        synchronized (activeEnemies) {
-            return !round.getWorld().getEntities().contains(enemy);
-        }
+        return !round.getWorld().getEntities().contains(enemy);
     }
 
 }
