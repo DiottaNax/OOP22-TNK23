@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -185,6 +186,7 @@ public class RoundImpl implements Round {
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
         addEnemies(numFollowTargetEnemies, this::generateFollowMovingTargetEnemies);
         addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
+        Collections.shuffle(this.enemies);
     }
 
     private GameObject generateRandomMovingEnemies() {
