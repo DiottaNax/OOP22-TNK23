@@ -28,7 +28,6 @@ public class RoundImpl implements Round {
 
     private int totalEnemies;
     private int round;
-    private long spawnDelay;
     private int numRandomEnemies;
     private int numFollowTargetEnemies;
     private int numTowerEnemies;
@@ -58,8 +57,7 @@ public class RoundImpl implements Round {
         this.numTowerEnemies = 0;
         this.enemies = new ArrayList<>();
         this.world = world;
-        this.setDelay();
-        this.spawn = new SpawnImpl(this.spawnDelay, this);
+        this.spawn = new SpawnImpl(this);
         this.graph = new GameGraph(new VisitableGridGraph(Configuration.GRID_SIZE * 2));
         this.aiFactory = new AiControllerFactoryImpl(this.graph, this.world);
         this.random = new Random();
@@ -145,7 +143,6 @@ public class RoundImpl implements Round {
         this.graph.update();
         if (this.isOver()) {
             this.round++;
-            this.setDelay();
             this.startRound();
             this.fillEnemiesList();
             this.totalEnemies = this.enemies.size();
@@ -188,17 +185,6 @@ public class RoundImpl implements Round {
         addEnemies(numRandomEnemies, this::generateRandomMovingEnemies);
         addEnemies(numFollowTargetEnemies, this::generateFollowMovingTargetEnemies);
         addEnemies(numTowerEnemies, this::generateFollowTowerEnemies);
-    }
-
-    private void setDelay() {
-        final int hardRound = 5;
-        final long simpleDelay = 4000;
-        final long hardDelay = 3000;
-
-        this.spawnDelay = simpleDelay;
-        if (round >= hardRound) {
-            this.spawnDelay = hardDelay;
-        }
     }
 
     private GameObject generateRandomMovingEnemies() {

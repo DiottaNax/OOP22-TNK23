@@ -34,10 +34,9 @@ public class SpawnImpl implements Spawn {
     /**
      * Constructs a new {@link SpawnImpl} object with the specified delay and game round.
      * 
-     * @param delay The delay between enemy spawns in milliseconds.
      * @param round The game round.
      */
-    public SpawnImpl(final long delay, final Round round) {
+    public SpawnImpl(final Round round) {
         this.stopwatch = new Stopwatch();
         this.round = round;
         this.spawns = List.of(
@@ -52,7 +51,7 @@ public class SpawnImpl implements Spawn {
         this.activeEnemies = new ArrayList<>();
         this.roundEnemies = this.round.getEnemies();
     }
-    
+
     /**
      * If there's a free spawn generates a WolrdEvent to spawn an enemy from roundEnemies list.
      */
@@ -93,7 +92,7 @@ public class SpawnImpl implements Spawn {
         this.round.getEnemies().removeAll(diedEnemies);
         activeEnemies.removeAll(diedEnemies);
         diedEnemies.forEach(d -> this.round.notifyEnemyDeath());
-        
+
         if (stopwatch.getElapsedTime() >= SPAWN_DELAY) {
             this.stopwatch.restart();
             this.spawn();
@@ -112,7 +111,7 @@ public class SpawnImpl implements Spawn {
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
         final List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))
                 .map(Rect2D::getPos).toList();
-                
+
         return pos.isEmpty() ? Optional.empty() : Optional.of(pos.get(random.nextInt(pos.size())));
     }
 
