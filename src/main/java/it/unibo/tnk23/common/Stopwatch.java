@@ -4,16 +4,18 @@ package it.unibo.tnk23.common;
  * A simple stopwatch utility class for measuring elapsed time.
  */
 public class Stopwatch {
-    private boolean isRunning = false;
-    private long last;
+    private boolean isRunning;
+    private long time;
 
     /**
-     * Starts the stopwatch.
-     * Records the current system time as the starting point.
+     * If the stopwatch is not running starts it and
+     * records the current system time as the starting point.
      */
     public void start() {
-        this.last = System.currentTimeMillis();
-        this.isRunning = true;
+        if (!this.isRunning) {
+            this.time = System.currentTimeMillis();
+            this.isRunning = true;
+        }
     }
 
     /**
@@ -22,14 +24,14 @@ public class Stopwatch {
      * @return The elapsed time in milliseconds.
      */
     public long getElapsedTime() {
-        return System.currentTimeMillis() - this.last;
+        return System.currentTimeMillis() - this.time;
     }
 
     /**
      * Restarts the stopwatch by updating the starting point to the current system time.
      */
     public void restart() {
-        this.last = System.currentTimeMillis();
+        this.time = System.currentTimeMillis();
     }
 
     /**
@@ -45,6 +47,6 @@ public class Stopwatch {
      * @return True if the stopwatch is running; false otherwise.
      */
     public boolean isRunning() {
-        return isRunning;
+        return this.isRunning;
     }
 }
