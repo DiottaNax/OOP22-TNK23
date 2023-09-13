@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Point2D {
     private double x;
     private double y;
+
     /**
      * Constructs a new Point2D object with the specified coordinates.
      *
@@ -71,7 +72,7 @@ public class Point2D {
      * @return a new Point2D representing the sum of this point and a double
      */
     public Point2D sum(final double d) {
-        return new Point2D(this.x + d,this.y + d);
+        return new Point2D(this.x + d, this.y + d);
     }
 
     /**
@@ -126,5 +127,14 @@ public class Point2D {
         }
 
         return false;
+    }
+
+    /**
+     * Returns a copy of the point.
+     * 
+     * @return a copy of the point
+     */
+    public Point2D copy() {
+        return new Point2D(this.x, this.y);
     }
 }
