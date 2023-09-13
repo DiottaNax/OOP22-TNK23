@@ -1,7 +1,5 @@
 package it.unibo.tnk23.game.components.impl;
 
-
-import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
@@ -33,8 +31,8 @@ public class CollisionComponent extends AbstractComponent {
     public CollisionComponent(final GameObject entity, final World world) {
         super(entity, world);
         final var type = entity.getType();
-        final var width = type.getWidth() * (Configuration.SCALE_FACTOR - SENSIBILITY);
-        final var height = type.getHeight() * (Configuration.SCALE_FACTOR - SENSIBILITY);
+        final var width = type.getWidth()  - SENSIBILITY;
+        final var height = type.getHeight() - SENSIBILITY;
         this.hitbox = new Rect2D(width, height, entity.getPosition());
     }
 

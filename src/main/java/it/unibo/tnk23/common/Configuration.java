@@ -7,44 +7,40 @@ import javafx.stage.Screen;
  */
 public final class Configuration {
     /**
-     * The original tile size in pixel.
+     * The tile size in game dimension unit.
      */
-    private static final int ORIGINAL_TILE_SIZE = 24;
+    public static final int TILE_SIZE = 24;
     /**
      * The max frame rate of the game.
      */
     public static final int FPS = 120;
     /**
-     * The size of the game grid.
+     * The size of the game grid in tiles.
      */
     public static final int GRID_SIZE = 19;
+
     /**
-     * The size of each tile in pixel adapted to the monitor.
+     * The size of the game map in game dimension unit.
      */
-    public static final int TILE_SIZE = getTileSize();
+    public static final int MAP_SIZE = GRID_SIZE * TILE_SIZE;
     /**
      * The scale factor for resizing graphics based on the tile size.
      */
-    public static final double SCALE_FACTOR = (double) TILE_SIZE / ORIGINAL_TILE_SIZE;
+    public static final double SCALE_FACTOR = getMinorScreenEdge() / GRID_SIZE / TILE_SIZE;
     /**
      * The dimension of the game scene in pixel.
      */
-    public static final int GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE;
+    public static final double GAME_SCENE_DIMENSION = GRID_SIZE * TILE_SIZE * SCALE_FACTOR;
     /**
      * The displacement value describing the displacement between model and graphics.
      */
-    public static final int DISPLACEMENT = 6;
+    public static final int DISPLACEMENT = 4;
 
     private Configuration() {
     }
 
     private static double getMinorScreenEdge() {
         final var screenDim = Screen.getPrimary().getBounds();
-        return (int) Math.min(screenDim.getHeight(), screenDim.getWidth());
-    }
-
-    private static int getTileSize() {
-        final int rounded = (int) getMinorScreenEdge() / GRID_SIZE;
-        return (rounded % 2) == 0 ? rounded : Math.decrementExact(rounded);
+        return Math.min(screenDim.getHeight(), screenDim.getWidth());
     }
 }

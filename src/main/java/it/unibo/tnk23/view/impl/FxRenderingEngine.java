@@ -89,8 +89,8 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
                 x += Configuration.DISPLACEMENT;
                 y += Configuration.DISPLACEMENT;
             }
-            this.sprites.get(e).setX(x);
-            this.sprites.get(e).setY(y);
+            this.sprites.get(e).setX(x * Configuration.SCALE_FACTOR);
+            this.sprites.get(e).setY(y * Configuration.SCALE_FACTOR);
             this.sprites.get(e).setRotate(e.getRotation());
         });
         this.sprites.keySet().removeIf(k -> !this.world.getEntities().contains(k));
