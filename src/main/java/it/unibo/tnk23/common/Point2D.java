@@ -66,6 +66,15 @@ public class Point2D {
     }
 
     /**
+     * Computes the sum of each component of this point with a double.
+     * @param d
+     * @return a new Point2D representing the sum of this point and a double
+     */
+    public Point2D sum(final double d) {
+        return new Point2D(this.x + d,this.y + d);
+    }
+
+    /**
      * Computes the difference between this point and a vector.
      *
      * @param v the vector to subtract
