@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.tnk23.common.Pair;
-import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.events.api.WorldEvent;
 import it.unibo.tnk23.game.events.api.WorldEventListener;
@@ -28,7 +26,7 @@ public class WorldImpl implements World {
     private final List<GameObject> players;
     private final Set<GameObject> entities;
     private final Set<GameObject> obstacles;
-    private GameObject tower;
+    private final GameObject tower;
     private WorldEventListener weListener;
 
    /**
@@ -51,7 +49,14 @@ public class WorldImpl implements World {
         toAdd = gameMap.getDestroyableWalls().stream().map(objFactory::getDestroyableWall).toList();
         this.obstacles.addAll(toAdd);
         this.entities.addAll(this.obstacles);
-        addTower();
+
+        /*
+         * The walls around the tower should not be in the obstacle list, 
+         * in order not to be seen as obstacle during bfs.
+         */
+        this.entities.addAll(gameMap.getTowerWalls().stream().map(objFactory::getDestroyableWall).toList());
+        tower = objFactory.getTower(gameMap.getTowerPos().sum(Configuration.DISPLACEMENT));
+        this.entities.add(tower);
     }
 
     /**
@@ -156,40 +161,4 @@ public class WorldImpl implements World {
     public void update() {
         this.getEntities().stream().parallel().forEach(GameObject::update);
     }
-
-    /**
-     * Adds a tower to the game.
-     * The tower is placed at a specific grid position and creates walls near it as obstacles.
-     * The tower and walls are added to the list of entities in the game.
-     */
-    private void addTower() {
-        final int towerBoxSize = 4;
-        final int tileSize = Configuration.TILE_SIZE;
-        final var wallNearTower = new ArrayList<Pair<Integer, Integer>>();
-        final var towerGridPos = new Pair<>(Configuration.GRID_SIZE / 2, Configuration.GRID_SIZE - 1);
-        final var towerPos = new Point2D(towerGridPos.getX() * tileSize,
-                towerGridPos.getY() * tileSize - Configuration.DISPLACEMENT);
-        final var wallGridPos = new Pair<>(Configuration.GRID_SIZE - 2, Configuration.GRID_SIZE * 2 - 3);
-        final var obstacleSize = tileSize / 2;
-        final GameObjectFactoryImpl objectFactory = new GameObjectFactoryImpl(this);
-
-        this.tower = objectFactory.getTower(new Point2D(towerGridPos.getX() * tileSize + Configuration.DISPLACEMENT,
-                towerGridPos.getY() * tileSize));
-
-        for (int i = 0; i < towerBoxSize - 1; i++) {
-            for (int j = 0; j < towerBoxSize; j++) {
-                final var pos = new Pair<>(wallGridPos.getX() + j, wallGridPos.getY() + i);
-                wallNearTower.add(pos);
-            }
-        }
-
-        this.entities.add(this.tower);
-        this.entities.addAll(wallNearTower.stream()
-                .map(p -> new Point2D(p.getX() * obstacleSize, p.getY() * obstacleSize - Configuration.DISPLACEMENT))
-                .filter(p -> !(p.getX() >= towerPos.getX() && p.getX() <= towerPos.getX() + obstacleSize
-                        && p.getY() >= towerPos.getY() && p.getY() <= towerPos.getY() + obstacleSize))
-                .map(objectFactory::getDestroyableWall)
-                .toList());
-    }
-
 }

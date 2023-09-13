@@ -21,4 +21,18 @@ public interface GameMap {
      * @return the set of walls as a set of Point2D coordinates
      */
     Set<Point2D> getWalls();
+
+    /**
+     * Retrieves the set of walls around the tower in the game map.
+     *
+     * @return the set of walls as a set of Point2D coordinates
+     */
+    Set<Point2D> getTowerWalls();
+
+    /**
+     * Retrieves the player's tower in the game map.
+     *
+     * @return the player's tower
+     */
+    Point2D getTowerPos();
 }
