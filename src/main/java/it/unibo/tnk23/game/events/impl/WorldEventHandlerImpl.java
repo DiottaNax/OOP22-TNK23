@@ -1,7 +1,6 @@
 package it.unibo.tnk23.game.events.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.events.api.WorldEvent;
@@ -53,7 +52,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 /*
                  * I just use getwidth because the shooter is square.
                  */
-                final var actorEdge = actor.getType().getWidth() * Configuration.SCALE_FACTOR;
+                final var actorEdge = actor.getType().getWidth();
                 var bulletPos = pos;
                 /*
                  * I need just a bit more than the size of the tile size.

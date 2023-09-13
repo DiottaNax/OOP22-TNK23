@@ -28,7 +28,7 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
     public PhysicsComponent(final GameObject entity, final World world) {
         super(entity, world);
         final var type = entity.getType();
-        this.speed = ((double) Configuration.TILE_SIZE / Configuration.FPS) * type.getSpeed();
+        this.speed = type.getSpeed() * Configuration.TILE_SIZE / Configuration.FPS;
     }
 
     /**
@@ -39,11 +39,11 @@ public class PhysicsComponent extends AbstractComponent implements NotifiableCom
         final var nextPos = this.getEntity().getPosition().sum(this.getEntity().getDirection().getVel().mul(this.speed));
         final int angle = 180;
         if (nextPos.getX() >= Configuration.DISPLACEMENT
-                && nextPos.getX() <= Configuration.GAME_SCENE_DIMENSION
-                - this.getEntity().getType().getWidth() - Configuration.DISPLACEMENT
+                && nextPos.getX() <= Configuration.MAP_SIZE
+                - this.getEntity().getType().getWidth() + Configuration.DISPLACEMENT
                 && nextPos.getY() >= Configuration.DISPLACEMENT
-                && nextPos.getY() <= Configuration.GAME_SCENE_DIMENSION
-                - this.getEntity().getType().getHeight() - Configuration.DISPLACEMENT) {
+                && nextPos.getY() <= Configuration.MAP_SIZE + Configuration.DISPLACEMENT
+                - this.getEntity().getType().getHeight()) {
 
             this.getEntity().setPosition(nextPos);
         } else if (GameObjectTypeManager.isBullet(this.getEntity().getType())) {

@@ -18,13 +18,15 @@ import it.unibo.tnk23.game.model.api.GameMap;
     */
 public class GameMapImpl implements GameMap {
 
+    private static final Logger LOGGER = Logger.getLogger("GameMapImplLogger");
+    static final int MAP_SIZE = Configuration.GRID_SIZE * 2;
     private final InputStream mapFile;
     private final Set<Point2D> destroyableWalls;
     private final Set<Point2D> walls;
-    private static final Logger LOGGER = Logger.getLogger("GameMapImplLogger");
+    private final Set<Point2D> towerWalls;
 
 
-    static final int MAP_SIZE = Configuration.GRID_SIZE * 2;
+    private Point2D tower;
 
     /**
      * Constructs a GameMapImpl object with the provided map file.
@@ -35,6 +37,7 @@ public class GameMapImpl implements GameMap {
         this.mapFile = file;
         this.walls = new HashSet<>();
         this.destroyableWalls = new HashSet<>();
+        this.towerWalls = new HashSet<>();
         generateWalls();
     }
 
@@ -53,6 +56,23 @@ public class GameMapImpl implements GameMap {
     public Set<Point2D> getWalls() {
         return Set.copyOf(this.walls);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Point2D getTowerPos() {
+        return this.tower.copy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Point2D> getTowerWalls() {
+        return Set.copyOf(this.towerWalls);
+    }
+
     /**
      * Generates the walls and destroyable walls based on the provided map file.
      */
@@ -67,14 +87,20 @@ public class GameMapImpl implements GameMap {
                         final char ch = chars[c];
                         switch (ch) {
                             case 'D':
-                                this.destroyableWalls
-                                        .add(new Point2D((double) (c * Configuration.TILE_SIZE) / 2,
-                                                (double) (l * Configuration.TILE_SIZE) / 2));
+                                this.destroyableWalls.add(new Point2D(((double) c * Configuration.TILE_SIZE) / 2,
+                                        ((double) l * Configuration.TILE_SIZE) / 2));
                                 break;
                             case 'U':
-                                this.walls
-                                        .add(new Point2D((double) (c * Configuration.TILE_SIZE) / 2,
-                                                (double) (l * Configuration.TILE_SIZE) / 2));
+                                this.walls.add(new Point2D(((double) c * Configuration.TILE_SIZE) / 2,
+                                        ((double) l * Configuration.TILE_SIZE) / 2));
+                                break;
+                            case 'I':
+                                this.towerWalls.add(new Point2D(((double) c * Configuration.TILE_SIZE) / 2,
+                                        ((double) l * Configuration.TILE_SIZE) / 2));
+                                break;
+                            case 'T':
+                                this.tower = new Point2D(((double) c * Configuration.TILE_SIZE) / 2,
+                                        ((double) l * Configuration.TILE_SIZE) / 2);
                                 break;
                             default:
                                 break;
