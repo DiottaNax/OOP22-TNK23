@@ -32,5 +32,12 @@ public interface GameObjectType {
      * @return the health of the game object type
      */
     long getHealth();
+
+    /**
+     * Retrives a copy of the game object type.
+     * 
+     * @return a copy of the game object type
+     */
+    GameObjectType copy();
 }
 
