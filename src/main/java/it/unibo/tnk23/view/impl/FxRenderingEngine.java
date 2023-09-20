@@ -74,6 +74,8 @@ public class FxRenderingEngine implements RenderingEngine<Pane> {
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/tower.png")));
         this.cachedSprites.put("bullet",
                 new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/bullet.png")));
+        this.cachedSprites.put("lifeBonus",
+                new Image(ClassLoader.getSystemResourceAsStream("it/unibo/sprites/lifeBonus.png")));
     }
     /**
      * {@inheritDoc}
