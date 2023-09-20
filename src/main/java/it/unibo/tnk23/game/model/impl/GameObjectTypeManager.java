@@ -66,7 +66,7 @@ public final class GameObjectTypeManager {
      * @return the TypeObject for the player type
      */
     public static GameObjectType getPlayerType() {
-        return TYPES.get("player");
+        return TYPES.get("player").copy();
     }
 
     /**
@@ -75,7 +75,7 @@ public final class GameObjectTypeManager {
      * @return the TypeObject for the obstacle type
      */
     public static GameObjectType getObstacleType() {
-        return TYPES.get("obstacle");
+        return TYPES.get("obstacle").copy();
     }
 
     /**
@@ -84,7 +84,7 @@ public final class GameObjectTypeManager {
      * @return the TypeObject for the bullet type
      */
     public static GameObjectType getBulletType() {
-        return TYPES.get("bullet");
+        return TYPES.get("bullet").copy();
     }
 
     /**
@@ -93,7 +93,7 @@ public final class GameObjectTypeManager {
      * @return the TypeObject for the enemy type
      */
     public static GameObjectType getEnemyType() {
-        return TYPES.get("enemy");
+        return TYPES.get("enemy").copy();
     }
 
     /**
@@ -102,7 +102,16 @@ public final class GameObjectTypeManager {
      * @return the TypeObject for the tower type
      */
     public static GameObjectType getTowerType() {
-        return TYPES.get("tower");
+        return TYPES.get("tower").copy();
+    }
+
+    /**
+     * Retrieves the TypeObject representing the tower type.
+     *
+     * @return the TypeObject for the tower type
+     */
+    public static GameObjectType getBonusType() {
+        return TYPES.get("bonus").copy();
     }
 
     /**
@@ -154,6 +163,5 @@ public final class GameObjectTypeManager {
     public static boolean isTower(final GameObjectType type) {
         return type.equals(TYPES.get("tower"));
     }
-
 
 }
