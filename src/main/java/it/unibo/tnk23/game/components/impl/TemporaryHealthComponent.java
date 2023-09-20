@@ -1,5 +1,6 @@
 package it.unibo.tnk23.game.components.impl;
 
+import it.unibo.tnk23.common.Stopwatch;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.events.api.WorldEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
@@ -13,19 +14,21 @@ import it.unibo.tnk23.game.model.api.World;
  */
 public class TemporaryHealthComponent extends AbstractComponent {
 
-    private final int lifeTime;
-    private int currentFrame;
+    private final long lifeTime;
+    private final Stopwatch stopwatch;
 
     /**
      * Constructs a TemporaryHealthComponent with the specified game object, game world, and lifetime.
      *
      * @param entity    the game object associated with this component
      * @param world     the game world in which the component operates
-     * @param lifeTime  the lifetime of the game object in frames
+     * @param lifeTime  the lifetime of the game object in milliseconds
      */
-    public TemporaryHealthComponent(final GameObject entity, final World world, final int lifeTime) {
+    public TemporaryHealthComponent(final GameObject entity, final World world, final long lifeTime) {
         super(entity, world);
         this.lifeTime = lifeTime;
+        this.stopwatch = new Stopwatch();
+        stopwatch.start();
     }
 
     /**
@@ -33,11 +36,9 @@ public class TemporaryHealthComponent extends AbstractComponent {
      */
     @Override
     public void update() {
-        if (currentFrame >= lifeTime) {
+        if (this.stopwatch.getElapsedTime() >= lifeTime) {
             this.getWorld().notifyEvent(
                     new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
-        } else {
-            currentFrame++;
         }
     }
 }
