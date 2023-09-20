@@ -32,6 +32,17 @@ public class Rect2D implements Shape {
     }
 
     /**
+     * Creates a new Rect2D object with the same width and height in the specified position.
+     * This constructor is meant to easily create a square.
+     * 
+     * @param edge the width and height of the rectangle
+     * @param pos  the position of the rectangle
+     */
+    public Rect2D(final double edge, final Point2D pos) {
+        this(edge, edge, pos);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
