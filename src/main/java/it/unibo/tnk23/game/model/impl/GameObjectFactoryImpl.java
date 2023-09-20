@@ -2,6 +2,8 @@ package it.unibo.tnk23.game.model.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.api.Bonus;
+import it.unibo.tnk23.game.components.impl.BonusComponent;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
 import it.unibo.tnk23.game.components.impl.BulletHealthComponent;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
@@ -9,11 +11,11 @@ import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.components.impl.PhysicsComponent;
 import it.unibo.tnk23.game.components.impl.PlayerFireComponent;
+import it.unibo.tnk23.game.components.impl.TemporaryHealthComponent;
 import it.unibo.tnk23.game.components.impl.EnemiesFireComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.GameObjectFactory;
 import it.unibo.tnk23.game.model.api.World;
-
 
 /**
  * The GameObjectFactoryImpl class implements the GameObjectFactory interface and provides
@@ -112,4 +114,15 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         twr.addComponent(new GraphicComponent("tower"));
         return twr;
     }
+
+    @Override
+    public GameObject getBonus(final Bonus bonus, final Point2D pos) {
+        final var bonusObj = new GameObjectImpl(GameObjectTypeManager.getBonusType(), pos);
+        bonusObj.addComponent(new BonusComponent(bonusObj, world, bonus));
+        bonusObj.addComponent(new TemporaryHealthComponent(bonusObj, world, 7 * 1000));
+        bonusObj.addComponent(new GraphicComponent("lifeBonus"));
+        return bonusObj;
+    }
+
+    
 }

@@ -1,6 +1,7 @@
 package it.unibo.tnk23.game.model.api;
 
 import it.unibo.tnk23.common.Point2D;
+import it.unibo.tnk23.game.components.api.Bonus;
 
 /**
  * The GameObjectFactory interface represents a factory for creating game objects.
@@ -54,4 +55,12 @@ public interface GameObjectFactory {
      * @return the created tower game object
      */
     GameObject getTower(Point2D pos);
+
+    /**
+     * Creates a bonus game object at the specified position and adds all its necessary components.
+     *
+     * @param pos the position of the bonus game object
+     * @return the created bonus game object
+     */
+    GameObject getBonus(Bonus bonus, Point2D pos);
 }
