@@ -63,6 +63,14 @@ public final class GameObjectTypeImpl implements GameObjectType {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameObjectType copy() {
+        return new GameObjectTypeImpl(this.width, this.height, this.speed, this.health);
+    }
+
+    /**
      * Returns a string representation of the TypeObjectImpl.
      *
      * @return a string representation of the TypeObjectImpl
