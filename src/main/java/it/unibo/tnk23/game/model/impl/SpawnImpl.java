@@ -14,7 +14,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.Round;
 import it.unibo.tnk23.game.model.api.Spawn;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
-import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.api.GameEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 
 /**
@@ -60,7 +60,7 @@ public class SpawnImpl implements Spawn {
                     final var enemy = roundEnemies.get(0);
                     getSpawnPos().ifPresent(p -> {
                         roundEnemies.remove(0);
-                        round.getWorld().notifyEvent(new WorldEventImpl(p, enemy, WorldEventType.SPAWN_EVENT));
+                        round.getWorld().notifyEvent(new WorldEventImpl(p, enemy, GameEventType.SPAWN_EVENT));
                         activeEnemies.add(enemy);
                     });
                 }
@@ -106,7 +106,7 @@ public class SpawnImpl implements Spawn {
      */
     private Optional<Point2D> getSpawnPos() {
         final var worldEnties = new HashSet<>(round.getWorld().getEntities());
-        final var colidableEntities = worldEnties.stream().filter(e -> !GameObjectTypeManager.isObstacle(e.getType()))
+        final var colidableEntities = worldEnties.stream().filter(e -> !e.getType().equals(GameObjectType.WALL))
                 .filter(e -> e.getComponent(CollisionComponent.class).isPresent())
                 .map(e -> e.getComponent(CollisionComponent.class).get()).toList();
         final List<Point2D> pos = spawns.stream().filter(s -> !colidableEntities.stream().anyMatch(c -> c.isCollidingWith(s)))

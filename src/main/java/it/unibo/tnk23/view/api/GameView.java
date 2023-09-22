@@ -1,13 +1,14 @@
 package it.unibo.tnk23.view.api;
 
 import it.unibo.tnk23.core.api.GameEngine;
+import it.unibo.tnk23.game.events.api.GameEventListener;
 import it.unibo.tnk23.game.model.api.World;
 
 /**
  * The {@code GameView} interface represents a view component of the game.
  * It defines the methods for rendering the game view and set different game scenes.
  */
-public interface GameView {
+public interface GameView extends GameEventListener {
 
     /**
      * Renders the game view.

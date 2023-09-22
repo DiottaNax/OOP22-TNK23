@@ -9,6 +9,7 @@ import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.impl.GameEngineImpl;
 import it.unibo.tnk23.game.components.impl.GraphicComponent;
 import it.unibo.tnk23.game.components.impl.InputComponent;
+import it.unibo.tnk23.game.events.api.GameEvent;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameMapImpl;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
@@ -206,5 +207,12 @@ public final class FxGameView implements GameView {
         player.addComponent(new GraphicComponent("pinkPlayer"));
         world.addPlayer(player);
     }
+
+    @Override
+    public void notifyEvent(final GameEvent we) {
+        this.renderingEngine.handle(we);
+    }
+
+    
 }
 

@@ -14,7 +14,7 @@ import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.components.api.Bonus;
 import it.unibo.tnk23.game.components.impl.CollisionComponent;
 import it.unibo.tnk23.game.components.impl.EntitiesHealthComponent;
-import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.api.GameEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.BonusGenerator;
 import it.unibo.tnk23.game.model.api.World;
@@ -49,7 +49,7 @@ public class BonusGeneratorImpl implements BonusGenerator {
     }
 
     private Point2D findSpot() {
-        final Rect2D hitbox = new Rect2D(GameObjectTypeManager.getBulletType().getHeight(), null);
+        final Rect2D hitbox = new Rect2D(GameObjectType.BULLET.getHeight(), null);
         final Random random = new Random();
         Point2D pos;
         do{
@@ -69,7 +69,7 @@ public class BonusGeneratorImpl implements BonusGenerator {
             final var objFactory = new GameObjectFactoryImpl(world);
             Collections.shuffle(bonusList);
             this.world.notifyEvent(
-                    new WorldEventImpl(pos, objFactory.getBonus(bonusList.get(0), pos), WorldEventType.SPAWN_EVENT));
+                    new WorldEventImpl(pos, objFactory.getBonus(bonusList.get(0), pos), GameEventType.SPAWN_EVENT));
         }
     }
     
