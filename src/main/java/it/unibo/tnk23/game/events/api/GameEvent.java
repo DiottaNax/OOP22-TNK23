@@ -6,7 +6,7 @@ import it.unibo.tnk23.game.model.api.GameObject;
 /**
  * The WorldEvent interface represents an event that occurs within the game world.
  */
-public interface WorldEvent {
+public interface GameEvent {
 
     /**
      * Recives the position associated with the event.
@@ -27,5 +27,5 @@ public interface WorldEvent {
      *
      * @return the type of the event
      */
-    WorldEventType getType();
+    GameEventType getType();
 }

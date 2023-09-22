@@ -9,8 +9,8 @@ import java.util.Set;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Configuration;
-import it.unibo.tnk23.game.events.api.WorldEvent;
-import it.unibo.tnk23.game.events.api.WorldEventListener;
+import it.unibo.tnk23.game.events.api.GameEvent;
+import it.unibo.tnk23.game.events.api.GameEventListener;
 import it.unibo.tnk23.game.model.api.GameMap;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
@@ -27,7 +27,7 @@ public class WorldImpl implements World {
     private final Set<GameObject> entities;
     private final Set<GameObject> obstacles;
     private final GameObject tower;
-    private WorldEventListener weListener;
+    private GameEventListener weListener;
 
    /**
      * Constructs a new WorldImpl instance with the specified game map.
@@ -142,7 +142,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void setWorldEventListener(final WorldEventListener weListener) {
+    public void setWorldEventListener(final GameEventListener weListener) {
         this.weListener = weListener;
     }
 
@@ -150,7 +150,7 @@ public class WorldImpl implements World {
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(final WorldEvent we) {
+    public void notifyEvent(final GameEvent we) {
         weListener.notifyEvent(we);
     }
 

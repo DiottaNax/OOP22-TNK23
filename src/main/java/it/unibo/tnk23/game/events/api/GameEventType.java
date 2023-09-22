@@ -3,7 +3,7 @@ package it.unibo.tnk23.game.events.api;
 /**
  * The WorldEventType enum represents the types of events that can occur within the game world.
  */
-public enum WorldEventType {
+public enum GameEventType {
 
     /**
      * Represents a shoot event.
@@ -18,5 +18,10 @@ public enum WorldEventType {
     /**
      * Represents a death event.
      */
-    DEATH_EVENT;
+    DEATH_EVENT,
+
+    /**
+     * 
+     */
+    RENDERING_EVENT;
 }

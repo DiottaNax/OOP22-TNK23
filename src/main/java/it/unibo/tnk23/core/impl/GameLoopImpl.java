@@ -1,13 +1,14 @@
 package it.unibo.tnk23.core.impl;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import it.unibo.tnk23.core.api.GameEngine;
 import it.unibo.tnk23.core.api.GameLoop;
-import it.unibo.tnk23.game.events.api.WorldEvent;
-import it.unibo.tnk23.game.events.api.WorldEventHandler;
+import it.unibo.tnk23.game.events.api.GameEvent;
+import it.unibo.tnk23.game.events.api.GameEventHandler;
 import it.unibo.tnk23.game.events.impl.WorldEventHandlerImpl;
 import it.unibo.tnk23.game.model.api.World;
 
@@ -20,8 +21,8 @@ import it.unibo.tnk23.game.model.api.World;
 public class GameLoopImpl implements GameLoop {
     private final GameEngine engine;
     private final World wrld;
-    private final WorldEventHandler eventHandler;
-    private final List<WorldEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
+    private final GameEventHandler eventHandler;
+    private final List<GameEvent> eventQueue = Collections.synchronizedList(new LinkedList<>());
 
     /**
      * Constructs a {@code GameLoopImpl} instance with the given game engine.
@@ -48,7 +49,8 @@ public class GameLoopImpl implements GameLoop {
      */
     @Override
     public void processInput() {
-        this.eventQueue.forEach(eventHandler::handle);
+        final var toProcess = new HashSet<>(eventQueue);
+        toProcess.forEach(eventHandler::handle);
         this.eventQueue.clear();
     }
 
@@ -73,8 +75,9 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    public void notifyEvent(final WorldEvent e) {
+    public void notifyEvent(final GameEvent e) {
         this.eventQueue.add(e);
+        this.engine.getGameView().notifyEvent(e);
     }
 
 }

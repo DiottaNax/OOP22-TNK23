@@ -1,6 +1,6 @@
 package it.unibo.tnk23.core.api;
 
-import it.unibo.tnk23.game.events.api.WorldEvent;
+import it.unibo.tnk23.game.events.api.GameEvent;
 
 /**
  * The {@code GameLoopDecorator} class is an abstract class that implements the {@link GameLoop} interface.
@@ -58,7 +58,7 @@ public abstract class GameLoopDecorator implements GameLoop {
      * {@inheritDoc}
      */
     @Override
-    public final void notifyEvent(final WorldEvent e) {
+    public final void notifyEvent(final GameEvent e) {
         toDecorate.notifyEvent(e);
     }
 

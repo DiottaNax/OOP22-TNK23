@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import it.unibo.tnk23.game.events.api.WorldEvent;
-import it.unibo.tnk23.game.events.api.WorldEventListener;
+import it.unibo.tnk23.game.events.api.GameEvent;
+import it.unibo.tnk23.game.events.api.GameEventListener;
 
 /**
  * An interface representing the game world.
@@ -71,18 +71,18 @@ public interface World {
     GameObject getTower();
 
     /**
-     * Sets a {@link WorldEventListener} for the world events.
+     * Sets a {@link GameEventListener} for the world events.
      * 
      * @param weListener the listener for the world events.
      */
-    void setWorldEventListener(WorldEventListener weListener);
+    void setWorldEventListener(GameEventListener weListener);
 
     /**
      * Notifies the world listener of a specific event.
      * 
      * @param we the world event to be notified.
      */
-    void notifyEvent(WorldEvent we);
+    void notifyEvent(GameEvent we);
 
     /**
      * Updates the state of the world.

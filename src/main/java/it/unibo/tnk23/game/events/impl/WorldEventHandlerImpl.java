@@ -3,17 +3,17 @@ package it.unibo.tnk23.game.events.impl;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.game.components.impl.BulletComponent;
-import it.unibo.tnk23.game.events.api.WorldEvent;
-import it.unibo.tnk23.game.events.api.WorldEventHandler;
-import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.api.GameEvent;
+import it.unibo.tnk23.game.events.api.GameEventHandler;
+import it.unibo.tnk23.game.events.api.GameEventType;
 import it.unibo.tnk23.game.model.api.World;
 import it.unibo.tnk23.game.model.impl.GameObjectFactoryImpl;
 
 /**
- * Implementation of the {@link WorldEventHandler} interface that handles various events.
+ * Implementation of the {@link GameEventHandler} interface that handles various events.
  * and performs corresponding actions in the world
  */
-public class WorldEventHandlerImpl implements WorldEventHandler {
+public class WorldEventHandlerImpl implements GameEventHandler {
 
     private final World world;
 
@@ -33,8 +33,8 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
      * {@inheritDoc}
      */
     @Override
-    public void handle(final WorldEvent we) {
-        final WorldEventType type = we.getType();
+    public void handle(final GameEvent we) {
+        final GameEventType type = we.getType();
         final var actor = we.getEventActor();
         switch (type) {
             case DEATH_EVENT:
@@ -65,6 +65,7 @@ public class WorldEventHandlerImpl implements WorldEventHandler {
                 bullet.setDirection(Directions.fromAngle((int) actor.getRotation()));
                 bullet.notifyComponents(we::getEventActor, BulletComponent.class);
                 this.world.addEntity(bullet);
+                this.world.notifyEvent(new WorldEventImpl(bulletPos, bullet, GameEventType.RENDERING_EVENT));
                 break;
 
             case SPAWN_EVENT:
