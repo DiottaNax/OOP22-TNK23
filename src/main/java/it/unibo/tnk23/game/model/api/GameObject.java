@@ -7,6 +7,7 @@ import it.unibo.tnk23.common.Point2D;
 import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
+import it.unibo.tnk23.game.model.impl.GameObjectType;
 
 /**
  * The GameObject interface represents an object within the game.

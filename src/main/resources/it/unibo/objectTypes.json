@@ -1,44 +1,50 @@
 [
     {
-        "type" : "obstacle",
+        "type" : "wall",
         "height" : 12,
         "width" : 12,
         "speed" : 0.0,
-        "health" : 1
+        "health": 1,
+        "sprite" : "wall.png"
     },
     {
         "type": "player",
         "height": 24,
         "width": 24,
         "speed": 1.5,
-        "health": 3
+        "health": 3,
+        "sprite" : "player.gif"
     },
     {
         "type": "enemy",
         "height": 24,
         "width": 24,
         "speed": 1.0,
-        "health": 1
+        "health": 1,
+        "sprite" : "enemy.gif"
     },
     {
         "type": "bullet",
         "height": 6,
         "width": 6,
         "speed": 5.0,
-        "health": 1
+        "health": 1,
+        "sprite" : "bullet.png"
     },
     {
         "type": "tower",
         "height": 24,
         "width": 24,
         "speed": 0.0,
-        "health": 1
+        "health": 1,
+        "sprite" : "tower.png"
     },
     {
         "type": "bonus",
         "height": 16,
         "width": 16,
         "speed": 0.0,
-        "health": 1
+        "health": 1,
+        "sprite" : "bonus.png"
     }
 ]

@@ -5,13 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import it.unibo.tnk23.game.model.api.GameObjectType;
-import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
+import it.unibo.tnk23.game.model.impl.GameObjectType;
 
 /**
  * Unit tests for the {@link GameObjectTypeManager} class.
  */
-public class GameObjectTypeManagerTest {
+public class GameObjectTypeTest {
 
     /**
      * Tests the {@link GameObjectTypeManager#getPlayerType()} method.
@@ -25,7 +24,7 @@ public class GameObjectTypeManagerTest {
         final double speed = 1.5;
 
         // Get the player game object type
-        final GameObjectType player = GameObjectTypeManager.getPlayerType();
+        final var player = GameObjectType.PLAYER;
 
         // Assert that the player type has the expected properties
         assertEquals(health, player.getHealth());
@@ -47,7 +46,7 @@ public class GameObjectTypeManagerTest {
         final double speed = 1;
 
         // Get the enemy game object type
-        final GameObjectType enemy = GameObjectTypeManager.getEnemyType();
+        final var enemy = GameObjectType.ENEMY;
 
         // Assert that the enemy type has the expected properties
         assertEquals(health, enemy.getHealth());
@@ -69,7 +68,7 @@ public class GameObjectTypeManagerTest {
         final double speed = 5;
 
         // Get the bullet game object type
-        final GameObjectType bullet = GameObjectTypeManager.getBulletType();
+        final var bullet = GameObjectType.BULLET;
 
         // Assert that the bullet type has the expected properties
         assertEquals(health, bullet.getHealth());
@@ -91,7 +90,7 @@ public class GameObjectTypeManagerTest {
         final double speed = 0;
 
         // Get the obstacle game object type
-        final GameObjectType obstacle = GameObjectTypeManager.getObstacleType();
+        final var obstacle = GameObjectType.WALL;
 
         // Assert that the obstacle type has the expected properties
         assertEquals(health, obstacle.getHealth());

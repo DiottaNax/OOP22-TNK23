@@ -11,7 +11,6 @@ import it.unibo.tnk23.game.components.api.Component;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
 import it.unibo.tnk23.game.model.api.GameObject;
-import it.unibo.tnk23.game.model.api.GameObjectType;
 
 /**
  * The GameObjectImpl class implements the GameObject interface and represents a game object
@@ -60,7 +59,7 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public GameObjectType getType() {
-        return type;
+        return this.type;
     }
 
     /**

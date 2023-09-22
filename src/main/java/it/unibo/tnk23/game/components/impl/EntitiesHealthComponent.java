@@ -4,7 +4,7 @@ import it.unibo.tnk23.common.Configuration;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
+import it.unibo.tnk23.game.model.impl.GameObjectType;
 
 /**
  * This class represents a health component for entities in the game (bullets excluded). It extends the
@@ -47,7 +47,7 @@ public class EntitiesHealthComponent extends AbstractHealthComponent {
     public <X> void receive(final Message<X> x) {
         if (isTouchable() && x.getMessage() instanceof GameObject) {
             final GameObject obj = (GameObject) x.getMessage();
-            if (GameObjectTypeManager.isBullet(obj.getType())) {
+            if (obj.getType().equals(GameObjectType.BULLET)) {
                 isTouchable = false;
                 currentFrame = 0;
                 final var bulletCmp = obj.getComponent(BulletComponent.class);

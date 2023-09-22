@@ -3,11 +3,10 @@ package it.unibo.tnk23.game.components.impl;
 import it.unibo.tnk23.common.Directions;
 import it.unibo.tnk23.common.shape.Rect2D;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
-import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.api.GameEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
-import it.unibo.tnk23.game.model.impl.GameObjectTypeManager;
 import it.unibo.tnk23.common.shape.Shape;
 
 /**
@@ -60,16 +59,19 @@ public class CollisionComponent extends AbstractComponent {
                     .filter(e -> e.getComponent(CollisionComponent.class).get()
                             .isCollidingWith((Shape) hitbox))
                     .toList();
-             if (!collidedList.isEmpty() && GameObjectTypeManager.isBullet(this.getEntity().getType())) {
-                 this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(),
-                         WorldEventType.DEATH_EVENT));
-            }
 
             collidedList.forEach(e -> {
                 e.notifyComponents(() -> this.getEntity(), EntitiesHealthComponent.class);
-                e.notifyComponents(() -> this.getEntity(), BulletHealthComponent.class);
+                this.getEntity().notifyComponents(() -> e, BulletHealthComponent.class);
             });
-            collidedList.stream().findAny().ifPresent(e -> this.getEntity().notifyComponents(() -> e, PhysicsComponent.class));
+            
+            collidedList.stream().findAny()
+                    .ifPresent(e -> this.getEntity().notifyComponents(() -> e, PhysicsComponent.class));
+            
+            /*if (!collidedList.isEmpty() && GameObjectTypeManager.isBullet(this.getEntity().getType())) {
+                 this.getWorld().notifyEvent(new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(),
+                         WorldEventType.DEATH_EVENT));
+            }*/
         }
     }
 }

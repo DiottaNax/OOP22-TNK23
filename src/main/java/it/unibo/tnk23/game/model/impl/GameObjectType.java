@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +17,10 @@ import org.json.simple.parser.ParseException;
 public enum GameObjectType {
     PLAYER,
     ENEMY,
-    OBSTACLE,
+    WALL,
     BULLET,
     TOWER,
-    UNDESTRYABLE_WALL;
+    BONUS;
 
     private final long width;
     private final long height;
@@ -28,7 +29,7 @@ public enum GameObjectType {
     private final String spriteName;
 
     GameObjectType() {
-        final var type = GameObjectTypeManager.get(this.name());
+        final var type = GameObjectTypeManager.get(this.name().toLowerCase(Locale.ENGLISH));
         this.width = type.getWidth();
         this.height = type.getHeight();
         this.speed = type.getSpeed();
@@ -36,7 +37,25 @@ public enum GameObjectType {
         this.spriteName = type.getSpriteName();
     }
 
-    public
+    public long getWidth() {
+        return this.width;
+    }
+
+    public long getHeight() {
+        return this.height;
+    }
+
+    public double getSpeed() {
+        return this.speed;
+    }
+
+    public long getHealth() {
+        return this.health;
+    }
+
+    public String getSpriteName() {
+        return this.spriteName;
+    }
     
     /**
     * This is a utility class for creating and managing TypeObject instances.
