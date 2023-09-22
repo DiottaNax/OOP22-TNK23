@@ -3,7 +3,7 @@ package it.unibo.tnk23.game.components.impl;
 import it.unibo.tnk23.game.components.api.AbstractComponent;
 import it.unibo.tnk23.game.components.api.Message;
 import it.unibo.tnk23.game.components.api.NotifiableComponent;
-import it.unibo.tnk23.game.events.api.WorldEventType;
+import it.unibo.tnk23.game.events.api.GameEventType;
 import it.unibo.tnk23.game.events.impl.WorldEventImpl;
 import it.unibo.tnk23.game.model.api.GameObject;
 import it.unibo.tnk23.game.model.api.World;
@@ -34,7 +34,7 @@ public abstract class AbstractHealthComponent extends AbstractComponent implemen
     public void update() {
         if (health <= 0) {
             this.getWorld().notifyEvent(
-                    new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), WorldEventType.DEATH_EVENT));
+                    new WorldEventImpl(this.getEntity().getPosition(), this.getEntity(), GameEventType.DEATH_EVENT));
         }
     }
 
